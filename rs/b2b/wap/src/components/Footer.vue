@@ -1,0 +1,88 @@
+<template>
+    <footer id="footer">
+        <nav>
+            <router-link to="/index" class="item a-home inactive"><span class="nav-home"></span><span class="label">首页</span></router-link>
+            <router-link to="/classify" class="item a-type"><span class="nav-type"></span><span class="label">分类</span></router-link>
+            <router-link to="/index" class="item a-drink"><span class="nav-drink"></span><span class="label">拼团</span></router-link>
+            <router-link to="/index" class="item a-cart"><span class="nav-cart"></span><span class="label">购物车</span></router-link>
+            <router-link to="/index" class="item a-member"><span class="nav-member"></span><span class="label">我</span></router-link>
+        </nav>
+    </footer>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style scoped>
+#footer{
+    height: 100px;
+    background: #fff;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#footer nav{
+    display: flex;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+#footer nav .item{
+    flex: 1;
+    text-align: center;
+    vertical-align: middle;
+    color: #929292;
+    cursor: none;
+}
+
+#footer nav .item.inactive{
+    background-size: contain;
+    color: #1655bf;
+}
+
+#footer nav .item span {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-size: contain;
+}
+
+#footer nav .item span.label {
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.nav-home{
+    background-image: url('../../static/images/public/nav-home.png');
+}
+.nav-type{
+    background-image: url('../../static/images/public/nav-type.png');
+}
+.nav-drink{
+    background-image: url('../../static/images/public/nav-quickDrink.png');
+}
+.nav-cart{
+    background-image: url('../../static/images/public/nav-cart.png');
+}
+.nav-member{
+    background-image: url('../../static/images/public/nav-member.png');
+}
+.item.inactive .nav-home{
+    background-image: url('../../static/images/public/nav-home-active.png');
+}
+.item.inactive .nav-type{
+    background-image: url('../../static/images/public/nav-type-active.png');
+}
+.item.inactive .nav-cart{
+    background-image: url('../../static/images/public/nav-cart-active.png');
+}
+.item.inactive .nav-member{
+    background-image: url('../../static/images/public/nav-member-active.png');
+}
+</style>

@@ -1,0 +1,1546 @@
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+hr,
+fieldset,
+legend,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+time,
+mark,
+audio,
+video,
+mark,
+a {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  line-height: inherit
+}
+
+html {
+  -webkit-text-size-adjust: none
+}
+
+ul,
+ol,
+menu {
+  list-style: none
+}
+
+li,
+dt,
+dd {
+  vertical-align: middle
+}
+
+input,
+button,
+select,
+textarea {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  *vertical-align: middle
+}
+
+textarea {
+  resize: none
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  *vertical-align: middle;
+  _height: 1px
+}
+
+u {
+  text-decoration: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%
+}
+
+th,
+td,
+img {
+  vertical-align: middle
+}
+
+em,
+i,
+address {
+  font-style: normal
+}
+
+img,
+fieldset,
+iframe {
+  border: 0
+}
+
+a img,
+img {
+  display: block;
+  flex: none;
+  -webkit-flex: none;
+  -moz-flex: none
+}
+
+legend {
+  display: none
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal
+}
+
+textarea {
+  overflow-x: hidden;
+  overflow-y: auto
+}
+
+label {
+  cursor: default
+}
+
+q:before,
+q:after {
+  content: ''
+}
+
+:after,
+:before {
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section,
+figure,
+figcaption,
+hgroup,
+main,
+details,
+summary,
+menu,
+canvas,
+fieldset,
+audio,
+video {
+  display: block
+}
+
+body {
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+input::-ms-clear,
+input::-ms-reveal {
+  display: none
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important
+}
+
+input[type="number"] {
+  -moz-appearance: textfield
+}
+
+.clearfix:after,
+.numbox:after,
+.hot-recommend>ul:after,
+.car-hot-recommend ul:after,
+.small-goods-list ul:after,
+.country-Or-origin ul:after,
+.shuiping-style-btn:after,
+.seckill-lists li:after,
+.good-remark .remark-list:after,
+.pinpai2-info .pingpai2-intr>header:after,
+.service-info:after,
+.cashier>div:after,
+.cashier>div:first-child:after,
+.cashier div.btninfo:after,
+.cashier-hot-recommend ul:after,
+.content-container>.content-box>div:after,
+.content-container>.content-box>div:first-child:after,
+.content-container>.content-box>div:nth-child(2):after,
+.content-container>.content-box>div:nth-child(3):after,
+.content-container>.content-box>div:nth-child(3):last-child:after {
+  content: '';
+  display: block;
+  clear: both
+}
+
+.bc_fff,
+.no-frills-title,
+.custom-global-areascroll,
+.hot-recommend h3,
+.hot-recommend>ul,
+.lcy-good-list>li,
+.product-class-list>li,
+.small-goods-list,
+.small-goods-list ul,
+.order-lists,
+.default-header,
+.seckill-goods-list,
+.zy-orderDetails button,
+.zy-orderDetails section,
+.shuiping-style,
+.shuiping-style-m0,
+.shuiping-style-m0 button,
+.shuiping-style-addr,
+.shuiping-style-cu,
+.shuiping-style-btn,
+.shuiping-style-btn button,
+.shuiping-style-dh,
+.seckill-lists,
+.good-remark,
+.pro-banner,
+.good-detail,
+.mall-detail,
+.sale-detail,
+.go-mall,
+.look-info,
+.good-show,
+.popup-footer,
+.pinpai2-info,
+.pinpai2-lists nav,
+.wuliu-info,
+.wuliu-lists,
+.typelist-header,
+.typelist-control,
+.typelist-select,
+.center-control,
+.center-control>ul,
+.center-menu,
+.center-recommend h3,
+.service-info>ul li,
+.service-store-change>p,
+.service-store-change ul li,
+.service-sendway-change>ul li,
+.ser-safe-content,
+.service-safe-change>form>label,
+.service-safe-change>form>div,
+.service-safe-change .invoice-manage-info,
+.service-safe-change .address-info,
+.service-safe-change .address-add-info,
+.service-safe-change .address-select-info,
+.service-safe-change .address-list-info,
+.service-question-change li,
+.about-us,
+.cashier-hot-recommend,
+.cashier-hot-recommend ul,
+.confirm-order div.headr-bor>div,
+.tu-refound-msg {
+  background-color: #fff
+}
+
+[class^='_fx'],
+.fx,
+.fxmc,
+.no-frills-title,
+.header,
+.input-num,
+.hot-recommend h3,
+.hot-recommend>ul li figure,
+.lcy-good-list>li a figure,
+.product-class-list>li a figure,
+.car-hot-recommend h5,
+.car-hot-recommend h5:before,
+.car-hot-recommend h5:after,
+.car-hot-recommend ul li figure,
+.small-goods-list ul li figure,
+.pageloading,
+.zy-header,
+.zy-header nav,
+.seckill-goods-list div.swiper-wrapper figure,
+.timed-seckill-module .seckill-countdown,
+.zy-orderDetails section,
+.zy-orderDetails section>p>span,
+.shuiping-style,
+.shuiping-style-m0,
+.shuiping-style-addr,
+.shuiping-style-cu,
+.shuiping-style-dh p,
+.go-pay,
+.seckill-item,
+.good-remark h3,
+.good-remark .remark-list .remark-list-head,
+.good-remark .remark-list .remark-list-head figure,
+.good-remark .remark-list .remark-list-head>span,
+.good-remark .remark-list .evaluationimg,
+.good-remark .remark-list .evaluationimg:first-child,
+.pro-header,
+.pro-header nav,
+.mall-detail,
+.sale-detail,
+.go-mall,
+.look-info,
+.good-show,
+.popup-footer>p,
+.popup-footer div,
+.popup-wrap>div header,
+.pinpai2-info>figure,
+.pinpai2-info .pingpai2-intr>header,
+.pinpai2-info .pingpai2-intr>a,
+.pinpai2-lists nav,
+.wuliu-info,
+.typelist-header>p,
+.typelist-select,
+.typelist-main,
+.center-head>div,
+.center-control>p,
+.center-menu li,
+.center-recommend h3,
+.header-collect nav,
+.lcy-collect-list>h3,
+.lcy-collect-list>ul li,
+.lcy-collect-list>ul li>div,
+.service-control h3,
+.service-info h3,
+.service-info>ul li,
+.service-store-change>p,
+.service-store-change ul li,
+.service-sendway-change>ul li,
+.service-sendway-change>ul li a,
+.ser-safe-content li,
+.ser-safe-content li:first-child,
+.ser-safe-content li label,
+.ser-safe-content li .datepickerbox,
+.service-safe-change>form>label,
+.service-safe-change>form>div,
+.service-safe-change .invoice-manage-info>div,
+.service-safe-change .invoice-manage-info>p,
+.service-safe-change .address-info>div p,
+.service-safe-change .address-add-info>p,
+.service-safe-change .address-add-info .address-tag-list,
+.service-safe-change .address-select-info .address-type-list .address-list li,
+.service-safe-change .address-list-info p,
+.service-safe-change .address-list-info .nearListAdds ul li,
+.selAddsHeader-change .address-list-info>div .labelbox,
+.selAddsHeader-change .address-list-info>div .labelbox>div,
+.selAddsHeader-change .address-list-info>div .labelbox>div:first-child,
+.selAddsHeader-change .address-list-info>div ul li,
+.selAddsHeader-change .address-list-info>div ul li>div span,
+.ser-safe-footer>a,
+.popup-top .address-add-tag,
+.popup-center .popup-delete .content-btn,
+.popup-center .popup-exit .content-btn,
+.address-searchbox li,
+.address-searchbox>p,
+.service-question-change li header,
+.comments .comments-top header,
+.comments .comments-top>p,
+.comments .comments-btm>div,
+.login-form>p,
+.login-form>div,
+.car-caption label,
+.car-header,
+.order-list>div:nth-child(2) div p,
+.cashier div.btninfo,
+.cashier-hot-recommend h5,
+.cashier-hot-recommend h5:before,
+.cashier-hot-recommend h5:after,
+.cashier-hot-recommend ul li figure,
+.popup-zorder header,
+.popup-zorder .title,
+.confirm-order div.headr-bor>div,
+.confirm-order div.headr-bor>div>div p.popinfo,
+.confirm-order div.headr-bor>div>div p.popinfo label,
+.confirm-order div.headr-bor>div>div p,
+.confirm-order div.headr-bor>div>div p label,
+.confirm-order div.headr-bor>div a,
+.confirm-order div.headr-bor>p,
+.confirm-order div.order-chuli div.chu-ticket .opentik>div>p,
+.confirm-order div.order-chuli div.chu-invoices>p,
+.confirm-order div.order-chuli div.chu-invoices>p:nth-child(2),
+.confirm-order div.order-chuli div.chu-invoices>p:last-child,
+.confirm-order-list div.order-depotdiv div.info1,
+.my_order>div:first-child p,
+.return-two .return-goodList>ul li,
+.return-two .return-goodList>ul li>div p,
+.return-two .return-info>p,
+.return-two .return-info>p:nth-child(2),
+.return-two .return-info>div>p,
+.return-two .return-upload>p,
+.privilege>div:first-child>div,
+.wallet-recharge>div>div,
+.wallet-recharge>div>div p,
+.wallet-pay>div,
+.wallet-pay>div>p,
+.tu-refound-03 .tu-refound-03-div1,
+.tu-refound-03 .tu-refound-03-div2,
+.tu-refound-msg>div,
+.tu-refound-msg .tu-msg-div3>div,
+.tu-refound-msgSelect>p,
+.tu-refound-04 .tu-refound-04-div2,
+.tu-refound-04 .tu-refound-04-div2 .tu-refound-04-div2-02 .tu-num,
+.tu-refound-06 .tu-refound-06-service {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex
+}
+
+[class^='_fv'],
+.fv,
+.app-root,
+.popup-footer div>span,
+.pinpai2-info .pingpai2-intr>header a,
+.wuliu-info>p,
+.center-control>ul li,
+.lcy-collect-list>ul li>div>div,
+.service-info>ul li label,
+.service-store-change ul li>p,
+.service-store-change ul li>a,
+.service-sendway-change>ul li>p,
+.service-safe-change .address-select-info .address-type-list .address-list li>div,
+.service-safe-change .address-list-info .nearListAdds ul li>div,
+.selAddsHeader-change .address-list-info>div .labelbox>div>div,
+.selAddsHeader-change .address-list-info>div ul li>div,
+.address-searchbox li>div,
+.comments .comments-btm>div p,
+.order-list>div:nth-child(2) div,
+.return-two .return-goodList>ul li>div,
+.privilege>div:first-child>div>p,
+.letter-ul,
+.tu-refound-msg>div>p,
+.tu-refound-msg .tu-msg-div3,
+.tu-refound-04 .tu-refound-04-div2 .tu-refound-04-div2-02 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical
+}
+
+[class^='_fxc'],
+[class^='_fxmc'],
+.fxc,
+.fxmc,
+.no-frills-title,
+.hot-recommend h3,
+.hot-recommend>ul li figure,
+.lcy-good-list>li a figure,
+.product-class-list>li a figure,
+.car-hot-recommend h5,
+.car-hot-recommend h5:before,
+.car-hot-recommend h5:after,
+.car-hot-recommend ul li figure,
+.small-goods-list ul li figure,
+.seckill-goods-list div.swiper-wrapper figure,
+.timed-seckill-module .seckill-countdown,
+.zy-orderDetails section>p>span,
+.go-pay,
+.look-info,
+.pinpai2-info .pingpai2-intr>a,
+.center-control>ul li,
+.center-recommend h3,
+.header-collect nav,
+.service-control h3,
+.service-info h3,
+.service-info>ul li label,
+.service-store-change>p,
+.ser-safe-content li,
+.ser-safe-content li:first-child,
+.service-safe-change .address-list-info .nearListAdds ul li,
+.ser-safe-footer>a,
+.address-searchbox li,
+.service-question-change li header,
+.cashier div.btninfo,
+.cashier-hot-recommend h5,
+.cashier-hot-recommend h5:before,
+.cashier-hot-recommend h5:after,
+.cashier-hot-recommend ul li figure,
+.content-container>.content-box>div:first-child figure,
+.content-container>.content-box>div:first-child figure:last-child,
+.tu-refound-03 .tu-refound-03-div1,
+.tu-refound-06 .tu-refound-06-service {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  box-pack: center
+}
+
+[class^='_fxm'],
+.fxm,
+.fxmc,
+.no-frills-title,
+.header,
+.hot-recommend h3,
+.car-hot-recommend h5,
+.car-hot-recommend h5:before,
+.car-hot-recommend h5:after,
+.pageloading,
+.zy-header,
+.shuiping-style-cu,
+.go-pay,
+.seckill-item,
+.good-remark .remark-list .remark-list-head,
+.good-remark .remark-list .remark-list-head figure,
+.good-remark .remark-list .evaluationimg,
+.good-remark .remark-list .evaluationimg:first-child,
+.pro-header,
+.go-mall,
+.popup-footer div>span,
+.popup-wrap>div header,
+.pinpai2-info>figure,
+.pinpai2-info .pingpai2-intr>header,
+.pinpai2-info .pingpai2-intr>header a,
+.pinpai2-info .pingpai2-intr>a,
+.typelist-header>p,
+.center-control>ul li,
+.center-recommend h3,
+.lcy-collect-list>h3,
+.lcy-collect-list>ul li,
+.lcy-collect-list>ul li>div,
+.service-control h3,
+.service-info h3,
+.service-info>ul li label,
+.service-store-change>p,
+.service-store-change ul li,
+.service-sendway-change>ul li,
+.ser-safe-content li,
+.ser-safe-content li:first-child,
+.ser-safe-content li label,
+.ser-safe-content li .datepickerbox,
+.service-safe-change>form>label,
+.service-safe-change>form>div,
+.service-safe-change .invoice-manage-info>div,
+.service-safe-change .invoice-manage-info>p,
+.service-safe-change .address-add-info>p,
+.service-safe-change .address-add-info .address-tag-list,
+.service-safe-change .address-list-info p,
+.selAddsHeader-change .address-list-info>div .labelbox,
+.selAddsHeader-change .address-list-info>div .labelbox>div,
+.selAddsHeader-change .address-list-info>div .labelbox>div:first-child,
+.selAddsHeader-change .address-list-info>div ul li,
+.ser-safe-footer>a,
+.popup-top .address-add-tag,
+.address-searchbox li,
+.address-searchbox>p,
+.service-question-change li header,
+.comments .comments-top header,
+.car-caption label,
+.cashier-hot-recommend h5,
+.cashier-hot-recommend h5:before,
+.cashier-hot-recommend h5:after,
+.popup-zorder .title,
+.confirm-order div.headr-bor>div>div p.popinfo,
+.confirm-order div.headr-bor>div>div p.popinfo label,
+.confirm-order div.headr-bor>div>div p,
+.confirm-order div.headr-bor>div>div p label,
+.confirm-order div.headr-bor>div a,
+.return-two .return-goodList>ul li,
+.return-two .return-info>p,
+.return-two .return-info>p:nth-child(2),
+.return-two .return-info>div>p,
+.return-two .return-upload>p,
+.wallet-pay>div,
+.tu-refound-03 .tu-refound-03-div1,
+.tu-refound-msgSelect>p,
+.tu-refound-06 .tu-refound-06-service {
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  box-align: center
+}
+
+[class^='_fxj'],
+.fxj,
+.header,
+.input-num,
+.zy-orderDetails section,
+.shuiping-style,
+.shuiping-style-m0,
+.shuiping-style-dh p,
+.seckill-item,
+.good-remark h3,
+.good-remark .remark-list .remark-list-head>span,
+.pro-header nav,
+.popup-footer>p,
+.popup-footer div,
+.popup-wrap>div header,
+.typelist-main,
+.center-control>p,
+.center-menu li,
+.service-sendway-change>ul li,
+.ser-safe-content li,
+.ser-safe-content li:first-child,
+.service-safe-change>form>label,
+.service-safe-change>form>div,
+.service-safe-change .invoice-manage-info>div,
+.service-safe-change .invoice-manage-info>p,
+.service-safe-change .address-info>div p,
+.service-safe-change .address-add-info .address-tag-list,
+.service-safe-change .address-list-info p,
+.service-safe-change .address-list-info .nearListAdds ul li,
+.address-searchbox li,
+.comments .comments-top header,
+.comments .comments-top>p,
+.login-form>p,
+.order-list>div:nth-child(2) div p,
+.popup-zorder header,
+.confirm-order div.headr-bor>div,
+.confirm-order div.headr-bor>p,
+.confirm-order div.order-chuli div.chu-ticket .opentik>div>p,
+.confirm-order div.order-chuli div.chu-invoices>p,
+.confirm-order div.order-chuli div.chu-invoices>p:nth-child(2),
+.confirm-order div.order-chuli div.chu-invoices>p:last-child,
+.confirm-order-list div.order-depotdiv div.info1,
+.return-two .return-goodList>ul li>div p,
+.wallet-recharge>div>div,
+.wallet-pay>div>p,
+.letter-ul,
+.tu-refound-04 .tu-refound-04-div2,
+.tu-refound-04 .tu-refound-04-div2 .tu-refound-04-div2-02 .tu-num {
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-box-pack: justify;
+  box-pack: justify
+}
+
+[class^='_flex'],
+.flex,
+.main,
+.header nav,
+.zy-header nav,
+.zy-header nav p,
+.zy-orderDetails section>p>span,
+.good-remark .remark-list .remark-list-head>span,
+.pro-header nav,
+.mall-detail div,
+.sale-detail>div,
+.go-mall>p,
+.good-show>p,
+.pinpai2-info .pingpai2-intr>header>p,
+.wuliu-info>p,
+.typelist-header>p input,
+.typelist-select>p,
+.typelist-main .typelist-item,
+.lcy-collect-list>ul li>div,
+.lcy-collect-list>ul li>div>div,
+.service-header>p,
+.service-info>ul li>div,
+.service-store-change>p a,
+.service-safe-change>form>div input,
+.service-safe-change .address-add-info>p>a,
+.service-safe-change .address-add-info .address-tag-list>div,
+.service-safe-change .address-select-info .address-type-list .address-list li>div,
+.service-safe-change .address-list-info .nearListAdds ul li>div,
+.selAddsHeader-change .address-list-info>div .labelbox>div>p,
+.selAddsHeader-change .address-list-info>div ul li>p,
+.address-searchbox li>div,
+.service-question-change li header span,
+.comments .comments-top>p span,
+.comments .comments-btm>div p,
+.car-header nav,
+.order-list>div:first-child b,
+.order-list>div:nth-child(2) div,
+.confirm-order div.headr-bor>div>div p label input,
+.confirm-order-list div.order-depotdiv div.info1 label,
+.return-two .return-goodList>ul li>div,
+.return-two .return-info>p span,
+.return-two .return-info>p a,
+.return-two .return-info>p small,
+.return-two .return-info>div>p span,
+.return-two .return-info>div>p input,
+.privilege>div:first-child>div>p,
+.wallet-pay>div>p,
+.tu-refound-msg>div>p,
+.tu-refound-msg .tu-msg-div3>div>span,
+.tu-refound-04 .tu-refound-04-div2 .tu-refound-04-div2-02 {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1
+}
+
+.linear,
+.service-question-change .active div {
+  -webkit-transition: all .3s linear;
+  -moz-transition: all .3s linear;
+  -ms-transition: all .3s linear;
+  transition: all .3s linear
+}
+
+.ease {
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease
+}
+
+.omit,
+.custom-global-areascroll nav a,
+.hot-recommend>ul li .price,
+.lcy-good-list>li a .price,
+.product-class-list>li a .price,
+.product-class-list>li a .price s,
+.nav-border-top a,
+.zy-header nav>span,
+.service-store-change ul li>p>span,
+.order-list>div:first-child b,
+.confirm-order-list div.order-depotdiv div.info1 label,
+.popup-wrap .coupons-info p span,
+.seach-main>.hot-seach>li,
+.filtrate-con .filtrate-list>li>h3,
+.filtrate-con .filtrate-list>li>h3:nth-child(2) {
+  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: normal;
+  text-overflow: ellipsis
+}
+
+.omits,
+.hot-recommend>ul li .name,
+.lcy-good-list>li a .name,
+.product-class-list>li a .name,
+.car-hot-recommend ul li .name,
+.small-goods-list ul li .name,
+.shuiping-style-addr .addr address,
+.good-show>p label,
+.lcy-collect-list>ul li>div>div h4,
+.service-store-change ul li>p label,
+.selAddsHeader-change .address-list-info>div .labelbox>div>div small,
+.cashier-hot-recommend ul li .name,
+.return-two .return-goodList>ul li>div h3,
+.filtrate-result>ul>li,
+.tu-refound-04 .tu-refound-04-div2 .tu-refound-04-div2-02 .tu-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2
+}
+
+[class^='ico-'],
+[class^='icon-'],
+[class^='pbg-'] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover
+}
+
+.r0px,
+.good-remark .remark-list .remark-list-head figure,
+.mall-detail div span i,
+.go-mall figure,
+.wuliu-info>figure i,
+.letter-box,
+.center-head>div>figure img,
+.ser-safe-content li label img,
+.privilege>div:first-child>div>figure {
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%
+}
+
+.r3px,
+.zy-orderDetails button,
+.shuiping-style-cu .cu-title,
+.shuiping-style-btn button,
+.seckill-lists .progress,
+.seckill-lists button,
+.popup-zorder header .cancel,
+.popup-zorder header .sure {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px
+}
+
+.r5px,
+.popup-repassword .popup-repwd>a,
+.return-two .return-info>div>p input,
+.tu-refound-06 .tu-refound-06-service {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px
+}
+
+.r10px,
+.swiper-box .custom-indicator div,
+.pinpai2-info .pingpai2-intr>header figure {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px
+}
+
+.r20px,
+.zy-header nav,
+.swiper-box .custom-indicator span.swiper-pagination-bullet-active,
+.typelist-header>p,
+.center-control>ul li .info-num,
+.service-header>p {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px
+}
+
+.splr,
+.hot-recommend h3,
+.zy-header,
+.shuiping-style,
+.shuiping-style-m0,
+.shuiping-style-addr,
+.shuiping-style-cu,
+.shuiping-style-btn,
+.shuiping-style-dh p,
+.good-detail,
+.mall-detail,
+.sale-detail,
+.go-mall,
+.popup-footer>p,
+.pinpai2-info .pingpai2-intr,
+.pinpai2-lists nav,
+.wuliu-info,
+.typelist-select,
+.center-head>div,
+.center-control>p,
+.center-menu li,
+.center-recommend h3,
+.service-control ul,
+.service-info>ul,
+.service-store-change,
+.service-store-change ul li,
+.service-sendway-change>ul li,
+.ser-safe-content li,
+.ser-safe-content li:first-child,
+.service-safe-change>form>label,
+.service-safe-change>form>div,
+.service-safe-change .invoice-manage-info>div,
+.service-safe-change .invoice-manage-info>p,
+.service-safe-change .address-list-info .nearListAdds ul li,
+.selAddsHeader-change .address-list-info>div .labelbox>div,
+.selAddsHeader-change .address-list-info>div .labelbox>div:first-child,
+.selAddsHeader-change .address-list-info>div ul li,
+.about-us,
+.login-form,
+.popup-repassword .popup-repwd>div,
+.confirm-order div.headr-bor h3,
+.confirm-order div.headr-bor>div,
+.confirm-order div.headr-bor>p,
+.return-two .return-goodList>h3,
+.return-two .return-goodList>ul li,
+.return-two .return-info>p,
+.return-two .return-info>p:nth-child(2),
+.return-two .return-info>div,
+.return-two .return-info>div>p,
+.return-two .return-upload,
+.privilege>div:first-child>div,
+.tu-refound-msgSelect>p,
+.tu-refound-04 .tu-refound-04-div2 {
+  padding: 0 3%
+}
+
+.smlr {
+  margin: 0 3%
+}
+
+.wtcalc90 {
+  width: calc(100% - - 90px);
+  width: -webkit-calc(100% - 90px);
+  width: -moz-calc(100% - 90px);
+  width: -ms-calc(100% - 90px);
+  width: -o-calc(100% - 90px)
+}
+
+body {
+  font: 12px/20px "寰蒋闆呴粦";
+  color: #333;
+  min-width: 320px;
+  background-color: #efefef
+}
+
+.font-colose:before {
+  content: ''
+}
+
+/* @font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.5.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal
+} */
+
+[class^='font-'],
+.font-icon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: inherit;
+  font-size: inherit
+}
+
+input[type='checkbox'] {
+  border: none;
+  height: 20px;
+  width: 20px;
+  display: block;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('https://weixin.1919.cn/b2c1919/static/images/public/ico-check.png');
+  background-size: contain
+}
+
+input[type='checkbox']:checked {
+  background-image: url('https://weixin.1919.cn/b2c1919/static/images/public/ico-check-act.png');
+  background-size: contain;
+  background-color: transparent
+}
+
+input[type='radio'] {
+  position: relative;
+  border: none;
+  background: transparent;
+  height: 20px;
+  width: 20px;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none
+}
+
+input[type='radio']::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  padding: 5px;
+  background-clip: content-box;
+  box-sizing: border-box
+}
+
+input[type='radio']:checked::after {
+  outline: none;
+  background-color: #1655bf;
+  border: 1px solid #1655bf;
+  background-clip: content-box;
+  -webkit-appearance: none;
+  background-repeat: repeat;
+  -webkit-background-clip: content-box;
+  -webkit-text-fill-color: #1655bf
+}
+
+.popup-wrap,
+.popup-center,
+.popup-top {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  z-index: 100
+}
+
+.popup-wrap>div,
+.popup-center>div,
+.popup-top>div {
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  z-index: 0
+}
+
+.popup-wrap {
+  background-color: rgba(0, 0, 0, 0.5)
+}
+
+.popup-wrap>div {
+  left: 0;
+  bottom: 0
+}
+
+.popup-center {
+  background-color: rgba(0, 0, 0, 0.5)
+}
+
+.popup-center>div {
+  left: 50%;
+  top: 35%
+}
+
+.popup-top {
+  background-color: rgba(0, 0, 0, 0.3)
+}
+
+.popup-top>div {
+  left: 0;
+  top: 0
+}
+
+.popup-tip {
+  position: fixed;
+  z-index: 0;
+  left: 50%;
+  bottom: 50px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7)
+}
+
+.loading-wraper {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3)
+}
+
+.loading-circle {
+  width: 40px;
+  height: 40px;
+  position: relative
+}
+
+.loading-circle i {
+  width: 8px;
+  height: 8px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #1655bf;
+  -webkit-animation: loadingCircle 1.2s infinite ease-in-out;
+  -moz-animation: loadingCircle 1.2s infinite ease-in-out;
+  -ms-animation: loadingCircle 1.2s infinite ease-in-out;
+  animation: loadingCircle 1.2s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+
+.loading-circle i:nth-child(1) {
+  left: 0;
+  top: 0
+}
+
+.loading-circle i:nth-child(2) {
+  right: 0;
+  top: 0
+}
+
+.loading-circle i:nth-child(3) {
+  right: 0;
+  bottom: 0
+}
+
+.loading-circle i:nth-child(4) {
+  left: 0;
+  bottom: 0
+}
+
+.loading-circle dd {
+  position: absolute;
+  width: 100%;
+  height: 100%
+}
+
+.loading-circle dd:nth-child(1) i:nth-child(2) {
+  -webkit-animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+  -ms-animation-delay: -0.9s;
+  animation-delay: -0.9s
+}
+
+.loading-circle dd:nth-child(1) i:nth-child(3) {
+  -webkit-animation-delay: -0.6s;
+  -moz-animation-delay: -0.6s;
+  -ms-animation-delay: -0.6s;
+  animation-delay: -0.6s
+}
+
+.loading-circle dd:nth-child(1) i:nth-child(4) {
+  -webkit-animation-delay: -0.3s;
+  -moz-animation-delay: -0.3s;
+  -ms-animation-delay: -0.3s;
+  animation-delay: -0.3s
+}
+
+.loading-circle dd:nth-child(2) {
+  -webkit-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  transform: rotateZ(45deg)
+}
+
+.loading-circle dd:nth-child(2) i:nth-child(1) {
+  -webkit-animation-delay: -1.1s;
+  -moz-animation-delay: -1.1s;
+  -ms-animation-delay: -1.1s;
+  animation-delay: -1.1s
+}
+
+.loading-circle dd:nth-child(2) i:nth-child(2) {
+  -webkit-animation-delay: -0.8s;
+  -moz-animation-delay: -0.8s;
+  -ms-animation-delay: -0.8s;
+  animation-delay: -0.8s
+}
+
+.loading-circle dd:nth-child(2) i:nth-child(3) {
+  -webkit-animation-delay: -0.5s;
+  -moz-animation-delay: -0.5s;
+  -ms-animation-delay: -0.5s;
+  animation-delay: -0.5s
+}
+
+.loading-circle dd:nth-child(2) i:nth-child(4) {
+  -webkit-animation-delay: -0.2s;
+  -moz-animation-delay: -0.2s;
+  -ms-animation-delay: -0.2s;
+  animation-delay: -0.2s
+}
+
+.loading-circle dd:nth-child(3) {
+  -webkit-transform: rotateZ(90deg);
+  -moz-transform: rotateZ(90deg);
+  -ms-transform: rotateZ(90deg);
+  transform: rotateZ(90deg)
+}
+
+.loading-circle dd:nth-child(3) i:nth-child(1) {
+  -webkit-animation-delay: -1s;
+  -moz-animation-delay: -1s;
+  -ms-animation-delay: -1s;
+  animation-delay: -1s
+}
+
+.loading-circle dd:nth-child(3) i:nth-child(2) {
+  -webkit-animation-delay: -0.7s;
+  -moz-animation-delay: -0.7s;
+  -ms-animation-delay: -0.7s;
+  animation-delay: -0.7s
+}
+
+.loading-circle dd:nth-child(3) i:nth-child(3) {
+  -webkit-animation-delay: -0.4s;
+  -moz-animation-delay: -0.4s;
+  -ms-animation-delay: -0.4s;
+  animation-delay: -0.4s
+}
+
+.loading-circle dd:nth-child(3) i:nth-child(4) {
+  -webkit-animation-delay: -0.1s;
+  -moz-animation-delay: -0.1s;
+  -ms-animation-delay: -0.1s;
+  animation-delay: -0.1s
+}
+
+@-webkit-keyframes loadingCircle {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0)
+  }
+  40% {
+    -webkit-transform: scale(1)
+  }
+}
+
+@-moz-keyframes loadingCircle {
+  0%,
+  80%,
+  100% {
+    -moz-transform: scale(0)
+  }
+  40% {
+    -moz-transform: scale(1)
+  }
+}
+
+@-ms-keyframes loadingCircle {
+  0%,
+  80%,
+  100% {
+    -ms-transform: scale(0)
+  }
+  40% {
+    -ms-transform: scale(1)
+  }
+}
+
+@-o-keyframes loadingCircle {
+  0%,
+  80%,
+  100% {
+    -o-transform: scale(0)
+  }
+  40% {
+    -o-transform: scale(1)
+  }
+}
+
+@keyframes loadingCircle {
+  0%,
+  80%,
+  100% {
+    transform: scale(0)
+  }
+  40% {
+    transform: scale(1)
+  }
+}
+
+.loading-circle-2 {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-animation: rotate 2s infinite linear;
+  -moz-animation: rotate 2s infinite linear;
+  -ms-animation: rotate 2s infinite linear;
+  animation: rotate 2s infinite linear
+}
+
+.loading-circle-2 i {
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #1655bf;
+  -webkit-animation: bounce 2s infinite ease-in-out;
+  -moz-animation: bounce 2s infinite ease-in-out;
+  -ms-animation: bounce 2s infinite ease-in-out;
+  animation: bounce 2s infinite ease-in-out
+}
+
+.loading-circle-2 i:nth-child(1) {
+  top: 0
+}
+
+.loading-circle-2 i:nth-child(2) {
+  bottom: 0;
+  -webkit-animation-delay: -1s;
+  -moz-animation-delay: -1s;
+  -ms-animation-delay: -1s;
+  animation-delay: -1s
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg)
+  }
+}
+
+@-moz-keyframes rotate {
+  100% {
+    -moz-transform: rotate(360deg)
+  }
+}
+
+@-ms-keyframes rotate {
+  100% {
+    -ms-transform: rotate(360deg)
+  }
+}
+
+@-o-keyframes rotate {
+  100% {
+    -o-transform: rotate(360deg)
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0)
+  }
+  50% {
+    -webkit-transform: scale(1)
+  }
+}
+
+@-moz-keyframes bounce {
+  0%,
+  100% {
+    -moz-transform: scale(0)
+  }
+  50% {
+    -moz-transform: scale(1)
+  }
+}
+
+@-ms-keyframes bounce {
+  0%,
+  100% {
+    -ms-transform: scale(0)
+  }
+  50% {
+    -ms-transform: scale(1)
+  }
+}
+
+@-o-keyframes bounce {
+  0%,
+  100% {
+    -o-transform: scale(0)
+  }
+  50% {
+    -o-transform: scale(1)
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(0)
+  }
+  50% {
+    transform: scale(1)
+  }
+}
+
+.loading-circle-3 {
+  width: 45px;
+  height: 45px;
+  position: relative
+}
+
+.loading-circle-3 i {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #1655bf;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  -moz-animation: bouncedelay 1.4s infinite ease-in-out;
+  -ms-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+
+.loading-circle-3 i:nth-child(1) {
+  -webkit-animation-delay: -0.32s;
+  -moz-animation-delay: -0.32s;
+  -ms-animation-delay: -0.32s;
+  animation-delay: -0.32s
+}
+
+.loading-circle-3 i:nth-child(2) {
+  -webkit-animation-delay: -0.16s;
+  -moz-animation-delay: -0.16s;
+  -ms-animation-delay: -0.16s;
+  animation-delay: -0.16s
+}
+
+@-webkit-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0)
+  }
+  40% {
+    -webkit-transform: scale(1)
+  }
+}
+
+@-moz-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -moz-transform: scale(0)
+  }
+  40% {
+    -moz-transform: scale(1)
+  }
+}
+
+@-ms-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -ms-transform: scale(0)
+  }
+  40% {
+    -ms-transform: scale(1)
+  }
+}
+
+@-o-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -o-transform: scale(0)
+  }
+  40% {
+    -o-transform: scale(1)
+  }
+}
+
+@keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0)
+  }
+  40% {
+    transform: scale(1)
+  }
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%
+}
+
+.app-root {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0 auto
+}
+

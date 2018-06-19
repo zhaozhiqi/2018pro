@@ -9,6 +9,15 @@ import 'mint-ui/lib/style.min.css'
 import { Swipe, SwipeItem } from "mint-ui";
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+import { Header } from 'mint-ui';
+import { CellSwipe } from 'mint-ui';
+Vue.component(Header.name, Header);
+Vue.component(CellSwipe.name, CellSwipe);
+
+import { Checklist } from 'mint-ui';
+
+Vue.component(Checklist.name, Checklist);
+
 
 Vue.config.productionTip = false
 

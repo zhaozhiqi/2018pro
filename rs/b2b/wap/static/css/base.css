@@ -1005,12 +1005,12 @@ input[type='checkbox'] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url('https://weixin.1919.cn/b2c1919/static/images/public/ico-check.png');
+  background-image: url('../images/public/ico-check.png');
   background-size: contain
 }
 
 input[type='checkbox']:checked {
-  background-image: url('https://weixin.1919.cn/b2c1919/static/images/public/ico-check-act.png');
+  background-image: url('../images/public/ico-check-act.png');
   background-size: contain;
   background-color: transparent
 }

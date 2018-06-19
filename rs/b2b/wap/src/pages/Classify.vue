@@ -1,23 +1,42 @@
 <template>
   <div id="classify">
-    <SeachHeader  :style="bannerStyle" :bannerHeight="0"/>
-    <div id="typeI">
-      <nav>
-        <div class="typeI-item" 
-        v-for="(item, index) in typeIList" 
-        :key="index" 
-        :class="{ active:item.isActive }"
-        @click="getProIbnfo(index)">{{item.name}}</div>
-      </nav>
+    <div class="header">
+      <SeachHeader  :style="bannerStyle" :bannerHeight="0"/>
+      <div class="product-typeList">
+        <nav>
+          <div class="product-typeList-item" 
+          v-for="(item, index) in typeIList" 
+          :key="index" 
+          :class="{ active:item.isActive }"
+          @click="getProIbnfo(index)">{{item.name}}</div>
+        </nav>
+      </div>
+      <div class="product-catalog">
+        <nav>
+          <div class="product-catalog-item"><span>综合</span></div>
+          <div class="product-catalog-item"><span>销量</span></div>
+          <div class="product-catalog-item shengjia"><span>价格</span><i class="ico-price"></i></div>
+        </nav>
+      </div>
+    </div>   
+    <div id="main">
+      <aside class="product-brands">
+        <ul>
+          <li class="product-brands-item active" >全部<li>
+          <li class="product-brands-item" v-for="(item, index) in 20" 
+          :key="index" 
+          >日耳曼战车</li>
+        </ul>
+      </aside>
+      <TypeGoodsList :proinfo="proinfo" class="proList" /> 
     </div>
-    <TypeList :proinfo="proinfo" />
     <Footer />
   </div>
 </template>
 
 <script>
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
-import TypeList from '@/components/TypeList.1';
+import TypeGoodsList from '@/components/TypeGoodsList';
 import Footer from '@/components/Footer';
 
 
@@ -74,7 +93,7 @@ export default {
   },
   components: {
     SeachHeader,
-    TypeList,
+    TypeGoodsList,
     Footer
   },
   mounted(){
@@ -104,33 +123,119 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #classify{
   overflow: hidden;
-  background: #fff;
+  /* background: #fff; */
   height: 100%;
 }
 
-#typeI {
-  /* position: fixed;
-  top: 100px; */
-  margin-top: 100px;
+#classify .header{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+/*start 产品分类  I级菜单  顶部*/
+.product-typeList {
   width: 100%;
   line-height: 74px;
   height: 80px;
   text-align: center;
   vertical-align: middle;
 }
-#typeI nav{
+.product-typeList nav{
   display: flex;  
   overflow-x: auto;
   border-bottom: 1px solid #efefef;
 }
-#typeI nav .typeI-item{
+.product-typeList nav .product-typeList-item{
   flex: 0 0 12.5%;
   border-bottom: 3px solid #fff;
 }
-#typeI nav .typeI-item.active{
+.product-typeList nav .product-typeList-item.active{
   border-color: #1655bf;
 }
+/*  end 产品分类  I级菜单*/
+/*start 产品筛查  II级菜单-上*/
+.product-catalog{
+  width: 100%;
+  line-height: 78px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 2px solid #efefef;
+}
+.product-catalog nav{
+	display: flex;
+  flex-direction: row;
+}
+
+.product-catalog nav .product-catalog-item{
+	flex: 1;
+  height: 79px;
+}
+
+.ico-price{
+	  width: 24px;
+    height: 24px;
+    background-image: url("../../static/images/public/price.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    left: 2px;
+		
+		background-size: 100%;
+}
+
+.shengjia>.ico-price{
+	background-image: url("../../static/images/public/price1.png");
+}
+.sjiangjia>.ico-price{
+	background-image: url("../../static/images/public/price2.png");
+}
+/*  end 产品筛查  II级菜单-上*/
+/*start 内容滚动区域*/
+ #main{
+    position: absolute;
+    top: 280px;
+    width: 100%;
+    left: 0;
+    bottom: 120px;
+    overflow: auto;
+}
+
+/*start 产品品牌  II级菜单-左*/
+.product-brands{
+  float: left;
+  width: 22%;
+  height: 100%;
+  margin-right: 3%;
+  text-align: center;
+  background: #fff;
+  line-height: 60px;
+  overflow-y: auto;
+}
+
+.product-brands-item.active{
+  background-color: #efefef;
+  line-height: 100px; 
+}
+/*  end 产品品牌  I级菜单-左*/
+/*start 产品列表右*/
+.proList{
+  height: 100%;
+  text-align: center;
+  background: #fff;
+  line-height: 60px;
+  overflow-y: auto;
+}
+/*  end 产品列表右-右*/
+/*end 内容滚动区域*/
 </style>

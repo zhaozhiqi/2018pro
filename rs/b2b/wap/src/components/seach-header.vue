@@ -48,6 +48,7 @@ export default {
 #header {
     width: 100%;    
     position: fixed;
+    top: 0;
     display: flex;
     padding: 20px 3%;
     overflow: hidden;

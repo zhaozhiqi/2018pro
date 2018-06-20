@@ -170,7 +170,7 @@ export default {
 		}
 	},
 	methods:{
-			delCart(item, parentItem) {
+			delCart(item, parentItem) {//删除购物车商品
 				this.delItem = item;
 				parentItem.list.forEach((_item, index)=>{
 					if(_item.proId === item.proId){

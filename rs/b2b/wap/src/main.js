@@ -3,21 +3,21 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import Mint from 'mint-ui'
-// Vue.use(Mint);
+import Mint from 'mint-ui'
 import 'mint-ui/lib/style.min.css'
-import { Swipe, SwipeItem } from "mint-ui";
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
-import { Header } from 'mint-ui';
-import { CellSwipe } from 'mint-ui';
-Vue.component(Header.name, Header);
-Vue.component(CellSwipe.name, CellSwipe);
+Vue.use(Mint);
+// import { Swipe, SwipeItem } from "mint-ui";
+// Vue.component(Swipe.name, Swipe);
+// Vue.component(SwipeItem.name, SwipeItem);
+// import { Header } from 'mint-ui';
+// import { CellSwipe } from 'mint-ui';
+// Vue.component(Header.name, Header);
 
-import { Checklist } from 'mint-ui';
+// import { Checklist } from 'mint-ui';
+// Vue.component(Checklist.name, Checklist);
+// Vue.component(CellSwipe.name, CellSwipe);
 
-Vue.component(Checklist.name, Checklist);
-
+import { MessageBox } from 'mint-ui';
 
 Vue.config.productionTip = false
 

@@ -3,17 +3,19 @@
 			<div class="container" flexcontainer> 
 			<ul class="block-item" w-369 v-for="(item, index) in proList" :key="index"> 
 				<li> 
-					<figure> 
-						<img :src="item.proImg" alt="" class="proImg"> 
-					</figure> 
-					<figcaption> 
-						<h2>
-							<span class="bable">{{item.bable}}</span>
-							{{item.title}}</h2> 
-						<div>
-						<span><i>¥</i>{{item.price}}</span> 已有{{item.num}}人付款
-						</div> 
-					</figcaption>
+					<router-link to="/Product"> 
+						<figure> 
+							<img :src="item.proImg" alt="" class="proImg"> 
+						</figure> 
+						<figcaption> 
+							<h2>
+								<span class="bable">{{item.bable}}</span>
+								{{item.title}}</h2> 
+							<div>
+							<span><i>¥</i>{{item.price}}</span> 已有{{item.num}}人付款
+							</div> 
+						</figcaption>
+					</router-link>
 				</li> 
 			</ul> 		
 			</div>

@@ -4,19 +4,21 @@
 			<li class="con-item" 
 			v-for="(item, index) in goodsList"
 			:key="index" >
-				<figure>
-						<img class="con-item-img" :src="item.proImg"/>
-				</figure>
-				<figcaption> 
-					<div class="con-item-info">
-						<p class="con-item-info-title">{{item.title}}</p>
-						<p class="con-item-info-price">
-							<strong><b>¥</b>{{item.price}}</strong>
-							<s>¥{{item.price}}</s>
-						</p>
-					</div>
-					<div class="con-item-btn"><i class="ico-cart"></i></div>
-				</figcaption> 	
+				<router-link to="/product">
+					<figure>
+							<img class="con-item-img" :src="item.proImg"/>
+					</figure>
+					<figcaption> 
+						<div class="con-item-info">
+							<p class="con-item-info-title">{{item.title}}</p>
+							<p class="con-item-info-price">
+								<strong><b>¥</b>{{item.price}}</strong>
+								<s>¥{{item.price}}</s>
+							</p>
+						</div>
+						<div class="con-item-btn"><i class="ico-cart"></i></div>
+					</figcaption>
+				</router-link>	
 			</li>
 		</ul>
   </div>

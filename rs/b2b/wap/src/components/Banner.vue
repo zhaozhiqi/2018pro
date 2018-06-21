@@ -1,16 +1,16 @@
 <template>
-  <div id="banner" class="container" flexcontainer> 
-    <div w-750-235 aspectratio aspect-ratio="750/235"> 
-     <div aspectratio-content>      
-      <Slider></Slider>
-      <!-- <img :src="imgList1" alt="" width="100%" height="100%"> 
-      <img :src="imgList2" alt="" width="100%" height="100%"> 
-      <img :src="imgList3" alt="" width="100%" height="100%"> 
-      <img :src="imgList4" alt="" width="100%" height="100%"> 
-      <img :src="imgList5" alt="" width="100%" height="100%">  -->
-     </div> 
-    </div> 
-   </div>
+	<div id="banner" class="container" flexcontainer> 
+		<div w-750-235 aspectratio aspect-ratio="750/235"> 
+			<div aspectratio-content>      
+				<Slider></Slider>
+				<!-- <img :src="imgList1" alt="" width="100%" height="100%"> 
+				<img :src="imgList2" alt="" width="100%" height="100%"> 
+				<img :src="imgList3" alt="" width="100%" height="100%"> 
+				<img :src="imgList4" alt="" width="100%" height="100%"> 
+				<img :src="imgList5" alt="" width="100%" height="100%">  -->
+			</div> 
+		</div> 
+	</div>
 </template>
 
 <script>

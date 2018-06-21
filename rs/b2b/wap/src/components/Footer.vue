@@ -5,7 +5,7 @@
             <router-link to="/classify" class="item a-type"><span class="nav-type"></span><span class="label">分类</span></router-link>
             <router-link to="/index" class="item a-drink"><span class="nav-drink"></span><span class="label">拼团</span></router-link>
             <router-link to="/cart" class="item a-cart"><span class="nav-cart"></span><span class="label">购物车</span></router-link>
-            <router-link to="/index" class="item a-member"><span class="nav-member"></span><span class="label">我</span></router-link>
+            <router-link to="/member" class="item a-member"><span class="nav-member"></span><span class="label">我</span></router-link>
         </nav>
     </footer>
 </template>

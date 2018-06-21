@@ -995,6 +995,11 @@ body {
   font-size: inherit
 }
 
+.rsiconfont{
+  font-size: 28px;
+  vertical-align: middle;
+}
+
 input[type='checkbox'] {
   border: none;
   height: 20px;

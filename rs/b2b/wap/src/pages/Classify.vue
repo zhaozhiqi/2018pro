@@ -1,6 +1,6 @@
 <template>
 	<div id="classify">
-		<div class="header">
+		<header class="header">
 			<SeachHeader  :style="bannerStyle" :bannerHeight="0"/>
 			<div class="product-typeList">
 				<nav>
@@ -18,7 +18,7 @@
 					<div class="product-catalog-item shengjia"><span>价格</span><i class="ico-price"></i></div>
 				</nav>
 			</div>
-		</div>   
+		</header>   
 		<div id="main">
 			<aside class="product-brands">
 				<ul>

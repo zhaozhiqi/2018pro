@@ -2,9 +2,9 @@
 	<div id="cart">
 		<main class="main">
 			<header class="header">
-				<a>返回</a>
+				<a class="back" v-show="0">返回</a>
 				<h2>购物车</h2>
-				<a>编辑</a>
+				<a class="edit" v-show="0">编辑</a>
 			</header>
 			<div class="car-empty" v-if="hasGoods">
 				<i class="ico-car"></i>
@@ -38,9 +38,9 @@
 									<div class="goodsEdit">
 										<label class="goodsPrice"><b>¥ </b>408.70</label>
 										<div class="goodsNumbox" value="1">
-											<button class="minusBtn" @click="editCart('minu', listItem)">-</button> 
+											<button class="minusBtn" @click="editCart('minu', listItem)"><i class="rsiconfont rsicon-jian"></i></button> 
 											<input readonly="readonly" type="number" class="goodsNum" :value="listItem.proNum" /> 
-											<button class="addBtn" @click="editCart('add', listItem)">+</button>
+											<button class="addBtn" @click="editCart('add', listItem)"><i class="rsiconfont rsicon-jia"></i></button>
 										</div>                  
 										<button class="deleteBtn" @click="delCart(listItem, storeItem)">删除</button>
 									</div>
@@ -81,7 +81,7 @@ import Footer from '@/components/Footer';
 
 
 export default {
-	name: 'Classify',
+	name: 'Cart',
 	data(){
 		return {
 			hasGoods: false,
@@ -257,12 +257,12 @@ export default {
 }
 
 .main{
-		position: absolute;
-		top: 100px;
-		width: 100%;
-		left: 0;
-		bottom: 200px;
-		overflow: auto;
+	position: absolute;
+	top: 100px;
+	width: 100%;
+	left: 0;
+	bottom: 200px;
+	overflow: auto;
 }
 
 .header{
@@ -278,9 +278,25 @@ export default {
 	border-bottom: 1px solid #efefef;
 }
 
+.header h2{
+	width: 100%;
+	text-align: center
+}
 .header a{
+	position: absolute;
+	top: 0;
+	line-height: 100px;
+	height: 100px;
 	color: #1655bf;
 	font-size: 30px;
+}
+
+.header a.edit{
+	right: 20px;
+}
+
+.header a.back{
+	left: 20px;
 }
 /*空购物车时显示*/
 .car-empty{
@@ -463,11 +479,17 @@ export default {
 	line-height: 40px;
 	border-radius: 50%;
 	border: 1px solid #1655bf;
-	font-size: 30px;
-	font-weight: bold;
+  text-align: center;
 	background: #fff;
 	color: #1655bf;
 	overflow: hidden;
+}
+
+.goodsNumbox .rsiconfont{
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: 20px;
 }
 
 .goodsNum{

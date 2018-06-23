@@ -3,8 +3,8 @@
 		<div class="main">
 			<header class="header">			
 				<div class="top">
-					<router-link to="/noticeList" class="noticeListLink"><i class="rsiconfont rsicon-31xiaoxi"></i></router-link>
 					<router-link to="/memberSet"  class="memberSetLink" ><i class="rsiconfont rsicon-31shezhi"></i></router-link>
+					<router-link to="/noticeList" class="noticeListLink"><i class="rsiconfont rsicon-31xiaoxi"></i></router-link>
 				</div>
 				<div class="memberInfo">
 					<figure><img class="memberLogo" :src="memberInfo.memberLogoImg"></figure>
@@ -16,37 +16,37 @@
 				</div>
 			</header>
 			<section class="section">
-				<router-link to="/noticeList" class="itemLink"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
+				<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
 				<div class="orderMenu">
 					<nav>
-						<router-link to="/noticeList" class="orderMenuLink">
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'payOrder'}}" class="orderMenuLink">
 							<i class="rsiconfont rsicon-31daifukuan"></i>
 							<span>待付款</span>
 							<b class="line"></b>
 						</router-link>
-						<router-link to="/noticeList" class="orderMenuLink">
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'sendOrder'}}" class="orderMenuLink">
 							<i class="rsiconfont rsicon-31daifahuo"></i>
 							<span>待发货</span>
 							<b class="line"></b>
 						</router-link>
-						<router-link to="/noticeList" class="orderMenuLink">
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'receiveOrder'}}" class="orderMenuLink">
 							<i class="rsiconfont rsicon-31daishouhuo"></i>
 							<span>待收货</span>
 							<b class="line"></b>
 						</router-link>
-						<router-link to="/noticeList" class="orderMenuLink">
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'estimateOrder'}}" class="orderMenuLink">
 							<i class="rsiconfont rsicon-31daipingjia"></i>
 							<span>待评价</span>
 							<b class="line"></b>
 						</router-link>
-						<router-link to="/noticeList" class="orderMenuLink">
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'refundOrder'}}" class="orderMenuLink">
 							<i class="rsiconfont rsicon-tuikuantuihuo"></i>
 							<span>退款退货</span>
 							<b class="line"></b>
 						</router-link>
 					</nav>
 				</div>
-				<router-link to="/noticeList" class="itemLink" v-for="(item, index) in 4" :key="index"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
+				<router-link to="/order" class="itemLink" v-for="(item, index) in 4" :key="index"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
 			</section>
 			<div class="car-member-recommend">为您推荐</div> 
 			<TypeGoodsList class=""/>
@@ -140,13 +140,17 @@ export default {
 	left: 0;
 	right: 0;
 	padding-bottom: 100px;
+	overflow: hidden;
 }
 
 .header{
 	flex-direction: column;
 	background: #1655bf;
 	color: #fff;
+	height: 220px;
+	padding-top: 20px;
 	padding-bottom: 20px;
+	
 }
 
 .header .top{
@@ -154,22 +158,23 @@ export default {
 	width: 100%;
 	height: 60px;
 	line-height: 60px;
-	padding-right: 20px;
-	margin-top: 20px;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
 }
 
-.header .noticeListLink,.header .memberSet{
-	padding-right: 20px;
-	flex: 0 0 70px;
+.header .noticeListLink,.header .memberSetLink{
+	float: right;
+	text-align: center;
+	margin-right: 20px;
+	width: 60px;
+	height: 60px;
 }
 
 .memberInfo{
 	padding: 0 20px 0 40px;
 	width: 100%;
+	height: 120px;
+	overflow: hidden;
 }
+
 .memberInfo figure{
 	float: left;
 	width: 100px;

@@ -2,7 +2,7 @@
 	<div id="cart">
 		<main class="main">
 			<header class="header">
-				<a class="back" v-show="0">返回</a>
+				<a class="back" v-show="0"  @click="back">返回</a>
 				<h2>购物车</h2>
 				<a class="edit" v-show="0">编辑</a>
 			</header>
@@ -93,8 +93,8 @@ export default {
 					storeIink:"/index",
 					checked:false,
 					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:1,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:1,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
 					]
 				},
 				{					
@@ -103,8 +103,8 @@ export default {
 					storeIink:"/index",
 					checked:false,				
 					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
 					]
 				},
 				{					
@@ -113,8 +113,8 @@ export default {
 					storeIink:"/index",
 					checked:false,					
 					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
 					]
 				},
 			],
@@ -245,7 +245,10 @@ export default {
 			},
 		  closeCarCaption(){
 			  this.carCaptionShow = false;
-		  }
+		  },
+		   back(){
+			window.history.go(-1)
+		}
 	}
 };
 </script>

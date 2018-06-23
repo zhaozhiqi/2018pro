@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <!-- <index></index> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Index from '@/pages/Index';
-
-
-import Banner from '@/components/Banner';
-import Grid from '@/components/Grid';
-import Block from '@/components/Block';
-import List from '@/components/List';
-import NavBar from '@/components/NavBar';
+import Home from '@/pages/home';
 
 export default {
   name: 'App',
@@ -23,15 +15,7 @@ export default {
     }
   },
   components: {
-    Index,
-
-
-
-    Banner,
-    Grid,
-    Block,
-    List,
-    NavBar
+    Home
   }
 };
 </script>

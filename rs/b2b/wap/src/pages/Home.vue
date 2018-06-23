@@ -25,7 +25,7 @@ import Recommend from '@/components/Recommend';
 
 
 export default {
-  name: 'Index',
+  name: 'Home',
   data(){
     return {
       bannerHeight: 270

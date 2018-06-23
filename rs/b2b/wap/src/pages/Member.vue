@@ -3,7 +3,7 @@
 		<div class="main">
 			<header class="header">			
 				<div class="top">
-					<router-link to="/memberSet"  class="memberSetLink" ><i class="rsiconfont rsicon-31shezhi"></i></router-link>
+					<router-link to="/setting"  class="memberSetLink" ><i class="rsiconfont rsicon-31shezhi"></i></router-link>
 					<router-link to="/noticeList" class="noticeListLink"><i class="rsiconfont rsicon-31xiaoxi"></i></router-link>
 				</div>
 				<div class="memberInfo">

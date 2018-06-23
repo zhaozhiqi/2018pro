@@ -1,10 +1,6 @@
 <template>
     <div id="noticeList">
-        <header class="header">
-            <span class="goBack" @click="back"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
-            <h2>消息</h2>
-            <span class="other"></span>
-        </header>
+        <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
         <main class="main">
             <Nodata :nodata="nodataObj" v-if="noticeList.length <= 0"></Nodata>
             <div v-else class="noticeItem" v-for="(item, index) in noticeList" :key="index" >
@@ -19,6 +15,7 @@
 </template>
 
 <script>
+import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata';
 export default {
     name:"NoticeList",
@@ -41,11 +38,21 @@ export default {
                     noticeTime:"2018-06-16 11:11:33",
                     noticeLink:"http://www.baidu.com"                    
                 }
-            ]
+            ],
+            commonHeaderObj: {
+                bgStyle: {
+                    color:"#333",
+                    backgroundColor:"#fff"
+                },
+                title: "消息",
+                isOtherShow: false,
+                otherIconClass: "rsicon-gengduo"
+            }
         }
     },
     components: {
-		Nodata
+        Nodata,
+        CommonHeader
     },
     methods:{
         back(){
@@ -63,53 +70,11 @@ export default {
 
 .main{
 	position: absolute;
-	top: 100px;
+	top: 120px;
 	left: 0;
+    right: 0;
 	width: 100%;
 	overflow: auto;
-}
-
-#noticeList .header{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	line-height: 100px;
-	height: 100px;
-	font-size: 34px;
-	padding: 0 10px;
-	background: #fff;
-	border-bottom: 1px solid #efefef;
-}
-
-#noticeList .header h2{
-	width: 100%;
-	text-align: center
-}
-#noticeList .header span{
-	position: absolute;
-	top: 0;
-	line-height: 100px;
-	height: 100px;
-	font-size: 30px;
-}
-
-#noticeList .header .other{
-	right: 20px;
-}
-
-#noticeList .header .goBack{
-	left: 20px;
-}
-#noticeList .header .goBack i{
-	font-size: 40px;
-}
-
-.main{
-    position: absolute;
-    top: 120px;
-    left: 0;
-    right: 0;        
 }
 
 .noticeItem{

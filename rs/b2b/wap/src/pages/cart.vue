@@ -1,11 +1,7 @@
 <template>
 	<div id="cart">
 		<main class="main">
-			<header class="header">
-				<a class="back" v-show="0"  @click="back">返回</a>
-				<h2>购物车</h2>
-				<a class="edit" v-show="0">编辑</a>
-			</header>
+			<CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
 			<div class="car-empty" v-if="hasGoods">
 				<i class="ico-car"></i>
 				<p>亲，购物车空空如也，快去逛逛</p>
@@ -75,6 +71,7 @@
 
 <script>
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
+import CommonHeader from '@/components/common-header'
 import TypeGoodsList from '@/components/TypeGoodsList';
 import Footer from '@/components/Footer';
 
@@ -118,10 +115,23 @@ export default {
 					]
 				},
 			],
-			delItem:{}
+			delItem:{},
+			commonHeaderObj: {
+                bgStyle: {
+                    color:"#333",
+                    backgroundColor:"#fff"
+                },
+                title: "购物车",
+                isOtherShow: true,
+                otherIconClass: "rsicon-home",
+				otherLink: {
+					path: '/'
+				}
+            }
 		}
 	},
 	components: {
+		CommonHeader,
 		SeachHeader,
 		TypeGoodsList,
 		Footer
@@ -170,15 +180,15 @@ export default {
 		}
 	},
 	methods:{
-			delCart(item, parentItem) {//删除购物车商品
-				this.delItem = item;
-				parentItem.list.forEach((_item, index)=>{
-					if(_item.proId === item.proId){
-						parentItem.list.splice(index,1);
-					}
-				})
-				
-			},
+		delCart(item, parentItem) {//删除购物车商品
+			this.delItem = item;
+			parentItem.list.forEach((_item, index)=>{
+				if(_item.proId === item.proId){
+					parentItem.list.splice(index,1);
+				}
+			})
+			
+		},
         editCart(flag, item, parentItem) {
             let num = 0;
 				
@@ -245,10 +255,7 @@ export default {
 			},
 		  closeCarCaption(){
 			  this.carCaptionShow = false;
-		  },
-		   back(){
-			window.history.go(-1)
-		}
+		  }
 	}
 };
 </script>
@@ -268,39 +275,6 @@ export default {
 	overflow: auto;
 }
 
-.header{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	line-height: 100px;
-	height: 100px;
-	font-size: 34px;
-	padding: 0 10px;
-	background: #fff;
-	border-bottom: 1px solid #efefef;
-}
-
-.header h2{
-	width: 100%;
-	text-align: center
-}
-.header a{
-	position: absolute;
-	top: 0;
-	line-height: 100px;
-	height: 100px;
-	color: #1655bf;
-	font-size: 30px;
-}
-
-.header a.edit{
-	right: 20px;
-}
-
-.header a.back{
-	left: 20px;
-}
 /*空购物车时显示*/
 .car-empty{
 	padding: 60px 0;

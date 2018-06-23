@@ -7,6 +7,7 @@ import Member from '@/pages/Member'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
+import Setting from '@/pages/member/Setting'
 
 import Product from '@/pages/Product'
 import test from '@/pages/test'
@@ -78,6 +79,14 @@ export default new Router({
       component: NoticeList,
       meta: {
         title: "消息列表"
+      }
+    },
+    {
+      path: '/Setting',
+      name: 'Setting',
+      component: Setting,
+      meta: {
+        title: "设置"
       }
     },
     {

@@ -5,6 +5,7 @@
 			<h2 class="title">我的订单</h2>
 			<router-link to="/Home" class="goHome"><i class="rsiconfont rsicon-home"></i></router-link>
 		</header>
+		<CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
 		<div class="orderMenu">
 			<nav>
 				<div class="orderItem" v-for="(item, index) in orderTabList" :key="index" :class="{active:item.isActive}" @click="orderTabClick(item.id)">{{item.name}}</div>
@@ -32,11 +33,21 @@
 </template>
 
 <script>
+import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata';
 export default {
 	name: 'Order',
 	data(){
 		return {
+            commonHeaderObj: {
+                bgStyle: {
+                    color:"#333",
+                    backgroundColor:"#fff"
+                },
+                title: "我的订单",
+                isOtherShow: true,
+                otherIconClass: "rsicon-home"
+            },
 			nodataObj:{
                 iconName:"rsicon-quanbudingdan",
                 nodataMsg:"还没有订单哦"
@@ -422,6 +433,7 @@ export default {
 		}
 	},
 	components: {
+		CommonHeader,
 		Nodata
 	},
 	mounted(){

@@ -16,7 +16,7 @@
 import { Header } from 'mint-ui';
 
 export default {
-    name:"seach-header",
+    name:"seachHeader",
     data () {
         return {
             fixed:false

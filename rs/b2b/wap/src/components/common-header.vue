@@ -53,7 +53,7 @@ export default {
     height: 100px;
     line-height: 100px;
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #efefef;
 }
 
 .commonHeader .bule{
@@ -82,6 +82,6 @@ export default {
 	left: 0;
 }
 .commonHeader .goBack i{
-	font-size: 40px;
+	font-size: 28px;
 }
 </style>

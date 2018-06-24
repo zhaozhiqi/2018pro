@@ -15,6 +15,7 @@
                     <span class="setCon">{{item.setCon}}</span>
                 </div>
             </div>
+            <button class="logout" @click="logout">退出登录</button>
         </main>
     </div>
 </template>
@@ -43,7 +44,7 @@ export default {
                     setCon:"",
                     setIconShow: true,
                     setRouter: true,
-                    setLink:"/Cart"                    
+                    setLink:"/AboutUs"                    
                 }
             ],
             commonHeaderObj: {
@@ -62,7 +63,9 @@ export default {
         CommonHeader
     },
     methods:{
-        
+        logout(){
+            console.log('logout')
+        }
     }
 }
 </script>
@@ -113,5 +116,20 @@ export default {
     height: 100%;
     font-size: 28px;
     margin-left: 20px;
+}
+
+.logout{
+    text-align: center;
+    line-height: 90px;
+    height: 90px;
+    width: 60%;
+    margin: 100px auto 0;
+    display: block;
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #fff;
+    background-color: #1655bf;
+    font-size: 30px;
 }
 </style>

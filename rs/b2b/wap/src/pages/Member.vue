@@ -19,34 +19,15 @@
 				<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
 				<div class="orderMenu">
 					<nav>
-						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'payOrder'}}" class="orderMenuLink">
-							<i class="rsiconfont rsicon-31daifukuan"></i>
-							<span>待付款</span>
+						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: item.type}}" class="orderMenuLink" v-for="(item, index) in orderMenuList" :key="index">
+							<i class="rsiconfont" :class="item.iconClass"></i>
+							<span>{{item.name}}</span>
 							<b class="line"></b>
-						</router-link>
-						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'sendOrder'}}" class="orderMenuLink">
-							<i class="rsiconfont rsicon-31daifahuo"></i>
-							<span>待发货</span>
-							<b class="line"></b>
-						</router-link>
-						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'receiveOrder'}}" class="orderMenuLink">
-							<i class="rsiconfont rsicon-31daishouhuo"></i>
-							<span>待收货</span>
-							<b class="line"></b>
-						</router-link>
-						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'estimateOrder'}}" class="orderMenuLink">
-							<i class="rsiconfont rsicon-31daipingjia"></i>
-							<span>待评价</span>
-							<b class="line"></b>
-						</router-link>
-						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'refundOrder'}}" class="orderMenuLink">
-							<i class="rsiconfont rsicon-tuikuantuihuo"></i>
-							<span>退款退货</span>
-							<b class="line"></b>
+							<em class="num">{{item.num}}</em>
 						</router-link>
 					</nav>
 				</div>
-				<router-link to="/order" class="itemLink" v-for="(item, index) in 4" :key="index"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
+				<router-link  :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink" v-for="(item, index) in 4" :key="index"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
 			</section>
 			<div class="car-member-recommend">为您推荐</div> 
 			<TypeGoodsList class=""/>
@@ -70,46 +51,37 @@ export default {
 				memberStoreName:"二哈宠物店",
 				memberLogoImg:"../../static/images/memberLogo.jpg"
 			},
-			typeIList:[
-				{ id:1,type:"1",name:"白酒",isActive:true,
-					proList:[
-						{
-							typeII:"1",
-							typeIIName:"全部",
-							content:[
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-							]
-						},
-						{
-							typeII:"2",
-							typeIIName:"分类II-1",
-							content:[
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-							]
-						},
-						{
-							typeII:"3",
-							typeIIName:"分类II-2",
-							content:[
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-									{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-							]
-						},
-					]
+			orderMenuList:[
+				{
+					type:'payOrder',
+					iconClass:"rsicon-31daifukuan",
+					name:"待付款",
+					num:1
 				},
-				{ id:2,type:"2",name:"葡萄酒",isActive:false,proList:[]},
-				{ id:3,type:"3",name:"洋酒",isActive:false,proList:[]},
-				{ id:4,type:"4",name:"啤酒",isActive:false,proList:[]},
-				{ id:5,type:"5",name:"黄酒",isActive:false,proList:[]},
-				{ id:6,type:"6",name:"酒具",isActive:false,proList:[]},
-				{ id:7,type:"7",name:"白酒",isActive:false,proList:[]},
-				{ id:8,type:"8",name:"葡萄酒",isActive:false,proList:[]},
-				{ id:9,type:"9",name:"洋酒",isActive:false,proList:[]},
-				{ id:10,type:"10",name:"啤酒",isActive:false,proList:[]},
-				{ id:11,type:"11",name:"酒具",isActive:false,proList:[]},
-				{ id:12,type:"12",name:"其他",isActive:false,proList:[]}
+				{
+					type:'sendOrder',
+					iconClass:"rsicon-31daifahuo",
+					name:"待发货",
+					num:2
+				},
+				{
+					type:'receiveOrder',
+					iconClass:"rsicon-31daishouhuo",
+					name:"待收货",
+					num:3
+				},
+				{
+					type:'estimateOrder',
+					iconClass:"rsicon-31daipingjia",
+					name:"待评价",
+					num:4
+				},
+				{
+					type:'refundOrder',
+					iconClass:"rsicon-tuikuantuihuo",
+					name:"退款退货",
+					num:5
+				}
 			],
 			proinfo: []
 		}
@@ -248,6 +220,7 @@ export default {
 }
 
 .orderMenu nav .orderMenuLink{
+	position:relative;
 	flex: 1;
 	padding: 20px 0;
 	display: flex;
@@ -268,6 +241,22 @@ export default {
 	min-width: 60px;
     display: block;
     background-color: #fa4d3e;
+}
+
+.orderMenu nav .orderMenuLink em{
+	position: absolute;
+    top: 20px;
+    left: 56%;
+    display: block;
+	width:30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #fa4d3e;
+	font-size: 22px;
+	color: #fff;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 

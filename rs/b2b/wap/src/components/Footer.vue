@@ -4,7 +4,7 @@
             <router-link to="/home" class="item a-home inactive"><span class="nav-home"></span><span class="label">首页</span></router-link>
             <router-link to="/classify" class="item a-type"><span class="nav-type"></span><span class="label">分类</span></router-link>
             <router-link to="/home" class="item a-drink"><span class="nav-drink"></span><span class="label">拼团</span></router-link>
-            <router-link to="/cart" class="item a-cart"><span class="nav-cart"></span><span class="label">购物车</span></router-link>
+            <router-link to="/cart" class="item a-cart"><span class="nav-cart"></span><span class="label">购物车</span><em class="num">{{cartNum}}</em></router-link>
             <router-link to="/member" class="item a-member"><span class="nav-member"></span><span class="label">我</span></router-link>
         </nav>
     </footer>
@@ -12,7 +12,11 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            cartNum: 10
+        }
+    }
 }
 </script>
 
@@ -57,7 +61,9 @@ export default {
     height: auto;
     display: block;
 }
-
+.a-cart{
+    position:relative;
+}
 .nav-home{
     background-image: url('../../static/images/public/nav-home.png');
 }
@@ -84,5 +90,22 @@ export default {
 }
 .item.inactive .nav-member{
     background-image: url('../../static/images/public/nav-member-active.png');
+}
+
+
+.item.a-cart em{
+    position: absolute;
+    top: 0;
+    right: 10%;
+    display: block;
+	width:30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #fa4d3e;
+	font-size: 22px;
+	color: #fff;
+	border-radius: 50%;
+	overflow: hidden;
 }
 </style>

@@ -15,7 +15,7 @@
                     <span class="setCon">{{item.setCon}}</span>
                 </div>
             </div>
-            <button class="logout" @click="logout">退出登录</button>
+            <button class="signout" @click="signout">退出登录</button>
         </main>
     </div>
 </template>
@@ -63,8 +63,8 @@ export default {
         CommonHeader
     },
     methods:{
-        logout(){
-            console.log('logout')
+        signout(){
+            console.log('signout')
         }
     }
 }
@@ -118,7 +118,7 @@ export default {
     margin-left: 20px;
 }
 
-.logout{
+.signout{
     text-align: center;
     line-height: 90px;
     height: 90px;

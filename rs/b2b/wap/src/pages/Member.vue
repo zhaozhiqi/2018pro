@@ -91,7 +91,7 @@ export default {
 		Footer
 	},
 	mounted(){
-
+		console.log(this.$store.state.cartCount)
 	},
 	methods:{
 

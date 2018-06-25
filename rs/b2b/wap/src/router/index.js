@@ -4,6 +4,8 @@ import Home from '@/pages/Home'
 import Classify from '@/pages/Classify'
 import Cart from '@/pages/Cart'
 import Member from '@/pages/Member'
+import Login from '@/pages/Login'
+import Register from '@/pages/Register'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
@@ -56,6 +58,22 @@ export default new Router({
       component: Member,
       meta: {
         title: "个人中心"
+      }
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        title: "账号登录"
+      }
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register,
+      meta: {
+        title: "快速登录/注册"
       }
     },
     {

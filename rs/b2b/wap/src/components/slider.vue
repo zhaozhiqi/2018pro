@@ -10,6 +10,10 @@ export default {
   data() {
     return {
       message: '',
+      mint:null,
+      swipe:null,
+      mt:null,
+      item:null,
       //图片列表[arr]
       pages: [
         // {

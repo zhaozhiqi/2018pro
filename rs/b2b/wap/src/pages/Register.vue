@@ -8,7 +8,7 @@
                     <input type="text" name="" id="" placeholder="请输入手机号" />
                 </label>
                 <label >                    
-                    <input type="number" name="code" class="codeInt" placeholder="请输入验证码" />
+                    <input type="number" name="code" class="codeInt" placeholder="请输入验证码" :maxlength="getCodeObj.long" />
                     <div class="getCode" @click="getCode">{{getCodeObj.text}}</div>
                 </label>
             </form>
@@ -43,6 +43,7 @@ export default {
             },
             treatyState:true,
             getCodeObj:{
+                long: 6,
                 state:true,
                 text:'获取验证码'
             }  

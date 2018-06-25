@@ -10,6 +10,28 @@ import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI);
 Vue.use(Vuex);
+//表单验证
+import VeeValidate from 'vee-validate';
+import zh_CN from 'vee-validate/dist/locale/zh_CN';
+import VueI18n from 'vue-i18n';
+Vue.use(VueI18n)
+const i18n = new VueI18n({
+  locale: 'zh_CN',
+})
+const VeeConfig = {
+  errorBagName: 'errors', // change if property conflicts.
+  delay: 0,
+  locale: 'zh_CN',
+  messages: null,
+  strict: true
+}
+Vue.use(VeeValidate, {
+  i18n,
+  i18nRootKey: 'validation',
+  dictionary: {
+     zh_CN
+  }
+});
 // import { Swipe, SwipeItem } from "mint-ui";
 // Vue.component(Swipe.name, Swipe);
 // Vue.component(SwipeItem.name, SwipeItem);

@@ -5,7 +5,7 @@
             <form class="login-form" action="">
                 <label >
                     <i class="rsiconfont rsicon-icon"></i>
-                    <input type="text" name="account" placeholder="用户名/手机号" v-model="admin.account.value"/>
+                    <input type="text" v-validate ="'required|email'" name="email" placeholder="用户名/手机号" v-model="admin.account.value"/>
                 </label>
                 <label >
                     <i class="rsiconfont rsicon-mima"></i>
@@ -57,7 +57,16 @@ export default {
     },
     methods:{
         login(){
-            this.$toast('login')
+            this.$validator.validateAll().then((msg)=>{
+                if(msg){
+                alert('验证成功！');
+                }else{
+                this.$toast({
+                    message: '填写不完整！',
+                    type: 'warning'
+                });
+                }
+            })
             // this.$messagebox('121')
             // this.$MassageBox('提示信息');
             // Toast('提示信息');

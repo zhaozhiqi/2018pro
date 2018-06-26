@@ -26,7 +26,7 @@
             </form>
             <button class="login" @click="login">登录</button>
             <div class="menu">
-                <router-link to="/rePassword">找回密码</router-link>
+                <router-link to="/resetPass">找回密码</router-link>
                 <router-link to="/register">手机快速登录</router-link>
                 <!--<router-link to="/register?username=">手机快速登录</router-link>-->
             </div>

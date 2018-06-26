@@ -21,6 +21,25 @@
                     v-model="admin.code" />
                     <div class="getCode" @click="getCode">{{getCodeObj.text}}</div>
                 </label>
+                <label :class="{'error':errors.has('newpassword')}">
+                    <input 
+                    type="text" 
+                    v-validate ="'required|max:16|min:6'" 
+                    name="newpassword" 
+                    class="noIndent" 
+                    placeholder="请输入新密码" 
+                    v-model="admin.password"/>
+                </label>
+                <label :class="{'error':errors.has('passwordAgain')}">
+                    <input 
+                    type="text" 
+                    v-validate ="{'confirmed':admin.password}" 
+                    name="passwordAgain" 
+                    class="noIndent" 
+                    placeholder="请再次输入新密码" 
+                    v-model="admin.passwordAgain"/>
+                </label>
+
             </form>
             <div class="treaty">
                 <input type="checkbox" v-model="treatyState" />
@@ -59,8 +78,11 @@ export default {
             },
             admin:{
                 phone:null,
-                code:null
-            }
+                code:null,
+                password:null,
+                passwordAgain:null
+            },
+            _time:null
         }
     },
     components: {
@@ -74,7 +96,7 @@ export default {
              this.$validator.validateAll().then((msg)=>{
                 if(msg){
                     this.$toast({
-                        message: '提交成功'+this.admin.phone+'---'+this.admin.code,
+                        message: '提交成功'+'-电话-'+this.admin.phone+'-验证码-'+this.admin.code+'-密码-'+this.admin.password,
                         type: 'warning'
                     });
                 }else{
@@ -161,7 +183,7 @@ export default {
     /* background-color: rgb(250, 255, 189); */
 }
 
-.register-form label .noIndent {
+.register-form label .noIndent{
     text-indent: 20px;
 }
 

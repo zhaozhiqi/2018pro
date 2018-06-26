@@ -6,6 +6,7 @@ import Cart from '@/pages/Cart'
 import Member from '@/pages/Member'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import ResetPass from '@/pages/ResetPass'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
@@ -77,11 +78,19 @@ export default new Router({
       }
     },
     {
-      path: '/Product',
-      name: 'Product',
-      component: Product,
+      path: '/Register',
+      name: 'Register',
+      component: Register,
       meta: {
-        title: "产品"
+        title: "快速登录/注册"
+      }
+    },
+    {
+      path: '/ResetPass',
+      name: 'ResetPass',
+      component: ResetPass,
+      meta: {
+        title: "重置密码"
       }
     },
     {

@@ -3,13 +3,24 @@
         <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
         <main class="main">
             <form class="login-form" action="">
-                <label >
+                <label :class="{'error':errors.has('account')}">
                     <i class="rsiconfont rsicon-icon"></i>
-                    <input type="text" v-validate ="'required|email'" name="email" placeholder="用户名/手机号" v-model="admin.account.value"/>
+                    <input 
+                    type="text" 
+                    v-validate ="'required|alpha_num|min:6'" 
+                    name="account" 
+                    placeholder="用户名/手机号" 
+                    v-model="admin.account.value"
+                    />
                 </label>
-                <label >
+                <label :class="{'error':errors.has('password')}">
                     <i class="rsiconfont rsicon-mima"></i>
-                    <input :type="admin.password.type" name="password" placeholder="请输入密码" v-model="admin.password.value"/>
+                    <input 
+                    :type="admin.password.type" 
+                    v-validate ="'required|min:6'" 
+                    name="password" 
+                    placeholder="请输入密码" 
+                    v-model="admin.password.value"/>
                     <i class="rsiconfont" :class="admin.password.iconClass" @click="changePasswordState"></i>
                 </label>
             </form>
@@ -25,7 +36,7 @@
 
 <script>
 import CommonHeader from '@/components/common-header'
-
+import zh_CN from "vee-validate/dist/locale/zh_CN";
 export default {
     name:'login',
     data(){
@@ -55,18 +66,36 @@ export default {
     components: {
         CommonHeader
     },
+    created() {     
+        this.$validator.localize("zh_CN");
+    },
     methods:{
         login(){
+            //console.log(this.errors.all(),this.errors.has('account'),this.errors.first('account'),this.errors,this.$validator.validateAll());
+            // let account = this.$validator.fields.find({ name: 'account' });
+            // this.$validator.validate('account').then((msg)=>{})
+
             this.$validator.validateAll().then((msg)=>{
                 if(msg){
-                alert('验证成功！');
+                    this.$toast({
+                        message: '提交成功'+this.admin.account.value+'---'+this.admin.password.value,
+                        type: 'warning'
+                    });
                 }else{
-                this.$toast({
-                    message: '填写不完整！',
-                    type: 'warning'
-                });
+                    let list = this.errors.all();
+                    console.log(list,'list',list[0])
+                    let msg = '请正确填写信息';
+                    if(list[0] !== "validation.messages._default"){
+                        msg = list[0];
+                    }
+                    this.$toast({
+                        message: msg,
+                        type: 'warning'
+                    });
+                   
                 }
             })
+            
             // this.$messagebox('121')
             // this.$MassageBox('提示信息');
             // Toast('提示信息');
@@ -112,6 +141,11 @@ export default {
     line-height: 88px;    
     border-radius: 10px;
     overflow: hidden;
+    box-sizing: content-box;
+}
+
+.login-form label.error{
+    border: 1px solid #fa4d3e;
 }
 
 .login-form label input{

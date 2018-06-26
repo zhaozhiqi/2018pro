@@ -2,13 +2,23 @@
     <div id="login">
         <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
         <main class="main">
-            <form class="login-form" action="">
-                <label >
+            <form class="register-form" action="">
+                <label :class="{'error':errors.has('phone')}">
                     <span class="phoneFirst">+86</span>
-                    <input type="text" name="" id="" placeholder="请输入手机号" />
+                    <input 
+                    type="text" 
+                    v-validate ="'required|phone'" 
+                    name="phone" 
+                    placeholder="请输入手机号" 
+                    v-model="admin.phone"/>
                 </label>
-                <label >                    
-                    <input type="number" name="code" class="codeInt" placeholder="请输入验证码" :maxlength="getCodeObj.long" />
+                <label :class="{'error':errors.has('code')}">                    
+                    <input type="number" 
+                    v-validate ="'required|numeric|digits:6'" 
+                    name="code" 
+                    class="codeInt" 
+                    placeholder="请输入验证码" 
+                    v-model="admin.code" />
                     <div class="getCode" @click="getCode">{{getCodeObj.text}}</div>
                 </label>
             </form>
@@ -46,7 +56,11 @@ export default {
                 long: 6,
                 state:true,
                 text:'获取验证码'
-            }  
+            },
+            admin:{
+                phone:null,
+                code:null
+            }
         }
     },
     components: {
@@ -57,7 +71,25 @@ export default {
     },
     methods:{
         register(){
-            console.log('register')
+             this.$validator.validateAll().then((msg)=>{
+                if(msg){
+                    this.$toast({
+                        message: '提交成功'+this.admin.phone+'---'+this.admin.code,
+                        type: 'warning'
+                    });
+                }else{
+                    let list = this.errors.all();
+                    let msg = '请正确填写信息';
+                    if(list[0] !== "validation.messages._default"){
+                        msg = list[0];
+                    }
+                    this.$toast({
+                        message: msg,
+                        type: 'warning'
+                    });
+                   
+                }
+            })
         },
         getCode(){
             if(this.getCodeObj.state){
@@ -100,11 +132,11 @@ export default {
     padding: 0 20px;
 }
 
-.login-form{
+.register-form{
     padding: 0;
 }
 
-.login-form label{
+.register-form label{
     position: relative;
     display: block;
     margin: 30px 0 0;
@@ -114,7 +146,12 @@ export default {
     overflow: hidden;
 }
 
-.login-form label input{
+.register-form label.error{
+    border: 1px solid #fa4d3e;
+}
+
+
+.register-form label input{
     display: block;
     width: 100%;
     height: 100%;
@@ -124,7 +161,7 @@ export default {
     /* background-color: rgb(250, 255, 189); */
 }
 
-.login-form label .codeInt{
+.register-form label .codeInt{
     text-indent: 20px;
 }
 

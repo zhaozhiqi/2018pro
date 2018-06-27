@@ -22,7 +22,7 @@
 		<div id="main">
 			<aside class="product-brands">
 				<ul>
-					<li class="product-brands-item active" >全部<li>
+					<li class="product-brands-item " :class="{'active':true}" >全部<li>
 					<li class="product-brands-item" v-for="(item, index) in 20" 
 					:key="index" 
 					>日耳曼战车</li>

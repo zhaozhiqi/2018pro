@@ -6,11 +6,11 @@
             <div v-else class="addressItem" v-for="(item, index) in addressList" :key="index" >
                 <!-- <h3>送至：{{item.deliveryAddress}}</h3>  -->
                 <div><p><label>收货人：{{item.userName}}</label><span>{{item.userPhone}}</span></p> <span>收货地址：{{item.region.value}}  {{item.detailedAddress}}</span></div> 
-                <p><a @click="delConfirm(item.id)"><i class="rsiconfont rsicon-shanchu"></i>删除</a> <router-link :to="{path:'/addAddress', query: { id: item.id }}"><i class="rsiconfont rsicon-bianji"></i>编辑</router-link></p>
+                <p><a @click="delConfirm(item.id)"><i class="rsiconfont rsicon-shanchu"></i>删除</a> <router-link :to="{path:'/editAddress', query: { id: item.id }}"><i class="rsiconfont rsicon-bianji"></i>编辑</router-link></p>
             </div>
         </main>
         <footer class="addressFooter">
-            <router-link :to="{path:'/addAddress', query: { id: 'add' }}">+ 新增收货地址</router-link>
+            <router-link :to="{path:'/editAddress', query: { id: 'add' }}">+ 新增收货地址</router-link>
         </footer>
     </div>
 </template>

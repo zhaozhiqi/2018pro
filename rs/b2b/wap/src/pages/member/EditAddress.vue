@@ -60,7 +60,7 @@ import Nodata from '@/components/nodata';
 import threeLevelAddress from '@/pages/member/threeLevelAddress.json'
 
 export default {
-    name:"AddAddress",
+    name:"EditAddress",
     data(){
         return {
             nodataObj:{

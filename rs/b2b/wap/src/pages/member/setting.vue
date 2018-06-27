@@ -40,6 +40,13 @@ export default {
                     setLink:""                    
                 },
                 {
+                    setTitle:"收货地址",
+                    setCon:"",
+                    setIconShow: true,
+                    setRouter: true,
+                    setLink:"/Address"                    
+                },
+                {
                     setTitle:"关于我们",
                     setCon:"",
                     setIconShow: true,

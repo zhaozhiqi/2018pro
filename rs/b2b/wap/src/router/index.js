@@ -11,7 +11,7 @@ import ResetPass from '@/pages/ResetPass'
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
 import Address from '@/pages/member/Address'
-import AddAddress from '@/pages/member/AddAddress'
+import EditAddress from '@/pages/member/EditAddress'
 import Setting from '@/pages/member/Setting'
 import AboutUs from '@/pages/member/AboutUs'
 
@@ -96,11 +96,11 @@ export default new Router({
       }
     },
     {
-      path: '/AddAddress',
-      name: 'AddAddress',
-      component: AddAddress,
+      path: '/EditAddress',
+      name: 'EditAddress',
+      component: EditAddress,
       meta: {
-        title: "新增收货地址"
+        title: "编辑收货地址"
       }
     },
     {

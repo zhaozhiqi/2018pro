@@ -7,7 +7,7 @@ import axios from 'axios'
 import Vuex from 'vuex'
 import VueLazyload from 'vue-lazyload'
 import MintUI from 'mint-ui';
-import 'mint-ui/lib/style.css'
+// import 'mint-ui/lib/style.css'
 Vue.use(MintUI);
 Vue.use(Vuex);
 //表单验证

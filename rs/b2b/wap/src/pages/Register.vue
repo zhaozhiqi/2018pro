@@ -218,7 +218,7 @@ export default {
 }
 
 .menu{
-
+    overflow: hidden;
 }
 
 .menu a{

@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
+        <CommonHeader :commonHeaderObj="commonHeaderObj" v-on:otherClick="comHeaderOtherClick"></CommonHeader>
         <main class="main">
             <form class="register-form" action="">
                 <label :class="{'error':errors.has('phone')}">
@@ -41,16 +41,23 @@
                 </label>
 
             </form>
-            <div class="treaty">
-                <input type="checkbox" v-model="treatyState" />
-                同意
-                <router-link to="/treaty">用户注册协议</router-link>
-            </div>
-            <button class="registerBtn" @click="register">登录</button>
+            <button class="resetPassBtn" @click="resetPass">确定修改</button>
             <div class="menu">
                 <router-link to="/login">账号密码登录</router-link>
             </div>
         </main>
+        <section class="popup-center" v-show="popupCenterState">
+            <div class="explain">
+                <h3>找回密码说明</h3>
+                <div class="con">
+                    <h4><i class="rsiconfont rsicon-shouji"></i>手机找回密码</h4>
+                    <p>通过官网绑定手机号码，获取验证码后，直接重置新密码；</p>
+                    <h4><i class="rsiconfont rsicon-dianhuahover"></i>客服电话找回</h4>
+                    <p>如果忘记手机号码，请拨打<b>400-999-1919</b>通过人工坐席进行重置</p>
+                </div>
+                <div class="closeBtn" @click="closePopupCenter">知道了</div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -66,11 +73,11 @@ export default {
                     color:"#333",
                     backgroundColor:"#fff"
                 },
-                title: "快速登录/注册",
-                isOtherShow: false,
-                otherIconClass: "rsicon-gengduo"
+                title: "重置密码",
+                isOtherShow: true,
+                otherLink: {},
+                otherIconClass: "rsicon-wenhao"
             },
-            treatyState:true,
             getCodeObj:{
                 long: 6,
                 state:true,
@@ -82,7 +89,7 @@ export default {
                 password:null,
                 passwordAgain:null
             },
-            _time:null
+            popupCenterState:true
         }
     },
     components: {
@@ -92,7 +99,10 @@ export default {
         clearInterval(this._time)
     },
     methods:{
-        register(){
+        comHeaderOtherClick(param){
+            this.popupCenterState = true
+        },
+        resetPass(){
              this.$validator.validateAll().then((msg)=>{
                 if(msg){
                     this.$toast({
@@ -135,6 +145,9 @@ export default {
                     clearInterval(that._time);
                 }
             },1000)
+        },
+        closePopupCenter(){
+            this.popupCenterState = false;
         }
     }
 }
@@ -210,7 +223,7 @@ export default {
 }
 
 
-.registerBtn{
+.resetPassBtn{
     text-align: center;
     line-height: 90px;
     height: 90px;
@@ -240,7 +253,7 @@ export default {
 }
 
 .menu{
-
+    overflow: hidden;
 }
 
 .menu a{
@@ -250,4 +263,59 @@ export default {
     margin-top: 40px;
 }
 
+
+.explain{
+    top: 25%;
+    width: 86%;
+    margin-left: -43%;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+.explain h3{
+    height: 92px;
+    line-height: 92px;
+    text-align: center;
+    color: #1655bf;
+    font-size: 30px;
+    border-bottom: 1px solid #efefef;
+}
+.explain div{
+    padding: 10px 3% 0;
+}
+.explain .rsicon-shouji,.explain .rsicon-dianhuahover{
+    font-size: 40px;
+    margin-right: 10px;
+}
+.explain .rsicon-shouji{
+    color: #ffa349;
+}
+.explain .rsicon-dianhuahover{
+    color: #57c576;
+}
+.explain div h4{
+    color: #000;
+    font-size: 30px;
+}
+.explain div p{
+    line-height: 40px;
+    color: #999;
+    margin-bottom: 10px;
+    margin-left: 46px;
+    font-size: 26px;
+}
+.explain div p b{
+    color: #1655bf;
+}
+.explain .closeBtn{
+    padding: 0;
+    margin: 20px;
+    height: 76px;
+    line-height: 76px;
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: #1655bf;
+    font-size: 28px;
+    border-radius: 10px;
+}
 </style>

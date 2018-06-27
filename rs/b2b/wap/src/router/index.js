@@ -10,6 +10,8 @@ import ResetPass from '@/pages/ResetPass'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
+import Address from '@/pages/member/Address'
+import AddAddress from '@/pages/member/AddAddress'
 import Setting from '@/pages/member/Setting'
 import AboutUs from '@/pages/member/AboutUs'
 
@@ -78,19 +80,27 @@ export default new Router({
       }
     },
     {
-      path: '/Register',
-      name: 'Register',
-      component: Register,
-      meta: {
-        title: "快速登录/注册"
-      }
-    },
-    {
       path: '/ResetPass',
       name: 'ResetPass',
       component: ResetPass,
       meta: {
         title: "重置密码"
+      }
+    },
+    {
+      path: '/Address',
+      name: 'Address',
+      component: Address,
+      meta: {
+        title: "收货地址管理"
+      }
+    },
+    {
+      path: '/AddAddress',
+      name: 'AddAddress',
+      component: AddAddress,
+      meta: {
+        title: "新增收货地址"
       }
     },
     {

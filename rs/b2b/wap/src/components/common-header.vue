@@ -2,7 +2,9 @@
     <header class="commonHeader" :style="commonHeaderObj.bgStyle">
         <span class="goBack item" @click="goBack" ><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
         <h2>{{commonHeaderObj.title}}</h2>
-        <span class="other item" v-show="commonHeaderObj.isOtherShow" @click="goOther(commonHeaderObj.otherLink)"><i class="rsiconfont" :class="commonHeaderObj.otherIconClass"></i></span>
+        <span class="other item" v-show="commonHeaderObj.isOtherShow" @click="goOther(commonHeaderObj.otherLink)">
+            <i class="rsiconfont" :class="commonHeaderObj.otherIconClass" @click="childrenClick"></i>
+        </span>
     </header>
 </template>
 
@@ -30,7 +32,7 @@ export default {
     },
     data(){
         return {
-
+            
         }
     },
     methods:{
@@ -39,6 +41,9 @@ export default {
         },
         goOther(link){
             this.$router.push(link)
+        },
+        childrenClick(){
+            this.$emit('otherClick','childParam'); 
         }
     }
 }
@@ -83,5 +88,8 @@ export default {
 }
 .commonHeader .goBack i{
 	font-size: 28px;
+}
+.commonHeader .rsicon-wenhao{
+	font-size: 40px;
 }
 </style>

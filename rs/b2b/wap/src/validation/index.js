@@ -21,7 +21,10 @@ const Veeconfig = {
               email:'邮箱',
               password:'密码',
               phone: '手机号',
-              account:'账号'
+              account:'账号',
+              name: '姓名',
+              region: '地址',
+              detailedAddress: '详细地址'
           }
       }
     }    

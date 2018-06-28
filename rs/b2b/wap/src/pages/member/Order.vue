@@ -8,11 +8,11 @@
 		<CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
 		<div class="orderMenu">
 			<nav>
-				<div class="orderItem" v-for="(item, index) in orderTabList" :key="index" :class="{active:item.isActive}" @click="orderTabClick(item.id)">{{item.name}}</div>
+				<div class="orderItem" v-for="(item, index) in orderTabList" :key="index" :class="{'active':item.id === orderTabActive}" @click="orderTabClick(item.id)">{{item.name}}</div>
 			</nav>
 		</div>
 		<main class="main">
-			<div class="orderItem" v-for="(itemI, index) in orderList" :key="index" v-show="itemI.isActive">
+			<div class="orderItem" v-for="(itemI, index) in orderList" :key="index" v-show="itemI.orderType == orderTabActive" >
 				<Nodata :nodata="nodataObj" v-if="itemI.list.length <= 0"></Nodata>
 				<div class="orderItemCon" v-for="(itemII, index) in itemI.list" :key="index" :state="itemII.stateName" v-else>
 					<div class="itemTitle"><i class="rsiconfont rsicon-dianpu"></i> <b>{{itemII.storeName}}</b> <span>{{itemII.stateName}}</span></div>
@@ -57,379 +57,30 @@ export default {
 			orderTabList:[
 				{
 					name:"全部订单",
-					id:"allOrder",
-					isActive:true
+					id:"allOrder"
 				},
 				{
 					name:"待付款",
-					id:"payOrder",
-					isActive:false
+					id:"payOrder"
 				},
 				{
 					name:"待发货",
-					id:"sendOrder",
-					isActive:false
+					id:"sendOrder"
 				},
 				{
 					name:"待收货",
-					id:"receiveOrder",
-					isActive:false
+					id:"receiveOrder"
 				},
 				{
 					name:"待评价",
-					id:"estimateOrder",
-					isActive:false
+					id:"estimateOrder"
 				},
 				{
 					name:"退货/售后",
-					id:"refundOrder",
-					isActive:false
+					id:"refundOrder"
 				}
 			],
-			orderList:[
-				{
-					orderType:"allOrder",
-					isActive: true,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"1",
-							stateName:"待付款",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"1",
-							stateName:"待付款",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-				{
-					orderType:"payOrder",
-					isActive: false,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"1",
-							stateName:"待付款",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"1",
-							stateName:"待付款",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-				{
-					orderType:"sendOrder",
-					isActive: false,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"2",
-							stateName:"待发货",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"2",
-							stateName:"待发货",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-				{
-					orderType:"receiveOrder",
-					isActive: false,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"3",
-							stateName:"待收货",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"3",
-							stateName:"待收货",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-				{
-					orderType:"estimateOrder",
-					isActive: false,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"4",
-							stateName:"待评价",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"4",
-							stateName:"待评价",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-				{
-					orderType:"refundOrder",
-					isActive: false,
-					button:[
-						{
-							name:"取消订单",
-							link:"/CancelOrder"
-						},
-						{
-							name:"去支付",
-							link:"/PayOrder"
-						}
-					],
-					list:[
-						{							
-							state:"5",
-							stateName:"退货/售后",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817M",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								},
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:4,
-							orderMoney:1200
-						},
-						{	
-							state:"5",
-							stateName:"退货/售后",
-							storeName:"二哈宠物商城",
-							orderId:"B2CK18062205817L",
-							productList:[
-								{
-									proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
-									proName:"荐形容的狠货厚高的工人的",
-									proPrice:1,
-									proNum:2,
-									proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
-								}
-							],
-							proAllNum:2,
-							orderMoney:600
-						}
-					]
-				},
-			]
+			orderList:[]
 		}
 	},
 	components: {
@@ -438,8 +89,11 @@ export default {
 	},
 	mounted(){
 		this.userId = this.$route.params.userId;
-		this.orderTabActive = this.$route.params.orderTabActive;
-		this.orderTabClick(this.orderTabActive);
+		if(this.$route.params.orderTabActive!==undefined){
+			this.orderTabActive = this.$route.params.orderTabActive;
+		}
+		this.orderList = this.$store.state.orderList;
+
 	},
 	filters: {
 		getNum: function (value) {
@@ -455,25 +109,7 @@ export default {
 		},
 		orderTabClick(type){
 			this.orderTabActive = type;
-			this.orderTabList.forEach((index)=>{
-				if(index.id == this.orderTabActive){
-					index.isActive = true;
-				}else{
-					index.isActive = false;
-				}
-			})
-			this.orderMainChange()
 		},
-		orderMainChange(){
-			this.orderList.forEach((item)=>{
-				if(this.orderTabActive === item.orderType){
-					item.isActive = true
-				}else{
-					item.isActive = false
-				}
-				
-			})
-		}
 	}
 };
 </script>

@@ -92,9 +92,16 @@ export default {
 	},
 	mounted(){
 		this.orderMenuList.forEach((item)=>{
-			let typeName = item.type
-			let num = this.$store.state.order[typeName].num
-			item.num = num
+			let typeName = item.type;
+			let orderList = this.$store.state.orderList;
+			orderList.forEach((index)=>{
+				if(typeName === index.orderType){
+					let num = index.orderCount
+					item.num = num
+					return
+				}
+			})
+			
 		})
 	},
 	methods:{

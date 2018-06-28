@@ -4,7 +4,7 @@
             <router-link :to="item.link" class="item" v-for="(item, index) in footerMenu" :key="index"  :class="[{'inactive':inactive==item.inactive},item.className]">
                 <span :class="item.spanClassName"></span>
                 <span class="label">{{item.name}}</span>
-                <em class="num" v-show="item.num>0 && item.className == 'a-cart'">{{item.num}}</em>
+                <em class="num" v-show="cartCount>0 && item.className == 'a-cart'">{{cartCount}}</em>
             </router-link>
         </nav>
     </footer>
@@ -14,7 +14,6 @@
 export default {
     data(){
         return {
-            cartCount:null,
             footerMenu:[
                 {
                     name:'首页',
@@ -42,8 +41,7 @@ export default {
                     inactive:'Cart',
                     link:'/cart',
                     className:'a-cart',
-                    spanClassName:'nav-cart',
-                    num:null
+                    spanClassName:'nav-cart'
                 },
                 {
                     name:'我',
@@ -60,12 +58,12 @@ export default {
     mounted(){
         let to = this.$route.name;
         this.inactive = to;
-        this.footerMenu.forEach((item)=>{
-            if(item.className === 'a-cart'){
-                item.num = this.$store.state.cartCount;
-            }
-        })
-    }
+    },
+	computed: {
+		cartCount(){
+			return this.$store.state.cartCount;
+		}
+	},
 }
 </script>
 

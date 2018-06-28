@@ -1,8 +1,8 @@
 <template>
 	<div id="cart">
-		<main class="main">
+		<main class="main" :class="{'noGoods':cartList.length <= 0}">
 			<CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
-			<div class="car-empty" v-if="hasGoods">
+			<div class="car-empty" v-if="cartList.length <= 0">
 				<i class="ico-car"></i>
 				<p>亲，购物车空空如也，快去逛逛</p>
 				<router-link to="/classify" class="link">看酒去</router-link>        
@@ -45,26 +45,26 @@
 						</ul>
 					</div>
 				</div>
+				<footer class="footer">
+					<div class="innter">
+						<span class="wi-qu-inp">
+							<input type="checkbox" :checked="checkAllFlag" @click="toggleCheckAll"/>
+						</span>
+						<span class="leftTitle">全选</span>
+						<span class="leftSolid"></span>
+						<div class="con">
+							<p>合计：<b>¥ </b><b>{{totalPrice}}</b></p>
+							<p>(不含运费)</p>
+						</div>
+						<button class="settlement" v-show="hasProChecked">结算</button>
+						<button class="noSettlement" v-show="!hasProChecked">结算</button>
+						<!-- <button class="Settlement">结算</button> -->
+					</div>
+				</footer>
 			</div>
 			<div class="car-hot-recommend">热门推荐</div> 
 			<TypeGoodsList class=""/>
 		</main>
-		<footer class="footer">
-			<div class="innter">
-				<span class="wi-qu-inp">
-					<input type="checkbox" :checked="checkAllFlag" @click="toggleCheckAll"/>
-				</span>
-				<span class="leftTitle">全选</span>
-				<span class="leftSolid"></span>
-				<div class="con">
-					<p>合计：<b>¥ </b><b>{{totalPrice}}</b></p>
-					<p>(不含运费)</p>
-				</div>
-				<button class="settlement" v-show="hasProChecked">结算</button>
-				<button class="noSettlement" v-show="!hasProChecked">结算</button>
-				<!-- <button class="Settlement">结算</button> -->
-			</div>
-		</footer>
 		<Footer />
 	</div>
 </template>
@@ -81,7 +81,6 @@ export default {
 	name: 'Cart',
 	data(){
 		return {
-			hasGoods: false,
 			carCaptionShow: true,
 			cartList:[],
 			delItem:{},
@@ -154,16 +153,27 @@ export default {
 	methods:{
 		delCart(item, parentItem) {//删除购物车商品
 			this.delItem = item;
+			let num = -item.proNum;
 			parentItem.list.forEach((_item, index)=>{
 				if(_item.proId === item.proId){
 					parentItem.list.splice(index,1);
+					this.$store.commit('updateCartCount',num)
+					if(parentItem.list.length <= 0){
+						this.delCartStore(parentItem)
+					}					
+				}
+			})			
+		},
+		delCartStore(parentItem) {//删除购物车商铺
+		console.log(this.cartList)
+			this.cartList.forEach((item, index)=>{
+				if(item.storeId === parentItem.storeId){
+					this.cartList.splice(index,1);
 				}
 			})
-			
 		},
         editCart(flag, item, parentItem) {
-            let num = 0;
-				
+            let num = 0;				
             if(flag == 'storeChecked'){//店铺全选按钮点击事件
 					let state = item.checked === true?false:true;
 					item.list.forEach((index) => {
@@ -174,15 +184,17 @@ export default {
                 item.checked = item.checked== true?false:true;
 					 this.storeCheckedListen(parentItem);
             } else if(flag == 'add') {
-					console.log(item.proNum)
+				console.log(item.proNum)
                 item.proNum++;
-					 num = 1;
+				num = 1;
+				this.$store.commit('updateCartCount',num)
             } else {
                 if(item.proNum <= 1) {
                     return
                 }
                 item.proNum--;
-                num = -1;
+				num = -1;
+				this.$store.commit('updateCartCount',num)
             }
 
             // axios.post("/users/cartEdit", {
@@ -247,6 +259,9 @@ export default {
 	overflow: auto;
 }
 
+.main.noGoods{
+	bottom: 100px;
+}
 /*空购物车时显示*/
 .car-empty{
 	padding: 60px 0;

@@ -73,8 +73,7 @@ export default {
 		mint:null,
 		swipe:null,
 		mt:null,
-		item:null,
-		cartCount:null,
+		item:null,		
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
@@ -117,7 +116,12 @@ export default {
 		TypeGoodsList
 	},
 	mounted(){
-		this.cartCount = this.$store.state.cartCount;
+		
+	},
+	computed: {
+		cartCount(){
+			return this.$store.state.cartCount;
+		}
 	},
 	methods:{
 		editSaleNum(flag) {

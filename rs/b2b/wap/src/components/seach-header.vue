@@ -1,11 +1,11 @@
 <template>
     <header id="header" ref="header" :class="{fixedHeader:fixed}">
-        <nav>
+        <router-link to="/seach" class="nav">
             <span id="pos_address">滨江区海康威视园区</span>
             <p id="search_shop">
                 <span class="ico-search">拉维亭</span>            
             </p>
-        </nav>
+        </router-link>
         <p class="msgage">
             <a href="#/memmber-msg?tab=index" class="ico-msg"></a>
         </p>
@@ -61,7 +61,7 @@ export default {
     background: #1655bf;
 }
 
-#header nav {
+#header .nav {
     width: 100%;
     height: 60px;
     line-height: 60px;
@@ -73,7 +73,7 @@ export default {
     overflow: hidden;
 }
 
-#header nav #pos_address {
+#header .nav #pos_address {
     width: 140px;
     color: #333;
     background-color: #efefef;
@@ -84,7 +84,7 @@ export default {
     text-overflow: ellipsis;            
 }
 
-#header nav .ico-search {
+#header .nav .ico-search {
     color: #666;
     display: inline-block;
     height: 100%;

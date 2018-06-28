@@ -12,20 +12,22 @@
 				</nav>
 			</div>
 			<div class="product-catalog">
-				<nav>
-					<div class="product-catalog-item"><span>综合</span></div>
-					<div class="product-catalog-item"><span>销量</span></div>
-					<div class="product-catalog-item shengjia"><span>价格</span><i class="ico-price"></i></div>
-				</nav>
+				<ul>
+					<li :class="{'active':sortObj.sortActive == 'default'}" @click="changeSortActive('default')">综合排序</li> 
+					<li :class="{'active':sortObj.sortActive == 'sales'}" @click="changeSortActive('sales')"><span>销量</span><input type="hidden" value=""></li> 
+					<li :class="{'active':sortObj.sortActive == 'price'}" @click="changeSortActive('price')"><span>价格</span> <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i></li>
+				</ul>
 			</div>
 		</header>   
 		<div id="main">
 			<aside class="product-brands">
 				<ul>
-					<li class="product-brands-item " :class="{'active':true}" >全部<li>
+					<li class="product-brands-item " :class="{'active': -1 == productBrandsIndex}" @click="changeProductBrands(-1)">全部<li>
 					<li class="product-brands-item" v-for="(item, index) in 20" 
 					:key="index" 
-					>日耳曼战车</li>
+					:class="{'active':index == productBrandsIndex}"
+					@click="changeProductBrands(index)"
+					>日耳曼战车{{index}}</li>
 				</ul>
 			</aside>
 			<TypeGoodsList :proinfo="proinfo" class="proList" /> 
@@ -46,6 +48,11 @@ export default {
 		return {
 			bannerStyle:{
 				backgroundColor: '#1655bf'
+			},
+			sortObj:{
+				sortActive: "default",
+				sortPriceIcon:"rsicon-shengxu",
+				sortSequence:"as-order",//"as-order"
 			},
 			typeIList:[
 				{ id:1,type:"1",name:"白酒",isActive:true,
@@ -88,6 +95,7 @@ export default {
 				{ id:11,type:"11",name:"酒具",isActive:false,proList:[]},
 				{ id:12,type:"12",name:"其他",isActive:false,proList:[]}
 			],
+			productBrandsIndex:-1,
 			proinfo: []
 		}
 	},
@@ -108,6 +116,27 @@ export default {
 			this.typeIList[_index].isActive = true;
 			let id = this.typeIList[_index].id;
 			return id;
+		},
+		changeProductBrands(index){
+			this.productBrandsIndex = index;
+			console.log(this.productBrandsIndex,'index')
+		},
+		changeSortActive(index){
+			if(index === 'price'){
+				if(this.sortObj.sortActive !== 'price'){
+					this.sortObj.sortActive = 'price';
+				}else{
+					if(this.sortObj.sortSequence === "de-order"){
+						this.sortObj.sortSequence = "as-order"//升序
+						this.sortObj.sortPriceIcon = "rsicon-shengxu"
+					}else{
+						this.sortObj.sortSequence = "de-order"//降序
+						this.sortObj.sortPriceIcon = "rsicon-jiangxu"
+					}
+				}
+			}else{
+				this.sortObj.sortActive = index;
+			}			
 		},
 		getProIbnfo(index){
 			let _id = this.checkTypeI(index);
@@ -171,35 +200,24 @@ export default {
 	vertical-align: middle;
 	border-bottom: 2px solid #efefef;
 }
-.product-catalog nav{
+.product-catalog>ul{
 	display: flex;
 	flex-direction: row;
 }
 
-.product-catalog nav .product-catalog-item{
+.product-catalog>ul>li{
 	flex: 1;
 	height: 79px;
 }
 
-.ico-price{
-		width: 24px;
-		height: 24px;
-		background-image: url("../../static/images/public/price.png");
-		background-repeat: no-repeat;
-		display: inline-block;
-		position: relative;
-		top: 2px;
-		left: 2px;
-		
-		background-size: 100%;
+.product-catalog>ul>li.active{
+	color: #1655bf;
 }
 
-.shengjia>.ico-price{
-	background-image: url("../../static/images/public/price1.png");
+.product-catalog>ul>li>i{
+	font-size: 30px;
 }
-.sjiangjia>.ico-price{
-	background-image: url("../../static/images/public/price2.png");
-}
+
 /*  end 产品筛查  II级菜单-上*/
 /*start 内容滚动区域*/
  #main{

@@ -3,7 +3,7 @@
 	 <div class="main">
 		<div class="banner" w-750-750 aspectratio aspect-ratio="750/750">
 		  <div aspectratio-content>
-			 <span class="goBack" @click="back"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
+			 <span class="goBack" @click="goback"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
 			 <router-link to="/Cart" class="goCart"><i class="rsiconfont rsicon-31gouwuche"></i></router-link>
 			 <mt-swipe :class="mint-swipe" :auto="0" :speed="400">
 				<mt-swipe-item :class="mt-swipe-item" v-for="(slider, index) in productInfo.proBannerList" :key="index"><img :src="slider.style.sliderImg" /></mt-swipe-item>
@@ -46,10 +46,11 @@
 				</div>
 				<router-link to="/Cart" class="btm-II">
 				  <i class="rsiconfont rsicon-31gouwuche"></i>购物车
+					<em class="num" v-show="cartCount > 0">{{cartCount}}</em>
 				</router-link>
 			 </div>
 			 <div class="btm-I">
-				<div class="btm-III buyCart">
+				<div class="btm-III buyCart" @click="addCart">
 					加入购物车
 				</div>
 				<div class="btm-III buyNow">
@@ -69,6 +70,11 @@ export default {
   data() {
 	 return {
 		message: '',
+		mint:null,
+		swipe:null,
+		mt:null,
+		item:null,
+		cartCount:null,
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
@@ -107,8 +113,11 @@ export default {
 		}
 	 }
   },
-   components: {
+  components: {
 		TypeGoodsList
+	},
+	mounted(){
+		this.cartCount = this.$store.state.cartCount;
 	},
 	methods:{
 		editSaleNum(flag) {
@@ -116,16 +125,22 @@ export default {
 				if(flag == 'add') {
 						this.productInfo.saleNum++;
 						num = 1;
-            }else if(flag == 'minu') {
+        }else if(flag == 'minu') {
 					if(this.productInfo.saleNum <= 1) {
 						return
 					}
 					this.productInfo.saleNum--;
 					num = -1;
-            }
+        }
 		  },
-		   back(){
-				window.history.go(-1)
+		  goback(){
+				this.$store.commit('goback')
+			},
+			addCart(){
+				let num = this.productInfo.saleNum
+				let pro = this.proStore
+				this.$store.commit('updateCartCount',num)
+				console.log(num,'num')
 			}
 	}
 };
@@ -340,6 +355,7 @@ span.labelty {
 }
 
 .footer .btm nav .btm-II{
+	position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -349,6 +365,21 @@ span.labelty {
 }
 .footer .btm nav .btm-II .rsiconfont{
   font-size: 40px;
+}
+.footer .btm nav .btm-II>em{
+    position: absolute;
+		top: 0;
+		right: 10%;
+		display: block;
+		width:30px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		background-color: #fa4d3e;
+		font-size: 22px;
+		color: #fff;
+		border-radius: 50%;
+		overflow: hidden;
 }
 .footer .btm nav .btm-III{
   flex: 1;

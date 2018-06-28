@@ -91,7 +91,11 @@ export default {
 		Footer
 	},
 	mounted(){
-		console.log(this.$store.state.cartCount)
+		this.orderMenuList.forEach((item)=>{
+			let typeName = item.type
+			let num = this.$store.state.order[typeName].num
+			item.num = num
+		})
 	},
 	methods:{
 

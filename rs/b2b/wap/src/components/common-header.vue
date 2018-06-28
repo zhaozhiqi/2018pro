@@ -37,7 +37,7 @@ export default {
     },
     methods:{
         goBack(){
-            window.history.go(-1)
+            this.$store.commit('goback')
         },
         goOther(link){
             this.$router.push(link)

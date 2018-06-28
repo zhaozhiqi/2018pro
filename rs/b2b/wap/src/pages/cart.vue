@@ -26,11 +26,11 @@
 						<ul>
 							<li v-for="(listItem, index) in storeItem.list" :key="index">
 								<span class="wis-que-checkbox"><input type="checkbox" :checked="listItem.checked" value="1016790" @click="editCart('checked', listItem , storeItem)"></span> 
-								<a href="#/product-details/?id=451686176875638784&amp;vendorType=TYPE_B" class="fl">
+								<router-link :to="{path:'/product', query: { id: listItem.proId }}" class="fl">
 									<figure><img class="goodsImg" src="https://1919-new-bbc-pro.oss-cn-beijing.aliyuncs.com/1a665fe8-dc80-4c96-9f86-825a1d698c24"></figure>
-								</a> 
+								</router-link> 
 								<div class="right">
-									<a href="#/product-details/?id=451686176875638784&amp;vendorTypes=TYPE_B" class="goodsLink">{{listItem.proName}}</a> 
+									<router-link :to="{path:'/product', query: { id: listItem.proId }}" class="goodsLink">{{listItem.proName}}</router-link> 
 									<div class="goodsEdit">
 										<label class="goodsPrice"><b>¥ </b>408.70</label>
 										<div class="goodsNumbox" value="1">
@@ -83,38 +83,7 @@ export default {
 		return {
 			hasGoods: false,
 			carCaptionShow: true,
-			cartList:[
-				{
-					storeId:"00001",
-					storeName:"三只松鼠",
-					storeIink:"/index",
-					checked:false,
-					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:1,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
-					]
-				},
-				{					
-					storeId:"00001",
-					storeName:"三只松鼠",
-					storeIink:"/index",
-					checked:false,				
-					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
-					]
-				},
-				{					
-					storeId:"00001",
-					storeName:"三只松鼠",
-					storeIink:"/index",
-					checked:false,					
-					list : [
-						{checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-						{checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
-					]
-				},
-			],
+			cartList:[],
 			delItem:{},
 			commonHeaderObj: {
                 bgStyle: {
@@ -136,8 +105,11 @@ export default {
 		TypeGoodsList,
 		Footer
 	},
+	created(){
+		console.log('created')
+	},
 	mounted(){
-		console.log('mounted')
+		this.cartList = this.$store.state.cartList;
 	},
 	filters: {
 		getNum: function (value) {

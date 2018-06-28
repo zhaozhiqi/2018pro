@@ -20,7 +20,56 @@ const store = new Vuex.Store({
   state: {
     login:false,
     nickName:'',
-    cartCount:10
+    cartCount:6,
+    cartList:[
+      {
+        storeId:"00001",
+        storeName:"三只松鼠",
+        storeIink:"/index",
+        checked:false,
+        list : [
+          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:1,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+        ]
+      },
+      {					
+        storeId:"00001",
+        storeName:"三只松鼠",
+        storeIink:"/index",
+        checked:false,				
+        list : [
+          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+        ]
+      },
+      {					
+        storeId:"00001",
+        storeName:"三只松鼠",
+        storeIink:"/index",
+        checked:false,					
+        list : [
+          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+        ]
+      },
+    ],
+    order:{
+      payOrder:{
+        num:2
+      },
+      sendOrder:{
+        num:2
+      },
+      receiveOrder:{
+        num:3
+      },
+      estimateOrder:{
+        num:4
+      },
+      refundOrder:{
+        num:5
+      },
+    }
   },
   mutations: {
     //更新用户信息
@@ -32,6 +81,9 @@ const store = new Vuex.Store({
     },
     initCartCount(state,cartCount){
       state.cartCount = cartCount;
+    },
+    goback(){
+      window.history.go(-1)
     }
   }
 });

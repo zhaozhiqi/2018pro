@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import Classify from '@/pages/Classify'
 import Cart from '@/pages/Cart'
 import Member from '@/pages/Member'
+import Seach from '@/pages/Seach'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import ResetPass from '@/pages/ResetPass'
@@ -61,6 +62,22 @@ export default new Router({
       component: Member,
       meta: {
         title: "个人中心"
+      }
+    },
+    {
+      path: '/Seach',
+      name: 'Seach',
+      component: Seach,
+      meta: {
+        title: "搜索"
+      }
+    },
+    {
+      path: '/Product',
+      name: 'Product',
+      component: Product,
+      meta: {
+        title: "产品"
       }
     },
     {

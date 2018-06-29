@@ -21,6 +21,59 @@ const store = new Vuex.Store({
     login:false,
     nickName:'',
     cartCount:11,
+    addressList:[
+        {
+          detailedAddress:"百得利大厦十二楼",
+          otherAddress:"other",
+          userName:"赵志启....",
+          userPhone:"15584461111",
+          userSex:"man",
+          id:0,
+          region:{
+              value:"浙江省杭州市滨江区",
+              province:null,
+              city:null,
+              county:null,
+              provinceCode:null,
+              cityCode:null,
+              countyCode:123456789
+          }                    
+        },
+        {
+          detailedAddress:"百得利大厦十二楼",
+          otherAddress:"other",
+          userName:"赵志启1",
+          userPhone:"15584462222",
+          userSex:"man",
+          id:1,
+          region:{
+              value:"浙江省杭州市滨江区",
+              province:null,
+              city:null,
+              county:null,
+              provinceCode:null,
+              cityCode:null,
+              countyCode:123456789
+          }                    
+        },
+        {
+          detailedAddress:"百得利大厦十二楼",
+          otherAddress:"other",
+          userName:"赵志启2",
+          userPhone:"15584463333",
+          userSex:"man",
+          id:2,
+          region:{
+              value:"浙江省杭州市滨江区",
+              province:null,
+              city:null,
+              county:null,
+              provinceCode:null,
+              cityCode:null,
+              countyCode:123456789
+          }                    
+        },
+    ],
     cartList:[
       {
         storeId:"00001",
@@ -393,6 +446,25 @@ const store = new Vuex.Store({
     },
     initCartCount(state,cartCount){
       state.cartCount = cartCount;
+    },
+    editAddress(state, stark){
+      console.log(stark.operate )
+      if(stark.operate === 'add'){
+        // stark.obj.id = parseInt(state.addressList.length)
+        state.addressList.push(stark.obj)
+      }else if(stark.operate === 'edit'){
+        state.addressList.forEach((item, index)=>{
+          if(item.id == stark.id){          
+            state.addressList[index] = stark.obj;
+          }
+        })
+      }else if(stark.operate === 'del'){
+        state.addressList.forEach((item, index)=>{
+          if(item.id == stark.id){          
+            state.addressList.splice(index,1);
+          }
+        })
+      }
     },
     goback(){
       window.history.go(-1)

@@ -26,56 +26,7 @@ export default {
                 iconName:"rsicon-jingshi",
                 nodataMsg:"暂无收货地址"
             },
-            addressList:[
-                {
-                    detailedAddress:"百得利大厦十二楼",
-                    otherAddress:"other",
-                    userName:"赵志启",
-                    userPhone:"15584461401",
-                    id:0,
-                    region:{
-                        value:"浙江省杭州市滨江区",
-                        province:null,
-                        city:null,
-                        county:null,
-                        provinceCode:null,
-                        cityCode:null,
-                        countyCode:123456789
-                    }                    
-                },
-                {
-                    detailedAddress:"百得利大厦十二楼",
-                    otherAddress:"other",
-                    userName:"赵志启",
-                    userPhone:"15584461401",
-                    id:1,
-                    region:{
-                        value:"浙江省杭州市滨江区",
-                        province:null,
-                        city:null,
-                        county:null,
-                        provinceCode:null,
-                        cityCode:null,
-                        countyCode:123456789
-                    }                    
-                },
-                {
-                    detailedAddress:"百得利大厦十二楼",
-                    otherAddress:"other",
-                    userName:"赵志启",
-                    userPhone:"15584461401",
-                    id:2,
-                    region:{
-                        value:"浙江省杭州市滨江区",
-                        province:null,
-                        city:null,
-                        county:null,
-                        provinceCode:null,
-                        cityCode:null,
-                        countyCode:123456789
-                    }                    
-                },
-            ],
+            addressList:[],
             commonHeaderObj: {
                 bgStyle: {
                     color:"#333",
@@ -91,11 +42,18 @@ export default {
         Nodata,
         CommonHeader
     },
+    mounted(){
+        this.addressList = this.$store.state.addressList;
+    },
     methods:{
         delConfirm(item){
             this.$messagebox.confirm('确定执行此操作?').then(action => {
-                if(action == 'confirm'){
-                    this.delAddress(item);
+                if(action == 'confirm'){                             
+                    this.$store.commit('editAddress', {id:item, operate :'del', obj:null});
+                    this.$toast({
+                        message: '操作成功',
+                        type: 'warning'
+                    });
                 }
             }).catch(err=>{
                 if(err == 'cancel') {
@@ -104,17 +62,6 @@ export default {
                 }
             });
         },
-        delAddress(id){
-            this.addressList.forEach((item, index)=>{
-                if(item.id == id){
-                    this.addressList.splice(index,1);
-                    this.$toast({
-                        message: '操作成功',
-                        type: 'warning'
-                    });
-                }
-            })
-        }
     }
 }
 </script>

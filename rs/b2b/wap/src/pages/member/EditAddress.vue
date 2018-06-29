@@ -68,12 +68,12 @@ export default {
                 nodataMsg:"暂无收货地址"
             },
             addressInfo:{
-                detailedAddress:"百得利大厦",
-                otherAddress:"other",
-                userName:"赵志启",
-                userPhone:"15584461401",
+                detailedAddress:"赵志启new",
+                otherAddress:"是的哈卡的",
+                userName:"赵志启new",
+                userPhone:"15584464444",
                 userSex:"man",
-                id:2,
+                id:null,
                 region:{
                     value:null,
                     province:null,
@@ -96,7 +96,7 @@ export default {
             editAddressType:null,
             editAddressId:null,
             regionVisible:false,
-            regionInit:true,
+            regionInit:false,
             myAddressSlots: [
                 //省
                 {
@@ -138,12 +138,19 @@ export default {
         CommonHeader
     },
     mounted(){
-        if(this.$route.query.id == 'add' || this.$route.query.id == undefined || this.$route.query.id == ''){
-            this.editAddressType = 'add'            
+        if(this.$route.query.id === 'add' || this.$route.query.id === undefined || this.$route.query.id === ''){
+            this.editAddressType = 'add'         
         }else{
             this.commonHeaderObj.title = '编辑地址'
             this.editAddressType = 'edit'
-            this.editAddressId = this.$route.query.id;
+            this.editAddressId = parseInt(this.$route.query.id);
+            let addressList = this.$store.state.addressList;
+            addressList.forEach((item, index)=>{
+                if(item.id === this.editAddressId){
+                    this.addressInfo = addressList[index]
+                    return
+                }
+            })
         }
     },
     methods:{
@@ -152,16 +159,21 @@ export default {
                 if(msg){
                     if(this.editAddressType === 'add'){
                         console.log('add-click')
+                        let _item =  parseInt(this.$store.state.addressList.length)  
+                        this.$store.commit('editAddress', {id:_item, operate :'add', obj:this.addressInfo});
                         this.$toast({
                             message: '新增成功',
                             type: 'warning'
                         });
+                        this.$router.push({path:'/address'})
                     }else if(this.editAddressType === 'edit'){
                         console.log('edit-click-'+this.editAddressId)
+                        this.$store.commit('editAddress', {id:this.addressInfo.id, operate :'edit', obj:this.addressInfo});
                         this.$toast({
                             message: '修改成功',
                             type: 'warning'
                         });
+                        this.$router.push({path:'/address'})
                     }                    
                 }else{
                     let list = this.errors.all();
@@ -187,7 +199,7 @@ export default {
             // console.table(values);
             if (this.regionInit){
             //取值并赋值
-            this.addressInfo.region.value = values[0]["name"] + values[1]["name"] + values[2]["name"];
+            this.addressInfo.region.value = values[0]["name"] +' '+ values[1]["name"] +' '+ values[2]["name"];
             this.addressInfo.region.province = values[0]["name"];
             this.addressInfo.region.city = values[1]["name"];
             this.addressInfo.region.county = values[2]["name"];

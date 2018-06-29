@@ -7,7 +7,7 @@
             </p>
         </router-link>
         <p class="msgage">
-            <a href="#/memmber-msg?tab=index" class="ico-msg"></a>
+            <router-link to="/NoticeList" class="ico-msg"></router-link>
         </p>
     </header>
 </template>

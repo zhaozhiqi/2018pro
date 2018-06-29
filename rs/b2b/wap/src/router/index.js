@@ -53,6 +53,7 @@ export default new Router({
       name: 'Cart',
       component: Cart,
       meta: {
+        auth:true,
         title: "购物车"
       }
     },
@@ -61,6 +62,7 @@ export default new Router({
       name: 'Member',
       component: Member,
       meta: {
+        auth:true,
         title: "个人中心"
       }
     },
@@ -109,6 +111,7 @@ export default new Router({
       name: 'Address',
       component: Address,
       meta: {
+        auth:true,
         title: "收货地址管理"
       }
     },
@@ -117,6 +120,7 @@ export default new Router({
       name: 'EditAddress',
       component: EditAddress,
       meta: {
+        auth:true,
         title: "编辑收货地址"
       }
     },
@@ -125,6 +129,7 @@ export default new Router({
       name: 'Order',
       component: Order,
       meta: {
+        auth:true,
         title: "我的订单"
       }
     },
@@ -133,6 +138,7 @@ export default new Router({
       name: 'NoticeList',
       component: NoticeList,
       meta: {
+        auth:true,
         title: "消息列表"
       }
     },
@@ -141,6 +147,7 @@ export default new Router({
       name: 'Setting',
       component: Setting,
       meta: {
+        auth:true,
         title: "设置"
       }
     },

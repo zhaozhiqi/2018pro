@@ -52,15 +52,16 @@ export default {
             },
             admin:{
                 account:{
-                    value:''
+                    value:'15584461401'
                 },
                 password:{
                     state: 1,
                     type:'password',
                     iconClass:'rsicon-chakan1',
-                    value:''
+                    value:'123456'
                 }
-            }
+            },
+            Rurl:null
         }
     },
     components: {
@@ -68,6 +69,9 @@ export default {
     },
     created() {     
         this.$validator.localize("zh_CN");
+    },
+    mounted(){
+        this.Rurl = this.$route.query.Rurl || '/'
     },
     methods:{
         login(){
@@ -77,10 +81,10 @@ export default {
 
             this.$validator.validateAll().then((msg)=>{
                 if(msg){
-                    this.$toast({
-                        message: '提交成功'+this.admin.account.value+'---'+this.admin.password.value,
-                        type: 'warning'
-                    });
+                    this.$store.commit('login', {account:this.admin.account.value, password:this.admin.password.value,that:this});
+                    if(this.$store.state.login === true ){
+                        this.$router.push({path:this.Rurl})
+                    }
                 }else{
                     let list = this.errors.all();
                     console.log(list,'list',list[0])

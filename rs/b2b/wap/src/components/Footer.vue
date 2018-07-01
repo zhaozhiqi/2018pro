@@ -75,6 +75,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
+    font-size: 26px
 }
 
 #footer nav{

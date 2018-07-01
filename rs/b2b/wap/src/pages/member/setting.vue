@@ -71,7 +71,10 @@ export default {
     },
     methods:{
         logout(){
-            console.log('logout')
+            this.$store.commit('logout');
+            if(this.$store.state.login === false ){
+                this.$router.push({path:'/'})
+            }
         }
     }
 }

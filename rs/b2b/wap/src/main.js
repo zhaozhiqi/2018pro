@@ -434,7 +434,6 @@ const store = new Vuex.Store({
         ]
       },
     ]
-
   },
   mutations: {
     //更新用户信息

@@ -83,7 +83,8 @@ export default {
                 if(msg){
                     this.$store.commit('login', {account:this.admin.account.value, password:this.admin.password.value,that:this});
                     if(this.$store.state.login === true ){
-                        this.$router.push({path:this.Rurl}//登陆成功跳回原路径
+                        this.$router.push({path:this.Rurl})
+                        //登陆成功跳回原路径
                     }
                 }else{
                     let list = this.errors.all();

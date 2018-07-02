@@ -13,7 +13,17 @@ export default {
 
         }
     },
-    props: ['nodata']
+    props: {
+		'nodata': {
+			type: Object,
+			default: function () {
+				return {
+					iconName:"rsicon-31daipingjia",
+					nodataMsg:"暂无消息"
+				}
+			}
+		}
+	}
 }
 </script>
 

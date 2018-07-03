@@ -11,13 +11,13 @@ for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
     timestamp: +Mock.Random.date('T'),
-    author: '@first',
-    reviewer: '@first',
-    title: '@title(5, 10)',
+    author: '@cname',
+    reviewer: '@cname',
+    title: '@ctitle(5, 10)',
     content_short: '我是测试数据',
     content: baseContent,
     forecast: '@float(0, 100, 2, 2)',
-    importance: '@integer(1, 3)',
+    importance: '@integer(1, 3)', /* integer 整数 */
     'type|1': ['CN', 'US', 'JP', 'EU'],
     'status|1': ['published', 'draft', 'deleted'],
     display_time: '@datetime',
@@ -31,7 +31,7 @@ for (let i = 0; i < count; i++) {
 export default {
   getList: config => {
     const { importance, type, title, page = 1, limit = 20, sort } = param2Obj(config.url)
-
+    console.log(config.url, importance, type, title, page, limit, sort)
     let mockList = List.filter(item => {
       if (importance && item.importance !== +importance) return false
       if (type && item.type !== type) return false

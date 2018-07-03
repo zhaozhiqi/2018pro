@@ -9,7 +9,7 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
-// request interceptor
+// 请求 拦截
 service.interceptors.request.use(config => {
   // Do something before request is sent
   if (store.getters.token) {
@@ -23,7 +23,7 @@ service.interceptors.request.use(config => {
   Promise.reject(error)
 })
 
-// respone interceptor
+// 请求 拦截
 service.interceptors.response.use(
   response => response,
   /**

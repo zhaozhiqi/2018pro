@@ -11,19 +11,21 @@ import Layout from '@/views/layout/Layout'
 **/
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+* hidden: true                   如果 `hidden:true` 将不会显示在侧栏中(默认false)
+* alwaysShow: true               如果设置true, will always show the root menu, whatever its child routes length
 *                                if not set alwaysShow, only more than one route under the children
 *                                it will becomes nested mode, otherwise not show the root menu
 * redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
+* name:'router-name'             the name is used by <keep-alive> (必须设置 set!!!)
 * meta : {
-    roles: ['admin','editor']     will control the page roles (you can set multiple roles)
-    title: 'title'               the name show in submenu and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar,
-    noCache: true                if true ,the page will no be cached(default is false)
+    roles: ['admin','editor']    设置可访问的权限 (可以多选)
+    title: 'title'               在子菜单和面包屑中显示的名称 (建议设置)
+    icon: 'svg-name'             侧边栏的图标显示
+    noCache: true                如果设置true ,不缓存数据(默认false)
   }
 **/
+
+/* 常用导航（恒定导航）*/
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/authredirect', component: () => import('@/views/login/authredirect'), hidden: true },
@@ -71,6 +73,7 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  /* 引导页 */
   {
     path: '/permission',
     component: Layout,

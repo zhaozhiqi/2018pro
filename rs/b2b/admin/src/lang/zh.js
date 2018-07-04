@@ -1,5 +1,8 @@
 export default {
   route: {
+    boosj: '播视网',
+    boosjFlow: '播视网流量统计',
+    boosjVideoFlow: '播视网视频流量统计',
     dashboard: '首页',
     introduction: '简述',
     documentation: '文档',
@@ -119,7 +122,14 @@ export default {
     draft: '草稿',
     delete: '删除',
     cancel: '取 消',
-    confirm: '确 定'
+    confirm: '确 定',
+    today: '今日',
+    yesterday: '昨日',
+    lastWeek: '上周',
+    UV: '独立访客（UV）',
+    old: '老独立访客',
+    new: '新独立访客',
+    onRatio: '新老占比'
   },
   errorLog: {
     tips: '请点击右上角bug小图标',

@@ -3,6 +3,7 @@ import loginAPI from './login'
 import articleAPI from './article'
 import remoteSearchAPI from './remoteSearch'
 import transactionAPI from './transaction'
+import boosjAPI from './boosj'
 
 // Mock.setup({
 //   timeout: '350-600'
@@ -25,5 +26,12 @@ Mock.mock(/\/search\/user/, 'get', remoteSearchAPI.searchUser)
 
 // 账单相关
 Mock.mock(/\/transaction\/list/, 'get', transactionAPI.getList)
+
+// boosj相关
+Mock.mock(/\/boosj\/list/, 'get', boosjAPI.getList)
+Mock.mock(/\/boosj\/detail/, 'get', boosjAPI.getArticle)
+Mock.mock(/\/boosj\/pv/, 'get', boosjAPI.getPv)
+Mock.mock(/\/boosj\/create/, 'post', boosjAPI.createArticle)
+Mock.mock(/\/boosj\/update/, 'post', boosjAPI.updateArticle)
 
 export default Mock

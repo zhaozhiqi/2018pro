@@ -32,6 +32,21 @@ export const constantRouterMap = [
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
   {
+    path: '/boosj',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'boosj',
+    meta: {
+      title: 'boosj',
+      icon: 'table'
+    },
+    children: [
+      { path: 'boosj-flow', component: () => import('@/views/boosj/boosjFlow'), name: 'boosjFlow', meta: { title: 'boosjFlow' }},
+      { path: 'boosj-flow', component: () => import('@/views/boosj/boosjFlow'), name: 'boosjVideoFlow', meta: { title: 'boosjFlow' }}
+    ]
+  },
+
+  {
     path: '',
     component: Layout,
     redirect: 'dashboard',

@@ -3,7 +3,7 @@
         <router-link to="/seach" class="nav">
             <span id="pos_address">滨江区海康威视园区</span>
             <p id="search_shop">
-                <span class="ico-search">拉维亭</span>            
+                <span class="ico-search"></span>            
             </p>
         </router-link>
         <p class="msgage">

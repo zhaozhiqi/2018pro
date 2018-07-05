@@ -2,7 +2,8 @@
     <footer id="footer">
         <nav>
             <router-link :to="item.link" class="item" v-for="(item, index) in footerMenu" :key="index"  :class="[{'inactive':inactive==item.inactive},item.className]">
-                <span :class="item.spanClassName"></span>
+                <!-- <span :class="item.spanClassName"></span> -->
+                <i :class="[item.iconClassName, 'rsiconfont']"></i>
                 <span class="label">{{item.name}}</span>
                 <em class="num" v-show="cartCount>0 && item.className == 'a-cart'">{{cartCount}}</em>
             </router-link>
@@ -20,35 +21,40 @@ export default {
                     inactive:'Home',
                     link:'/home',
                     className:'a-home',
-                    spanClassName:'nav-home'
+                    spanClassName:'nav-home',
+                    iconClassName:'rsicon-home1'
                 },
                 {
                     name:'分类',
                     inactive:'Classify',
                     link:'/classify',
                     className:'a-type',
-                    spanClassName:'nav-type'
+                    spanClassName:'nav-type',
+                    iconClassName:'rsicon-fenlei'
                 },
                 {
                     name:'拼团',
-                    inactive:'_Home',
-                    link:'/home',
+                    inactive:'Group',
+                    link:'/Group',
                     className:'a-home',
-                    spanClassName:'nav-home'
+                    spanClassName:'nav-home',
+                    iconClassName:'rsicon-pintuanzhuanqu'
                 },
                 {
                     name:'购物车',
                     inactive:'Cart',
                     link:'/cart',
                     className:'a-cart',
-                    spanClassName:'nav-cart'
+                    spanClassName:'nav-cart',
+                    iconClassName:'rsicon-31gouwuche'
                 },
                 {
                     name:'我',
                     inactive:'Member',
                     link:'/member',
                     className:'a-member',
-                    spanClassName:'nav-member'
+                    spanClassName:'nav-member',
+                    iconClassName:'rsicon-yonghu-tianchong'
                 },
             ],
             inactive:'Home'
@@ -101,6 +107,16 @@ export default {
     width: 40px;
     height: 40px;
     display: inline-block;
+    background-size: contain;
+}
+
+#footer nav .item .rsiconfont {
+    margin: 0 auto;
+    width: 50px;
+    height: 45px;
+    line-height: 40px;
+    display: block;
+    font-size: 50px; 
     background-size: contain;
 }
 

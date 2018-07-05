@@ -1,18 +1,22 @@
 <template>
   <div> 
-			<div class="container" flexcontainer> 
+			<Nodata :nodata="nodataObj" v-if="proList.length <= 0"></Nodata>
+			<div v-else class="container" flexcontainer> 
 			<ul class="block-item" w-369 v-for="(item, index) in proList" :key="index"> 
 				<li> 
-					<router-link to="/Product"> 
+					<router-link  :to="{path:'/Product', query: { id: item.proId }}"> 
 						<figure> 
 							<img :src="item.proImg" alt="" class="proImg"> 
 						</figure> 
 						<figcaption> 
 							<h2>
-								<span class="bable">{{item.bable}}</span>
+								<span class="bable" v-show="false">{{item.bable}}</span>
 								{{item.title}}</h2> 
 							<div>
-							<span><i>¥</i>{{item.price}}</span> 已有{{item.num}}人付款
+							
+							<span><i>¥</i>{{item.price}}</span>
+							<span v-if="listParent === 'group'">已拼{{item.num}}件</span>
+							<span v-else>已有{{item.num}}人付款</span>
 							</div> 
 						</figcaption>
 					</router-link>
@@ -23,21 +27,28 @@
 </template>
 
 <script>
+import Nodata from '@/components/nodata';
 export default {
   name: 'List',
   data() {
     return {
-      proList:[
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1cuCrSpXXXXafaXXXXXXXXXXX-369-560.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1cuCrSpXXXXafaXXXXXXXXXXX-369-560.png",title:"荐形容的狠货厚高的工人的",price:"21",num:"888",prolink:""}
-			]
-    };
+      nodataObj:{
+					iconName:"rsicon-jingshi",
+					nodataMsg:"暂无信息"
+			}
+		}
+	},
+	components:{
+		Nodata
+	},
+	props: {
+		proList: {
+			type: Array,
+			required: true
+		},
+		listParent: {
+			type: String
+		}
 	}
 };
 </script>

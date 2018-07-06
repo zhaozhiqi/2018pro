@@ -6,7 +6,12 @@
             <div v-else class="addressItem" v-for="(item, index) in addressList" :key="index" >
                 <!-- <h3>送至：{{item.deliveryAddress}}</h3>  -->
                 <div><p><label>收货人：{{item.userName}}</label><span>{{item.userPhone}}</span></p> <span>收货地址：{{item.region.value}}  {{item.detailedAddress}}</span></div> 
-                <p><a @click="delConfirm(item.id)"><i class="rsiconfont rsicon-shanchu"></i>删除</a> <router-link :to="{path:'/editAddress', query: { id: item.id }}"><i class="rsiconfont rsicon-bianji"></i>编辑</router-link></p>
+                <p>
+                    <a class="defaultAddr" v-if="item.default"><i class="rsiconfont rsicon-address"></i>默认地址</a> 
+                    <a @click="setDefaultAddr(item.id)" class="setDefaultAddr" v-else><i class="rsiconfont rsicon-address"></i>设置为默认地址</a> 
+
+                    <a @click="delConfirm(item.id)"><i class="rsiconfont rsicon-shanchu"></i>删除</a> 
+                    <router-link :to="{path:'/editAddress', query: { id: item.id }}"><i class="rsiconfont rsicon-bianji"></i>编辑</router-link></p>
             </div>
         </main>
         <footer class="addressFooter">
@@ -62,6 +67,10 @@ export default {
                 }
             });
         },
+        setDefaultAddr(id){
+            console.log(4131)
+            this.$store.commit('setDefaultAddr', id);
+        }
     }
 }
 </script>
@@ -145,5 +154,15 @@ export default {
     color: #fff;
     font-size: 32px;
     text-align: center;
+}
+
+.addressItem>p>a.defaultAddr{
+    float: left;
+    color: #1655bf;
+    margin: 0
+}
+.addressItem>p>a.setDefaultAddr{
+    float: left;
+    margin: 0
 }
 </style>

@@ -55,8 +55,7 @@ export default {
   },
   methods:{
     setheaderheight() {
-      //this.bannerHeight = this.$refs.banner.$el.offsetHeight
-      this.bannerHeight = 0
+      this.bannerHeight = this.$refs.banner.$el.offsetHeight
     }
   }
 };

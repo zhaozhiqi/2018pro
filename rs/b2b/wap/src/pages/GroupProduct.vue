@@ -4,7 +4,7 @@
 		<div class="banner" w-750-750 aspectratio aspect-ratio="750/750">
 		  <div aspectratio-content>
 			 <span class="goBack" @click="goback"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
-			 <router-link to="/Cart" class="goCart"><i class="rsiconfont rsicon-31gouwuche"></i></router-link>
+			 <!-- <router-link to="/Cart" class="goCart"><i class="rsiconfont rsicon-31gouwuche"></i></router-link> -->
 			 <mt-swipe :class="mint-swipe" :auto="0" :speed="400">
 				<mt-swipe-item :class="mt-swipe-item" v-for="(slider, index) in productInfo.proBannerList" :key="index"><img :src="slider.style.sliderImg" /></mt-swipe-item>
 			 </mt-swipe>
@@ -63,11 +63,16 @@
 		  </nav>
 		</div>  
 	 </footer>
+	 <WidgetsCover 
+	 :class="{'show':widgetsCoverShow}" 
+	 v-on:widgetsCoverShow="closeWidgetsCover"
+	 v-on:saveDecideVal="getDecideVal"></WidgetsCover>
   </div>
 </template>
 
 <script>
 import TypeGoodsList from '@/components/TypeGoodsList';
+import WidgetsCover from '@/components/widgets-cover';
 export default {
   name: 'Index',
   data() {
@@ -76,7 +81,8 @@ export default {
 		mint:null,
 		swipe:null,
 		mt:null,
-		item:null,		
+		item:null,	
+		widgetsCoverShow:true,	
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
@@ -116,7 +122,8 @@ export default {
 	 }
   },
   components: {
-		TypeGoodsList
+		TypeGoodsList,
+		WidgetsCover
 	},
 	mounted(){
 		
@@ -127,7 +134,7 @@ export default {
 		}
 	},
 	methods:{
-		editSaleNum(flag) {
+			editSaleNum(flag) {
 				let num = 0;
 				if(flag == 'add') {
 						this.productInfo.saleNum++;
@@ -144,10 +151,24 @@ export default {
 				this.$store.commit('goback')
 			},
 			buySelf(){
-				let num = this.productInfo.saleNum
-				let pro = this.proStore
-				this.$store.commit('updateCartCount',1)
-				console.log(num,'num')
+				// let num = this.productInfo.saleNum
+				// let pro = this.proStore
+				// this.$store.commit('updateCartCount',1)
+				// console.log(num,'num')
+				console.log('buySelf')
+			},
+			groupNow(){
+				console.log('groupNow')
+				this.openWidgetsCover()
+			},
+			openWidgetsCover(){
+				this.widgetsCoverShow = true
+			},
+			closeWidgetsCover(val){
+				this.widgetsCoverShow = val
+			},
+			getDecideVal(val){
+				console.log(val, val.id, val.num, val.typeList)
 			}
 	}
 };

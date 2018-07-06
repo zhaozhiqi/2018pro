@@ -4,7 +4,7 @@
 			<div v-else class="container" flexcontainer> 
 			<ul class="block-item" w-369 v-for="(item, index) in proList" :key="index"> 
 				<li> 
-					<router-link  :to="{path:'/Product', query: { id: item.proId }}"> 
+					<router-link  :to="{path:routerPath, query: { id: item.proId }}"> 
 						<figure> 
 							<img :src="item.proImg" alt="" class="proImg"> 
 						</figure> 
@@ -35,11 +35,18 @@ export default {
       nodataObj:{
 					iconName:"rsicon-jingshi",
 					nodataMsg:"暂无信息"
-			}
+			},
+			routerPath:'/Product',
 		}
 	},
 	components:{
 		Nodata
+	},
+	mounted(){
+		if(this.listParent === 'group'){
+			this.routerPath = '/GroupProduct'
+			console.log(this.routerPath)
+		}
 	},
 	props: {
 		proList: {

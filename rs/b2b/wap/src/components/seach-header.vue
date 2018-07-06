@@ -55,6 +55,7 @@ export default {
     font-size: 24px;
     z-index: 11;
     align-items: center;
+    background: #1655bf;
 }
 
 #header.fixedHeader{

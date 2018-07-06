@@ -1,57 +1,60 @@
 <template>
-    <div class="widgets-cover show">
-        <div class="cover-bg"></div>
+    <div class="widgets-cover">
+        <div class="cover-bg" @click="closeSelf"></div>
         <div class="cover-content">
             <div class="sku-wrap">
                 <div class="_header">
                     <div class="img-wrap">
-                        <img src="https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg" alt="">
+                        <img :src=changeInfo.image alt="">
                     </div>
                     <div class="_main">
                         <div class="price-wrap">
-                            <span class="price">¥29.99</span>  
+                            <span class="price">¥{{changeInfo.price}}</span>  
                         </div>   
-                        <div class="stock">库存8291件</div>   
+                        <div class="stock">库存{{changeInfo.stock}}件</div>   
                         <div class="sku-info">请选择:<span>口味</span></div>
                     </div>
-                    <i class="sku-close rsiconfont rsicon-shanchu"></i>
+                    <span class="sku-close rsiconfont rsicon-shanchu"  @click="closeSelf"></span>
                 </div>
                 <div class="_body">
                     <div class="body-item">
                         <ul class="sku-list-wrap">
-                            <li>
-                                <h2>颜色分类</h2>
-                                <div class="items">
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">藏蓝</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">黄色</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">橘色</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">紫色</a>
+                            <li v-for="(item, index) in changeInfo.list" :key="index">
+                                <h2 :typeId=item.typeId>{{item.typeName}}</h2>
+                                <div class="items" >
+                                    <a v-for="(itemI, indexI) in item.con" :key="indexI"
+                                    href="javascript:void(0)" 
+                                    :dataValue=itemI.dataValue
+                                    :dataImage=itemI.dataImage 
+                                    :class="{'checked':itemI.dataChecked}" 
+                                    :dataChecked=itemI.dataChecked
+                                    @click="changeItem(item,itemI)">{{itemI.dataName}}</a>
                                 </div>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h2 id="prop_title_1">尺码</h2>
                                 <div class="items" role="radiogroup" aria-labelledby="prop_title_1">  
                                     <a role="radio" href="javascript:void(0)" data-value="20509:28314" class="" aria-checked="false">S</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28315" class="" aria-checked="false">M</a>  
                                     <a role="radio" href="javascript:void(0)" data-value="20509:28316" class="" aria-checked="false">L</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28317" class="" aria-checked="false">XL</a>  
                                     <a role="radio" href="javascript:void(0)" data-value="20509:28318" class="" aria-checked="false">XXL</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28319" class="" aria-checked="false">XXXL</a>  
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                         <div class="number-wrap">
                             <div class="number-line">
                                 <label for="number">购买数量</label>
                                 <span class="J_limitTxt limit-txt"></span>
                                 <div class="number">
-                                    <button class="decrease disabled">-</button> 
-                                    <input id="number" type="number" value="1"> 
-                                    <button class="increase">+</button>
+                                    <button class="decrease" :class="{'disabled':changeInfo.num <= 1}" @click="editSaleNum('minu')">-</button> 
+                                    <input id="number" type="number" v-model='changeInfo.num'> 
+                                    <button class="increase":class="{'disabled':changeInfo.num >= changeInfo.stock}" @click="editSaleNum('add')">+</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="_footer">
-                    <a class="ok " role="button">确定</a>
+                    <a class="ok " role="button" @click="decideChange">确定</a>
                 </div>
             </div>
         </div>
@@ -60,14 +63,162 @@
 
 <script>
 export default {
+    data(){
+        return {
+            selfShow:false,
+            changeInfo:{
+                id:'1000',
+                price:'29.99',
+                stock: 9,
+                image:'https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg',
+                num:'2',
+                list:[
+                    {
+                        typeId:1,
+                        typeName:'颜色分类',
+                        con:[
+                            {
+                                dataName: '藏蓝',
+                                dataValue: '1001:01',
+                                dataImage: '//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa',
+                                dataChecked: false
+                            },
+                            {
+                                dataName: '黄色',
+                                dataValue: '1001:02',
+                                dataImage: '//gw.alicdn.com/bao/uploaded/TB1jDTKgnCWBKNjSZFtL6SC3FXa',
+                                dataChecked: false
+                            },
+                            {
+                                dataName: '橘色',
+                                dataValue: '1000:03',
+                                dataImage: '//gw.alicdn.com/bao/uploaded/TB1veDEgbZnBKNjSZFrL6SRLFXa',
+                                dataChecked: false
+                            }
+                        ]
+                    },
+                    {
+                        typeId:2,
+                        typeName:'尺码',
+                        con:[
+                            {
+                                dataName: 'S',
+                                dataValue: '1002:01',
+                                dataChecked: false
+                            },
+                            {
+                                dataName: 'M',
+                                dataValue: '1002:02',
+                                dataChecked: false
+                            },
+                            {
+                                dataName: 'L',
+                                dataValue: '1002:03',
+                                dataChecked: false
+                            }
+                        ]
 
+                    }
+                ]
+            },
+            decideVal:{
+                id:null,
+                num:null,
+                typeList:[]
+            }
+        }
+    },
+    methods:{
+        closeSelf(){
+            this.$emit('widgetsCoverShow', this.selfShow)
+        },
+        changeItem(parent, children){
+            let oldChecked = children.dataChecked 
+            let dataImage = children.dataImage 
+            dataImage!==undefined?this.changeInfo.image=dataImage:this.changeInfo
+            let dataPrice = children.dataPrice 
+            dataPrice!==undefined?this.changeInfo.price=dataPrice:this.changeInfo
+            let dataStock = children.dataStock 
+            dataStock!==undefined?this.changeInfo.stock=dataStock:this.changeInfo
+            this.changeInfo.list.forEach(item => {
+                if(oldChecked === false){
+                    if(item.typeId === parent.typeId){
+                        item.con.forEach(itemI=>{
+                            if(itemI.dataValue === children.dataValue){
+                                itemI.dataChecked = true
+                            }else{
+                                itemI.dataChecked = false
+                            }
+                        })
+                    }
+                }else{
+                    if(item.typeId === parent.typeId){
+                        item.con.forEach(itemI=>{
+                            itemI.dataChecked = false
+                        })
+                    }
+                }
+            });
+        },
+        editSaleNum(flag) {
+            let num = 0;
+            if(flag == 'add') {
+                if(this.changeInfo.num >= this.changeInfo.stock) {
+                    return
+                }
+                this.changeInfo.num++;
+                num = 1;
+            }else if(flag == 'minu') {
+                if(this.changeInfo.num <= 1) {
+                    return
+                }
+                this.changeInfo.num--;
+                num = -1;
+            }
+        },
+        inspectAllType(){
+            let allChecked = false
+            let breakTodo = false
+            let typeList = []
+            this.changeInfo.list.forEach(item => {
+                allChecked = false
+                item.con.forEach(itemI=>{
+                    if(itemI.dataChecked === true){                        
+                        allChecked = true
+                        typeList.push(itemI.dataValue)                                                
+                        return 
+                    }
+                })
+                if(!allChecked && !breakTodo){
+                    this.$toast({
+                        message: '请选择'+item.typeName,
+                        type: 'warning'
+                    });
+                    breakTodo = true
+                    return 
+                }
+            })
+            this.decideVal.typeList = typeList
+            // console.log(allChecked,'allChecked',typeList)
+            return allChecked
+        },
+        decideChange(){
+            if(this.inspectAllType()){
+                this.changeInfo.id!==undefined?this.decideVal.id=this.changeInfo.id:this.decideVal
+                this.changeInfo.num!==undefined?this.decideVal.num=this.changeInfo.num:this.decideVal
+                this.$emit('saveDecideVal',this.decideVal)
+                this.closeSelf()
+            }
+        }
+
+    }
 }
 </script>
 
 <style scoped>
 .widgets-cover{
     position: fixed;
-    top: 100%;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
@@ -79,10 +230,12 @@ export default {
 }
 .widgets-cover.show{
     pointer-events: auto;
-    opacity: 1;
-    top: 0;
+    opacity: 1;    
 }
-
+@keyframes opacity {
+    0% {top: 100%;}
+    100% {top: 0%;}
+}
 .widgets-cover .cover-bg {
     position: absolute;
     left: 0;

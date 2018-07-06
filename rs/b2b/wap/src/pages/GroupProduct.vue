@@ -66,7 +66,9 @@
 	 <WidgetsCover 
 	 :class="{'show':widgetsCoverShow}" 
 	 v-on:widgetsCoverShow="closeWidgetsCover"
-	 v-on:saveDecideVal="getDecideVal"></WidgetsCover>
+	 v-on:saveDecideVal="getDecideVal" 
+	 :saleType="saleType"
+	 :changeInfo="productInfo"></WidgetsCover>
   </div>
 </template>
 
@@ -82,16 +84,76 @@ export default {
 		swipe:null,
 		mt:null,
 		item:null,	
-		widgetsCoverShow:true,	
+		saleType:'group',
+		widgetsCoverShow:false,	
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
 			proName:"法国品牌凯旋1664白啤瓶装330ml",
 			proNo:"5513213245aasd",
 			proDec:"法国品牌授权中国区生产，国产啤酒",
-			proPrice:10,
-			proOldPrice:100,
+			proPrice:29.99,
+			proOldPrice:99.99,
+			proSelfPrice:99.99,
+			proGroupPrice:29.99,
+			proStock: 9,
 			saleNum:1,
+			proStore:{
+				storeId:"0001",
+				storeName:"1919凯旋官方旗舰店",
+				storeDec:"酒厂直供   正品保证",
+				storeLogoImg:"/static/images/storeLogo.png"
+			},
+			proChangeImage:'https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg',
+			proChangeList:[
+					{
+						typeId:1,
+						typeName:'颜色分类',
+						con:[
+							{
+								dataName: '藏蓝',
+								dataValue: '1001:01',
+								dataImage: '//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa',
+								dataChecked: false
+							},
+							{
+								dataName: '黄色',
+								dataValue: '1001:02',
+								dataImage: '//gw.alicdn.com/bao/uploaded/TB1jDTKgnCWBKNjSZFtL6SC3FXa',
+								dataChecked: false,
+								dataPrice: 39.99
+							},
+							{
+								dataName: '橘色',
+								dataValue: '1000:03',
+								dataImage: '//gw.alicdn.com/bao/uploaded/TB1veDEgbZnBKNjSZFrL6SRLFXa',
+								dataChecked: false
+							}
+						]
+					},
+					{
+							typeId:2,
+							typeName:'尺码',
+							con:[
+									{
+											dataName: 'S',
+											dataValue: '1002:01',
+											dataChecked: false
+									},
+									{
+											dataName: 'M',
+											dataValue: '1002:02',
+											dataChecked: false
+									},
+									{
+											dataName: 'L',
+											dataValue: '1002:03',
+											dataChecked: false
+									}
+							]
+
+					}
+			],
 			proBannerList:[
 				{
 					title: "slide1",
@@ -111,13 +173,7 @@ export default {
 						sliderImg: "/static/images/wap-20.png"
 					}
 				}
-			],
-			proStore:{
-				storeId:"0001",
-				storeName:"1919凯旋官方旗舰店",
-				storeDec:"酒厂直供   正品保证",
-				storeLogoImg:"/static/images/storeLogo.png"
-			}
+			]
 		}
 	 }
   },
@@ -155,10 +211,13 @@ export default {
 				// let pro = this.proStore
 				// this.$store.commit('updateCartCount',1)
 				// console.log(num,'num')
-				console.log('buySelf')
+				this.saleType = 'self';
+				this.openWidgetsCover()
+				console.log('buySelf', this.saleType)
 			},
 			groupNow(){
-				console.log('groupNow')
+				this.saleType = 'group';
+				console.log('groupNow',	this.saleType)
 				this.openWidgetsCover()
 			},
 			openWidgetsCover(){
@@ -168,7 +227,16 @@ export default {
 				this.widgetsCoverShow = val
 			},
 			getDecideVal(val){
-				console.log(val, val.id, val.num, val.typeList)
+				console.log(val, val.id, val.num, val.typeList,'getDecideVal')
+				this.goPay()
+			},
+			goPay(){
+				let that = this;
+				this.$indicator.open();
+				setTimeout(function(){
+						that.$indicator.close();
+						that.$router.push({ path: '/Pay'})
+				},300)
 			}
 	}
 };

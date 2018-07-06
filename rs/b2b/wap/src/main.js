@@ -8,6 +8,7 @@ import Vuex from 'vuex'
 import VueLazyload from 'vue-lazyload'
 import MintUI from 'mint-ui';
 // import 'mint-ui/lib/style.css'
+import '@/assets/css/base.css'
 Vue.use(MintUI);
 Vue.use(Vuex);
 //表单验证
@@ -23,6 +24,7 @@ const store = new Vuex.Store({
     cartCount:11,
     addressList:[
         {
+          default:true,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
           userName:"赵志启....",
@@ -40,6 +42,7 @@ const store = new Vuex.Store({
           }                    
         },
         {
+          default:false,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
           userName:"赵志启1",
@@ -57,6 +60,7 @@ const store = new Vuex.Store({
           }                    
         },
         {
+          default:false,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
           userName:"赵志启2",
@@ -483,6 +487,15 @@ const store = new Vuex.Store({
           }
         })
       }
+    },
+    setDefaultAddr(state, id){
+      state.addressList.forEach((item)=>{
+        if(item.id == id){          
+          item.default = true
+        }else{
+          item.default = false
+        }
+      })
     },
     goback(){
       window.history.go(-1)

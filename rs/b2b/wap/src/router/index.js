@@ -19,6 +19,7 @@ import AboutUs from '@/pages/member/AboutUs'
 
 import Product from '@/pages/Product'
 import GroupProduct from '@/pages/GroupProduct'
+import Pay from '@/pages/Pay'
 import test from '@/pages/test'
 
 Vue.use(Router)
@@ -98,6 +99,15 @@ export default new Router({
       component: GroupProduct,
       meta: {
         title: "拼团商品"
+      }
+    },
+    {
+      path: '/Pay',
+      name: 'Pay',
+      component: Pay,
+      meta: {
+        auth:true,
+        title: "支付"
       }
     },
     {

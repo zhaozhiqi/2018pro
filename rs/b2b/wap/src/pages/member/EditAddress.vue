@@ -1,5 +1,5 @@
 <template>
-    <div id="addressList">
+    <div id="editAddress">
         <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
         <main class="main">
            <div class="address-info">
@@ -33,9 +33,11 @@
                 v-model="addressInfo.detailedAddress"
                 v-validate ="'required|max:30'" 
                 name="detailedAddress"></textarea></p> 
+                <a class="defaultAddr" v-if="addressInfo.default"><i class="rsiconfont rsicon-address"></i>默认地址</a> 
+                <a @click="setDefaultAddr(addressInfo.id)" class="setDefaultAddr" v-else><i class="rsiconfont rsicon-address"></i>设置为默认地址</a> 
             </div> 
             <mt-popup v-model="regionVisible" position="bottom" class="region-popup">
-                <mt-picker :slots="myAddressSlots" valueKey="name" :visibleItemCount	="5" @change="addressChange" :itemHeight="40"></mt-picker>
+                <mt-picker :slots="myAddressSlots" valueKey="name" :visibleItemCount="5" @change="addressChange" :itemHeight="40"></mt-picker>
             </mt-popup>
             <!-- <div>
                 <p><span>三级地址：</span>{{addressInfo.region.value}}</p>
@@ -68,6 +70,7 @@ export default {
                 nodataMsg:"暂无收货地址"
             },
             addressInfo:{
+                default:false,
                 detailedAddress:"赵志启new",
                 otherAddress:"是的哈卡的",
                 userName:"赵志启new",
@@ -264,13 +267,21 @@ export default {
             // console.log(countyArr);
             return countyArr;
         },
+        setDefaultAddr(id){
+            if(this.editAddressType = 'add' ){
+                this.$store.commit('setDefaultAddr', -1);
+                this.addressInfo.default = true
+            }else{
+                this.$store.commit('setDefaultAddr', id);
+            }
+        }
 
     }
 }
 </script>
 
 <style scopde>
-#addressList{
+#editAddress{
 	overflow: hidden;
 	height: 100%;
 }
@@ -363,5 +374,16 @@ export default {
 .mint-popup{
     top: 25%;
     bottom: unset;
+}
+#editAddress .defaultAddr,#editAddress .setDefaultAddr{
+    display: block;
+    line-height: 80px;
+    height: 80px;
+    padding-left: 20px;
+    color: #999;
+}
+
+#editAddress .defaultAddr{
+    color: #1655bf;
 }
 </style>

@@ -36,7 +36,8 @@
 
 <script>
 import CommonHeader from '@/components/common-header'
-import zh_CN from "vee-validate/dist/locale/zh_CN";
+import zh_CN from "vee-validate/dist/locale/zh_CN"
+import Cookies from 'js-cookie'
 export default {
     name:'login',
     data(){
@@ -82,10 +83,14 @@ export default {
             this.$validator.validateAll().then((msg)=>{
                 if(msg){
                     this.$store.commit('login', {account:this.admin.account.value, password:this.admin.password.value,that:this});
-                    if(this.$store.state.login === true ){
+                    let Login = Cookies.get('Login'); 
+                    
+                    // if(this.$store.state.login === true  ){
+                    if(Login === 'true'){
                         this.$router.push({path:this.Rurl})
                         //登陆成功跳回原路径
                     }
+                    // }
                 }else{
                     let list = this.errors.all();
                     console.log(list,'list',list[0])

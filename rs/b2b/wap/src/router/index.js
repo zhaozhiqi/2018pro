@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/Home'
 import Classify from '@/pages/Classify'
+import Group from '@/pages/Group'
 import Cart from '@/pages/Cart'
 import Member from '@/pages/Member'
 import Seach from '@/pages/Seach'
@@ -17,19 +18,21 @@ import Setting from '@/pages/member/Setting'
 import AboutUs from '@/pages/member/AboutUs'
 
 import Product from '@/pages/Product'
+import GroupProduct from '@/pages/GroupProduct'
+import Pay from '@/pages/Pay'
 import test from '@/pages/test'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home,
+      name: 'Group',
+      component: Group,
       meta: {
-        title: "首页"
+        title: "拼团"
       }
     },
     {
@@ -58,6 +61,14 @@ export default new Router({
       }
     },
     {
+      path: '/Group',
+      name: 'Group',
+      component: Group,
+      meta: {
+        title: "拼团"
+      }
+    },
+    {
       path: '/Member',
       name: 'Member',
       component: Member,
@@ -79,7 +90,24 @@ export default new Router({
       name: 'Product',
       component: Product,
       meta: {
-        title: "产品"
+        title: "商品详情"
+      }
+    },
+    {
+      path: '/GroupProduct',
+      name: 'GroupProduct',
+      component: GroupProduct,
+      meta: {
+        title: "拼团商品"
+      }
+    },
+    {
+      path: '/Pay',
+      name: 'Pay',
+      component: Pay,
+      meta: {
+        auth:true,
+        title: "支付"
       }
     },
     {

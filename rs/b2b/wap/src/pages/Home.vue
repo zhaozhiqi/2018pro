@@ -4,7 +4,7 @@
     <!-- <router-view></router-view> -->
     <banner ref="banner"/>
     <Notice />
-    <List />
+    <List :proList='proList' :listParent='listParent'/>
     <!-- <Grid /> -->
     <Recommend />
     <Footer />
@@ -28,7 +28,15 @@ export default {
   name: 'Home',
   data(){
     return {
-      bannerHeight: 270
+      bannerHeight: 270,
+      listParent:'home',
+      proList:[
+				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"2222",num:"888",proId:"1"},
+				{bable:"新品",proImg:"https://img.alicdn.com/imgextra/i4/2578685019/TB2hrY7c2NNTKJjSspeXXaSwpXa_!!2578685019.jpg_760x760Q50s50.jpg",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"4"},
+				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"2"},
+				{bable:"新品",proImg:"https://img.alicdn.com/imgextra/i4/2578685019/TB2hrY7c2NNTKJjSspeXXaSwpXa_!!2578685019.jpg_760x760Q50s50.jpg",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"5"},
+      ]
+
     }
   },
   components: {
@@ -110,6 +118,6 @@ img {
     margin: 0;
   }
 #index{
-  padding-bottom: 100px;
+  padding: 100px 0;
 }  
 </style>

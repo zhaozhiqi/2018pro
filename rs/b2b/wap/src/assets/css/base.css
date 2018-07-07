@@ -1,73 +1,7 @@
-<template>
-    <div class="widgets-cover show">
-        <div class="cover-bg"></div>
-        <div class="cover-content">
-            <div class="sku-wrap">
-                <div class="_header">
-                    <div class="img-wrap">
-                        <img src="https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg" alt="">
-                    </div>
-                    <div class="_main">
-                        <div class="price-wrap">
-                            <span class="price">¥29.99</span>  
-                        </div>   
-                        <div class="stock">库存8291件</div>   
-                        <div class="sku-info">请选择:<span>口味</span></div>
-                    </div>
-                    <i class="sku-close rsiconfont rsicon-shanchu"></i>
-                </div>
-                <div class="_body">
-                    <div class="body-item">
-                        <ul class="sku-list-wrap">
-                            <li>
-                                <h2>颜色分类</h2>
-                                <div class="items">
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">藏蓝</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">黄色</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">橘色</a>
-                                    <a role="radio" href="javascript:void(0)" data-value="1627207:3489649" data-image="//gw.alicdn.com/bao/uploaded/TB1hQQaspuWBuNjSspnL6R1NVXa" class="" aria-checked="false">紫色</a>
-                                </div>
-                            </li>
-                            <li>
-                                <h2 id="prop_title_1">尺码</h2>
-                                <div class="items" role="radiogroup" aria-labelledby="prop_title_1">  
-                                    <a role="radio" href="javascript:void(0)" data-value="20509:28314" class="" aria-checked="false">S</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28315" class="" aria-checked="false">M</a>  
-                                    <a role="radio" href="javascript:void(0)" data-value="20509:28316" class="" aria-checked="false">L</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28317" class="" aria-checked="false">XL</a>  
-                                    <a role="radio" href="javascript:void(0)" data-value="20509:28318" class="" aria-checked="false">XXL</a>  <a role="radio" href="javascript:void(0)" data-value="20509:28319" class="" aria-checked="false">XXXL</a>  
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="number-wrap">
-                            <div class="number-line">
-                                <label for="number">购买数量</label>
-                                <span class="J_limitTxt limit-txt"></span>
-                                <div class="number">
-                                    <button class="decrease disabled">-</button> 
-                                    <input id="number" type="number" value="1"> 
-                                    <button class="increase">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="_footer">
-                    <a class="ok " role="button">确定</a>
-                </div>
-            </div>
-        </div>
-	</div>
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style scoped>
+/* 选择商品格式  + 修改数量 */
 .widgets-cover{
     position: fixed;
-    top: 100%;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
@@ -79,10 +13,12 @@ export default {
 }
 .widgets-cover.show{
     pointer-events: auto;
-    opacity: 1;
-    top: 0;
+    opacity: 1;    
 }
-
+@keyframes opacity {
+    0% {top: 100%;}
+    100% {top: 0%;}
+}
 .widgets-cover .cover-bg {
     position: absolute;
     left: 0;
@@ -289,8 +225,7 @@ export default {
 
 
 .number-wrap .number-line {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding: 20px;
     line-height: 72px
 }
 
@@ -363,8 +298,183 @@ export default {
     color: #cfcfcf
 }
 
+/* 支付 pay.vue */
+#pay{
+	overflow: hidden;
+	height: 100%;
+}
 
+#pay .main{
+	position: absolute;
+	top: 100px;
+	left: 0;
+    right: 0;
+    bottom: 100px;
+	width: 100%;
+	overflow: auto;    
+    font-size: 26px;
+}
 
+#pay .addr{
+    height: 160px;
+    line-height: 160px;
+    background: #fff;
+    border: 1px solid #efefef;
+    margin-bottom: 20px;
+}
+#pay .addr .left{
+    float: left;
+}
+#pay .addr .right{
+    float: right;
+}
+#pay .addr .left,#pay .addr .right{
+    height: 100%;
+    width: 100px;
+    text-align: center;
+}
+#pay .addr .left>i,#pay .addr .right>i{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+#pay .rsicon-qiehuanqiyou{
+    font-size: 36px;
+}
+#pay .rsicon-address{
+    font-size: 48px;
+}
+#pay .addr .con{
+    padding: 0 100px;
+    height: 100%;
+    line-height: 80px;
+}
+#pay .addr .con{
+    padding: 0 100px;
+    height: 100%;
+    line-height: 60px;
+    font-size: 34px;
+    padding: 10px 0;
+}
 
+#pay .order{
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+#pay .order .store{ 
+    padding: 0 20px;
+    line-height: 80px;
+    height: 80px;
+}
+#pay .order .con{
+    padding: 20px 40px;
+    background: #f5f5f5;  
+    overflow: hidden; 
+}
+#pay .order .con .imgOut{
+    padding: 10px;
+    float: left; 
+    width: 30%;
+    margin-right: 5%;
+    background: #fff;
+}
+#pay .order .orderInfo{
+    float: left; 
+    width:  65%
+}
 
-</style>
+#pay .order .orderInfo>div{
+    color: #181818;
+}
+#pay .order .orderInfo>div.orderName{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#pay .order .orderInfo>div.orderType{
+    color: #9b9b9b;
+}
+#pay .payList{
+    background: #fff;
+    padding: 0 0;
+    overflow: hidden;
+}
+#pay .payList .payItem{
+    float: left;
+    padding:0 20% 0 20% ;
+    width: 100%;
+    line-height: 100px;
+    height: 100px;
+    position: relative;
+    border-bottom: 1px solid #efefef
+}
+
+#pay .payList .payItem>i.l{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20%;
+    height: 100px;
+    text-align: center;
+}
+
+#pay .payList .payItem>i.r{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20%;
+    height: 100px;
+    text-align: center;
+}
+
+#pay .footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    line-height: 100px;
+    width: 100%;
+    background: #fff;
+    font-size: 30px;
+    text-align: center
+}
+#pay .footer .payBtn{
+   line-height: 100px;
+   height: 100px;
+   width:30% ;
+   text-align: center;
+   display: block;
+   background: #e02e24;
+   color: #fff;
+   float: right;
+   border: none;
+   font-size: 30px
+}
+#pay .footer .total{
+    font-size: 34px;
+    color: #e02e24;
+ }
+ #pay .footer .freight{
+    color: #e02e24;
+ }
+  
+/* reiconfont */
+.rsicon-unie655{
+    color: #00ca00
+}
+.rsicon-zhifubao{
+    color: #179eff
+}
+.rsicon-yduidunpaishixin{
+    color: #60c55b;
+}
+.rsicon-qiehuanqiyou{
+    color: #5c5c5c;
+}
+.rsicon-address{
+    color: #5c5c5c;
+}

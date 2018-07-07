@@ -41,9 +41,9 @@
 				<div class="btm-II">
 				  <i class="rsiconfont rsicon-kefu1"></i>客服
 				</div>
-				<div class="btm-II">
+				<!-- <div class="btm-II">
 				  <i class="rsiconfont rsicon-shoucang"></i>收藏
-				</div>
+				</div> -->
 				<router-link to="/Cart" class="btm-II">
 				  <i class="rsiconfont rsicon-31gouwuche"></i>购物车
 					<em class="num" v-show="cartCount > 0">{{cartCount}}</em>
@@ -105,7 +105,7 @@ export default {
 			],
 			proStore:{
 				storeId:"0001",
-				storeName:"1919凯旋官方旗舰店",
+				storeName:"官方旗舰店",
 				storeDec:"酒厂直供   正品保证",
 				storeLogoImg:"/static/images/storeLogo.png"
 			}
@@ -254,6 +254,7 @@ span.labelty {
 }
 
 .go-mall figure img {
+	border-radius: 50%;
 	 width: 100%
 }
 

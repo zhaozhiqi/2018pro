@@ -16,7 +16,7 @@
 								<s>¥{{item.price}}</s>
 							</p>
 						</div>
-						<div class="con-item-btn"><i class="ico-cart"></i></div>
+						<!-- <div class="con-item-btn"><i class="ico-cart"></i></div> -->
 					</figcaption>
 				</router-link>	
 			</li>

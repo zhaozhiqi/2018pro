@@ -41,6 +41,6 @@ export default {
     z-index: 10;
   }
   [w-750-235]{
-    aspect-ratio:'750:540';
+    aspect-ratio:'750:420';
   }
 </style>

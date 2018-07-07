@@ -1,3 +1,86 @@
+/* GroupList */
+#groupList{
+    display: flex;
+    flex-direction: column;
+}
+#groupList .groupProItem{
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+#groupList .groupProItem .imgOut{
+    padding: 10px;
+    float: left; 
+    width: 30%;
+    margin-right: 5%;
+    background: #fff;
+}
+#groupList .groupProItem .groupProInfo{
+    float: left; 
+    width:  65%;
+    position: relative
+}
+#groupList .groupProItem .groupProLink{
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    border-radius: 20px;
+    background: #FF0036;
+}
+#groupList .groupProItem .groupProInfo>div{
+    color: #181818;
+}
+#groupList .groupProItem .groupProInfo>div.orderName{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#groupList .groupProItem .groupProInfo>.groupProName{
+    color: #181818;
+    font-weight: bold;
+}
+#groupList .groupProItem .groupProInfo>.groupProName>span{
+    background-color: #FF0036;
+    color: #fff;
+    padding: 0 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+#groupList .groupProItem .groupProInfo>.groupProSpec{
+    color: #9b9b9b;
+}
+#groupList .groupProItem .groupProInfo>.groupProJobPrice{
+    color: #FF0036;
+}
+#groupList .groupProItem .groupProInfo>.groupProGroupPrice{
+    color: #FF0036;
+}
+#groupList .groupProItem .groupProInfo>.groupProGroupMustNum{
+    color: #9b9b9b;
+}
+#groupList .groupProItem .groupProInfo>.groupProGroupPercent{
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#groupList .groupProItem .groupProInfo>.groupProGroupPercent>.conColor{
+    background-color: #FF0036;
+    height: 100%;
+    width: 50%;
+    border-radius: 10px;
+}
+
 /* 选择商品格式  + 修改数量 */
 .widgets-cover{
     position: fixed;

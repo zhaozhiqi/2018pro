@@ -7,6 +7,7 @@ import axios from 'axios'
 import Vuex from 'vuex'
 import VueLazyload from 'vue-lazyload'
 import MintUI from 'mint-ui';
+import Cookies from 'js-cookie'
 // import 'mint-ui/lib/style.css'
 import '@/assets/css/base.css'
 Vue.use(MintUI);
@@ -444,6 +445,7 @@ const store = new Vuex.Store({
     login(state, stark){
       if((stark.account === 'admin'||stark.account === '15584461401')&&stark.password === '123456'){
         state.login = true;
+        Cookies.set('Login', 'true', { expires: 7 });   
         console.log(stark,'stark');
         state.nickName = 'Zhaozq';
         stark.that.$toast({
@@ -459,6 +461,7 @@ const store = new Vuex.Store({
     },
     logout(state){
       state.login = false;
+      Cookies.set('Login', 'false');   
     },
     updateUserInfo(state, nickName) {
       state.nickName = nickName;
@@ -527,8 +530,9 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   }
   if(to.matched.some( m => m.meta.auth)){  
+    let Login = Cookies.get('Login'); 
     // 对路由进行验证     
-    if(store.state.login === true){ // 已经登陆       
+    if(Login === 'true'){ // 已经登陆       
       next()   // 正常跳转到你设置好的页面     
     } else{        
     // 未登录则跳转到登陆界面，query:{ Rurl: to.fullPath}表示把当前路由信息传递过去方便登录后跳转回来；

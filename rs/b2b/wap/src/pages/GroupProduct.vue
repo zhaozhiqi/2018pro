@@ -16,12 +16,40 @@
 		  <p class="g-address"><span></span><span style="margin: 0px;">{{productInfo.proDec}}</span></p> 
 		  <p class="g-price"><span>¥ </span><strong>{{productInfo.proPrice}}</strong><s>¥{{productInfo.proOldPrice}}</s></p>
 		</div>
+		<div class="group-order">
+			<div class="group-order-all">200人在拼单 <span class="group-order-getAll" @click="showAllGroupOrder()">查看更多<i class="rsiconfont rsicon-qiehuanqiyou"></i></span></div>
+			<div class="group-order-con" >
+				<mt-swipe :class="mint-swipe" :auto="3000" :speed="600" :show-indicators="false">
+					<mt-swipe-item :class="mt-swipe-item" v-for="(slider, index) in productInfo.groupOrder.list" :key="index">
+							<div class="group-order-item">
+								<button class="joinGroupBtn" @click="joinGroupOrder()">去拼团</button>
+								<div class="groupOrderInfo">
+									<p class="t">还差<span>{{slider.orderLack}}人</span>拼成</p>
+									<p class="b">{{slider.djs}}</p>
+								</div>
+								<div class="orderUserIcon">
+									<img class="orderUserImage" :src="slider.orderUserImage" alt="" style="width:50px;height:50px;">
+								</div>
+								<span class="orderUserName">{{slider.orderUserName}}</span>
+							</div>
+					</mt-swipe-item>
+				</mt-swipe>
+			</div>
+		</div>
 		<div class="go-mall">
 		  <figure>
 			 <img :src="productInfo.proStore.storeLogoImg" lazy="loaded">
 		  </figure> 
 		  <p><span>{{productInfo.proStore.storeName}}</span> <small>{{productInfo.proStore.storeDec}}</small></p> 
 		  <router-link class="goStore" to="/Store">进入店铺<i class="rsiconfont rsicon-qiehuanqiyou"></i></router-link>
+		</div>
+		<div class="product-details">
+			<img 
+			class="detailImg"
+			v-for="(item, index) in productInfo.proDetList"
+			:key="index"
+			:src="item" 
+			alt="商品详情">
 		</div>
 		<div class="product-recommend">为您推荐</div> 
 		<TypeGoodsList/>
@@ -38,9 +66,9 @@
 		<div class="btm">
 		  <nav>
 			 <div class="btm-I">
-				<div class="btm-II">
+				<router-link to="/group" class="btm-II">
 				  <i class="rsiconfont rsicon-pintuanzhuanqu"></i>拼团首页
-				</div>
+				</router-link>
 				<div class="btm-II">
 				  <i class="rsiconfont rsicon-kefu1"></i>客服
 				</div>
@@ -75,6 +103,7 @@
 <script>
 import TypeGoodsList from '@/components/TypeGoodsList';
 import WidgetsCover from '@/components/widgets-cover';
+import {countDown} from '@/utils'
 export default {
   name: 'Index',
   data() {
@@ -89,9 +118,9 @@ export default {
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
-			proName:"法国品牌凯旋1664白啤瓶装330ml",
+			proName:"肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",
 			proNo:"5513213245aasd",
-			proDec:"法国品牌授权中国区生产，国产啤酒",
+			proDec:"谜秀连衣裙女夏pphome裙子文艺",
 			proPrice:29.99,
 			proOldPrice:99.99,
 			proSelfPrice:99.99,
@@ -100,8 +129,8 @@ export default {
 			saleNum:1,
 			proStore:{
 				storeId:"0001",
-				storeName:"1919凯旋官方旗舰店",
-				storeDec:"酒厂直供   正品保证",
+				storeName:"ROUWANBABY旗舰店",
+				storeDec:"品牌旗舰店",
 				storeLogoImg:"/static/images/storeLogo.png"
 			},
 			proChangeImage:'https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg',
@@ -158,21 +187,49 @@ export default {
 				{
 					title: "slide1",
 					style: {
-						sliderImg: "/static/images/wap-20.png"
+						sliderImg: "/static/images/wap-19.png"
 					}
 				},
 				{
 					title: "slide2",
 					style: {
-						sliderImg: "/static/images/wap-20.png"
-					}
-				},
-				{
-					title: "slide3",
-					style: {
-						sliderImg: "/static/images/wap-20.png"
+						sliderImg: "/static/images/wap-14.png"
 					}
 				}
+			],
+			groupOrder:{
+				allPeoPleNum: '200',
+				list:[
+					{
+						id:'1',
+						orderUserName:'王建国',
+						orderUserImage:'/static/images/storeLogo.png',
+						orderLack: '1',
+						orderEndTime: '2018,08,07 12:00:00:00' 
+					},
+					{
+						id:'2',
+						orderUserName:'张建军',
+						orderUserImage:'/static/images/storeLogo.png',
+						orderLack: '1',
+						orderEndTime: '2018,07,07 13:00:00:00' 
+					},
+					{
+						id:'3',
+						orderUserName:'刘德华',
+						orderUserImage:'/static/images/storeLogo.png',
+						orderLack: '1',
+						orderEndTime: '2018,07,06 14:00:00:00' 
+					},
+				]
+			},
+			proDetList:[
+				"/static/images/pro-det-06.png",
+				"/static/images/pro-det-05.jpg",
+				"/static/images/pro-det-04.jpg",
+				"/static/images/pro-det-03.jpg",
+				"/static/images/pro-det-02.jpg",
+				"/static/images/pro-det-01.jpg"
 			]
 		}
 	 }
@@ -181,8 +238,14 @@ export default {
 		TypeGoodsList,
 		WidgetsCover
 	},
+	created(){
+		this.productInfo.groupOrder.list.map((item, index)=>{
+			this.$set(item, 'djs' ,countDown(item.orderEndTime))
+		})
+		this.changeOrderDjs()
+	},
 	mounted(){
-		
+		// console.log(countDown("2018,07,07 12:00:00"))
 	},
 	computed: {
 		cartCount(){
@@ -237,6 +300,34 @@ export default {
 						that.$indicator.close();
 						that.$router.push({ path: '/Pay'})
 				},300)
+			},
+			reverseArr(arr){
+				let _arr = arr 
+				_arr = _arr.reverse() 
+				return _arr
+			},
+			showAllGroupOrder(){
+				console.log('showAllGroupOrder')
+			},
+			joinGroupOrder(id){
+				this.$messagebox.confirm('参与该拼单？').then(action => {
+					this.groupNow()
+				}).catch(err=>{
+					if(err == 'cancel') {
+							console.log('取消');
+							return
+					}
+				});				
+				console.log('joinGroupOrder')
+			},
+			changeOrderDjs(){
+				let that = this
+				let timer = setInterval(()=>{
+					this.productInfo.groupOrder.list.forEach(item => {
+						let newDjs = countDown(item.orderEndTime)
+						newDjs!==false?item.djs = '剩余 '+ countDown(item.orderEndTime):item.djs = '已过期'
+					});
+				},100)			
 			}
 	}
 };
@@ -285,7 +376,10 @@ export default {
 }
 
 .goBack{
-  left: 20px;
+	left: 20px;
+	background:rgba(51, 51, 51, 0.5);
+	color: #fff;
+	border-radius: 50%;
 }
 
 .goCart{
@@ -293,10 +387,11 @@ export default {
 }
 
 .goBack .rsiconfont,.goCart .rsiconfont{
+	text-align: center;
   display: block;
   width: 100%;
   height: 100%;
-  font-size: 40px;
+  font-size: 34px;
 }
 
 .goCart .rsiconfont{
@@ -319,6 +414,7 @@ span.labelty {
 	 font-size: 22px;
 	 color: #fff;
 }
+
 .good-detail .g-code {
 	 color: #999;
 }
@@ -372,6 +468,88 @@ span.labelty {
   font-size: 30px;
   margin-left: 20px;
 }
+
+.group-order{
+	background: #fff;
+	margin-bottom: 20px;
+	
+}
+
+.group-order-all{
+	height: 80px;
+	line-height: 80px;
+	padding: 0 20px;
+	font-size: 28px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.group-order-getAll{
+	float: right;
+	color: #666
+}
+.group-order-getAll>i{
+	font-size: 28px;
+	line-height: 28px;
+	color: #666
+}
+
+.group-order-con{
+	height: 140px;
+}
+
+.group-order .group-order-item{
+	padding: 0 20px;
+	overflow: hidden;
+}
+
+.group-order .joinGroupBtn{
+	float: right;
+	width: 20%;
+	line-height: 80px;
+	height: 80px;
+	margin: 30px 0; 
+	border: none;
+	background: #e02e24;
+	color: #fff;
+	border-radius: 10px;
+}
+
+.group-order .groupOrderInfo{
+	float: right;
+	line-height: 40px;
+	height: 80px;
+	margin: 30px 10px 30px 0; 
+	text-align: center
+}
+
+.group-order .groupOrderInfo .t{
+	color: #333;
+	font-size: 30px;
+}
+.group-order .groupOrderInfo .t>span{
+	color: #e02e24;
+}
+.group-order .groupOrderInfo .b{
+	color: #666;
+	font-size: 26px;
+}
+.group-order .orderUserIcon{
+	float: left;
+	margin: 20px 0;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.group-order .orderUserIcon .orderUserImage{
+	height: 100%;
+	display: block
+}
+.group-order .orderUserName{
+	float: left;
+	height: 80px;
+	line-height: 80px;
+	margin: 30px 0 30px 10px;
+	font-size: 30px;
+}
+
 .product-recommend{
   line-height: 40px;
 	height: 40px;
@@ -494,4 +672,12 @@ span.labelty {
 	line-height: 50px; 
 }
 
+.product-details{
+	display: flex;
+	flex-direction: column-reverse;
+	overflow: hidden;
+}
+.product-details .detailImg{
+	flex: 1;	
+}
 </style>

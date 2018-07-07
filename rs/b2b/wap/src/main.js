@@ -443,11 +443,12 @@ const store = new Vuex.Store({
   mutations: {
     //更新用户信息
     login(state, stark){
-      if((stark.account === 'admin'||stark.account === '15584461401')&&stark.password === '123456'){
+      if((stark.account === 'admin'||stark.account === '15584461401'||stark.account === 'admin1'||stark.account === 'admin2'||stark.account === 'admin3')&&stark.password === '123456'){
         state.login = true;
         Cookies.set('Login', 'true', { expires: 7 });   
+        Cookies.set('RANK', stark.account, { expires: 7 });   
         console.log(stark,'stark');
-        state.nickName = 'Zhaozq';
+        state.nickName = stark.account;
         stark.that.$toast({
           message: '登录成功',
           type: 'warning'

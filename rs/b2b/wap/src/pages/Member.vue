@@ -16,7 +16,7 @@
 				</div>
 			</header>
 			<section class="section">
-				<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
+				<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em></em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
 				<div class="orderMenu">
 					<nav>
 						<router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: item.type}}" class="orderMenuLink" v-for="(item, index) in orderMenuList" :key="index">
@@ -27,7 +27,16 @@
 						</router-link>
 					</nav>
 				</div>
-				<router-link  :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink" v-for="(item, index) in 4" :key="index"><span class="linkName"><i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em></span><span class="linkRouter"><em>水电费水电费水电费</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span></router-link>
+				<router-link  
+				:to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" 
+				class="itemLink" 
+				v-for="(item, index) in 4" 
+				:key="index">
+					<span class="linkName">
+						<i class="rsiconfont rsicon-quanbudingdan"></i><em>全部订单</em>
+					</span>
+					<span class="linkRouter"><em>菜单</em><i class="rsiconfont rsicon-qiehuanqiyou"></i></span>
+				</router-link>
 			</section>
 			<div class="car-member-recommend">为您推荐</div> 
 			<TypeGoodsList class=""/>
@@ -103,6 +112,8 @@ export default {
 			})
 			
 		})
+		let RANK = Cookies.get('RANK'); 
+		console.log(RANK,'RANK')
 	},
 	methods:{
 

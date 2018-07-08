@@ -1,29 +1,5 @@
 <template>
   <div id="groupList"> 
-			<!-- <Nodata :nodata="nodataObj" v-if="proList.length <= 0"></Nodata>
-			<div v-else class="container" flexcontainer>  -->
-			<!-- <div class="container" flexcontainer> 
-			<ul class="block-item" w-369 v-for="(item, index) in proList" :key="index"> 
-				<li> 
-					<router-link  :to="{path:routerPath, query: { id: item.proId }}"> 
-						<figure> 
-							<img :src="item.proImg" alt="" class="proImg"> 
-						</figure> 
-						<figcaption> 
-							<h2>
-								<span class="bable" v-show="false">{{item.bable}}</span>
-								{{item.title}}</h2> 
-							<div>
-							
-							<span><i>¥</i>{{item.price}}</span>
-							<span v-if="listParent === 'group'">已拼{{item.num}}件</span>
-							<span v-else>已有{{item.num}}人付款</span>
-							</div> 
-						</figcaption>
-					</router-link>
-				</li> 
-			</ul> 		
-			</div> -->
 			<div class="groupProItem" v-for="(item, index) in proList" :key="index">
 					<div class="imgOut">
 							<img :src="item.proImg" alt="">
@@ -39,8 +15,7 @@
 							<div class="groupProGroupPercent">
 								<div class="conColor" :style="{width: item.percent + 'px'}"></div>
 							</div>
-					</div>
-				
+					</div>				
 			</div>
   </div>
 </template>

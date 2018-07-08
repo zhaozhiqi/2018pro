@@ -131,7 +131,7 @@ export default {
 				storeId:"0001",
 				storeName:"ROUWANBABY旗舰店",
 				storeDec:"品牌旗舰店",
-				storeLogoImg:"/static/images/storeLogo.png"
+				storeLogoImg:"../../static/images/storeLogo.png"
 			},
 			proChangeImage:'https://img.alicdn.com/imgextra/i3/2398639760/TB1_HXTa_tYBeNjy1XdXXXXyVXa_!!0-item_pic.jpg_200x200Q50s50.jpg',
 			proChangeList:[
@@ -187,13 +187,13 @@ export default {
 				{
 					title: "slide1",
 					style: {
-						sliderImg: "/static/images/wap-19.png"
+						sliderImg: "../../static/images/wap-19.png"
 					}
 				},
 				{
 					title: "slide2",
 					style: {
-						sliderImg: "/static/images/wap-14.png"
+						sliderImg: "../../static/images/wap-14.png"
 					}
 				}
 			],
@@ -203,33 +203,33 @@ export default {
 					{
 						id:'1',
 						orderUserName:'王建国',
-						orderUserImage:'/static/images/storeLogo.png',
+						orderUserImage:'../../static/images/storeLogo.png',
 						orderLack: '1',
 						orderEndTime: '2018,08,07 12:00:00:00' 
 					},
 					{
 						id:'2',
 						orderUserName:'张建军',
-						orderUserImage:'/static/images/storeLogo.png',
+						orderUserImage:'../../static/images/storeLogo.png',
 						orderLack: '1',
 						orderEndTime: '2018,07,07 13:00:00:00' 
 					},
 					{
 						id:'3',
 						orderUserName:'刘德华',
-						orderUserImage:'/static/images/storeLogo.png',
+						orderUserImage:'../../static/images/storeLogo.png',
 						orderLack: '1',
 						orderEndTime: '2018,07,06 14:00:00:00' 
 					},
 				]
 			},
 			proDetList:[
-				"/static/images/pro-det-06.png",
-				"/static/images/pro-det-05.jpg",
-				"/static/images/pro-det-04.jpg",
-				"/static/images/pro-det-03.jpg",
-				"/static/images/pro-det-02.jpg",
-				"/static/images/pro-det-01.jpg"
+				"../../static/images/pro-det-06.png",
+				"../../static/images/pro-det-05.jpg",
+				"../../static/images/pro-det-04.jpg",
+				"../../static/images/pro-det-03.jpg",
+				"../../static/images/pro-det-02.jpg",
+				"../../static/images/pro-det-01.jpg"
 			]
 		}
 	 }

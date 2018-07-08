@@ -87,19 +87,19 @@ export default {
 				{
 					title: "slide1",
 					style: {
-						sliderImg: "/static/images/wap-20.png"
+						sliderImg: "../../static/images/wap-20.png"
 					}
 				},
 				{
 					title: "slide2",
 					style: {
-						sliderImg: "/static/images/wap-20.png"
+						sliderImg: "../../static/images/wap-20.png"
 					}
 				},
 				{
 					title: "slide3",
 					style: {
-						sliderImg: "/static/images/wap-20.png"
+						sliderImg: "../../static/images/wap-20.png"
 					}
 				}
 			],
@@ -107,7 +107,7 @@ export default {
 				storeId:"0001",
 				storeName:"官方旗舰店",
 				storeDec:"酒厂直供   正品保证",
-				storeLogoImg:"/static/images/storeLogo.png"
+				storeLogoImg:"../../static/images/storeLogo.png"
 			}
 		}
 	 }

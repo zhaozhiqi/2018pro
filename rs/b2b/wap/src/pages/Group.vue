@@ -164,24 +164,5 @@ img {
     display: block;
     margin: 0;
   }
-#group{
-  padding: 100px 0;
-}  
-#group>nav{
-  display: flex;
-  background: #fff;
-  margin-bottom : 20px;
 
-}
-#group>nav>.navItem{
-  flex:1;
-  text-align: center;
-  height: 80px;
-  line-height: 80px;
-  color:#9b9b9b;
-  font-size:30px;
-}
-#group>nav>.navItem.active{
-  color: #181818;
-}
 </style>

@@ -19,25 +19,25 @@ export default {
         // {
         //   title: "slide1",
         //   style: {
-        //     sliderImg: "/static/images/ceshi.png"
+        //     sliderImg: "../../static/images/ceshi.png"
         //   }
         // },
         {
           title: "slide1",
           style: {
-            sliderImg: "/static/images/wap-17.png"
+            sliderImg: "../../static/images/wap-17.png"
           }
         },
         {
           title: "slide2",
           style: {
-            sliderImg: "/static/images/wap-16.png"
+            sliderImg: "../../static/images/wap-16.png"
           }
         },
         {
           title: "slide3",
           style: {
-            sliderImg: "/static/images/wap-12.png"
+            sliderImg: "../../static/images/wap-12.png"
           }
         }
       ]

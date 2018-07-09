@@ -914,8 +914,6 @@ export default {
 				item.isActive === true?item.isActive = false:item.isActive = false;
 			}
 			this.typeIList[_index].isActive = true;
-			// let id = this.typeIList[_index].id;
-			// return id;
 		},
 		changeProductBrands(index){
 			this.productBrandsIndex = index;

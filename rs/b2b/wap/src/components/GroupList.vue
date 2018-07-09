@@ -27,8 +27,8 @@ export default {
   data() {
     return {
       nodataObj:{
-					iconName:"rsicon-jingshi",
-					nodataMsg:"暂无信息"
+				iconName:"rsicon-jingshi",
+				nodataMsg:"暂无信息"
 			},
 			routerPath:'/Product',
 		}

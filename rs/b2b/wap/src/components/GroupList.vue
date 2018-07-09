@@ -12,7 +12,7 @@
 							<div class="groupProGroupMustNum">拼团规模：{{item.mustNum}}件</div>
 							<router-link class="groupProLink"  
 							:to="{path:routerPath, query: { id: item.proId }}">立即拼团</router-link>
-							<div class="groupProGroupPercent">
+							<div class="groupProGroupPercent" v-show="false">
 								<div class="conColor" :style="{width: item.percent + 'px'}"></div>
 							</div>
 					</div>				

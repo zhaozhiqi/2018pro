@@ -1,5 +1,5 @@
 <template>
-  <div id="typeList"> 
+  <div id="typeGoodsList"> 
 		<ul class="">
 			<li class="con-item" 
 			v-for="(item, index) in goodsList"
@@ -33,7 +33,6 @@ export default {
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
 				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
@@ -57,11 +56,11 @@ export default {
 </script>
 
 <style scoped>	
-#typeList{
+#typeGoodsList{
 	background: #efefef
 }
 
-#typeList ul{
+#typeGoodsList ul{
 	display: flex;
 	flex-wrap: wrap;
 }

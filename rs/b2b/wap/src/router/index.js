@@ -17,6 +17,7 @@ import EditAddress from '@/pages/member/EditAddress'
 import Setting from '@/pages/member/Setting'
 import AboutUs from '@/pages/member/AboutUs'
 
+import Store from '@/pages/Store'
 import Product from '@/pages/Product'
 import GroupProduct from '@/pages/GroupProduct'
 import Pay from '@/pages/Pay'
@@ -91,6 +92,14 @@ export default new Router({
       component: Product,
       meta: {
         title: "商品详情"
+      }
+    },
+    {
+      path: '/Store',
+      name: 'Store',
+      component: Store,
+      meta: {
+        title: "店铺主页"
       }
     },
     {

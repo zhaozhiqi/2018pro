@@ -952,6 +952,122 @@
     color: #cfcfcf
 }
 
+
+/* 店铺主页 store  Store.vue*/
+#store{
+    overflow: hidden;
+	height: 100%; 
+}
+#store .main{
+	position: absolute;
+	top: 100px;
+	left: 0;
+    right: 0;
+    bottom: 100px;
+	width: 100%;
+	overflow: auto;    
+    font-size: 26px;
+}
+#store .main .storeInfo{
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+#store .main .storeInfo .top{
+    display: flex;
+    height: 150px;
+    line-height: 50px;
+}
+#store .storeLogo{
+    display: block;
+    flex: 0 0 20%;
+    margin-right: 4%;
+}
+#store .storeLogo>img{
+    display: block;
+    width: 100%;   
+}
+#store .storeName{
+    flex: 0 0 30%;
+    margin-right: 4%;
+    line-height: 150px;
+    font-size: 40px;
+    font-weight: bold;
+}
+#store .storeCollect,#store .storeCall{
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 2%;
+    text-align: center;
+    font-size: 28px;
+    color: #e02e24;
+}
+#store .storeCall{
+    margin-right: 0
+}
+#store .storeCollect>i,#store .storeCall>i{
+    font-size: 48px;
+}
+#store .main .storeInfo .btm{
+    line-height: 50px;
+    font-size: 30px;
+}
+
+#store .main .storeTab{
+    overflow: hidden;
+    background: #fff;
+    /* color: #999 */
+}
+#store .mint-navbar{
+    color: #999;
+}
+#store .mint-tab-item-label{
+    font-size: 34px!important;
+}
+#store .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #e02e24;
+    color: #e02e24;
+    margin-bottom: -3px;
+}
+#store .mint-tab-container-item{
+    background: #efefef;
+}
+#store .mint-tab-container-item .title{
+    text-align: center;
+    line-height: 80px;
+    height: 80px;
+    font-size: 30px;
+}
+#store .mint-tab-container-item .classCon{
+    display: flex;
+}
+#store .mint-tab-container-item .classItem{
+    display: block;
+    flex: 0 0 23%;
+    margin-right: 2%;
+    background: #fff;
+    text-align: center;
+    font-size: 28px;
+}
+#store .mint-tab-container-item.intro>div{
+    line-height: 50px;
+    height: 50px;
+    font-size: 30px;
+    padding: 0 20px;
+}
+#store .mint-tab-container-item.intro>div>span{
+    color: #999;
+    margin-right: 20px;
+}
+#store .mint-tab-container-item.intro>h3{
+    text-align: center;
+    font-size: 35px;
+    line-height: 60px;
+    height: 60px;
+    font-weight: bold;
+}
 /* 支付 pay.vue */
 #pay{
 	overflow: hidden;

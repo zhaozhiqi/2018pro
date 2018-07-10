@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-	 <div class="main">
+	  <div class="main">
 		<div class="banner" w-750-750 aspectratio aspect-ratio="750/750">
 		  <div aspectratio-content>
 			 <span class="goBack" @click="goback"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
@@ -23,10 +23,18 @@
 		  <p><span>{{productInfo.proStore.storeName}}</span> <small>{{productInfo.proStore.storeDec}}</small></p> 
 		  <router-link class="goStore" to="/Store">进入店铺<i class="rsiconfont rsicon-qiehuanqiyou"></i></router-link>
 		</div>
-		<div class="product-recommend">为您推荐</div> 
-		<TypeGoodsList/>
-	 </div>
-	 <footer class="footer">
+		<div class="product-details">
+			<img 
+			class="detailImg"
+			v-for="(item, index) in productInfo.proDetList"
+			:key="index"
+			:src="item" 
+			alt="商品详情">
+		</div>
+		<!-- <div class="product-recommend">为您推荐</div> 
+		<TypeGoodsList/> -->
+	  </div>
+	  <footer class="footer">
 		<div class="top">
 		  <label>数量</label>
 		  <div class="editNum">
@@ -53,18 +61,28 @@
 				<div class="btm-III buyCart" @click="addCart">
 					加入购物车
 				</div>
-				<div class="btm-III buyNow">
+				<div class="btm-III buyNow" @click="buyNow">
 					立即购买
 				</div>
 			 </div>
 		  </nav>
 		</div>  
-	 </footer>
+	  </footer>
+	 	<WidgetsCover 
+	 :class="{'show':widgetsCoverShow}" 
+	 v-on:widgetsCoverShow="closeWidgetsCover"
+	 v-on:saveDecideVal="getDecideVal" 
+	 :saleType="saleType"
+	 :changeInfo="productInfo"></WidgetsCover>
   </div>
+	
 </template>
 
 <script>
 import TypeGoodsList from '@/components/TypeGoodsList';
+import WidgetsCover from '@/components/widgets-cover';
+import {countDown} from '@/utils'
+
 export default {
   name: 'Index',
   data() {
@@ -73,47 +91,98 @@ export default {
 		mint:null,
 		swipe:null,
 		mt:null,
-		item:null,		
+		item:null,	
+		saleType:'self',
+		widgetsCoverShow:false,			
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
-			proName:"法国品牌凯旋1664白啤瓶装330ml",
+			proName:"【可口可乐】 雪碧纤维+零糖零卡路里 迪丽热巴 碳酸饮料500ml*12",
 			proNo:"5513213245aasd",
-			proDec:"法国品牌授权中国区生产，国产啤酒",
-			proPrice:10,
-			proOldPrice:100,
+			proDec:"501mL(含)-999mL(含)",
+			proPrice:58.00,
+			proOldPrice:80.00,
+			proSelfPrice:99.99,
+			proGroupPrice:29.99,
+			proStock: 9,
 			saleNum:1,
+			proStore:{
+				storeId:"0001",
+				storeName:"Coca-Cola可口可乐旗舰店",
+				storeDec:"品牌旗舰店",
+				storeLogoImg:"static/images/storeLogo2.png"
+			},
+			proChangeImage:'static/images/pro-02.jpg',
+			proChangeList:[
+					{
+						typeId:1,
+						typeName:'分类',
+						con:[
+							{
+								dataName: '新包装',
+								dataValue: '1001:01',
+								dataImage: 'static/images/pro-02-2.jpg',
+								dataChecked: false,
+								dataPrice: 58.00
+							},
+							{
+								dataName: '胶瓶装（小）',
+								dataValue: '1001:02',
+								dataImage: 'https://gw3.alicdn.com/bao/uploaded/i4/2656379929/TB1HWSebnqWBKNjSZFxXXcpLpXa_!!0-item_pic.jpg',
+								dataChecked: false,
+								dataPrice: 29.99
+							},
+							{
+								dataName: '听装',
+								dataValue: '1001:03',
+								dataImage: 'https://gw1.alicdn.com/bao/uploaded/i1/2809417192/TB2e.rsmfNNTKJjSspcXXb4KVXa_!!2809417192.jpg',
+								dataChecked: false,
+								dataPrice: 29.99
+							}
+						]
+					}
+			],
 			proBannerList:[
 				{
 					title: "slide1",
 					style: {
-						sliderImg: "../../static/images/wap-20.png"
+						sliderImg: "static/images/pro-02.jpg"
 					}
 				},
 				{
 					title: "slide2",
 					style: {
-						sliderImg: "../../static/images/wap-20.png"
+						sliderImg: "static/images/pro-02-2.jpg"
 					}
 				},
 				{
 					title: "slide3",
 					style: {
-						sliderImg: "../../static/images/wap-20.png"
+						sliderImg: "static/images/pro-02-3.jpg"
+					}
+				},
+				{
+					title: "slide4",
+					style: {
+						sliderImg: "static/images/pro-02-4.jpg"
 					}
 				}
 			],
-			proStore:{
-				storeId:"0001",
-				storeName:"官方旗舰店",
-				storeDec:"酒厂直供   正品保证",
-				storeLogoImg:"../../static/images/storeLogo.png"
-			}
+			proDetList:[
+				"static/images/pro-det-07.jpg",
+				"static/images/pro-det-08.jpg",
+				"static/images/pro-det-09.jpg",
+				"static/images/pro-det-10.jpg",
+				"static/images/pro-det-11.jpg",
+				"static/images/pro-det-12.jpg",
+				"static/images/pro-det-13.jpg"
+			]
 		}
 	 }
   },
   components: {
-		TypeGoodsList
+		TypeGoodsList,
+		WidgetsCover
 	},
 	mounted(){
 		
@@ -141,10 +210,52 @@ export default {
 				this.$store.commit('goback')
 			},
 			addCart(){
-				let num = this.productInfo.saleNum
-				let pro = this.proStore
-				this.$store.commit('updateCartCount',num)
-				console.log(num,'num')
+				this.saleType = 'addCart'
+				this.openWidgetsCover()
+				// let num = this.productInfo.saleNum
+				// let pro = this.proStore
+				// this.$toast({
+				// 		message: '添加成功',
+				// 		type: 'warning',
+				// 		duration: 1000
+				// });
+				// this.$store.commit('updateCartCount',num)
+				// console.log(num,'num')
+			},
+			buyNow(){
+				this.openWidgetsCover()
+			},
+			openWidgetsCover(){
+				this.widgetsCoverShow = true
+			},
+			closeWidgetsCover(val){
+				this.widgetsCoverShow = val
+			},
+			getDecideVal(val){
+				console.log(val, val.id, val.num, val.saleType, val.typeList,'getDecideVal')
+				if(val.saleType === 'addCart'){
+					let num = this.productInfo.saleNum
+					let pro = this.proStore
+					this.$toast({
+							message: '添加成功',
+							type: 'warning',
+							duration: 1000
+					});
+					this.$store.commit('updateCartCount',num)
+					console.log(num,'num')
+				}else if(val.saleType === 'self'){
+					this.goPay()
+				}
+				
+
+			},
+			goPay(){
+				let that = this;
+				this.$indicator.open();
+				setTimeout(function(){
+						that.$indicator.close();
+						that.$router.push({ path: '/Pay'})
+				},300)
 			}
 	}
 };
@@ -179,7 +290,7 @@ export default {
 }
 
 .mint-swipe-indicator.is-active{
-  background: #1655bf!important;
+  background: #ff0036!important;
 }
 
 .goBack,.goCart{
@@ -290,6 +401,15 @@ span.labelty {
 	font-weight: bold;
 }
 
+.product-details{
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.product-details .detailImg{
+	flex: 1;	
+}
+
 .footer{
   overflow: hidden;
   position: fixed;
@@ -321,10 +441,10 @@ span.labelty {
 	height: 40px;
 	line-height: 40px;
 	border-radius: 50%;
-	border: 1px solid #1655bf;
+	border: 1px solid #ff0036;
   text-align: center;
 	background: #fff;
-	color: #1655bf;
+	color: #ff0036;
 	overflow: hidden;
 }
 .footer .top .editNum .rsiconfont{
@@ -398,7 +518,7 @@ span.labelty {
 }
 
 .buyNow{
-	background: #1655bf;
+	background: #ff0036;
 }
 
 </style>

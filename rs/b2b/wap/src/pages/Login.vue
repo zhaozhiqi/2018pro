@@ -53,7 +53,7 @@ export default {
             },
             admin:{
                 account:{
-                    value:'15584461401'
+                    value:'admin1'
                 },
                 password:{
                     state: 1,

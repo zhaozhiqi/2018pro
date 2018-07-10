@@ -16,7 +16,7 @@ export default {
     data(){
         return {
             usInfo:{
-                usEwmLogo:"../../static/images/memberLogo.jpg",
+                usEwmLogo:"static/images/memberLogo.jpg",
                 usDec:"插卡机拉克丝就放开手大房间辣说快递积分快递就发了说快递积分阿说快递积分拉克丝的解放路口驾驶的离开纠纷阿萨德飞机阿萨德李开复",
                 usContact:"联系客服：400-698-6565"
             },
@@ -49,7 +49,7 @@ export default {
     background-color: #fff;
 }
 
-.main{
+#aboutUs .main{
 	position: absolute;
 	top: 100px;
 	left: 0;

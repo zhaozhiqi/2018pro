@@ -19,7 +19,7 @@ export default {
     return {
       recommendList:[
           {reImg:"//gw.alicdn.com/mt/TB17hvaSXXXXXahXFXXXXXXXXXX-750-250.png",reLink:"http://gw.alicdn.com/mt/TB17hvaSXXXXXahXFXXXXXXXXXX-750-250.png"},
-          {reImg:"../../static/images/reImg-01.png",reLink:"//gw.alicdn.com/mt/TB17hvaSXXXXXahXFXXXXXXXXXX-750-250.png"}
+          {reImg:"static/images/reImg-01.png",reLink:"//gw.alicdn.com/mt/TB17hvaSXXXXXahXFXXXXXXXXXX-750-250.png"}
       ]
     };
   }

@@ -66,22 +66,22 @@ const user = {
                         able: "新品",
                         id: 1,
                         proId: "10001",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 1,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     },
                     {
                         checked: false,
                         bable: "新品",
                         id: 2,
                         proId: "10002",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 2,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     }
                 ]
             },
@@ -95,22 +95,22 @@ const user = {
                         able: "新品",
                         id: 1,
                         proId: "10001",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 2,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     },
                     {
                         checked: false,
                         bable: "新品",
                         id: 2,
                         proId: "10002",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 2,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     }
                 ]
             },
@@ -124,22 +124,22 @@ const user = {
                         able: "新品",
                         id: 1,
                         proId: "10001",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 2,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     },
                     {
                         checked: false,
                         bable: "新品",
                         id: 2,
                         proId: "10002",
-                        proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                        proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                         proName: "荐形容的狠货厚高的工人的",
                         proPrice: 1,
                         proNum: 2,
-                        proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                        proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                     }
                 ]
             },
@@ -162,18 +162,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -185,11 +185,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600
@@ -214,18 +214,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -237,11 +237,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600
@@ -261,18 +261,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -284,11 +284,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600
@@ -313,18 +313,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -336,11 +336,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600
@@ -360,18 +360,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -383,11 +383,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600
@@ -404,18 +404,18 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817M",
                         productList: [{
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             },
                             {
-                                proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                                proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                                 proName: "荐形容的狠货厚高的工人的",
                                 proPrice: 1,
                                 proNum: 2,
-                                proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                                proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                             }
                         ],
                         proAllNum: 4,
@@ -427,11 +427,11 @@ const user = {
                         storeName: "二哈宠物商城",
                         orderId: "B2CK18062205817L",
                         productList: [{
-                            proImg: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                            proImg: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                             proName: "荐形容的狠货厚高的工人的",
                             proPrice: 1,
                             proNum: 2,
-                            proLink: "//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                            proLink: "http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
                         }],
                         proAllNum: 2,
                         orderMoney: 600

@@ -5,7 +5,7 @@
 			<ul class="block-item" w-369> 
 				<li> 
 				<figure> 
-					<img src="//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png" alt="" width="100%"> 
+					<img src="http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png" alt="" width="100%"> 
 				</figure> 
 				<figcaption> 
 					<h2>荐形容的狠货厚高的工人的</h2> 

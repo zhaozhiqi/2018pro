@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  	name: 'TypeList',
+  	name: 'TypeGoodsList',
   	data() {
 		return {
 		}
@@ -40,15 +40,15 @@ export default {
 	props:{
 		proList:{
 			type: Array,
-			default:[
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-			]
+			default: ()=>
+					[
+						{bable:"新品",proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{bable:"新品",proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{bable:"新品",proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{bable:"新品",proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"9999.00",num:"888",prolink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+						{bable:"新品",proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",prolink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
+					]	
+			
 		}
 	}
 };

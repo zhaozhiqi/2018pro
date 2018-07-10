@@ -29,7 +29,7 @@ export default {
       listParent:'group',
       proList:[
 				{bable:"新品",proImg:"https://gw.alicdn.com/imgextra/i3/2567690040/TB2GHhSaFqZBuNjt_jqXXamzpXa_!!2567690040.jpg",title:"裙子夏女2018新款韩版露背小心机显瘦小个子ins超火的吊带连衣裙",price:"2222",num:"888",proId:"1"},
-				{bable:"新品",proImg:"../../static/images/wap-19.png",title:"ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",price:"21",num:"888",proId:"4"},
+				{bable:"新品",proImg:"static/images/wap-19.png",title:"ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",price:"21",num:"888",proId:"4"},
 				{bable:"新品",proImg:"https://gw.alicdn.com/imgextra/i3/101126324/TB2WhPbvgmTBuNjy1XbXXaMrVXa_!!101126324.jpg",title:"小番茄定制 连衣裙女夏2018新款假两件拼接收腰裙小心机开叉裙子",price:"21",num:"888",proId:"2"},
 				{bable:"新品",proImg:"https://gw.alicdn.com/imgextra/i2/87731160/TB2bqZjreuSBuNjy1XcXXcYjFXa_!!87731160.jpg",title:"连衣裙夏季2018新款女装韩版显瘦印花雪纺收腰超仙温柔风中长裙子",price:"21",num:"888",proId:"5"},
 				{bable:"新品",proImg:"https://gw.alicdn.com/imgextra/i1/752260885/TB25xdLe_qWBKNjSZFxXXcpLpXa_!!752260885.jpg",title:"妃儿雪纺连衣裙女夏季装2018新款气质显瘦温柔超仙女收腰长裙裙子",price:"21",num:"888",proId:"3"},

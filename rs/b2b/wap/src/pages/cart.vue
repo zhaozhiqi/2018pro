@@ -18,8 +18,8 @@
 							<input type="checkbox" :checked="storeItem.checked" @click="editCart('storeChecked',storeItem)"/>
 						</span>
 						<b class="storeHint-I">{{storeItem.storeName}}</b>
-						<b class="storeHint-II">浙江杭州江干区景昙路店</b>
-						<b class="storeHint-III">浙江杭州江干区景昙路店</b>
+						<!-- <b class="storeHint-II">浙江杭州江干区景昙路店</b>
+						<b class="storeHint-III">浙江杭州江干区景昙路店</b> -->
 						<span>去店铺逛逛</span>
 					</div>
 					<div class="goodsList" >
@@ -27,12 +27,12 @@
 							<li v-for="(listItem, index) in storeItem.list" :key="index">
 								<span class="wis-que-checkbox"><input type="checkbox" :checked="listItem.checked" value="1016790" @click="editCart('checked', listItem , storeItem)"></span> 
 								<router-link :to="{path:'/product', query: { id: listItem.proId }}" class="fl">
-									<figure><img class="goodsImg" src="https://1919-new-bbc-pro.oss-cn-beijing.aliyuncs.com/1a665fe8-dc80-4c96-9f86-825a1d698c24"></figure>
+									<figure><img class="goodsImg" :src="listItem.proImg"></figure>
 								</router-link> 
 								<div class="right">
 									<router-link :to="{path:'/product', query: { id: listItem.proId }}" class="goodsLink">{{listItem.proName}}</router-link> 
 									<div class="goodsEdit">
-										<label class="goodsPrice"><b>¥ </b>408.70</label>
+										<label class="goodsPrice"><b>¥ </b>{{listItem.proPrice}}</label>
 										<div class="goodsNumbox" value="1">
 											<button class="minusBtn" @click="editCart('minu', listItem)"><i class="rsiconfont rsicon-jian"></i></button> 
 											<input readonly="readonly" type="number" class="goodsNum" :value="listItem.proNum" /> 
@@ -56,14 +56,14 @@
 							<p>合计：<b>¥ </b><b>{{totalPrice}}</b></p>
 							<p>(不含运费)</p>
 						</div>
-						<button class="settlement" v-show="hasProChecked">结算</button>
+						<button class="settlement" v-show="hasProChecked" @click="goPay">结算</button>
 						<button class="noSettlement" v-show="!hasProChecked">结算</button>
 						<!-- <button class="Settlement">结算</button> -->
 					</div>
 				</footer>
 			</div>
-			<div class="car-hot-recommend">热门推荐</div> 
-			<TypeGoodsList class=""/>
+			<!-- <div class="car-hot-recommend">热门推荐</div> 
+			<TypeGoodsList class=""/> -->
 		</main>
 		<Footer />
 	</div>
@@ -208,38 +208,41 @@ export default {
             //     }
             // })
         },
-		  storeCheckedState(item) {//判断店铺组内是否全部选中状态
-			  	let storeListLength = item.list.length;
-				let storeListCheckedNum = 0;
-				item.list.forEach((index) => {
-					if(index.checked == '1') storeListCheckedNum++;
-				})		
-				return storeListLength === storeListCheckedNum;
-		  },
-		  storeCheckedListen(item) {//根据店铺组内是否全部选中状态 修改店铺全选的值
-			  	let storeCheckedState = this.storeCheckedState(item);
-				item.checked = storeCheckedState ? true : false;
-		  },
-		  toggleCheckAll () {
-				let flag = !this.checkAllFlag;
-				this.cartList.forEach((item)=>{
-					item.checked = flag?true:false;
-					item.list.forEach((index)=>{
-						index.checked = flag?true:false;
-					})
+		storeCheckedState(item) {//判断店铺组内是否全部选中状态
+			let storeListLength = item.list.length;
+			let storeListCheckedNum = 0;
+			item.list.forEach((index) => {
+				if(index.checked == '1') storeListCheckedNum++;
+			})		
+			return storeListLength === storeListCheckedNum;
+		},
+		storeCheckedListen(item) {//根据店铺组内是否全部选中状态 修改店铺全选的值
+			let storeCheckedState = this.storeCheckedState(item);
+			item.checked = storeCheckedState ? true : false;
+		},
+		toggleCheckAll () {
+			let flag = !this.checkAllFlag;
+			this.cartList.forEach((item)=>{
+				item.checked = flag?true:false;
+				item.list.forEach((index)=>{
+					index.checked = flag?true:false;
 				})
-				// axios.post("/users/editCheckAll",{
-				// 	checkAll:flag
-				// }).then((response)=>{
-				// 	let res = response.data;
-				// 	if(res.status == '0'){
-				// 		console.log("update suc");
-				// 	}
-				// })
-			},
-		  closeCarCaption(){
-			  this.carCaptionShow = false;
-		  }
+			})
+			// axios.post("/users/editCheckAll",{
+			// 	checkAll:flag
+			// }).then((response)=>{
+			// 	let res = response.data;
+			// 	if(res.status == '0'){
+			// 		console.log("update suc");
+			// 	}
+			// })
+		},
+		closeCarCaption(){
+			this.carCaptionShow = false;
+		},
+		goPay(){
+			this.$router.push({ path: '/Pay'})
+		}
 	}
 };
 </script>

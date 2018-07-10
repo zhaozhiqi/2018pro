@@ -82,32 +82,21 @@ const store = new Vuex.Store({
     cartList:[
       {
         storeId:"00001",
-        storeName:"三只松鼠",
+        storeName:"Coca-Cola可口可乐旗舰店",
         storeIink:"/index",
         checked:false,
         list : [
-          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:1,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+          {checked:false,able:"新品",id:1,proId:"10001",proImg:"static/images/pro-02-2.jpg",proName:"【可口可乐】 雪碧纤维+零糖零卡路里 迪丽热巴 碳酸饮料500ml*12",proPrice:58,proNum:2},
         ]
       },
       {					
         storeId:"00002",
-        storeName:"三只松鼠",
+        storeName:"ROUWANBABY旗舰店",
         storeIink:"/index",
         checked:false,				
         list : [
-          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
-        ]
-      },
-      {					
-        storeId:"00003",
-        storeName:"三只松鼠",
-        storeIink:"/index",
-        checked:false,					
-        list : [
-          {checked:false,able:"新品",id:1,proId:"10001",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"},
-          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",proName:"荐形容的狠货厚高的工人的",proPrice:1,proNum:2,proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"}
+          {checked:false,able:"新品",id:1,proId:"10001",proImg:"static/images/wap-19.png",proName:"肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",proPrice:99,proNum:1},
+          {checked:false,bable:"新品",id:2,proId:"10002",proImg:"static/images/wap-14.png",proName:"肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",proPrice:99,proNum:2}
         ]
       },
     ],
@@ -133,18 +122,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -157,11 +146,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,
@@ -190,18 +179,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -214,11 +203,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,
@@ -243,18 +232,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -267,11 +256,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,
@@ -300,18 +289,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -324,11 +313,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,
@@ -353,18 +342,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -377,11 +366,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,
@@ -402,18 +391,18 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817M",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               },
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:4,
@@ -426,11 +415,11 @@ const store = new Vuex.Store({
             orderId:"B2CK18062205817L",
             productList:[
               {
-                proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
+                proImg:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",
                 proName:"荐形容的狠货厚高的工人的",
                 proPrice:1,
                 proNum:2,
-                proLink:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
+                proLink:"http://gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png"
               }
             ],
             proAllNum:2,

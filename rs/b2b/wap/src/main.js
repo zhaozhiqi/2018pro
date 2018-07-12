@@ -111,7 +111,7 @@ const store = new Vuex.Store({
           },
           {
             name:"去支付",
-            link:"/PayOrder"
+            link:"/Pay"
           }
         ],
         list:[
@@ -168,7 +168,7 @@ const store = new Vuex.Store({
           },
           {
             name:"去支付",
-            link:"/PayOrder"
+            link:"/Pay"
           }
         ],
         list:[
@@ -278,7 +278,7 @@ const store = new Vuex.Store({
           },
           {
             name:"查看物流",
-            link:"/PayOrder"
+            link:"/"
           }
         ],
         list:[

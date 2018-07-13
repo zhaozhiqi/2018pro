@@ -16,12 +16,6 @@ export default {
       item:null,
       //图片列表[arr]
       pages: [
-        // {
-        //   title: "slide1",
-        //   style: {
-        //     sliderImg: "static/images/ceshi.png"
-        //   }
-        // },
         {
           title: "slide1",
           style: {

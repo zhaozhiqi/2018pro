@@ -6,7 +6,7 @@
     <Notice />
     <List :proList='proList' :listParent='listParent'/>
     <!-- <Grid /> -->
-    <Recommend />
+    <!-- <Recommend /> -->
     <Footer />
     <!-- <navBar /> -->
   </div>
@@ -31,10 +31,10 @@ export default {
       bannerHeight: 270,
       listParent:'home',
       proList:[
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"2222",num:"888",proId:"1"},
-				{bable:"新品",proImg:"https://img.alicdn.com/imgextra/i4/2578685019/TB2hrY7c2NNTKJjSspeXXaSwpXa_!!2578685019.jpg_760x760Q50s50.jpg",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"4"},
-				{bable:"新品",proImg:"//gw.alicdn.com/mt/TB1eQR.SpXXXXbcaFXXXXXXXXXX-369-369.png",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"2"},
-				{bable:"新品",proImg:"https://img.alicdn.com/imgextra/i4/2578685019/TB2hrY7c2NNTKJjSspeXXaSwpXa_!!2578685019.jpg_760x760Q50s50.jpg",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"21",num:"888",proId:"5"},
+				{bable:"新品",proImg:"static/images/pro-02.jpg",title:"【可口可乐】 雪碧纤维+零糖零卡路里 迪丽热巴 碳酸饮料500ml*12",price:"58",num:"26",proId:"1"},
+				{bable:"新品",proImg:"static/images/pro-17.jpg",title:"Intel/英特尔 酷睿i7-8700k盒装处理器 电脑CPU 六核非散片8700k",price:"4399",num:"68",proId:"2"},
+				{bable:"新品",proImg:"static/images/pro-09.jpg",title:"哈根达斯 81g小纸杯整箱冰淇淋冰激凌 24杯 江浙沪皖包邮",price:"500",num:"12",proId:"3"},
+				{bable:"新品",proImg:"static/images/pro-06.jpg",title:"香其酱包邮东北大酱原厂香其酱哈尔滨香其酱农家黄豆酱调味酱",price:"26",num:"5365",proId:"4"},
       ]
 
     }
@@ -61,63 +61,3 @@ export default {
 };
 </script>
 
-<style>
-html {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-}
-
-img {
-  width: 100%;
-  height: auto;
-  vertical-align: top;
-  content: normal !important;
-}
-  [aspectratio] {
-	  position: relative;
-  }
-  [aspectratio]::before {
-	  content: '';
-	  display: block;
-	  width: 1px;
-	  margin-left: -1px;
-	  height: 0;
-  }
-
-  [aspectratio-content] {
-	  position: absolute;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  width: 100%;
-	  height: 100%;
-  }
-  [flexContainer] {
-    display: flex;
-    width: 750px;
-  }
-  .block {
-    margin-top: 15px;
-  }
-  ul,li {
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-  }
-  figure {
-    display: block;
-    margin: 0;
-  }
-#index{
-  padding: 100px 0;
-}  
-</style>

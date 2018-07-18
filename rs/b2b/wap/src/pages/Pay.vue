@@ -14,7 +14,7 @@
                <div class="store">ROUWANBABY旗舰店</div>
                <div class="con">
                    <div class="imgOut">
-                       <img src="../../static/images/wap-19.png" alt="">
+                       <img src="static/images/wap-19.png" alt="">
                    </div>
                    <div class="orderInfo">
                        <div class="orderName">肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装</div>
@@ -156,6 +156,3 @@ export default {
 }
 </script>
 
-<style scopde>
-
-</style>

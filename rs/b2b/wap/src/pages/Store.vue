@@ -5,7 +5,7 @@
             <div class="storeInfo">
                 <div class="top">
                     <div class="storeLogo">
-                        <img src="../../static/images/storeLogo.png" alt="">
+                        <img src="static/images/storeLogo.png" alt="">
                     </div>
                     <div class="storeName">和顺批发</div>
                     <div class="storeCollect" @click="storeCollect">
@@ -30,25 +30,25 @@
                 <!-- tab-container -->
                 <mt-tab-container v-model="defaultTab">
                     <mt-tab-container-item id="index" >
-                        <img src="../../static/images/reImg-01.png" />
+                        <img src="static/images/reImg-01.png" />
                     </mt-tab-container-item>
                     <mt-tab-container-item id="class">
                         <div class="title">一级分类</div>
                         <div class="classCon">
                             <div class="classItem" @click="changeClass()">
-                                <img src="../../static/images/wap-13.png" />
+                                <img src="static/images/wap-13.png" />
                                 <span>全部</span>
                             </div>
                             <div class="classItem" @click="changeClass()">
-                                <img src="../../static/images/wap-20.png" />
+                                <img src="static/images/wap-20.png" />
                                 <span>饮料</span>
                             </div>
                             <div class="classItem" @click="changeClass()">
-                                <img src="../../static/images/wap-14.png" />
+                                <img src="static/images/wap-14.png" />
                                 <span>服装</span>
                             </div>
                             <div class="classItem" @click="changeClass()">
-                                <img src="../../static/images/wap-04.png" />
+                                <img src="static/images/wap-04.png" />
                                 <span>食品</span>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         <div><span>公司地址</span> 浙江省杭州市滨江区xxxx大厦xxx楼</div>
                         <div><span>主营产品</span> 和顺批发</div>
                         <h3>店铺资格</h3>
-                        <img src="../../static/images/pro-det-01.jpg" />
+                        <img src="static/images/pro-det-01.jpg" />
 
                     </mt-tab-container-item>
                 </mt-tab-container>

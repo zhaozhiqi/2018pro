@@ -49,35 +49,55 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
 
       this.chart.setOption({
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          left: 'center',
-          bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
-        },
-        calculable: true,
-        series: [
-          {
-            name: 'WEEKLY WRITE ARTICLES',
-            type: 'pie',
-            roseType: 'radius',
-            radius: [15, 95],
-            center: ['50%', '38%'],
-            data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
-            ],
-            animationEasing: 'cubicInOut',
-            animationDuration: 2600
-          }
+      "title": {
+        "text": "地区占比"
+      },
+      "tooltip": {
+        "show": true,
+        "formatter": "{a} <br/>{b} : {c} ({d}%)"
+      },
+      "legend": {
+        "data": [
+          [
+            "山东省",
+            "广东省广州市",
+            "陕西省西安市",
+            "安徽省合肥市",
+            "重庆市",
+            "中国",
+            "河南省郑州市",
+            "北京市",
+            "浙江省杭州市",
+            "山东省青岛市"
+          ]
         ]
-      })
+      },
+      "series": [
+        {
+          "data": [
+            {
+              "山东省": 20922,
+              "广东省广州市": 17640,
+              "陕西省西安市": 18859,
+              "安徽省合肥市": 16156,
+              "重庆市": 16026,
+              "中国": 18207,
+              "河南省郑州市": 15625,
+              "北京市": 121028,
+              "浙江省杭州市": 15421,
+              "山东省青岛市": 16465
+            }
+          ],
+          "name": "1",
+          "type": "pie",
+          "radius": [
+            125,
+            150
+          ],
+          "clockWise": false
+        }
+      ]
+    })
     }
   }
 }

@@ -16,7 +16,7 @@
       </div>
       <div class='progress-item'>
         <span>Css</span>
-        <el-progress :percentage="12"></el-progress>
+        <el-progress :percentage="30"></el-progress>
       </div>
        <div class='progress-item'>
         <span>ESLint</span>

@@ -14,11 +14,11 @@
           <raddar-chart></raddar-chart>
         </div>
       </el-col>
-      <!-- <el-col :xs="24" :sm="24" :lg="8">
+      <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <pie-chart></pie-chart>
         </div>
-      </el-col> -->
+      </el-col>
       <!-- <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <bar-chart></bar-chart>

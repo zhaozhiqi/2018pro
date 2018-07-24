@@ -16,11 +16,11 @@
     <div :style="titleSty">表格一</div>
     <el-table :key='index' :data="listArr[index].list" v-loading="listArr[index].listLoading" border fit highlight-current-row
       style="width: 100%;min-height:485px;">
-      <!-- <el-table-column align="center" :label="$t('table.id')" width="65" v-show="false">
+      <el-table-column align="center" :label="$t('table.id')" width="65" v-show="false">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column width="150px" align="center" :label="$t('table.type')">
         <template slot-scope="scope">
           <span>{{scope.row.type}}</span>
@@ -136,16 +136,16 @@ export default {
   data() {
     return {
       tableKey: 0,
-      titleSty:{
+      titleSty: {
         width: '100px',
         lineHeight: '40px',
-        height: '40px',       
+        height: '40px',
         textAlign: 'center',
         color: '#0E7BEB',
         borderBottom: '2px solid #0E7BEB',
         marginBottom: '10px'
       },
-      listArr:[
+      listArr: [
         {
           tableKey: 0,
           list: null,
@@ -238,7 +238,7 @@ export default {
   },
   methods: {
     getList(index) {
-      if(index !== undefined && index !== null){        
+      if (index !== undefined && index !== null) {
         this.listArr[index].listLoading = true
         fetchList(this.listArr[index].listQuery).then(response => {
           this.listArr[index].list = response.data.items
@@ -248,7 +248,7 @@ export default {
             this.listArr[index].listLoading = false
           }, 1.5 * 1000)
         })
-      }else{
+      }else {
         this.listArr.forEach(item => {
           item.listLoading = true
           fetchList(item.listQuery).then(response => {
@@ -267,23 +267,22 @@ export default {
       this.getList()
     },
     handleSizeChange(val, index) {
-      if(index !== undefined && index !== null){
+      if (index !== undefined && index !== null) {
         this.listArr[index].listQuery.limit = val
         this.getList(index)
-      }else{
+      }else {
         this.listQuery.limit = val
         this.getList()
       }
     },
     handleCurrentChange(val, index) {
-      if(index !== undefined && index !== null){
+      if (index !== undefined && index !== null) {
         this.listArr[index].listQuery.page = val
         this.getList(index)
-      }else{
+      }else {
         this.listQuery.page = val
         this.getList()
       }
-      
     },
     handleModifyStatus(row, status) {
       this.$message({

@@ -16,11 +16,11 @@
     <div :style="titleSty">表格一</div>
     <el-table :key='index' :data="listArr[index].list" v-loading="listArr[index].listLoading" border fit highlight-current-row
       style="width: 100%;min-height:485px;">
-      <!-- <el-table-column align="center" :label="$t('table.id')" width="65" v-show="false">
+      <el-table-column align="center" :label="$t('table.id')" width="65" v-show="false">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column width="150px" align="center" :label="$t('table.type')">
         <template slot-scope="scope">
           <span>{{scope.row.type}}</span>

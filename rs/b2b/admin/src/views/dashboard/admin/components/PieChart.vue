@@ -1,20 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- @zhaozhiqi Sign out
-947
-16,839 5,030 PanJiaChen/vue-element-admin
- Code  Issues 87  Pull requests 6  Projects 0  Wiki  Insights
-vue-element-admin/src/views/dashboard/admin/components/PieChart.vue
-45fef9b  on 29 Dec 2017
-@PanJiaChen PanJiaChen Feature/english (#381)
-     
-85 lines (81 sloc)  1.85 KB
 <template>
   <div :class="className" :style="{height:height,width:width}"></div>
 </template>

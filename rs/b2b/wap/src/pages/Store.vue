@@ -2,29 +2,25 @@
     <div id="store">
         <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
         <main class="main">
-            <div class="storeInfo">
+            <div class="storeInfo" :style="{ backgroundImage: 'url(' + storeObj.storeTopBg + ')' }">
+              <div class="filmBg">
                 <div class="top">
                     <div class="storeLogo">
                         <img src="static/images/storeLogo.png" alt="">
                     </div>
                     <div class="storeName">和顺批发</div>
-                    <div class="storeCollect" @click="storeCollect">
-                        <i v-show="!isCollect" class="rsiconfont rsicon-shoucang"></i>
-                        <i v-show="isCollect" class="rsiconfont rsicon-shoucangfill"></i>
-                        <span>收藏</span>
-                    </div>
-                    <div class="storeCall"><i class="rsiconfont rsicon-dianhua"></i><span>联系卖家</span></div>
                 </div>
                 <div class="btm">
                     <p>店铺最低发货金额200.00元</p>
                     <p>总销量：353</p>
                 </div>
+              </div>
             </div>
             <div class="storeTab">
                 <mt-navbar v-model="defaultTab">
                     <mt-tab-item id="index"><i class="rsiconfont rsicon-home1"></i>首页</mt-tab-item>
                     <mt-tab-item id="class"><i class="rsiconfont rsicon-fenlei"></i>分类</mt-tab-item>
-                    <!-- <mt-tab-item id="intro"><i class="rsiconfont rsicon-shangpin"></i>商品列表</mt-tab-item> -->
+                    <mt-tab-item id="GroupList"><i class="rsiconfont rsicon-shangpin"></i>拼团列表</mt-tab-item>
                     <mt-tab-item id="intro"><i class="rsiconfont rsicon-jieshao"></i>公司介绍</mt-tab-item>
                 </mt-navbar>
                 <!-- tab-container -->
@@ -53,9 +49,9 @@
                             </div>
                         </div>
                     </mt-tab-container-item>
-                    <!-- <mt-tab-container-item id="proList">
+                    <mt-tab-container-item id="GroupList">
                         <div class=""></div>
-                    </mt-tab-container-item> -->
+                    </mt-tab-container-item>
                     <mt-tab-container-item class="intro" id="intro">
                         <div><span>公司名称</span> 和顺批发</div>
                         <div><span>公司地址</span> 浙江省杭州市滨江区xxxx大厦xxx楼</div>
@@ -67,6 +63,14 @@
                 </mt-tab-container>
             </div>
         </main>
+        <footer>
+          <div class="storeCollect" @click="storeCollect">
+              <i v-show="!isCollect" class="rsiconfont rsicon-shoucang"></i>
+              <i v-show="isCollect" class="rsiconfont rsicon-shoucangfill"></i>
+              <span>收藏</span>
+          </div>
+          <div class="storeCall"><i class="rsiconfont rsicon-dianhua"></i><span>联系卖家</span></div>
+        </footer>
     </div>
 </template>
 
@@ -86,7 +90,10 @@ export default {
                 otherIconClass: "rsicon-gengduo"
             },
             defaultTab:"index",
-            isCollect: false
+            isCollect: false,
+            storeObj: {
+              storeTopBg: 'static/images/storeTopBg.png'
+            }
         }
     },
     components: {
@@ -119,3 +126,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#store .main .storeInfo .filmBg{
+  background-image: url('/static/images/film.png')
+}
+</style>

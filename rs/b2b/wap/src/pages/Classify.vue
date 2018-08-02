@@ -13,7 +13,7 @@
 			</div>
 			<div class="product-catalog">
 				<ul>
-					<li :class="{'active':sortObj.sortActive == 'default'}" @click="changeSortActive('default')">综合排序</li> 
+					<li :class="{'active':sortObj.sortActive == 'default'}" @click="changeSortActive('default')">最新</li> 
 					<li :class="{'active':sortObj.sortActive == 'sales'}" @click="changeSortActive('sales')"><span>销量</span><input type="hidden" value=""></li> 
 					<li :class="{'active':sortObj.sortActive == 'price'}" @click="changeSortActive('price')"><span>价格</span> <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i></li>
 				</ul>

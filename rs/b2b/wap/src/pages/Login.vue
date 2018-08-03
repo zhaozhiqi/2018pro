@@ -7,7 +7,7 @@
                     <i class="rsiconfont rsicon-icon"></i>
                     <input 
                     type="text" 
-                    v-validate ="'required|alpha_num|min:6'" 
+                    v-validate ="'required|alpha_num|min:5'" 
                     name="account" 
                     placeholder="用户名/手机号" 
                     v-model="admin.account.value"

@@ -1,11 +1,11 @@
 <template>
     <header id="header" ref="header" :class="{fixedHeader:fixed}">
-        <router-link to="/seach" class="nav">
-            <span id="pos_address">滨江区海康威视园区</span>
-            <p id="search_shop">
+        <div class="nav">
+            <router-link to="/SeachSite" id="pos_address">{{areaName}}</router-link>
+            <router-link to="/seach" id="search_shop">
                 <span class="ico-search"></span>            
-            </p>
-        </router-link>
+            </router-link>
+        </div>
         <p class="msgage">
             <router-link to="/NoticeList" class="ico-msg"></router-link>
         </p>
@@ -13,17 +13,28 @@
 </template>
 
 <script>
-import { Header } from 'mint-ui';
-
+import Cookies from 'js-cookie'
 export default {
     name:"seachHeader",
     data () {
         return {
-            fixed:false
+            fixed:false,
+            areaName: null
         }
     },
     computed: {
 
+    },
+    created() {
+      const key = 'AREA_NAME'
+      const areaName = Cookies.get(key)
+      if(areaName !== undefined) {
+        this.areaName = areaName
+      }else {
+        this.$messagebox.alert('无法定位到您当前位置，请手动选择').then(action => {
+          this.$router.push({ path: '/SeachSite' })
+        })
+      }
     },
     mounted() {
         window.addEventListener('scroll',this.handleScroll)
@@ -75,7 +86,7 @@ export default {
 }
 
 #header .nav #pos_address {
-    width: 140px;
+    max-width: 35%;
     color: #333;
     background-color: #efefef;
     padding-left: 20px;
@@ -84,7 +95,10 @@ export default {
     word-wrap: normal;
     text-overflow: ellipsis;            
 }
-
+#header .nav #search_shop {
+  display: block;
+  flex: 1;
+}
 #header .nav .ico-search {
     color: #666;
     display: inline-block;

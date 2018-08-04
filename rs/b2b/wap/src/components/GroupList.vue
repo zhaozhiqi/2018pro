@@ -5,7 +5,7 @@
 							<img :src="item.proImg" alt="">
 					</div>
 					<div class="groupProInfo">
-							<div class="groupProName"><span>{{item.bable}}</span>{{item.name}}</div>
+							<div class="groupProName"><span v-show="item.bable">{{item.bable}}</span>{{item.name}}</div>
 							<div class="groupProSpec">{{item.spec}}</div>
 							<div class="groupProJobPrice">批发价：<i>¥</i>{{item.jobPrice}}</div>
 							<div class="groupProGroupPrice">拼团价：<i>¥</i>{{item.groupPrice}}</div>

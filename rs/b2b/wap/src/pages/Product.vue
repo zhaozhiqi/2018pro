@@ -12,9 +12,10 @@
 		</div>
 		<div class="good-detail">
 		  <p class="g-name"><span class="labelty">{{productInfo.proLabel}}</span>{{productInfo.proName}}</p> 
+		  <p class="g-code">厂商：{{productInfo.proManufacturer}}</p> 
 		  <p class="g-code">编号：{{productInfo.proNo}}</p> 
-		  <p class="g-address"><span></span><span style="margin: 0px;">{{productInfo.proDec}}</span></p> 
-		  <p class="g-price"><span>¥ </span><strong>{{productInfo.proPrice}}</strong><s>¥{{productInfo.proOldPrice}}</s></p>
+		  <p class="g-address"><span>规格：{{productInfo.proStandard}}</span>  <span style="margin: 0px;">单位：{{productInfo.proUnit}}</span></p> 
+		  <p class="g-price"><span>建议零售价：¥ </span><strong>{{productInfo.proPrice}}</strong><s v-show="false">¥{{productInfo.proOldPrice}}</s></p>
 		</div>
 		<div class="go-mall">
 		  <figure>
@@ -62,7 +63,7 @@
 					加入购物车
 				</div>
 				<div class="btm-III buyNow" @click="buyNow">
-					立即购买
+					¥{{productInfo.proPrice}}<br/>立即购买
 				</div>
 			 </div>
 		  </nav>
@@ -97,8 +98,11 @@ export default {
 		productInfo:{
 			proId: "0001",
 			proLabel:"自营",
-			proName:"【可口可乐】 雪碧纤维+零糖零卡路里 迪丽热巴 碳酸饮料500ml*12",
-			proNo:"5513213245aasd",
+      proName:"【可口可乐】 雪碧纤维+零糖零卡路里 迪丽热巴 碳酸饮料500ml*12",
+      proManufacturer: "可口可乐公司",
+      proNo:"5513213245aasd",
+      proStandard:"XX",
+      proUnit:"XXXX",
 			proDec:"501mL(含)-999mL(含)",
 			proPrice:58.00,
 			proOldPrice:80.00,

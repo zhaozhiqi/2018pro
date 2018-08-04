@@ -17,6 +17,8 @@ import EditAddress from '@/pages/member/EditAddress'
 import Setting from '@/pages/member/Setting'
 import AboutUs from '@/pages/member/AboutUs'
 
+import SeachCity from '@/pages/SeachCity'
+import SeachSite from '@/pages/SeachSite'
 import Store from '@/pages/Store'
 import Product from '@/pages/Product'
 import GroupProduct from '@/pages/GroupProduct'
@@ -117,6 +119,22 @@ export default new Router({
       meta: {
         auth:true,
         title: "支付"
+      }
+    },
+    {
+      path: '/SeachCity',
+      name: 'SeachCity',
+      component: SeachCity,
+      meta: {
+        title: "城市选择"
+      }
+    },
+    {
+      path: '/SeachSite',
+      name: 'SeachSite',
+      component: SeachSite,
+      meta: {
+        title: "定位"
       }
     },
     {

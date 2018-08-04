@@ -10,6 +10,8 @@ import MintUI from 'mint-ui';
 import Cookies from 'js-cookie'
 // import 'mint-ui/lib/style.css'
 import '@/assets/css/base.css'
+import position from '@/position'
+
 Vue.use(MintUI);
 Vue.use(Vuex);
 //表单验证

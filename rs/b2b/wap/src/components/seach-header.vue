@@ -19,24 +19,17 @@ export default {
     data () {
         return {
             fixed:false,
-            areaName: null
+            areaName: null,
+            timer: null
         }
     },
     computed: {
 
     },
     created() {
-      const key = 'AREA_NAME'
-      const areaName = Cookies.get(key)
-      if(areaName !== undefined) {
-        this.areaName = areaName
-      }else {
-        this.$messagebox.alert('无法定位到您当前位置，请手动选择').then(action => {
-          this.$router.push({ path: '/SeachSite' })
-        })
-      }
     },
     mounted() {
+        this.timer = setInterval(this.init, 2000)
         window.addEventListener('scroll',this.handleScroll)
     },
     methods:{
@@ -44,6 +37,17 @@ export default {
             //let headerHeight = this.$refs.header.offsetHeight;
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             scrollTop>=this.bannerHeight?this.fixed = true:this.fixed = false;
+        },
+        init() {
+          const key = 'AREA_NAME'
+          const areaName = Cookies.get(key)
+          if(areaName !== undefined) {
+            this.areaName = areaName
+          }
+          if(this.timer !== null) {
+            clearInterval(this.timer)
+            console.log('清除获取地址')
+          }
         }
     },
     props:{

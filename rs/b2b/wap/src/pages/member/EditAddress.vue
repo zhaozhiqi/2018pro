@@ -71,9 +71,9 @@ export default {
             },
             addressInfo:{
                 default:false,
-                detailedAddress:"赵志启new",
+                detailedAddress:"赵先生new",
                 otherAddress:"是的哈卡的",
-                userName:"赵志启new",
+                userName:"赵先生new",
                 userPhone:"15584464444",
                 userSex:"man",
                 id:null,

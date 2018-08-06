@@ -12,9 +12,10 @@
 		</div>
 		<div class="good-detail">
 		  <p class="g-name"><span class="labelty">{{productInfo.proLabel}}</span>{{productInfo.proName}}</p> 
+		  <p class="g-code">厂商：{{productInfo.proManufacturer}}</p> 
 		  <p class="g-code">编号：{{productInfo.proNo}}</p> 
-		  <p class="g-address"><span></span><span style="margin: 0px;">{{productInfo.proDec}}</span></p> 
-		  <p class="g-price"><span>¥ </span><strong>{{productInfo.proPrice}}</strong><s>¥{{productInfo.proOldPrice}}</s></p>
+		  <p class="g-address"><span>规格：{{productInfo.proStandard}}</span>  <span style="margin: 0px;">单位：{{productInfo.proUnit}}</span></p> 
+		  <p class="g-price"><span>建议零售价：¥ </span><strong>{{productInfo.proPrice}}</strong><s v-show="false">¥{{productInfo.proOldPrice}}</s></p>
 		</div>
 		<div class="group-order">
 			<div class="group-order-all">200人在拼单 <span class="group-order-getAll" @click="showAllGroupOrder()">查看更多<i class="rsiconfont rsicon-qiehuanqiyou"></i></span></div>
@@ -119,7 +120,10 @@ export default {
 			proId: "0001",
 			proLabel:"自营",
 			proName:"肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装",
-			proNo:"5513213245aasd",
+      proManufacturer: "谜秀连衣裙",
+      proNo:"5513213245aasd",
+      proStandard:"XX",
+      proUnit:"XXXX",
 			proDec:"谜秀连衣裙女夏pphome裙子文艺",
 			proPrice:29.99,
 			proOldPrice:99.99,

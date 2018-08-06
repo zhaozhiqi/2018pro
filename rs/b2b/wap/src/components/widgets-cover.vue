@@ -19,7 +19,7 @@
                 <div class="_body">
                     <div class="body-item">
                         <ul class="sku-list-wrap">
-                            <li v-for="(item, index) in changeInfo.proChangeList" :key="index">
+                            <!-- <li v-for="(item, index) in changeInfo.proChangeList" :key="index">
                                 <h2 :typeId=item.typeId>{{item.typeName}}</h2>
                                 <div class="items" >
                                     <a v-for="(itemI, indexI) in item.con" :key="indexI"
@@ -30,6 +30,21 @@
                                     :dataChecked=itemI.dataChecked
                                     @click="changeItem(item,itemI)">{{itemI.dataName}}</a>
                                 </div>
+                            </li> -->
+                            <li>
+                              <h2>厂商：{{ changeInfo.proManufacturer }}</h2>
+                            </li>
+                            <li>
+                              <h2>编号：{{ changeInfo.proNo }}</h2>
+                            </li>
+                            <li>
+                              <h2>规格：{{ changeInfo.proStandard }}</h2>
+                            </li>
+                            <li>
+                              <h2>单位：{{ changeInfo.proUnit }}</h2>
+                            </li>
+                            <li>
+                              <h2>建议零售价：¥{{ changeInfo.proPrice }}</h2>
                             </li>
                             <!-- <li>
                                 <h2 id="prop_title_1">尺码</h2>
@@ -170,7 +185,8 @@ export default {
             return allChecked
         },
         decideChange(){
-            if(this.inspectAllType()){
+            //if(this.inspectAllType()){ /* 暂去除选择参数判断 */
+            if(true){
                 this.changeInfo.proId!==undefined?this.decideVal.id=this.changeInfo.proId:this.decideVal
                 this.changeInfo.saleNum!==undefined?this.decideVal.num=this.changeInfo.saleNum:this.decideVal
                 this.decideVal.saleType=this.saleType

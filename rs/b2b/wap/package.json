@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cssnano": "^3.10.0",
+    "js-cookie": "2.2.0",
     "mint-ui": "^2.2.13",
     "postcss-aspect-ratio-mini": "0.0.2",
     "postcss-cssnext": "^3.1.0",
@@ -22,10 +23,10 @@
     "vue": "^2.5.2",
     "vue-concise-slider": "^2.4.8",
     "vue-i18n": "^8.0.0",
+    "vue-jsonp": "^0.1.8",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "js-cookie": "2.2.0"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

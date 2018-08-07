@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import VueJsonp from 'vue-jsonp'
 import Vuex from 'vuex'
 import VueLazyload from 'vue-lazyload'
 import MintUI from 'mint-ui';
@@ -12,6 +13,7 @@ import Cookies from 'js-cookie'
 import '@/assets/css/base.css'
 import position from '@/position'
 
+Vue.use(VueJsonp)
 Vue.use(MintUI);
 Vue.use(Vuex);
 //表单验证
@@ -30,7 +32,7 @@ const store = new Vuex.Store({
           default:true,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
-          userName:"赵志启....",
+          userName:"赵先生....",
           userPhone:"15584461111",
           userSex:"man",
           id:0,
@@ -48,7 +50,7 @@ const store = new Vuex.Store({
           default:false,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
-          userName:"赵志启1",
+          userName:"赵先生1",
           userPhone:"15584462222",
           userSex:"man",
           id:1,
@@ -66,7 +68,7 @@ const store = new Vuex.Store({
           default:false,
           detailedAddress:"百得利大厦十二楼",
           otherAddress:"other",
-          userName:"赵志启2",
+          userName:"赵先生2",
           userPhone:"15584463333",
           userSex:"man",
           id:2,

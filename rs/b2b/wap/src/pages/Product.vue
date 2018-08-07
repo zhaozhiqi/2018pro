@@ -14,7 +14,8 @@
 		  <p class="g-name"><span class="labelty">{{productInfo.proLabel}}</span>{{productInfo.proName}}</p> 
 		  <p class="g-code">厂商：{{productInfo.proManufacturer}}</p> 
 		  <p class="g-code">编号：{{productInfo.proNo}}</p> 
-		  <p class="g-address"><span>规格：{{productInfo.proStandard}}</span>  <span style="margin: 0px;">单位：{{productInfo.proUnit}}</span></p> 
+		  <p class="g-code">规格：{{productInfo.proStandard}}</p> 
+		  <p class="g-code">单位：{{productInfo.proUnit}}</p> 
 		  <p class="g-price"><span>建议零售价：¥ </span><strong>{{productInfo.proPrice}}</strong><s v-show="false">¥{{productInfo.proOldPrice}}</s></p>
 		</div>
 		<div class="go-mall">

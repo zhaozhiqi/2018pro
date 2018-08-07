@@ -1435,6 +1435,13 @@ figure {
   border: none;
 }
 
+#seach-site .main #areaNow {
+  background: #fff;
+  line-height: 80px;
+  padding: 0 20px;
+}
+
+
 /* 产品详情页 Product */
 #product {
     overflow: hidden;
@@ -1523,12 +1530,12 @@ figure {
 
 #product .good-detail .g-price span {
     font-size: 26px;
-    color: #fa4d3e;
+    /* color: #fa4d3e; */
 }
 
 #product .good-detail .g-price strong {
     font-size: 36px;
-    color: #fa4d3e;
+    /* color: #fa4d3e; */
     margin-right: 40px;
     font-weight: 500;
 }
@@ -1804,12 +1811,12 @@ figure {
 
 #groupProduct .good-detail .g-price span {
     font-size: 26px;
-    color: #fa4d3e;
+    /* color: #fa4d3e; */
 }
 
 #groupProduct .good-detail .g-price strong {
     font-size: 36px;
-    color: #fa4d3e;
+    /* color: #fa4d3e; */
     margin-right: 40px;
     font-weight: 500;
 }

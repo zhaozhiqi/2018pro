@@ -19,7 +19,7 @@ export default {
     data () {
         return {
             fixed:false,
-            areaName: null,
+            areaName: '正在定位',
             timer: null
         }
     },
@@ -29,7 +29,13 @@ export default {
     created() {
     },
     mounted() {
-        this.timer = setInterval(this.init, 2000)
+        const key = 'AREA_NAME'
+        const areaName = Cookies.get(key)
+        if(areaName !== undefined) {
+          this.areaName = areaName
+        }else{
+          this.timer = setInterval(this.init, 2000)
+        }
         window.addEventListener('scroll',this.handleScroll)
     },
     methods:{
@@ -43,10 +49,10 @@ export default {
           const areaName = Cookies.get(key)
           if(areaName !== undefined) {
             this.areaName = areaName
-          }
-          if(this.timer !== null) {
-            clearInterval(this.timer)
-            console.log('清除获取地址')
+            if(this.timer !== null) {
+              clearInterval(this.timer)
+              console.log('清除获取地址')
+            }
           }
         }
     },

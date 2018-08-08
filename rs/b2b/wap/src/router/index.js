@@ -9,6 +9,7 @@ import Seach from '@/pages/Seach'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import ResetPass from '@/pages/ResetPass'
+import StoreSettled from '@/pages/StoreSettled'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
@@ -151,6 +152,14 @@ export default new Router({
       component: Register,
       meta: {
         title: "快速登录/注册"
+      }
+    },
+    {
+      path: '/StoreSettled',
+      name: 'StoreSettled',
+      component: StoreSettled,
+      meta: {
+        title: "商家入驻"
       }
     },
     {

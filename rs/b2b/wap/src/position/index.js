@@ -6,10 +6,10 @@ import { MessageBox } from 'mint-ui'
 import { isWeiXin } from '@/utils'
 Vue.use(VueJsonp)
 
-Cookies.remove('AREA_LNG')
-Cookies.remove('AREA_LAT')
-Cookies.remove('AREA_NAME')
-Cookies.remove('DEFAULT_CITY')
+// Cookies.remove('AREA_LNG')
+// Cookies.remove('AREA_LAT')
+// Cookies.remove('AREA_NAME')
+// Cookies.remove('DEFAULT_CITY')
 
   getLocation()
   //opsitionSite ()

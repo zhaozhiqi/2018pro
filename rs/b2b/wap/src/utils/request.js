@@ -39,7 +39,6 @@ service.interceptors.response.use(
     // tryHideFullScreenLoading()
     console.log('tryHideFullScreenLoading()')
     const res = response.data
-    console.log(res,'res')
     if (res.code !== 200) {
       this.$message({
         message: res.message,

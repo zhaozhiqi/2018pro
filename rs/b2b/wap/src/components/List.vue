@@ -28,6 +28,7 @@
 
 <script>
 import Nodata from '@/components/nodata';
+
 export default {
   name: 'List',
   data() {

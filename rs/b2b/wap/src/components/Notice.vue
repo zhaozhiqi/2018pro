@@ -4,7 +4,7 @@
         <!-- <span>a的看法上课了飞机撒娇的副书记的福利卡世纪东方拉克丝的房间爱上了快递费</span> -->
         <div class="scroll-wrap">
             <ul class="scroll-content" :style="{ top }" ref="ul">
-                <li v-for="(item, index) in prizeList" :key="index">{{item.notice}}</li >  
+                <li v-for="(item, index) in prizeList" :key="index">{{item.title}}</li >  
             </ul>
         </div>
     </div>
@@ -14,17 +14,16 @@
 export default {
     data () {
         return {
-            prizeList: [
-                { notice: "1东方红萨克劳动法来看撒娇的福建省了的房间里" },
-                { notice: "2东方红萨克劳动法来看撒娇的福建省了的房间里萨科技发" },
-                { notice: "3东方红萨克劳动法来看撒娇的福建省了的房间里萨科技发" },
-                { notice: "4东方红萨克劳动法来看撒娇的福建省了的房间里萨科技发" },
-                { notice: "5东方红萨克劳动法来看撒娇的福建省了的房间里萨科技发" }
-            ],
             activeIndex: 0,
             itemHeight: 0,
             time: 4000
         }
+    },
+    props:{
+      prizeList:{
+        type: Array,
+        default: () => [{ prizeList: "暂无通知" }]
+      }
     },
     computed: {
         top() {

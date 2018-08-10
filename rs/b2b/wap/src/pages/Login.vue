@@ -23,6 +23,39 @@
                     v-model="admin.password.value"/>
                     <i class="rsiconfont" :class="admin.password.iconClass" @click="changePasswordState"></i>
                 </label>
+                <label :class="{'error':errors.has('imageCode')}">
+                    <i class="rsiconfont rsicon-mima"></i>
+                    <input 
+                    type="text" 
+                    v-validate ="'required|min:4'" 
+                    name="imageCode" 
+                    placeholder="请输入验证码" 
+                    v-model="admin.imageCode.value"
+                    class="imageCodeInt"/>
+                    <img class="imageCodeImg" 
+                    :src="admin.imageCode.url" 
+                    alt="" 
+                    @click="changeImage()">
+                </label>
+                <label :class="{'error':errors.has('phone')}">
+                    <span class="phoneFirst">+86</span>
+                    <input 
+                    type="text" 
+                    v-validate ="'required|phone'" 
+                    name="phone" 
+                    placeholder="请输入手机号" 
+                    v-model="admin.mobile.value"/>
+                </label>
+                <label :class="{'error':errors.has('mobileCode')}">                    
+                    <input type="number" 
+                    v-validate ="'required|numeric|digits:6'" 
+                    name="mobileCode" 
+                    class="noIndent" 
+                    placeholder="请输入手机验证码" 
+                    v-model="admin.mobileCode.value" />
+                    <div class="getCode" 
+                    @click="getCode">{{getCodeObj.text}}</div>
+                </label>
             </form>
             <button class="login" @click="login">登录</button>
             <div class="menu">
@@ -35,6 +68,9 @@
 </template>
 
 <script>
+import { getImageCode, getMobileCode } from '@/api/c_api'
+import { Validator } from 'vee-validate';
+const validator = new Validator();
 import CommonHeader from '@/components/common-header'
 import zh_CN from "vee-validate/dist/locale/zh_CN"
 import Cookies from 'js-cookie'
@@ -60,19 +96,38 @@ export default {
                     type:'password',
                     iconClass:'rsicon-chakan1',
                     value:'123456'
+                },
+                mobile:{
+                  value:''
+                },
+                imageCode:{
+                  url:'',
+                  value:''
+                },
+                mobileCode:{
+                  value:''
                 }
             },
-            Rurl:null
+            Rurl:null,
+            getCodeObj:{
+                long: 6,
+                state:true,
+                text:'获取验证码'
+            }
         }
     },
     components: {
         CommonHeader
-    },
+    },    
     created() {     
-        this.$validator.localize("zh_CN");
+      this.$validator.localize("zh_CN")
+      this.changeImage()
     },
     mounted(){
-        this.Rurl = this.$route.query.Rurl || '/'
+      this.Rurl = this.$route.query.Rurl || '/'      
+    },
+    beforeDestroy(){
+        clearInterval(this._time)
     },
     methods:{
         login(){
@@ -92,16 +147,16 @@ export default {
                     }
                     // }
                 }else{
-                    let list = this.errors.all();
+                    let list = this.errors.all()
                     console.log(list,'list',list[0])
-                    let msg = '请正确填写信息';
+                    let msg = '请正确填写信息'
                     if(list[0] !== "validation.messages._default"){
-                        msg = list[0];
+                        msg = list[0]
                     }
                     this.$toast({
                         message: msg,
                         type: 'warning'
-                    });
+                    })
                    
                 }
             })
@@ -120,6 +175,75 @@ export default {
                 this.admin.password.state = 1;
                 this.admin.password.iconClass = 'rsicon-chakan1'
             }
+        },
+        changeImage(){
+          this.admin.imageCode.url = 'http://demo.lbsrj.cn/c-api/image/code/get?' + (new Date()).getTime()
+        },
+        getCode(){
+            if(this.getCodeObj.state){
+                this.codeRequest()
+            }else{
+                return false
+            }
+        },
+        codeRequest(){
+          // this.$validator.validateAll().then((msg)=>{
+          //   if(msg){
+          //     console.log('teur')
+          //   }else{
+          //     let list = this.errors.items
+          //     for(let element of list)
+          //       if(element.field === 'imageCode' || element.field === 'phone'){
+          //         this.$toast({
+          //             message: element.msg,
+          //             type: 'warning'
+          //         })
+          //         return                 
+          //     }              
+          //   }
+          // })
+          this.$validator.validate('imageCode').then(result => {
+            if(result === false){
+              this.$toast({
+              message: '请输入正确的图片验证码',
+                  type: 'warning'
+              })
+              return 
+            }else{
+              this.$validator.validate('phone').then(result => {
+                if(result === false){
+                  this.$toast({
+                  message: '请输入正确的手机号码',
+                      type: 'warning'
+                  })
+                  return 
+                }else{
+                  getMobileCode().then(result => {
+                    console.log(result,'result')
+                    if(result.code === 200){
+                      this.getCodeObj.state = false
+                      let second = 61;
+                      let that = this;
+                      this._time = setInterval(function(){
+                          if(second > 0){
+                              second--;
+                              console.log(that.getCodeObj.text)
+                              that.getCodeObj.text = '('+ second +'s)后重新获取验证码';
+                          }else{
+                              that.getCodeObj.text = '获取验证码';
+                              that.getCodeObj.state = true;
+                              clearInterval(that._time);
+                          }
+                      },1000)
+                    }
+                  })
+                }
+              })
+            }
+          })
+        },
+        passwInvalid(){
+          console.log('214212')
         }
     }
 }

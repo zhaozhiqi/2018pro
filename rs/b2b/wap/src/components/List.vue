@@ -4,19 +4,19 @@
 			<div v-else class="container" flexcontainer> 
 			<ul class="block-item" w-369 v-for="(item, index) in proList" :key="index"> 
 				<li> 
-					<router-link  :to="{path:routerPath, query: { id: item.proId }}"> 
+					<router-link  :to="{path:routerPath, query: { id: item.identifier }}"> 
 						<figure> 
-							<img :src="item.proImg" alt="" class="proImg"> 
+							<img :src="item.product.displayDiagram" alt="" class="proImg"> 
 						</figure> 
 						<figcaption> 
 							<h2>
-								<span class="bable" v-show="false">{{item.bable}}</span>
+								<span class="bable" v-show="false">{{item.title}}</span>
 								{{item.title}}</h2> 
 							<div>
 							
-							<span><i>¥</i>{{item.price}}</span>
-							<span v-if="listParent === 'group'">已拼{{item.num}}件</span>
-							<span v-else>已有{{item.num}}人付款</span>
+							<span><i>¥</i>{{item.retailPrice}}</span>
+							<span v-if="listParent === 'group'">已拼{{10}}件</span>
+							<span v-else>已有{{10}}人付款</span>
 							</div> 
 						</figcaption>
 					</router-link>
@@ -37,7 +37,7 @@ export default {
 					iconName:"rsicon-jingshi",
 					nodataMsg:"暂无信息"
 			},
-			routerPath:'/Product',
+			routerPath:'/Product'
 		}
 	},
 	components:{
@@ -57,7 +57,7 @@ export default {
 		listParent: {
 			type: String
 		}
-	}
+  }
 };
 </script>
 

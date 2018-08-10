@@ -7,38 +7,42 @@
 					<div class="product-typeList-item" 
 					v-for="(item, index) in typeIList" 
 					:key="index" 
-					:class="{ active:item.isActive }"
-					@click="getProIbnfo(index)">{{item.name}}</div>
+					:id="item.id" 
+					:class="{ active:item.id == parentId }"
+					@click="getProIbnfo(item.id)">{{item.label}}</div>
 				</nav>
 			</div>
 			<div class="product-catalog">
 				<ul>
-					<li :class="{'active':sortObj.sortActive == 'default'}" @click="changeSortActive('default')">最新</li> 
-					<li :class="{'active':sortObj.sortActive == 'sales'}" @click="changeSortActive('sales')"><span>销量</span><input type="hidden" value=""></li> 
-					<li :class="{'active':sortObj.sortActive == 'price'}" @click="changeSortActive('price')"><span>价格</span> <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i></li>
+					<li :class="{'active':sortObj.sortActive == 'hot'}" @click="changeSortActive('hot')">最新</li> 
+					<li :class="{'active':sortObj.sortActive == 'time'}" @click="changeSortActive('time')"><span>实际</span><input type="hidden" value=""></li> 
+					<li :class="{'active':sortObj.sortActive == 'money'}" @click="changeSortActive('money')"><span>价格</span> <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i></li>
 				</ul>
 			</div>
 		</header>   
 		<div class="main">
 			<aside class="product-brands">
 				<ul>
-					<li class="product-brands-item " :class="{'active': -1 == productBrandsIndex}" @click="changeProductBrands(-1)">全部<li>
+					<!-- <li class="product-brands-item " :class="{'active': -1 == childrenId}" @click="changeProductBrands(-1)">全部<li> -->
 					<li class="product-brands-item" 
 					v-for="(item, index) in typeIIList" 
 					:key="index" 
 					:id="item.id" 
-					:class="{'active':index == productBrandsIndex}"
-					@click="changeProductBrands(index)"
-					>{{item.name}}</li>
+					:class="{'active':item.id == childrenId}"
+					@click="changeProductBrands(item.id)"
+					>{{item.label}}</li>
 				</ul>
 			</aside>
-			<TypeGoodsList :proList="typeIIList[0].content" class="proList" /> 
+			<TypeGoodsList :proList="typeGoodsList" class="proList" />
 		</div>
 		<Footer />
 	</div>
 </template>
 
 <script>
+import { getClassifyList, getGoodsList } from '@/api/m_api'
+import Cookies from 'js-cookie'
+
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
 import TypeGoodsList from '@/components/TypeGoodsList';
 import Footer from '@/components/Footer';
@@ -52,10 +56,12 @@ export default {
 				backgroundColor: '#1655bf'
 			},
 			sortObj:{
-				sortActive: "default",
+				sortActive: "hot",
 				sortPriceIcon:"rsicon-shengxu",
-				sortSequence:"as-order",//"as-order"
-			},
+				sortSequence:"asc",//"as-order"
+      },
+      parentId: null,
+      childrenId: -1,
 			typeIList:[
 				{ id:1,type:"YL",name:"饮料",isActive:true,proList:[
 					{
@@ -892,9 +898,8 @@ export default {
 					}
 				]}
 			],
-			typeIIList:[],
-			productBrandsIndex:-1,
-			proinfo: []
+      typeIIList:[],
+      typeGoodsList:[]
 		}
 	},
 	components: {
@@ -903,39 +908,81 @@ export default {
 		Footer
 	},
 	created(){
-		this.typeIIList = this.typeIList[0].proList;
+    // this.typeIIList = this.typeIList[0].proList;
 	},
 	mounted(){
-		
+    this.init()    
 	},
 	methods:{
-		checkTypeI(index){
-			let _index = index;
-			for(const item of this.typeIList) {
-				item.isActive === true?item.isActive = false:item.isActive = false;
-			}
-			this.typeIList[_index].isActive = true;
+    init(){
+      this.lng = Cookies.get('AREA_LNG')
+      this.lat = Cookies.get('AREA_LAT')
+      this.getClassifyList(0)
+    },
+    getClassifyList(parentId){
+      const parasmGetClassify = {
+        parentId : parentId
+      }
+      getClassifyList(parasmGetClassify).then(result => {
+        const data = result.data.records
+        console.log(data, 'result')
+        switch (parentId) {
+          case 0:this.typeIList = data
+            this.parentId = this.typeIList[0].id
+            this.getClassifyList(this.parentId)
+            break        
+          default:this.typeIIList = data
+            this.parentId = parentId
+            this.childrenId = this.typeIIList[0].id
+            this.getGoodsList()
+            break
+        }
+      })
+    },
+    getGoodsList(){
+      const parasmGetGoods = {
+        // classifyId: this.childrenId,
+        // sortField: this.sortObj.sortActive,
+        // sort: this.sortObj.sortSequence,
+        lng: this.lng,
+        lat: this.lat
+      }
+      getGoodsList(parasmGetGoods).then(result => {
+        const data = result.data.records
+        this.typeGoodsList = data
+        console.log(data, 'result')
+      })
+    },
+		checkTypeI(id){
+      if(this.parentId === id){
+        return
+      }
+      this.getClassifyList(id)
 		},
-		changeProductBrands(index){
-			this.productBrandsIndex = index;
-			console.log(this.productBrandsIndex,'index')
+		changeProductBrands(id){
+      if(this.childrenId === id){
+        return
+      }
+      this.childrenId = id
+      this.getGoodsList()
 		},
 		changeSortActive(index){
-			if(index === 'price'){
-				if(this.sortObj.sortActive !== 'price'){
-					this.sortObj.sortActive = 'price';
+			if(index === 'money'){
+				if(this.sortObj.sortActive !== 'money'){
+					this.sortObj.sortActive = 'money';
 				}else{
-					if(this.sortObj.sortSequence === "de-order"){
-						this.sortObj.sortSequence = "as-order"//升序
+					if(this.sortObj.sortSequence === "desc"){
+						this.sortObj.sortSequence = "asc"//升序
 						this.sortObj.sortPriceIcon = "rsicon-shengxu"
 					}else{
-						this.sortObj.sortSequence = "de-order"//降序
+						this.sortObj.sortSequence = "desc"//降序
 						this.sortObj.sortPriceIcon = "rsicon-jiangxu"
 					}
 				}
 			}else{
 				this.sortObj.sortActive = index;
-			}			
+      }
+      this.getGoodsList()
 		},
 		getProIbnfo(index){
 			this.checkTypeI(index);

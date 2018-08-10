@@ -252,7 +252,11 @@ figure {
 }
 
 #group>nav>.navItem.active {
-    color: #181818;
+  color: #1655bf;
+}
+
+#group>nav>.navItem i {
+  font-size: 30px;
 }
 
 /* 购物车页 Cart */
@@ -757,6 +761,39 @@ figure {
     border: none;
     background-color: #fff;
     /* background-color: rgb(250, 255, 189); */
+}
+
+#login .login-form label input.imageCodeInt{
+  float: left;
+  width: 68%;
+  margin-right: 2%;
+}
+
+#login .login-form label .imageCodeImg{
+  float: left;
+  width: 30%;
+  overflow: hidden;
+}
+
+#login .phoneFirst {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  color: #1652b6;
+}
+
+#login .getCode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  text-align: center;
+  background-color: #1652b6;
+  color: #fff;
+  padding: 0 20px;
 }
 
 #login .rsicon-icon,

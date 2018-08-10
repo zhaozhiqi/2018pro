@@ -4,16 +4,16 @@
 			<li class="con-item" 
 			v-for="(item, index) in proList"
 			:key="index" >
-				<router-link to="/product">
+				<router-link :to="{path:routerPath, query: { id: item.identifier }}">
 					<figure>
-							<img class="con-item-img" :src="item.proImg"/>
+							<img class="con-item-img" :src="item.product.displayDiagram"/>
 					</figure>
 					<figcaption> 
 						<div class="con-item-info">
-							<p class="con-item-info-title">{{item.name}}</p>
+							<p class="con-item-info-title">{{item.title}}</p>
 							<p class="con-item-info-price">
-								<strong><b>¥</b>{{item.price}}</strong>
-								<s>¥{{item.price}}</s>
+								<strong><b>¥</b>{{item.retailPrice}}</strong>
+								<s>¥{{item.retailPrice}}</s>
 							</p>
 						</div>
 						<!-- <div class="con-item-btn"><i class="ico-cart"></i></div> -->
@@ -26,9 +26,10 @@
 
 <script>
 export default {
-  	name: 'TypeGoodsList',
-  	data() {
+  name: 'TypeGoodsList',
+  data() {
 		return {
+			routerPath:'/Product'
 		}
 	},
 	created(){
@@ -47,8 +48,7 @@ export default {
 						{bable:"新品",proImg:"static/images/pro-09.jpg",name:"哈根达斯 81g小纸杯整箱冰淇淋冰激凌 24杯 江浙沪皖包邮",price:"500",num:"12",proId:"3"},
 						{bable:"新品",proImg:"static/images/pro-06.jpg",name:"香其酱包邮东北大酱原厂香其酱哈尔滨香其酱农家黄豆酱调味酱",price:"26",num:"5365",proId:"4"},
 						{bable:"新品",proImg:"static/images/wap-20.png",name:"52度剑南春（新包装）500ml",price:"888.00",num:"888",proId:"5"},
-					]	
-			
+					]		
 		}
 	}
 };

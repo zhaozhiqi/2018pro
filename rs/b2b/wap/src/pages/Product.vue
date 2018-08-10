@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { getGoods } from '@/api/m_api'
+
 import TypeGoodsList from '@/components/TypeGoodsList';
 import WidgetsCover from '@/components/widgets-cover';
 import {countDown} from '@/utils'
@@ -190,7 +192,7 @@ export default {
 		WidgetsCover
 	},
 	mounted(){
-		
+		this.init()
 	},
 	computed: {
 		cartCount(){
@@ -198,6 +200,14 @@ export default {
 		}
 	},
 	methods:{
+    init(){
+      const paramsGetGoods = {
+        identifier : this.$route.query.id
+      }
+      getGoods(paramsGetGoods).then(result => {
+        console.log(result,'result')
+      })
+    },
 		editSaleNum(flag) {
 				let num = 0;
 				if(flag == 'add') {

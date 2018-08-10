@@ -24,7 +24,9 @@ const Veeconfig = {
               account:'账号',
               name: '姓名',
               region: '地址',
-              detailedAddress: '详细地址'
+              detailedAddress: '详细地址',
+              imageCode: '图片验证码',
+              mobileCode: '手机验证码'
           }
       }
     }    

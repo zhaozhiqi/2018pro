@@ -2,6 +2,7 @@ import axios from 'axios'
 import store from '../store'
 // import { getToken } from '@/utils/auth'
 // import { showFullScreenLoading, tryHideFullScreenLoading } from '@/utils/loading'
+import { Indicator, Toast } from 'mint-ui'
 import router from '../router'
 
 // 创建axios实例
@@ -18,6 +19,10 @@ service.interceptors.request.use(config => {
   // }
   // showFullScreenLoading()
   //console.log('showFullScreenLoading()')
+  Indicator.open({
+    text: '加载中...',
+    spinnerType: 'snake'
+  })
   config.data = JSON.stringify(config.data)
   config.headers = {
     'Content-Type':'application/x-www-from-urlencoded'
@@ -37,13 +42,15 @@ service.interceptors.response.use(
   * code为非200是抛错 可结合自己业务进行修改
   */
     // tryHideFullScreenLoading()
-    console.log('tryHideFullScreenLoading()')
+    // setTimeout(()=>{
+    //   Indicator.close()
+    // },1000)
+    Indicator.close()
     const res = response.data
     if (res.code !== 200) {
-      this.$message({
+      Toast({
         message: res.message,
-        type: 'error',
-        duration: 5 * 1000
+        duration: 1 * 1000
       })
 
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
@@ -64,8 +71,7 @@ service.interceptors.response.use(
     }
   },
   err => {
-    // tryHideFullScreenLoading()
-    console.log('tryHideFullScreenLoading()')
+    Indicator.close()
     if (err.request) {
       switch (err.request.status) {
         case 0:
@@ -89,13 +95,10 @@ service.interceptors.response.use(
         case 500:
       }
     }
-    // tryHideFullScreenLoading()
-    console.log('tryHideFullScreenLoading()')
     console.log(err.request)// for debug
-    this.$message({
+    Toast({
       message: err.message,
-      type: 'error',
-      duration: 5 * 1000
+      duration: 2 * 1000
     })
     return Promise.reject(err)
   }

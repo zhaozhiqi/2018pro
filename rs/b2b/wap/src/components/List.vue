@@ -37,7 +37,7 @@ export default {
 					iconName:"rsicon-jingshi",
 					nodataMsg:"暂无信息"
 			},
-			routerPath:'/Product'
+			routerPath:'/GroupProduct'
 		}
 	},
 	components:{
@@ -93,10 +93,16 @@ ul[w-369]	li {
   color: #999;
 }
 [w-369] h2 {
-  margin: 0 0 30px;
+  margin: 0 0 10px;
   font-size: 26px;
   color: #333;
+  height: 80px;
   font-weight: 400;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 [w-369] h2 span, [w-369] i {

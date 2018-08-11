@@ -119,7 +119,7 @@ export default {
         }).catch(err => {
           console.log(err,'经纬度转码报错')
         })
-        // that.$router.push({ path: '/Home' })
+        that.$router.push({ path: '/Home' })
       }
       map.clearOverlays();
       var local = new BMap.LocalSearch(map, { //智能搜索

@@ -3,8 +3,8 @@
         <!-- <span>公告</span> -->
         <!-- <span>a的看法上课了飞机撒娇的副书记的福利卡世纪东方拉克丝的房间爱上了快递费</span> -->
         <div class="scroll-wrap">
-            <ul class="scroll-content" :style="{ top }" ref="ul">
-                <li v-for="(item, index) in prizeList" :key="index">{{item.title}}</li >  
+            <ul class="scroll-content" :style="{ top }" ref="ul">              
+              <li v-for="(item, index) in prizeList" :key="index"><a :href="item.link">{{item.title}}</a></li>            
             </ul>
         </div>
     </div>

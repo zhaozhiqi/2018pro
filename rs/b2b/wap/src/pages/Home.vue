@@ -50,7 +50,6 @@ export default {
     Recommend
   },
   mounted(){
-    console.log('mounted1')
     this.setheaderheight()
     this.init()
   },
@@ -59,7 +58,6 @@ export default {
       this.bannerHeight = this.$refs.banner.$el.offsetHeight
     },
     init(){
-      console.log('init')
       getHome().then(result => {
         this.banner = result.data.banners
         this.prizeList = result.data.headlines        

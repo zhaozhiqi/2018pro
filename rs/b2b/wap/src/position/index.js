@@ -17,7 +17,7 @@ Vue.use(VueJsonp)
 export function getLocation(){
   if (navigator.geolocation){ 
     navigator.geolocation.getCurrentPosition(showPosition,showError); 
-  }else{ 
+  }else{
     changeSite()
   } 
 }
@@ -111,9 +111,13 @@ function opsitionSite () {
 }
 
 function changeSite(){
-  MessageBox.alert('无法定位到您当前位置，请手动选择').then(action => {
-    router.push({ path: '/SeachSite' })
-  })
+  if(Cookies.get('AREA_LNG') !== undefined && Cookies.get('AREA_LAT') !== undefined && Cookies.get('AREA_NAME') !== undefined){
+    return
+  }else{
+    MessageBox.alert('无法定位到您当前位置，请手动选择').then(action => {
+      router.push({ path: '/SeachSite' })
+    })
+  }
 }
 
 function geoconvBaiDu(lng,lat){

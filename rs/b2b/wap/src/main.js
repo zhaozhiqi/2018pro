@@ -436,7 +436,7 @@ const store = new Vuex.Store({
   mutations: {
     //更新用户信息
     login(state, stark){
-      if((stark.account === 'admin'||stark.account === '15584461401'||stark.account === 'admin1'||stark.account === 'admin2'||stark.account === 'admin3')&&stark.password === '123456'){
+      if((stark.account === 'admin'||stark.account === '15584461401'||stark.account === 'admin2'||stark.account === 'admin3'||stark.account === '15896325896')&&stark.password === '123456'){
         state.login = true;
         Cookies.set('Login', 'true', { expires: 7 });   
         Cookies.set('RANK', stark.account, { expires: 7 });   
@@ -524,11 +524,14 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   }
   if(to.matched.some( m => m.meta.auth)){  
-    let Login = Cookies.get('Login'); 
+    let hasLogin = Cookies.get('WPH_USER_LOGIN')
+    console.log(hasLogin,'hasLogin',hasLogin !== undefined , hasLogin !== null)
     // 对路由进行验证     
-    if(Login === 'true'){ // 已经登陆       
+    if(hasLogin !== undefined && hasLogin !== null){ // 已经登陆
+      console.log('已登录')    
       next()   // 正常跳转到你设置好的页面     
-    } else{        
+    } else{ 
+      console.log('未登录')    
     // 未登录则跳转到登陆界面，query:{ Rurl: to.fullPath}表示把当前路由信息传递过去方便登录后跳转回来；
     　　 next({path:'/login',query:{ Rurl: to.fullPath} })
     } 

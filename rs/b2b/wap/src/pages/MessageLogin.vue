@@ -1,21 +1,12 @@
 <template>
-  <div id="Register">
+  <div id="MessageLogin">
     <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
     <main class="main">
       <form class="register-form" action="">
-        <label :class="{'error':errors.has('name')}">
-          <i class="rsiconfont rsicon-nicheng"></i>
-          <input type="text" v-validate="'required'" name="phone" placeholder="请输入昵称" v-model="admin.name.value" />
-        </label>
         <label :class="{'error':errors.has('phone')}">
           <!-- <span class="phoneFirst">+86</span> -->
           <i class="rsiconfont rsicon-icon"></i>
           <input type="text" v-validate="'required|phone'" name="phone" placeholder="请输入手机号" v-model="admin.mobile.value" />
-        </label>
-        <label :class="{'error':errors.has('password')}">
-          <i class="rsiconfont rsicon-mima"></i>
-          <input :type="admin.password.type" v-validate="'required|min:6'" name="password" placeholder="请输入密码" v-model="admin.password.value" />
-          <i class="rsiconfont" :class="admin.password.iconClass" @click="changePasswordState"></i>
         </label>
         <label :class="{'error':errors.has('imageCode')}">
           <i class="rsiconfont rsicon-yduidunpaishixin"></i>
@@ -27,14 +18,10 @@
           <div class="getCode" @click="getCode">{{getCodeObj.text}}</div>
         </label>
       </form>
-      <div class="treaty">
-        <input type="checkbox" v-model="treatyState" /> 同意
-        <router-link to="/treaty">用户注册协议</router-link>
-      </div>
-      <button class="registerBtn" @click="registerRequest()">注册</button>
+      <button class="registerBtn" @click="messageLogin()">登录</button>
       <div class="menu">
         <router-link to="/login">账号密码登录</router-link>
-        <router-link to="/messageLogin">短信验证登录</router-link>
+        <router-link to="/register">注册账号</router-link>
       </div>
     </main>
   </div>
@@ -42,12 +29,12 @@
 
 <script>
 import { getImageCode, getMobileCode } from '@/api/c_api'
-import { adminRegister } from '@/api/m_api'
-import { Validator } from 'vee-validate';
+import { login } from '@/api/m_api'
+
 import CommonHeader from '@/components/common-header'
 
 export default {
-  name: 'register',
+  name: 'messagelogin',
   data() {
     return {
       commonHeaderObj: {
@@ -55,7 +42,7 @@ export default {
           color: "#333",
           backgroundColor: "#fff"
         },
-        title: "账号注册",
+        title: "短息验证登录",
         isOtherShow: false,
         otherIconClass: "rsicon-gengduo"
       },
@@ -66,16 +53,7 @@ export default {
         text: '获取验证码'
       },
       admin: {
-        name: {
-          value: ''
-        },
         mobile: {
-          value: ''
-        },
-        password: {
-          state: 1,
-          type: 'password',
-          iconClass: 'rsicon-chakan1',
           value: ''
         },
         imageCode: {
@@ -99,32 +77,30 @@ export default {
     clearInterval(this._time)
   },
   methods: {
-    registerRequest() {
+    messageLogin() {
       let that = this
       this.$validator.validateAll().then((msg) => {
         if (msg) {
           const parasm = {
-            mobile: this.admin.mobile.value,
-            password: this.admin.password.value,
-            code: this.admin.mobileCode.value,
-            name: this.admin.name.value
+            account: this.admin.mobile.value,
+            code: this.admin.mobileCode.value
           }
-          adminRegister(parasm).then(result => {
+          login(parasm).then(result => {
             console.log(result, 'result')
             let _msg = ''
-            if(result.code === 200){
-              _msg = '注册成功'
+            if (result.code === 200) {
+              _msg = '登录成功'
               this.$toast({
                 message: _msg,
                 type: 'warning'
               });
               that.$router.push({ path: '/Home' })
             }
-          }).catch(err=>{
+          }).catch(err => {
             console.log('接口错误')
           })
 
-          } else {
+        } else {
           let list = this.errors.all();
           let msg = '请正确填写信息';
           if (list[0] !== "validation.messages._default") {
@@ -219,7 +195,6 @@ export default {
         }
       })
     },
-  }
-}
+  }}
 </script>
 

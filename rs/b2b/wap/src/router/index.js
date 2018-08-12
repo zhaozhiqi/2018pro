@@ -8,6 +8,7 @@ import Member from '@/pages/Member'
 import Seach from '@/pages/Seach'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import MessageLogin from '@/pages/MessageLogin'
 import ResetPass from '@/pages/ResetPass'
 import StoreSettled from '@/pages/StoreSettled'
 
@@ -151,7 +152,15 @@ export default new Router({
       name: 'Register',
       component: Register,
       meta: {
-        title: "快速登录/注册"
+        title: "账号注册"
+      }
+    },
+    {
+      path: '/MessageLogin',
+      name: 'MessageLogin',
+      component: MessageLogin,
+      meta: {
+        title: "短信验证登录"
       }
     },
     {

@@ -43,7 +43,9 @@
             </form>
             <button class="resetPassBtn" @click="resetPass">确定修改</button>
             <div class="menu">
+                <router-link to="/register">注册账号</router-link>
                 <router-link to="/login">账号密码登录</router-link>
+              <router-link to="/messageLogin">短信验证登录</router-link>
             </div>
         </main>
         <section class="popup-center" v-show="popupCenterState">

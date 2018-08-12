@@ -1,5 +1,5 @@
 <template>
-  <mt-swipe :class="mint-swipe" :auto="3000" :speed="300">
+  <mt-swipe :class="mint-swipe" :auto="0" :speed="300">
     <mt-swipe-item :class="mt-swipe-item" v-for="(slider, index) in pages" :key="index">
       <a :href='slider.link'>
         <img :src="slider.image" :alt="slider.title" />
@@ -22,8 +22,7 @@ export default {
   },
   props:{
     pages:{
-      type: Array,
-      default: () => [{title: "slide1",style: {sliderImg: "static/images/wap-17.png"}}]
+      type: Array
     }
   }
 };

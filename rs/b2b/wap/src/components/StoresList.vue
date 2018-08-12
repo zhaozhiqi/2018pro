@@ -4,9 +4,9 @@
 			<li class="con-item" 
 			v-for="(item, index) in storesList"
 			:key="index" >
-				<router-link to="/store">
+				<router-link :to="{path:routerStorePath, query: { id: item.id }}">
 					<figure>
-							<img class="con-item-img" :src="item.proImg"/>
+							<img class="con-item-img" :src="item.logo"/>
 					</figure>
 					<figcaption> 
 						<div class="con-item-info">
@@ -28,7 +28,8 @@
 export default {
   	name: 'TypeGoodsList',
   	data() {
-		return {
+		return {      
+      routerStorePath:'/Store',
 		}
 	},
 	created(){

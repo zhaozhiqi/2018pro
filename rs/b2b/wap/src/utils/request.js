@@ -48,9 +48,10 @@ service.interceptors.response.use(
     Indicator.close()
     const res = response.data
     if (res.code !== 200) {
+      const _msg = res.msg
       Toast({
-        message: res.message,
-        duration: 1 * 1000
+        message: _msg,
+        duration: 2 * 1000
       })
 
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;

@@ -846,109 +846,278 @@ figure {
 /* 注册页 Register */
 
 #Register {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 #Register .main {
-    position: absolute;
-    top: 100px;
-    left: 0;
-    right: 0;
-    padding: 0 20px;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
 }
 
 #Register .register-form {
-    padding: 0;
+  padding: 0;
 }
 
 #Register .register-form label {
-    position: relative;
-    display: block;
-    margin: 30px 0 0;
-    height: 88px;
-    line-height: 88px;
-    border-radius: 10px;
-    overflow: hidden;
+  position: relative;
+  display: block;
+  margin: 30px 0 0;
+  height: 88px;
+  line-height: 88px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 #Register .register-form label.error {
-    border: 1px solid #fa4d3e;
+  border: 1px solid #fa4d3e;
 }
-
-#Register .register-form label input {
+#Register .rsiconfont
+#Register .rsicon-icon,
+#Register .rsicon-icon,
+#Register .rsicon-nicheng,
+#Register .rsicon-mima,
+#Register .rsicon-chakan1,
+#Register .rsicon-chakan,
+#Register .rsicon-yduidunpaishixin {
     display: block;
-    width: 100%;
-    height: 100%;
-    text-indent: 80px;
-    border: none;
-    background-color: #fff;
-    /* background-color: rgb(250, 255, 189); */
-}
-
-#Register .register-form label .noIndent {
-    text-indent: 20px;
-}
-
-#Register .phoneFirst {
     position: absolute;
     top: 24px;
-    left: 16px;
+    left: 28px;
+    width: 40px;
     height: 40px;
     line-height: 40px;
-    font-size: 20px;
+    font-size: 38px;
     color: #1652b6;
 }
 
+#Register .rsicon-chakan1,
+#Register .rsicon-chakan {
+    left: unset;
+    right: 28px;
+}
+
+#Register .register-form label input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-indent: 80px;
+  border: none;
+  background-color: #fff;
+  /* background-color: rgb(250, 255, 189); */
+}
+
+#Register .register-form label input.imageCodeInt{
+  float: left;
+  width: 68%;
+  margin-right: 2%;
+}
+
+#Register .register-form label .imageCodeImg{
+  float: left;
+  width: 30%;
+  overflow: hidden;
+}
+
+#Register .register-form label .noIndent {
+  text-indent: 20px;
+}
+
+#Register .phoneFirst {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  color: #1652b6;
+}
+
 #Register .getCode {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    text-align: center;
-    background-color: #1652b6;
-    color: #fff;
-    padding: 0 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  text-align: center;
+  background-color: #1652b6;
+  color: #fff;
+  padding: 0 20px;
 }
 
 #Register .registerBtn {
-    text-align: center;
-    line-height: 90px;
-    height: 90px;
-    width: 100%;
-    margin: 80px auto 0;
-    display: block;
-    border: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    color: #fff;
-    background-color: #1655bf;
-    font-size: 30px;
+  text-align: center;
+  line-height: 90px;
+  height: 90px;
+  width: 100%;
+  margin: 80px auto 0;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  background-color: #1655bf;
+  font-size: 30px;
 }
 
 #Register .treaty {
-    margin-top: 40px;
-    font-size: 26px;
+  margin-top: 40px;
+  font-size: 26px;
 }
 
 #Register .treaty input {
-    float: left;
-    margin: 0 20px 0 0;
+  float: left;
+  margin: 0 20px 0 0;
 }
 
 #Register .treaty a {
-    color: #1655bf;
+  color: #1655bf;
 }
 
 #Register .menu {
-    overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }
 
 #Register .menu a {
-    float: right;
-    color: #1655bf;
-    font-size: 26px;
-    margin-top: 40px;
+  color: #1655bf;
+  font-size: 26px;
+  margin-top: 40px;
+}
+/* 短信验证登录页 Register */
+
+#MessageLogin {
+  height: 100%;
+  overflow: hidden;
+}
+
+#MessageLogin .main {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+}
+
+#MessageLogin .register-form {
+  padding: 0;
+}
+
+#MessageLogin .register-form label {
+  position: relative;
+  display: block;
+  margin: 30px 0 0;
+  height: 88px;
+  line-height: 88px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#MessageLogin .register-form label.error {
+  border: 1px solid #fa4d3e;
+}
+
+#MessageLogin .register-form label input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-indent: 80px;
+  border: none;
+  background-color: #fff;
+  /* background-color: rgb(250, 255, 189); */
+}
+
+
+#MessageLogin .register-form label input.imageCodeInt{
+  float: left;
+  width: 68%;
+  margin-right: 2%;
+}
+
+#MessageLogin .register-form label .imageCodeImg{
+  float: left;
+  width: 30%;
+  overflow: hidden;
+}
+
+#MessageLogin .register-form label .noIndent {
+  text-indent: 20px;
+}
+
+#MessageLogin .rsicon-yduidunpaishixin,
+#MessageLogin .rsicon-icon {
+  display: block;
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 38px;
+  color: #1652b6;
+}
+
+#MessageLogin .phoneFirst {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  color: #1652b6;
+}
+
+#MessageLogin .getCode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  text-align: center;
+  background-color: #1652b6;
+  color: #fff;
+  padding: 0 20px;
+}
+
+#MessageLogin .registerBtn {
+  text-align: center;
+  line-height: 90px;
+  height: 90px;
+  width: 100%;
+  margin: 80px auto 0;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  background-color: #1655bf;
+  font-size: 30px;
+}
+
+#MessageLogin .treaty {
+  margin-top: 40px;
+  font-size: 26px;
+}
+
+#MessageLogin .treaty input {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+#MessageLogin .treaty a {
+  color: #1655bf;
+}
+
+#MessageLogin .menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+#MessageLogin .menu a {
+  color: #1655bf;
+  font-size: 26px;
+  margin-top: 40px;
 }
 
 /* 重置密码 resetPass */
@@ -1124,6 +1293,16 @@ figure {
     border-radius: 10px;
 }
 
+#resetPass .menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+#resetPass .menu a {
+  color: #1655bf;
+  font-size: 26px;
+  margin-top: 40px;
+}
 /* 搜索页 seach  */
 
 #seach {
@@ -2135,6 +2314,7 @@ figure {
 #groupList {
     display: flex;
     flex-direction: column;
+    background: #f4f3f1;
 }
 
 #groupList .groupProItem {
@@ -2717,6 +2897,7 @@ figure {
 }
 
 #store .main .storeInfo .btm {
+    min-height: 100px;
     line-height: 50px;
     font-size: 30px;
 }
@@ -2737,6 +2918,11 @@ figure {
 
 #store .main .storeTab .mint-tab-item{
   padding: 16px 0;
+}
+
+#store .mint-tab-container-item .banner{
+  height: 250px;
+  margin-bottom: 20px
 }
 
 #store .mint-navbar .mint-tab-item.is-selected {

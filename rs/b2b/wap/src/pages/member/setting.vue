@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata';
 export default {
@@ -71,10 +72,12 @@ export default {
     },
     methods:{
         logout(){
-            this.$store.commit('logout');
-            if(this.$store.state.login === false ){
-                this.$router.push({path:'/'})
-            }
+          // this.$store.commit('logout');
+          // if(this.$store.state.login === false ){
+          //     this.$router.push({path:'/'})
+          // }
+          Cookies.remove('WPH_USER_LOGIN')
+          this.$router.push({path:'/'})
         }
     }
 }

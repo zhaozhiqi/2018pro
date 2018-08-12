@@ -118,7 +118,7 @@ export default {
 		})
 		this.RANK = Cookies.get('RANK')
 		switch (this.RANK) {
-			case 'admin1':	this.memberInfo.memberInfoRank =  "经销商";
+			case '0':	this.memberInfo.memberInfoRank =  "经销商";
 							this.memberMenuList=[
 									{
 										href:'',

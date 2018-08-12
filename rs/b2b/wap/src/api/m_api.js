@@ -89,7 +89,7 @@ export function getGroupsList(params) {
 export function login(params) {
   return request({
     url: baseApi+'login',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -109,7 +109,7 @@ export function storeRegister(params) {
   })
 }
 
-export function register(params) {
+export function adminRegister(params) {
   return request({
     url: baseApi+'register',
     method: 'post',

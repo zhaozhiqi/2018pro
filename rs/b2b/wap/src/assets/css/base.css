@@ -986,7 +986,200 @@ figure {
   font-size: 26px;
   margin-top: 40px;
 }
-/* 短信验证登录页 Register */
+/* 店铺入驻 Settled */
+
+#StoreSettled {
+  height: 100%;
+  overflow: hidden;
+}
+
+#StoreSettled .main {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  padding: 0 20px 60px;
+}
+
+#StoreSettled .register-form {
+  padding: 0;
+}
+
+#StoreSettled .register-form label {
+  position: relative;
+  display: block;
+  margin: 30px 0 0;
+  height: 88px;
+  line-height: 88px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#StoreSettled .register-form label.error {
+  border: 1px solid #fa4d3e;
+}
+#StoreSettled .rsiconfont {
+    display: block;
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 38px;
+    color: #1652b6;
+}
+
+#StoreSettled .rsicon-chakan1,
+#StoreSettled .rsicon-chakan {
+    left: unset;
+    right: 28px;
+}
+
+#StoreSettled .register-form label input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-indent: 80px;
+  border: none;
+  background-color: #fff;
+  /* background-color: rgb(250, 255, 189); */
+}
+
+#StoreSettled .register-form label input.imageCodeInt{
+  float: left;
+  width: 68%;
+  margin-right: 2%;
+}
+
+#StoreSettled .register-form label .imageCodeImg{
+  float: left;
+  width: 30%;
+  overflow: hidden;
+}
+
+#StoreSettled .register-form label .noIndent {
+  text-indent: 20px;
+}
+
+#StoreSettled .phoneFirst {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  color: #1652b6;
+}
+
+#StoreSettled .getCode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  text-align: center;
+  background-color: #1652b6;
+  color: #fff;
+  padding: 0 20px;
+}
+
+
+#StoreSettled .mint-popup{
+  top: 25%;
+  bottom: unset;
+}
+
+#StoreSettled .mint-popup.region-popup{
+  width: 100%;
+  bottom: 0;
+  top: unset;
+}
+
+#StoreSettled .mint-popup .toolbarBtn{
+  text-align: center;
+  background: transparent;
+  box-shadow: none
+}
+
+#StoreSettled .mint-popup .toolbarBtn.sure{
+  float: right;
+  color: rgb(38, 162, 255)
+}
+
+#StoreSettled .mint-popup .toolbarBtn.cancel{
+  color: rgb(239, 79, 79)
+}
+
+#StoreSettled .mint-popup.toolbarBtn{
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+#StoreSettled .upLoadLogoOut span,#StoreSettled .upLoadFileOut span{
+  display: block;
+  text-indent: 80px;
+  background: #fff
+}
+
+#StoreSettled .upLoadLogoOut input,#StoreSettled .upLoadFileOut input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  opacity: 0;
+}
+
+#StoreSettled .logoPreviewImg,#StoreSettled .filePreviewImg{
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+#StoreSettled .registerBtn {
+  text-align: center;
+  line-height: 90px;
+  height: 90px;
+  width: 100%;
+  margin: 80px auto 0;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  background-color: #1655bf;
+  font-size: 30px;
+}
+
+#StoreSettled .treaty {
+  margin-top: 40px;
+  font-size: 26px;
+}
+
+#StoreSettled .treaty input {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+#StoreSettled .treaty a {
+  color: #1655bf;
+}
+
+#StoreSettled .menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+#StoreSettled .menu a {
+  color: #1655bf;
+  font-size: 26px;
+  margin-top: 40px;
+}
+
+/* 短信验证登录页 MessageLogin */
 
 #MessageLogin {
   height: 100%;
@@ -1302,6 +1495,25 @@ figure {
   color: #1655bf;
   font-size: 26px;
   margin-top: 40px;
+}
+
+/* 用户注册协议页 treaty  */
+
+#treaty {
+  height: 100%;
+  overflow: hidden;
+}
+
+#treaty .main {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+}
+
+#treaty .main img {
+  width: 100%
 }
 /* 搜索页 seach  */
 
@@ -3216,7 +3428,7 @@ figure {
 
 #order .orderMenu nav .orderItem{
 	box-sizing:content-box;
-	flex: 0 0 16.6%;
+	flex: 0 0 20%;
 	border-bottom: 2px solid #fff;
 }
 #order .orderMenu nav .orderItem.active{

@@ -81,15 +81,16 @@ export default {
                     iconClassName: 'rsicon-unie655',
                     payName: '微信支付',
                     isActive: true
-                },
-                {
-                    className: 'payZhifubao',
-                    dataType: 'zhifubao',
-                    payTypeId: '2',
-                    iconClassName: 'rsicon-zhifubao',
-                    payName: '支付宝支付',
-                    isActive: false
                 }
+                // ,
+                // {
+                //     className: 'payZhifubao',
+                //     dataType: 'zhifubao',
+                //     payTypeId: '2',
+                //     iconClassName: 'rsicon-zhifubao',
+                //     payName: '支付宝支付',
+                //     isActive: false
+                // }
             ],
             saleNum: 1,
             maxNum: 3,

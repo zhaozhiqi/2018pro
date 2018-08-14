@@ -1,7 +1,7 @@
 <template>
 	<div id="seach">
 		<header class="header">
-			<span class="goBack" @click="goBack"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
+			<span class="goBack" @click="backLastPage"><i class="rsiconfont rsicon-qiehuanqizuo"></i></span>
 			<label class="seachIntOut">
 				<i class="rsiconfont rsicon-sousuo"></i>
 				<input 	type="text"
@@ -97,9 +97,9 @@ export default {
 		}
 	},
 	methods:{
-		goBack(){
-      window.history.go(-1)
-		},
+    backLastPage() {
+      this.$store.dispatch('backLastPage')
+    },
 		clearHistory(){
 			this.historySeachList = []
 		},

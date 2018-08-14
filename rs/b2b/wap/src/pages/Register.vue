@@ -5,7 +5,7 @@
       <form class="register-form" action="">
         <label :class="{'error':errors.has('name')}">
           <i class="rsiconfont rsicon-nicheng"></i>
-          <input type="text" v-validate="'required'" name="phone" placeholder="请输入昵称" v-model="admin.name.value" />
+          <input type="text" v-validate="'required'" name="name" placeholder="请输入昵称" v-model="admin.name.value" />
         </label>
         <label :class="{'error':errors.has('phone')}">
           <!-- <span class="phoneFirst">+86</span> -->

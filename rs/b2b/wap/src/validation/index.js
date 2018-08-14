@@ -26,7 +26,16 @@ const Veeconfig = {
               region: '地址',
               detailedAddress: '详细地址',
               imageCode: '图片验证码',
-              mobileCode: '手机验证码'
+              mobileCode: '手机验证码',
+              corporateName: '公司名称',
+              corporateLogo: '公司logo',
+              corporateAddress: '公司地址',
+              corporateCode: '组织代码编号',
+              corFile:'营业执照图片文件',
+              corSalesAreaCode:'销售区域',
+              corSalesAreaCodeText:'销售区域',
+              corType: '入驻类型'
+
           }
       }
     }    

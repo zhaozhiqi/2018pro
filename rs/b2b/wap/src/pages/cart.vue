@@ -5,7 +5,7 @@
 			<div class="car-empty" v-if="cartList.length <= 0">
 				<i class="ico-car"></i>
 				<p>亲，购物车空空如也，快去逛逛</p>
-				<router-link to="/classify" class="link">看酒去</router-link>        
+				<router-link to="/classify" class="link">查看商品</router-link>        
 			</div>
 			<div v-else>
 				<div class="car-caption" v-show="carCaptionShow">
@@ -57,7 +57,7 @@
 							<p>(不含运费)</p>
 						</div>
 						<button class="settlement" v-show="hasProChecked" @click="goPay">结算</button>
-						<button class="noSettlement" v-show="!hasProChecked">结算</button>
+						<button class="noSettlement" v-show="!hasProChecked">结算{{rank}}</button>
 						<!-- <button class="Settlement">结算</button> -->
 					</div>
 				</footer>
@@ -72,16 +72,14 @@
 <script>
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
 import CommonHeader from '@/components/common-header'
-import TypeGoodsList from '@/components/TypeGoodsList';
-import Footer from '@/components/Footer';
-
-
+import TypeGoodsList from '@/components/TypeGoodsList'
+import Footer from '@/components/Footer'
 
 export default {
 	name: 'Cart',
 	data(){
 		return {
-			carCaptionShow: true,
+			carCaptionShow: false,
 			cartList:[],
 			delItem:{},
 			commonHeaderObj: {
@@ -97,7 +95,7 @@ export default {
 				}
             }
 		}
-	},
+  },
 	components: {
 		CommonHeader,
 		SeachHeader,

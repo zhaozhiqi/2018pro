@@ -94,6 +94,14 @@ export function login(params) {
   })
 }
 
+export function loginOut(params) {
+  return request({
+    url: baseApi+'loginOut',
+    method: 'get',
+    params
+  })
+}
+
 /**
  * 注册 
  * 

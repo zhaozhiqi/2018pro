@@ -11,6 +11,7 @@ import Register from '@/pages/Register'
 import MessageLogin from '@/pages/MessageLogin'
 import ResetPass from '@/pages/ResetPass'
 import StoreSettled from '@/pages/StoreSettled'
+import Treaty from '@/pages/Treaty'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
@@ -169,6 +170,14 @@ export default new Router({
       component: StoreSettled,
       meta: {
         title: "商家入驻"
+      }
+    },
+    {
+      path: '/Treaty',
+      name: 'Treaty',
+      component: Treaty,
+      meta: {
+        title: "用户注册协议"
       }
     },
     {

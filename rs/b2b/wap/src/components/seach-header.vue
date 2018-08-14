@@ -1,7 +1,7 @@
 <template>
     <header id="header" ref="header" :class="{fixedHeader:fixed}">
         <div class="nav">
-            <router-link to="/SeachSite" id="pos_address">{{areaName}}</router-link>
+            <router-link to="/SeachSite" id="pos_address" v-show="rank === 'CUSTOMER'">{{areaName}}</router-link>
             <router-link to="/seach" id="search_shop">
                 <span class="ico-search"></span>            
             </router-link>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Cookies from 'js-cookie'
 export default {
     name:"seachHeader",
@@ -24,7 +26,9 @@ export default {
         }
     },
     computed: {
-
+      ...mapGetters([
+        'rank'
+      ])
     },
     created() {
     },

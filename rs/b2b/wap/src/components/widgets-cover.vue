@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="_footer">
-          <a class="ok " role="button" @click="decideChange">确定</a>
+          <a class="ok " role="button" @click="decideChange">{{btnText}}</a>
         </div>
       </div>
     </div>
@@ -87,6 +87,7 @@ export default {
     return {
       selfShow: false,
       hasGroup: null,
+      hasGroupList: '确认',
       price: null,
       stock: null,
       firstPrice: null,
@@ -136,10 +137,12 @@ export default {
     },
     setPrice(){      
       if (this.saleType === 'group') {
+        this.btnText = '确认' 
         this.groupOneNum = parseInt(this.changeInfo.shopGroupPurchase.count/this.changeInfo.shopGroupPurchase.caseLot)
         this.decideVal.num = this.saleNum*this.groupOneNum
         this.price = this.changeInfo.shopGroupPurchase.money
-      } else if (this.saleType === 'self') {        
+      } else if (this.saleType === 'self') {
+        this.btnText = '加入购物车'     
         this.hasGroup = false
         this.groupOneNum = 1
         this.decideVal.num = this.saleNum

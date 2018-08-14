@@ -10,7 +10,10 @@ import request from '@/utils/request'
 const baseApi = 'http://demo.lbsrj.cn/c-api/'
 
 /* 获取省市区列表 */
-export function getAreaList(params) {
+export function getAreaList(parentCode) {  
+  const params = {
+    parentCode: parentCode
+  }
   return request({
     url: baseApi+'area/list',
     method: 'get',

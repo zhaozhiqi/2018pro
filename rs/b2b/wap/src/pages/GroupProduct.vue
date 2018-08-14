@@ -20,7 +20,7 @@
         <p class="g-code">单位：{{productInfo.unit}}</p>
         <p class="g-price"><span>建议零售价：¥ </span><strong>{{productInfo.retailPrice}}</strong><s v-show="false">¥{{productInfo.proOldPrice}}</s></p>
       </div>
-      <div class="group-order" v-if="hasGroup">
+      <div class="group-order" v-if="hasGroupList">
         <div class="group-order-all">已{{productInfo.groupPurchaseNumber}}人参与
           <span class="group-order-getAll" @click="showAllGroupOrder()">查看更多
             <i class="rsiconfont rsicon-qiehuanqiyou"></i>
@@ -124,6 +124,7 @@ export default {
       mt: null,
       item: null,
       hasGroup: null,
+      hasGroupList: null,
       query:{},
       saleType: 'self',
       widgetsCoverShow: false,
@@ -198,9 +199,10 @@ export default {
       getGoods(parasmGetGroups).then(result => {
         this.productInfo = result.data
         /* 是否有拼团商品 */
-        this.hasGroup = (result.data.shopGroupPurchase!==undefined && this.productInfo.groupPurchaseCases.total>0)
+        this.hasGroup = result.data.shopGroupPurchase!==undefined
+        this.hasGroupList = (result.data.shopGroupPurchase!==undefined && this.productInfo.groupPurchaseCases.total>0)
         //console.log(this.productInfo, 'this.productInfo' )
-        if(this.hasGroup === true){
+        if(this.hasGroupList === true ){
           this.productInfo.groupPurchaseCases.records.map((item, index) => {
             this.$set(item, 'djs', countDown(item.endTime))
           })

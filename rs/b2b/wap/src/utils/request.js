@@ -77,15 +77,15 @@ service.interceptors.response.use(
       switch (err.request.status) {
         case 0:
           console.log('0')
-          // window.location = 'http://admin.boosj.com:8018/admin/boCommon!goIndexPage.action'
+          router.push({ path: '/login' })
           break
         case 401:
           console.log('401')
-          window.location = 'http://admin.boosj.com:8018/admin/boCommon!goIndexPage.action'
+          router.push({ path: '/login' })
           break
         case 403:
           console.log('403')
-          router.push({ path: '/404' })
+          // router.push({ path: '/404' })
           break
         case 404:
           console.log('404')

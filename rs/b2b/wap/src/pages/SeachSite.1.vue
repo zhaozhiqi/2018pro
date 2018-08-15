@@ -96,7 +96,7 @@ export default {
         Cookies.set('AREA_LNG', pp.lng)
         Cookies.set('AREA_LAT', pp.lat)
         Cookies.set('AREA_NAME', myValue)
-        that.$router.push({ path: '/Home' })
+        that.$router.push({ path: '/Group' })
         alert(that.H.lng+','+that.H.lat)
       }
       map.clearOverlays();

@@ -91,6 +91,8 @@
 </template>
 
 <script>
+import { getOrderList } from '@/api/m_api'
+
 import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata'
 export default {
@@ -113,6 +115,9 @@ export default {
         iconName: "rsicon-quanbudingdan",
         nodataMsg: "还没有订单哦"
       },
+      query:{
+        status: null
+      },
       userId: 0,
       orderTabActive: "allOrder",
       orderList: []
@@ -122,13 +127,10 @@ export default {
     CommonHeader,
     Nodata
   },
+  created() {
+    this.init()
+  },
   mounted() {
-    this.userId = this.$route.params.userId;
-    if (this.$route.params.orderTabActive !== undefined) {
-      this.orderTabActive = this.$route.params.orderTabActive;
-    }
-    this.orderList = this.$store.state.orderList;
-
   },
   filters: {
     getNum: function (value) {
@@ -139,6 +141,11 @@ export default {
 
   },
   methods: {
+    init(){
+      getOrderList(this.query).then(result => {
+        console.log(result,'result')
+      })
+    },
     orderTabClick(type) {
       this.orderTabActive = type;
     }

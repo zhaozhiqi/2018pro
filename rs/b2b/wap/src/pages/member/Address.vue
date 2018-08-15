@@ -7,13 +7,13 @@
         <!-- <h3>送至：{{item.deliveryAddress}}</h3>  -->
         <div>
           <p>
-            <label>收货人：{{item.userName}}</label>
-            <span>{{item.userPhone}}</span>
+            <label>收货人：{{item.name}}</label>
+            <span>{{item.mobile}}</span>
           </p>
-          <span>收货地址：{{item.region.value}} {{item.detailedAddress}}</span>
+          <span>收货地址：{{item.address}}</span>
         </div>
         <p>
-          <a class="defaultAddr" v-if="item.default">
+          <a class="defaultAddr" v-if="item.isDefault === 1">
             <i class="rsiconfont rsicon-address"></i>默认地址</a>
           <a @click="setDefaultAddr(item.id)" class="setDefaultAddr" v-else>
             <i class="rsiconfont rsicon-address"></i>设置为默认地址</a>
@@ -24,6 +24,7 @@
             <i class="rsiconfont rsicon-bianji"></i>编辑</router-link>
         </p>
       </div>
+
     </main>
     <footer class="addressFooter">
       <router-link :to="{path:'/editAddress', query: { id: 'add' }}">+ 新增收货地址</router-link>
@@ -32,6 +33,8 @@
 </template>
 
 <script>
+import { getAddressList, delAddress } from '@/api/m_api'
+
 import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata';
 export default {
@@ -58,25 +61,59 @@ export default {
     Nodata,
     CommonHeader
   },
+  created() {
+    this.init()
+  },
   mounted() {
-    this.addressList = this.$store.state.addressList;
+    // this.addressList = this.$store.state.addressList;
+    //             {
+    //                 detailedAddress: "百得利大厦十二楼",
+    //                 otherAddress: "other",
+    //                 userName: "赵先生....",
+    //                 userPhone: "15584461111",
+    //                 userSex: "man",
+    //                 id: 0,
+    //                 region: {
+    //                     value: "浙江省杭州市滨江区",
+    //                     province: null,
+    //                     city: null,
+    //                     county: null,
+    //                     provinceCode: null,
+    //                     cityCode: null,
+    //                     countyCode: 123456789
+    //                 }
+    //             },
+
   },
   methods: {
+    init(){
+      getAddressList().then(result => {
+        console.log(result, 'result add')
+        if (result.code === 200) {
+          this.addressList = result.data
+        }
+      })
+    },
     delConfirm(item) {
       this.$messagebox.confirm('确定执行此操作?').then(action => {
         if (action == 'confirm') {
-          this.$store.commit('editAddress', { id: item, operate: 'del', obj: null });
-          this.$toast({
-            message: '操作成功',
-            type: 'warning'
-          });
+          delAddress(item).then(result => {
+            console.log(result, 'result')
+            if (result.code === 200) {
+              this.$toast({
+                message: '操作成功',
+                type: 'warning'
+              })
+              this.init()
+            }
+          })
         }
       }).catch(err => {
         if (err == 'cancel') {
-          console.log('取消');
+          console.log('取消')
           return
         }
-      });
+      })
     },
     setDefaultAddr(id) {
       console.log(4131)

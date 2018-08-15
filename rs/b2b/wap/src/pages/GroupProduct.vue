@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { getGoods } from '@/api/m_api'
+import { getGoods, setGroupCaseInfo, cartSave } from '@/api/m_api'
 import Cookies from 'js-cookie'
 
 import TypeGoodsList from '@/components/TypeGoodsList';
@@ -118,6 +118,11 @@ export default {
   name: 'Index',
   data() {
     return {
+      query:{
+        caseId: null,
+        goodsGroupPurchaseId: null,
+        lot: null
+      },
       message: '',
       mint: null,
       swipe: null,
@@ -198,6 +203,7 @@ export default {
       parasmGetGroups.identifier = this.$route.query.id
       getGoods(parasmGetGroups).then(result => {
         this.productInfo = result.data
+        this.query.goodsGroupPurchaseId = this.productInfo.shopGroupPurchase.id
         /* 是否有拼团商品 */
         this.hasGroup = result.data.shopGroupPurchase!==undefined
         this.hasGroupList = (result.data.shopGroupPurchase!==undefined && this.productInfo.groupPurchaseCases.total>0)
@@ -259,24 +265,36 @@ export default {
       if (val.saleType === 'self') {
         let num = val.num
         this.saleNum = num
-        this.$toast({
-          message: '添加至购物车',
-          type: 'warning',
-          duration: 1000
-        });
-        this.$store.commit('updateCartCount', num)
-        console.log(num, 'num')
+        const parasm = {
+          shopId: this.productInfo.shopId,
+          shopGoodsId: this.productInfo.id,
+          count: num
+        }
+        cartSave(parasm).then(result => {
+          console.log(result, 'result')
+          if(result.data === 200){
+            this.$toast({
+              message: '添加至购物车',
+              type: 'warning',
+              duration: 1000
+            })
+          }
+        })
       } else if (val.saleType === 'group') {
+        this.query.lot = val.groupNum
         this.goPay()
       }
     },
     goPay() {
-      let that = this;
-      this.$indicator.open();
-      setTimeout(function () {
-        that.$indicator.close();
-        that.$router.push({ path: '/Pay' })
-      }, 300)
+      let that = this
+      this.$indicator.open() 
+      setGroupCaseInfo(this.query).then(result => {
+        console.log(result, 'result')
+        if(result.code === 200){
+          that.$indicator.close()
+          that.$router.push({ path: '/SubmitOrder'})
+        }
+      })
     },
     reverseArr(arr) {
       let _arr = arr
@@ -287,6 +305,8 @@ export default {
       console.log('showAllGroupOrder')
     },
     joinGroupOrder(index,id) {
+      this.query.caseId = id
+
       this.$messagebox.confirm('参与该拼单？').then(action => {
         this.groupNow(index)
       }).catch(err => {

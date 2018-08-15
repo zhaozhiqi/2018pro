@@ -85,6 +85,7 @@ export default {
   name:'WidgetsCover',
   data() {
     return {
+      btnText: null,
       selfShow: false,
       hasGroup: null,
       hasGroupList: '确认',
@@ -96,6 +97,7 @@ export default {
         id: null,
         num: null,
         saleType: null,
+        groupNum: null,
         typeList: []
       }
     }
@@ -139,7 +141,9 @@ export default {
       if (this.saleType === 'group') {
         this.btnText = '确认' 
         this.groupOneNum = parseInt(this.changeInfo.shopGroupPurchase.count/this.changeInfo.shopGroupPurchase.caseLot)
+        // this.decideVal.num = this.saleNum*this.groupOneNum
         this.decideVal.num = this.saleNum*this.groupOneNum
+        this.decideVal.groupNum = this.saleNum
         this.price = this.changeInfo.shopGroupPurchase.money
       } else if (this.saleType === 'self') {
         this.btnText = '加入购物车'     
@@ -239,6 +243,7 @@ export default {
       if (true) {
         this.changeInfo.proId !== undefined ? this.decideVal.id = this.changeInfo.proId : this.decideVal
         this.decideVal.saleType = this.saleType
+        this.decideVal.groupNum = parseInt(this.decideVal.num/this.groupOneNum)
         this.$emit('saveDecideVal', this.decideVal)
         this.closeSelf()
       }

@@ -26,6 +26,56 @@ export function getClassifyList(params) {
 }
 
 /**
+ * 购物车 
+ * 
+ * 保存购物车结算
+ * 删除购物车商品
+ * 获取购物车信息
+ * 获取购物车结算商品信息
+ * 添加购物车
+*/
+
+export function saveCartBalance(params) {
+  return request({
+    url: baseApi+'cart/balance',
+    method: 'post',
+    params
+  })
+}
+
+export function delCart(params) {
+  return request({
+    url: baseApi+'cart/del',
+    method: 'post',
+    params
+  })
+}
+
+export function getCart(params) {
+  return request({
+    url: baseApi+'cart/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getCartBalance(params) {
+  return request({
+    url: baseApi+'cart/get/balance',
+    method: 'post',
+    params
+  })
+}
+
+export function cartSave(params) {
+  return request({
+    url: baseApi+'cart/save',
+    method: 'post',
+    params
+  })
+}
+
+/**
  * 商品 
  * 
  * 商品列表
@@ -54,6 +104,8 @@ export function getGoods(params) {
  * 开团/参团
  * 根据拼团ID获取拼团实例列表
  * 店铺拼团信息列表
+ * 填充拼团结算商品信息
+ * 获取拼团结算商品信息
 */
 
 export function getGroupAdd(params) {
@@ -77,6 +129,21 @@ export function getGroupsList(params) {
     url: baseApi+'shop/groupPurchase/list',
     method: 'get',
     params
+  })
+}
+
+export function setGroupCaseInfo(params) {
+  return request({
+    url: baseApi+'shop/groupPurchase/balance',
+    method: 'post',
+    params
+  })
+}
+
+export function getGroupCaseInfo() {
+  return request({
+    url: baseApi+'shop/groupPurchase/get/balance',
+    method: 'get'
   })
 }
 
@@ -126,6 +193,57 @@ export function adminRegister(params) {
 }
 
 /**
+ * 订单相关 
+ * 
+ * 创建订单
+ * 获取订单详情
+ * 获取订单列表
+ * 获取店铺订单详情
+ * 获取店铺订单列表
+*/
+
+export function createOrder(params) {
+  return request({
+    url: baseApi+'order/create',
+    method: 'post',
+    params
+  })
+}
+
+export function getOrder(params) {
+  return request({
+    url: baseApi+'order/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getOrderList(params) {
+  return request({
+    url: baseApi+'order/list',
+    method: 'get',
+    params
+  })
+}
+
+export function getShopOrder(params) {
+  return request({
+    url: baseApi+'order/shop/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getShopOrderlist(params) {
+  return request({
+    url: baseApi+'order/shop/list',
+    method: 'get',
+    params
+  })
+}
+
+
+/**
  * 店铺相关 
  * 
  * 获取店铺分类列表
@@ -153,6 +271,49 @@ export function getShopList(params) {
   return request({
     url: baseApi+'shop/list',
     method: 'get',
+    params
+  })
+}
+
+/**
+ * 收货地址 
+ * 
+ * 删除收货地址
+ * 获取收货地址
+ * 新增收货地址
+ * 修改收货地址
+*/
+
+export function delAddress(id) {
+  const params = {
+    id: id
+  }
+  return request({
+    url: baseApi+'address/del',
+    method: 'post',
+    params
+  })
+}
+
+export function getAddressList() {
+  return request({
+    url: baseApi+'address/list',
+    method: 'get'
+  })
+}
+
+export function addAddress(params) {
+  return request({
+    url: baseApi+'address/save',
+    method: 'post',
+    params
+  })
+}
+
+export function updateAddress(params) {
+  return request({
+    url: baseApi+'address/update',
+    method: 'post',
     params
   })
 }

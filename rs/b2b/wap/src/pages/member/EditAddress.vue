@@ -17,29 +17,23 @@
         <p :class="{'error':errors.has('region')}">
           <b>地址</b>
           <i class="ico-dingwei2"></i>
-          <input type="text" placeholder="编辑地址" v-model="addressInfo.region.value" v-validate="'required|max:30'" name="region" @click="showAddressPicker" />
+          <input type="text" v-validate="'required'" name="region" placeholder="请选择地址" v-model="salesAreaCode.value" @click="showAddressPicker" />
           <i class="font-angle-right"></i>
         </p>
         <p :class="{'error':errors.has('detailedAddress')}" style="padding: 10px; height: auto;">
           <textarea placeholder="详细地址" v-model="addressInfo.detailedAddress" v-validate="'required|max:30'" name="detailedAddress"></textarea>
         </p>
-        <a class="defaultAddr" v-if="addressInfo.default">
+        <a class="defaultAddr" v-if="addressInfo.default" @click="setDefaultAddr()">
           <i class="rsiconfont rsicon-address"></i>默认地址</a>
-        <a @click="setDefaultAddr(addressInfo.id)" class="setDefaultAddr" v-else>
+        <a @click="setDefaultAddr()" class="setDefaultAddr" v-else>
           <i class="rsiconfont rsicon-address"></i>设置为默认地址</a>
       </div>
+
       <mt-popup v-model="regionVisible" position="bottom" class="region-popup">
-        <mt-picker :slots="myAddressSlots" valueKey="name" :visibleItemCount="5" @change="addressChange" :itemHeight="40"></mt-picker>
+        <mt-button @click="closeAddressPicker" class="toolbarBtn sure">确认</mt-button>
+        <mt-button @click="closeAddressPicker" class="toolbarBtn cancel"></mt-button>
+        <mt-picker :slots="myAddressSlots" :Slot="regionToolbar" valueKey="label" :show-toolbar="false" :visibleItemCount="5" @change="addressChange" :itemHeight="40"></mt-picker>
       </mt-popup>
-      <!-- <div>
-                <p><span>三级地址：</span>{{addressInfo.region.value}}</p>
-                <p><span>省：</span>{{addressInfo.region.province}}</p>
-                <p><span>市：</span>{{addressInfo.region.city}}</p>
-                <p><span>县：</span>{{addressInfo.region.county}}</p>
-                <p><span>省级代码：</span>{{addressInfo.region.provinceCode}}</p>
-                <p><span>市级代码：</span>{{addressInfo.region.cityCode}}</p>
-                <p><span>县级代码：</span>{{addressInfo.region.countyCode}}</p>
-            </div> -->
     </main>
     <footer class="addressFooter">
       <div class="saveBtn" @click="saveBtn">确定</div>
@@ -48,10 +42,11 @@
 </template>
 
 <script>
+import { getImageCode, getMobileCode, getAreaList } from '@/api/c_api'
+import { addAddress, updateAddress, getAddressList } from '@/api/m_api'
+
 import CommonHeader from '@/components/common-header'
-import Nodata from '@/components/nodata';
-//引入省市区数据json文件
-import threeLevelAddress from '@/pages/member/threeLevelAddress.json'
+import Nodata from '@/components/nodata'
 
 export default {
   name: "EditAddress",
@@ -63,10 +58,10 @@ export default {
       },
       addressInfo: {
         default: false,
-        detailedAddress: "赵先生new",
-        otherAddress: "是的哈卡的",
-        userName: "赵先生new",
-        userPhone: "15584464444",
+        detailedAddress: "某小区1门",
+        otherAddress: "",
+        userName: "孙先生",
+        userPhone: "15584461401",
         userSex: "man",
         id: null,
         region: {
@@ -90,85 +85,135 @@ export default {
       },
       editAddressType: null,
       editAddressId: null,
+      salesAreaCode: {
+        value: null,
+        _value: null,
+        code: null,
+        province: '浙江省',
+        city: '杭州市',
+        district: null,
+        street: null,
+        provinceCode: null,
+        cityCode: null,
+        districtCode: null,
+        streetCode: null
+      },
+      regionHold: [{ code: 330000 }, { code: 330100 }, { code: 0 }, { code: 0 }],
+      regionToolbar: {
+        name: '确认'
+      },
       regionVisible: false,
+      regionAble: false,
       regionInit: true,
       myAddressSlots: [
         //省
         {
           flex: 1,
-          values: this.getProvinceArr(), //省份数组
+          values: [{ code: 330000, name: '浙江省' }], //省份数组
           className: 'slot1',
+          defaultIndex: 0,
           textAlign: 'center'
-        },
-        //分隔符
-        {
-          divider: true,
-          content: '',
-          className: 'slot2'
         },
         //市
         {
           flex: 1,
-          values: this.getCityArr("北京市"),
+          values: [{ code: 0, label: '未选择' }],
           className: 'slot3',
           textAlign: 'center'
         },
-        {
-          divider: true,
-          content: '',
-          className: 'slot4'
-        },
-        //县
+        //区
         {
           flex: 1,
-          values: this.getCountyArr("北京市", "北京市"),
+          values: [{ code: 0, label: '未选择' }],
           className: 'slot5',
           textAlign: 'center'
+        },
+        {
+          flex: 1,
+          values: [{ code: 0, label: '未选择' }],
+          className: 'slot7',
+          textAlign: 'center'
         }
-      ]
-    }
+      ]    }
   },
   components: {
     Nodata,
     CommonHeader
   },
+  created() {
+    this.init()
+  },
   mounted() {
-    if (this.$route.query.id === 'add' || this.$route.query.id === undefined || this.$route.query.id === '') {
-      this.editAddressType = 'add'
-    } else {
-      this.commonHeaderObj.title = '编辑地址'
-      this.editAddressType = 'edit'
-      this.editAddressId = parseInt(this.$route.query.id);
-      let addressList = this.$store.state.addressList;
-      addressList.forEach((item, index) => {
-        if (item.id === this.editAddressId) {
-          this.addressInfo = addressList[index]
-          return
-        }
-      })
-    }
+
   },
   methods: {
+    init() {
+      this.getAreaList(0, 'province')
+      if (this.$route.query.id === 'add' || this.$route.query.id === undefined || this.$route.query.id === '') {
+        this.editAddressType = 'add'
+      } else {
+        this.commonHeaderObj.title = '编辑地址'
+        this.editAddressType = 'edit'
+        this.editAddressId = parseInt(this.$route.query.id)
+        getAddressList().then(result => {
+          if(result.code === 200){
+            const addressList = result.data
+            addressList.forEach((item, index) => {
+              if (item.id === this.editAddressId) {
+                this.addressInfo.id = addressList[index].id
+                this.addressInfo.userName = addressList[index].name
+                this.addressInfo.userPhone = addressList[index].mobile
+                this.addressInfo.detailedAddress = addressList[index].address
+                this.addressInfo.default  = addressList[index].isDefault===1?true:false
+                return
+              }
+            })
+          }
+        })
+      }      
+    },
     saveBtn() {
       this.$validator.validateAll().then((msg) => {
         if (msg) {
+          const parasm = {
+            id: this.addressInfo.id,
+            name: this.addressInfo.userName,
+            mobile: this.addressInfo.userPhone,
+            address: this.salesAreaCode.value + ' ' + this.addressInfo.detailedAddress,
+            isDefault: this.addressInfo.default === true ? 1 : null
+          }
           if (this.editAddressType === 'add') {
             console.log('add-click')
-            let _item = parseInt(this.$store.state.addressList.length)
-            this.$store.commit('editAddress', { id: _item, operate: 'add', obj: this.addressInfo });
-            this.$toast({
-              message: '新增成功',
-              type: 'warning'
-            });
-            this.$router.push({ path: '/address' })
+            addAddress(parasm).then(result => {
+              console.log(result, 'add')
+              if (result.code === 200) {
+                this.$toast({
+                  message: '新增成功',
+                  type: 'warning'
+                })
+                this.$router.push({ path: '/address' })
+              }
+            })
+            // let _item = parseInt(this.$store.state.addressList.length)
+            // this.$store.commit('editAddress', { id: _item, operate: 'add', obj: this.addressInfo });
+            // this.$toast({
+            //   message: '新增成功',
+            //   type: 'warning'
+            // });
+            // this.$router.push({ path: '/address' })
           } else if (this.editAddressType === 'edit') {
             console.log('edit-click-' + this.editAddressId)
-            this.$store.commit('editAddress', { id: this.addressInfo.id, operate: 'edit', obj: this.addressInfo });
-            this.$toast({
-              message: '修改成功',
-              type: 'warning'
-            });
-            this.$router.push({ path: '/address' })
+            updateAddress(parasm).then(result => {
+              console.log(result, 'update')
+              if (result.code === 200) {
+                this.$toast({
+                  message: '更新成功',
+                  type: 'warning'
+                })
+                this.$router.push({ path: '/address' })
+              }
+            })
+
           }
         } else {
           let list = this.errors.all();
@@ -186,86 +231,100 @@ export default {
       })
 
     },
+    getAreaList(parentCode, rank, picker) {
+      getAreaList(parentCode).then(result => {
+        switch (rank) {
+          case 'province': this.myAddressSlots[0].values = result.data
+            break
+          case 'city'://this.myAddressSlots[2].values =  result.data
+            picker.setSlotValues(1, result.data)
+            break
+          case 'district'://this.myAddressSlots[4].values =  result.data
+            picker.setSlotValues(2, result.data)
+            break
+          case 'street'://this.myAddressSlots[6].values =  result.data
+            picker.setSlotValues(3, result.data)
+            break
+          default:
+            break
+        }
+      })
+    },
     showAddressPicker() {
-      this.regionVisible = true;
+      this.regionVisible = true
+      this.regionAble = true
+    },
+    closeAddressPicker() {
+      this.regionVisible = false
+      this.regionAble = false
+      this.salesAreaCode.value = this.salesAreaCode._value
+    },
+    getPickerIndex(Arr) {
+      const newArr = Arr
+      let isFrist = true
+      let changeIndex = -1
+      // console.log(this.regionHold,'regionHold')
+      // console.log(newArr,'newArr')
+      for (let i = 0; i < newArr.length; i++) {
+        // console.log(newArr[i].code,'i',i,this.regionHold[i].code)
+        if (newArr[i].code !== this.regionHold[i].code) {
+          // console.log(newArr[i].code,'_index',this.regionHold[i].code)
+          if (isFrist === true) {
+            this.regionHold[i].code = newArr[i].code
+            isFrist = false
+            changeIndex = i
+          }
+        }
+      }
+      return changeIndex
     },
     addressChange(picker, values) {
-      // console.log(picker);
-      // console.table(values);
-      if (this.regionInit) {
+      // console.log(picker,'----')
+      // console.table(values)
+      //console.log(values,'.....')
+      this.salesAreaCode._value = values[0]["label"] + ' ' + values[1]["label"] + ' ' + values[2]["label"] + ' ' + values[3]["label"]
+      if (this.regionAble === true) {
         //取值并赋值
-        this.addressInfo.region.value = values[0]["name"] + ' ' + values[1]["name"] + ' ' + values[2]["name"];
-        this.addressInfo.region.province = values[0]["name"];
-        this.addressInfo.region.city = values[1]["name"];
-        this.addressInfo.region.county = values[2]["name"];
-        this.addressInfo.region.provinceCode = values[0]["code"];
-        this.addressInfo.region.cityCode = values[1]["code"];
-        this.addressInfo.region.countyCode = values[2]["code"];
+        this.salesAreaCode.value = values[0]["label"] + ' ' + values[1]["label"] + ' ' + values[2]["label"] + ' ' + values[3]["label"]
+      }
+      this.myAddressSlots.provinceCode = values[0]["code"]
+      this.myAddressSlots.cityCode = values[1]["code"]
+      this.myAddressSlots.districtCode = values[2]["code"]
+      this.myAddressSlots.streetCode = values[3]["code"]
+      const _index = this.getPickerIndex(values)
+      // console.log(_index,'_index')
+      // console.log(picker.getSlotValue(0),'获取给定 slot 目前被选中的值')
+      // console.table(picker.getSlotValues(0),'获取给定 slot 的备选值数组')
+      // console.table(picker.getValues(),'获取所有 slot 目前被选中的值（分隔符 slot 除外）')
+      // console.log(picker.getSlotValues(0),'获取给定 slot 的备选值数组')
+      // console.log(picker.getValues(),'获取所有 slot 目前被选中的值（分隔符 slot 除外）')      
+      // picker.setSlotValues(2, this.getCountyArr(values[0]["label"], values[1]["label"]))
+      //给市、区、街道赋值
 
-        // console.log(picker.getSlotValue(0));
-        // console.table(picker.getSlotValues(0));
-        // console.table(picker.getValues());
-        //给市、县赋值
-        picker.setSlotValues(1, this.getCityArr(values[0]["name"]));
-        picker.setSlotValues(2, this.getCountyArr(values[0]["name"], values[1]["name"]));
-      } else {
-        this.regionInit = true;
+      switch (_index) {
+        case 0: this.getAreaList(values[0].code, 'city', picker)
+          if (this.regionInit === true) {
+            this.myAddressSlots[0].defaultIndex = 10
+            this.regionInit = false
+          }
+          break
+        case 1: this.getAreaList(values[1].code, 'district', picker)
+          break
+        case 2: this.getAreaList(values[2].code, 'street', picker)
+          break
+        default:
+          break
       }
+      this.salesAreaCode.code = this.myAddressSlots.streetCode
     },
-    //遍历json，返回省级对象数组
-    getProvinceArr() {
-      let provinceArr = [];
-      threeLevelAddress.forEach(function (item) {
-        let obj = {};
-        obj.name = item.name;
-        obj.code = item.code;
-        provinceArr.push(obj);
-      });
-      return provinceArr;
-    },
-    //遍历json，返回市级对象数组
-    getCityArr(province) {
-      // console.log("省：" + province);
-      let cityArr = [];
-      threeLevelAddress.forEach(function (item) {
-        if (item.name === province) {
-          item.children.forEach(function (args) {
-            let obj = {};
-            obj.name = args.name;
-            obj.code = args.code;
-            cityArr.push(obj);
-          });
-        }
-      });
-      return cityArr;
-    },
-    //遍历json，返回县级对象数组
-    getCountyArr(province, city) {
-      let countyArr = [];
-      threeLevelAddress.forEach(function (item) {
-        if (item.name === province) {
-          item.children.forEach(function (args) {
-            if (args.name === city) {
-              args.children.forEach(function (param) {
-                let obj = {};
-                obj.name = param.name;
-                obj.code = param.code;
-                countyArr.push(obj);
-              })
-            }
-          });
-        }
-      });
-      // console.log(countyArr);
-      return countyArr;
-    },
-    setDefaultAddr(id) {
-      if (this.editAddressType = 'add') {
-        this.$store.commit('setDefaultAddr', -1);
+    setDefaultAddr() {
+      // if (this.editAddressType = 'add') {
+      if (this.addressInfo.default === true) {
+        this.addressInfo.default = false
+      } else {
         this.addressInfo.default = true
-      } else {
-        this.$store.commit('setDefaultAddr', id);
       }
+      // }
     }
   }
 }

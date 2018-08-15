@@ -3216,6 +3216,193 @@ figure {
 #store .storeCall>i {
     font-size: 48px;
 }
+
+/* 提交订单 submitOrder.vue */
+#submitOrder {
+  overflow: hidden;
+  height: 100%;
+}
+
+#submitOrder .main {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  width: 100%;
+  overflow: auto;
+  font-size: 26px;
+}
+
+#submitOrder .addr {
+  height: 220px;
+  line-height: 220px;
+  background: #fff;
+  border: 1px solid #efefef;
+  margin-bottom: 20px;
+}
+
+#submitOrder .addr .left {
+  float: left;
+}
+
+#submitOrder .addr .right {
+  float: right;
+}
+
+#submitOrder .addr .left,
+#submitOrder .addr .right {
+  height: 100%;
+  width: 100px;
+  text-align: center;
+}
+
+#submitOrder .addr .left>i,
+#submitOrder .addr .right>i {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#submitOrder .rsicon-qiehuanqiyou {
+  font-size: 36px;
+}
+
+#submitOrder .rsicon-address {
+  font-size: 48px;
+}
+
+#submitOrder .addr .con {
+  padding: 0 100px;
+  height: 100%;
+  line-height: 80px;
+}
+
+#submitOrder .addr .con {
+  padding: 0 100px;
+  height: 100%;
+  line-height: 60px;
+  font-size: 34px;
+  padding: 10px 0;
+}
+
+#submitOrder .order {
+  background: #fff;
+  overflow: hidden;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+#submitOrder .order .store {
+  padding: 0 20px;
+  line-height: 80px;
+  height: 80px;
+}
+
+#submitOrder .order .con {
+  padding: 20px 40px;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+#submitOrder .order .con .imgOut {
+  padding: 10px;
+  float: left;
+  width: 30%;
+  margin-right: 5%;
+  background: #fff;
+}
+
+#submitOrder .order .orderInfo {
+  float: left;
+  width: 65%
+}
+
+#submitOrder .order .orderInfo>div {
+  color: #181818;
+}
+
+#submitOrder .order .orderInfo>div.orderName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+#submitOrder .order .orderInfo>div.orderType {
+  color: #9b9b9b;
+}
+
+#submitOrder .payList {
+  background: #fff;
+  padding: 0 0;
+  overflow: hidden;
+}
+
+#submitOrder .payList .payItem {
+  float: left;
+  padding: 0 20% 0 20%;
+  width: 100%;
+  line-height: 100px;
+  height: 100px;
+  position: relative;
+  border-bottom: 1px solid #efefef
+}
+
+#submitOrder .payList .payItem>i.l {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 100px;
+  text-align: center;
+}
+
+#submitOrder .payList .payItem>i.r {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100px;
+  text-align: center;
+}
+
+#submitOrder .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  line-height: 100px;
+  width: 100%;
+  background: #fff;
+  font-size: 30px;
+  text-align: center
+}
+
+#submitOrder .footer .payBtn {
+  line-height: 100px;
+  height: 100px;
+  width: 30%;
+  text-align: center;
+  display: block;
+  background: #e02e24;
+  color: #fff;
+  float: right;
+  border: none;
+  font-size: 30px
+}
+
+#submitOrder .footer .total {
+  font-size: 34px;
+  color: #e02e24;
+}
+
+#submitOrder .footer .freight {
+  color: #e02e24;
+}
+
+
 /* 支付 pay.vue */
 #pay {
     overflow: hidden;
@@ -3751,9 +3938,27 @@ figure {
 }
 
 #editAddress .mint-popup{
-    top: 25%;
-    bottom: unset;
+  width: 100%;
+  bottom: 0;
+  top: unset;
 }
+
+
+#editAddress .mint-popup .toolbarBtn{
+  text-align: center;
+  background: transparent;
+  box-shadow: none
+}
+
+#editAddress .mint-popup .toolbarBtn.sure{
+  float: right;
+  color: rgb(38, 162, 255)
+}
+
+#editAddress .mint-popup .toolbarBtn.cancel{
+  color: rgb(239, 79, 79)
+}
+
 #editAddress .defaultAddr,#editAddress .setDefaultAddr{
     display: block;
     line-height: 80px;

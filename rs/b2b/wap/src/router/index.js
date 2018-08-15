@@ -25,6 +25,7 @@ import SeachSite from '@/pages/SeachSite'
 import Store from '@/pages/Store'
 import Product from '@/pages/Product'
 import GroupProduct from '@/pages/GroupProduct'
+import SubmitOrder from '@/pages/SubmitOrder'
 import Pay from '@/pages/Pay'
 import test from '@/pages/test'
 
@@ -113,6 +114,15 @@ export default new Router({
       component: GroupProduct,
       meta: {
         title: "拼团商品"
+      }
+    },
+    {
+      path: '/SubmitOrder',
+      name: 'SubmitOrder',
+      component: SubmitOrder,
+      meta: {
+        auth:true,
+        title: "提交订单"
       }
     },
     {

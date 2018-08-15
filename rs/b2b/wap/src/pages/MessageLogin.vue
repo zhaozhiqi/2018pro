@@ -21,7 +21,7 @@
       <button class="registerBtn" @click="messageLogin()">登录</button>
       <div class="menu">
         <router-link to="/login">账号密码登录</router-link>
-        <router-link to="/register">注册账号</router-link>
+        <router-link to="/registerChange">注册账号</router-link>
       </div>
     </main>
   </div>

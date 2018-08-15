@@ -16,7 +16,7 @@
       <button class="login" @click="login">登录</button>
       <div class="menu">
         <!-- <router-link to="/resetPass">找回密码</router-link> -->
-        <router-link to="/register">注册账号</router-link>
+        <router-link to="/registerChange">注册账号</router-link>
         <router-link to="/messageLogin">短信验证登录</router-link>
         <!--<router-link to="/register?username=">手机快速登录</router-link>-->
       </div>

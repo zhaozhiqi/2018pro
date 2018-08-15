@@ -272,9 +272,9 @@ export default {
         }
         cartSave(parasm).then(result => {
           console.log(result, 'result')
-          if(result.data === 200){
+          if(result.code === 200){
             this.$toast({
-              message: '添加至购物车',
+              message: '已添加至购物车',
               type: 'warning',
               duration: 1000
             })

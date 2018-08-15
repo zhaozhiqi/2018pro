@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { getGroupCaseInfo, getOrder, getAddressList } from '@/api/m_api'
+
 import CommonHeader from '@/components/common-header'
 export default {
   name: "pay",
@@ -96,10 +98,24 @@ export default {
   created() {
     this.orderId = this.$route.query.id
     this.orderType = this.$route.query.type
+    this.init()
   },
   mounted() {
   },
   methods: {
+    init(){
+      this.orderNo = this.$route.query.id
+      const params = {
+        outTradeNo:this.orderNo
+      }
+      this.orderType = this.$route.query.type
+      getOrder(params).then(result => {
+        console.log(result, 'result')
+        // if (result.code === 200) {
+        //   this.orderInfo = result.data
+        // }
+      })
+    },
     changePay(id) {
       this.payList.forEach(item => {
         if (item.payTypeId === id) {
@@ -134,7 +150,7 @@ export default {
           message: '支付成功',
           type: 'warning',
           duration: 1000
-        });
+        })
         that.$router.push({ path: '/Group' })
       }, 1000)
 

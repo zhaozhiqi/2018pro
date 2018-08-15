@@ -5,15 +5,15 @@
       <form class="register-form" action="">
         <label :class="{'error':errors.has('corporateName')}">
           <i class="rsiconfont rsicon-gongsixinxi"></i>
-          <input type="text" v-validate="'required'" name="corporateName" placeholder="请输入公司名称" v-model="store.corporateName" />
+          <input type="text" v-validate="'required'" name="corporateName" placeholder="请输入公司名称(同营业执照信息)" v-model="store.corporateName" />
         </label>
         <label :class="{'error':errors.has('corporateAddress')}">
           <i class="rsiconfont rsicon-address"></i>
-          <input type="text" v-validate="'required'" name="corporateAddress" placeholder="请输入公司地址" v-model="store.corporateAddress" />
+          <input type="text" v-validate="'required'" name="corporateAddress" placeholder="请输入公司地址(同营业执照信息)" v-model="store.corporateAddress" />
         </label>
         <label :class="{'error':errors.has('corporateCode')}">
           <i class="rsiconfont rsicon-jieshao"></i>
-          <input type="text" v-validate="'required'" name="corporateCode" placeholder="请输入组织代码编号" v-model="store.corporateCode" />
+          <input type="text" v-validate="'required'" name="corporateCode" placeholder="请输入组织代码编号(同营业执照信息)" v-model="store.corporateCode" />
         </label>
         <label :class="{'error':errors.has('password')}">
           <i class="rsiconfont rsicon-mima"></i>
@@ -81,7 +81,7 @@ import { Validator } from 'vee-validate';
 import CommonHeader from '@/components/common-header'
 
 export default {
-  name: 'storeSettled',
+  name: 'retailerSettled',
   data() {
     return {
       commonHeaderObj: {
@@ -89,7 +89,7 @@ export default {
           color: "#333",
           backgroundColor: "#fff"
         },
-        title: "商家入驻",
+        title: "经销商入驻",
         isOtherShow: false,
         otherIconClass: "rsicon-gengduo"
       },
@@ -116,7 +116,7 @@ export default {
         mobile: '15584461401',
         imageCode: '',
         mobileCode: '',
-        type: 'RETAILER',
+        type: 'DISTRIBUTOR',
         corporateLogo: null,
         file: null,
         salesAreaCode: {
@@ -125,15 +125,11 @@ export default {
           code: null,
           province: '浙江省',
           city: '杭州市',
-          district: null,
-          street: null,
           provinceCode: null,
           cityCode: null,
-          districtCode: null,
-          streetCode: null
         }
       },
-      regionHold: [{ code: 330000 }, { code: 330100 }, { code: 0 }, { code: 0 }],
+      regionHold: [{ code: 330000 }, { code: 330100 }],
       regionToolbar: {
         name: '确认'
       },
@@ -154,19 +150,6 @@ export default {
           flex: 1,
           values: [{ code: 0, label: '未选择' }],
           className: 'slot3',
-          textAlign: 'center'
-        },
-        //区
-        {
-          flex: 1,
-          values: [{ code: 0, label: '未选择' }],
-          className: 'slot5',
-          textAlign: 'center'
-        },
-        {
-          flex: 1,
-          values: [{ code: 0, label: '未选择' }],
-          className: 'slot7',
           textAlign: 'center'
         }
       ]
@@ -193,8 +176,9 @@ export default {
       this.$validator.validateAll().then((msg) => {
         if (msg) {
           let formData = new FormData()
+          const address = this.store.salesAreaCode.value+this.store.corporateAddress
           formData.append('corporateName', this.store.corporateName)
-          formData.append('corporateAddress', this.store.corporateAddress)
+          formData.append('corporateAddress', address)
           formData.append('corporateCode', this.store.corporateCode)
           formData.append('password', this.store.password)
           formData.append('mobile', this.store.mobile)
@@ -313,12 +297,6 @@ export default {
           case 'city'://this.myAddressSlots[2].values =  result.data
             picker.setSlotValues(1, result.data)
             break
-          case 'district'://this.myAddressSlots[4].values =  result.data
-            picker.setSlotValues(2, result.data)
-            break
-          case 'street'://this.myAddressSlots[6].values =  result.data
-            picker.setSlotValues(3, result.data)
-            break
           default:
             break
         }
@@ -356,15 +334,13 @@ export default {
       // console.log(picker,'----')
       // console.table(values)
       //console.log(values,'.....')
-      this.store.salesAreaCode._value = values[0]["label"] + ' ' + values[1]["label"] + ' ' + values[2]["label"] + ' ' + values[3]["label"]
+      this.store.salesAreaCode._value = values[0]["label"] + values[1]["label"]
       if (this.regionAble === true) {
         //取值并赋值
-        this.store.salesAreaCode.value = values[0]["label"] + ' ' + values[1]["label"] + ' ' + values[2]["label"] + ' ' + values[3]["label"]
+        this.store.salesAreaCode.value = values[0]["label"] + values[1]["label"]
       }
       this.myAddressSlots.provinceCode = values[0]["code"]
       this.myAddressSlots.cityCode = values[1]["code"]
-      this.myAddressSlots.districtCode = values[2]["code"]
-      this.myAddressSlots.streetCode = values[3]["code"]
       const _index = this.getPickerIndex(values)
       // console.log(_index,'_index')
       // console.log(picker.getSlotValue(0),'获取给定 slot 目前被选中的值')
@@ -382,14 +358,10 @@ export default {
             this.regionInit = false
           }
           break
-        case 1: this.getAreaList(values[1].code, 'district', picker)
-          break
-        case 2: this.getAreaList(values[2].code, 'street', picker)
-          break
         default:
           break
       }
-      this.store.salesAreaCode.code = this.myAddressSlots.streetCode
+      this.store.salesAreaCode.code = values[1]["code"]
     },
     uploadFileChange(el, demo) {
       const that = this

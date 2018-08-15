@@ -51,11 +51,10 @@ export function delCart(params) {
   })
 }
 
-export function getCart(params) {
+export function getCart() {
   return request({
     url: baseApi+'cart/get',
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 

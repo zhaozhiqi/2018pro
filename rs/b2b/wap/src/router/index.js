@@ -7,10 +7,15 @@ import Cart from '@/pages/Cart'
 import Member from '@/pages/Member'
 import Seach from '@/pages/Seach'
 import Login from '@/pages/Login'
-import Register from '@/pages/Register'
 import MessageLogin from '@/pages/MessageLogin'
 import ResetPass from '@/pages/ResetPass'
-import StoreSettled from '@/pages/StoreSettled'
+// import StoreSettled from '@/pages/StoreSettled'
+import RegisterChange from '@/pages/RegisterChange'
+import Register from '@/pages/Register'
+import SettledChange from '@/pages/SettledChange'
+import DistributorSettled from '@/pages/DistributorSettled'
+import WholesalerSettled from '@/pages/WholesalerSettled'
+import RetailerSettled from '@/pages/RetailerSettled'
 import Treaty from '@/pages/Treaty'
 
 import Order from '@/pages/member/Order'
@@ -159,14 +164,6 @@ export default new Router({
       }
     },
     {
-      path: '/Register',
-      name: 'Register',
-      component: Register,
-      meta: {
-        title: "账号注册"
-      }
-    },
-    {
       path: '/MessageLogin',
       name: 'MessageLogin',
       component: MessageLogin,
@@ -175,11 +172,59 @@ export default new Router({
       }
     },
     {
-      path: '/StoreSettled',
-      name: 'StoreSettled',
-      component: StoreSettled,
+      path: '/RegisterChange',
+      name: 'RegisterChange',
+      component: RegisterChange,
       meta: {
-        title: "商家入驻"
+        title: "注册服务选择"
+      }
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register,
+      meta: {
+        title: "账号注册"
+      }
+    },
+    // {
+    //   path: '/StoreSettled',
+    //   name: 'StoreSettled',
+    //   component: StoreSettled,
+    //   meta: {
+    //     title: "商家入驻"
+    //   }
+    // },
+    {
+      path: '/SettledChange',
+      name: 'SettledChange',
+      component: SettledChange,
+      meta: {
+        title: "入驻选择"
+      }
+    },
+    {
+      path: '/DistributorSettled',
+      name: 'DistributorSettled',
+      component: DistributorSettled,
+      meta: {
+        title: "经销商入驻"
+      }
+    },
+    {
+      path: '/WholesalerSettled',
+      name: 'WholesalerSettled',
+      component: WholesalerSettled,
+      meta: {
+        title: "批发商入驻"
+      }
+    },
+    {
+      path: '/RetailerSettled',
+      name: 'RetailerSettled',
+      component: RetailerSettled,
+      meta: {
+        title: "零售商入驻"
       }
     },
     {

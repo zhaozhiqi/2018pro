@@ -20,7 +20,9 @@
             <b class="storeHint-I">{{storeItem.shopName}}</b>
             <!-- <b class="storeHint-II">浙江杭州江干区景昙路店</b>
 						<b class="storeHint-III">浙江杭州江干区景昙路店</b> -->
-            <span><router-link :to="{path:'/store', query: { id: storeItem.shopGoodsId }}">去店铺逛逛</router-link></span>
+            <span>
+              <router-link :to="{path:'/store', query: { id: storeItem.shopGoodsId }}">去店铺逛逛</router-link>
+            </span>
           </div>
           <div class="goodsList">
             <ul>
@@ -78,7 +80,7 @@
 </template>
 
 <script>
-import { getCart, delCart, cartSave } from '@/api/m_api'
+import { getCart, delCart, cartSave, saveCartBalance } from '@/api/m_api'
 
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
 import CommonHeader from '@/components/common-header'
@@ -90,8 +92,11 @@ export default {
   data() {
     return {
       carCaptionShow: false,
-      cartList: {items:[]},
+      cartList: { items: [] },
       delItem: {},
+      query:{
+        ids: null
+      },
       commonHeaderObj: {
         bgStyle: {
           color: "#333",
@@ -125,13 +130,13 @@ export default {
     }
   },
   computed: {
-    hasGoods(){
+    hasGoods() {
       let now = false
-      now = this.cartList.items.length>0?false:true
+      now = this.cartList.items.length > 0 ? false : true
       return now
     },
     checkAllFlag() {
-        return this.checkedStoreCount === this.cartList.items.length
+      return this.checkedStoreCount === this.cartList.items.length
     },
     checkedStoreCount() {
       let i = 0;
@@ -142,13 +147,13 @@ export default {
     },
     totalPrice() {
       let money = 0
-      this.cartList.items.forEach((item) => { 
+      this.cartList.items.forEach((item) => {
         item.itemGoodsInfoList.forEach((index) => {
           if (index.checked === true) {
             money += parseFloat(index.money) * parseInt(index.count);
           }
         })
-      })     
+      })
       return money
     },
     hasProChecked() {
@@ -172,8 +177,8 @@ export default {
           const _data = result.data
           _data.items.forEach(shop => {
             shop.checked = false
-            if(shop.itemGoodsInfoList){
-              shop.itemGoodsInfoList.forEach(goods =>{
+            if (shop.itemGoodsInfoList) {
+              shop.itemGoodsInfoList.forEach(goods => {
                 goods.checked = false
               })
             }
@@ -184,14 +189,14 @@ export default {
     },
     delCart(item, parentItem) {//删除购物车商品
       const params = {
-          shopId: parentItem.shopId,
-          shopGoodsId: item.shopGoodsId
+        shopId: parentItem.shopId,
+        shopGoodsId: item.shopGoodsId
+      }
+      delCart(params).then(res => {
+        if (res.code === 200) {
+          that.init()
         }
-        delCart(params).then(res => {
-          if(res.code === 200){
-            that.init()
-          }
-        })
+      })
     },
     delCartStore(parentItem) {//删除购物车商铺
       console.log(this.cartList)
@@ -218,10 +223,10 @@ export default {
         const params = {
           shopId: parentItem.shopId,
           shopGoodsId: item.shopGoodsId,
-          count: item.count+1
+          count: item.count + 1
         }
         cartSave(params).then(res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             that.init()
           }
         })
@@ -233,10 +238,10 @@ export default {
         const params = {
           shopId: parentItem.shopId,
           shopGoodsId: item.shopGoodsId,
-          count: item.count-1
+          count: item.count - 1
         }
         cartSave(params).then(res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             that.init()
           }
         })
@@ -284,10 +289,16 @@ export default {
       // })
     },
     closeCarCaption() {
-      this.carCaptionShow = false;
+      this.carCaptionShow = false
     },
     goPay() {
-      this.$router.push({ path: '/Pay' })
+      let that = this
+      saveCartBalance(this.query).then(result => {
+        console.log(result, 'result')
+        if (result.code === 200) {
+          that.$router.push({ path: '/SubmitOrder',query:{ type:'self'} })
+        }
+      })
     }
   }
 };

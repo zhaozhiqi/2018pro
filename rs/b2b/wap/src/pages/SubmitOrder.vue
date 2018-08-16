@@ -88,11 +88,8 @@ export default {
   },
   methods: {
     init() {
-      this.orderId = this.$route.query.id
       this.orderType = this.$route.query.type
-      const parasm = {
-        orderNo: this.orderId
-      }
+      console.log(this.orderType)
       getGroupCaseInfo().then(result => {
         console.log(result, 'result')
         if (result.code === 200) {

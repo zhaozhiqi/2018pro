@@ -144,6 +144,9 @@ export default {
     init(){
       getOrderList(this.query).then(result => {
         console.log(result,'result')
+        if(result.code === 200){
+          this.orderList = result.data.records
+        }
       })
     },
     orderTabClick(type) {

@@ -233,7 +233,7 @@ export default {
       }
     },
     goback() {
-      this.$store.commit('goback')
+      this.$store.dispatch('backLastPage')
     },
     buySelf() {
       // let num = this.productInfo.saleNum
@@ -292,7 +292,7 @@ export default {
         console.log(result, 'result')
         if(result.code === 200){
           that.$indicator.close()
-          that.$router.push({ path: '/SubmitOrder'})
+          that.$router.push({ path: '/SubmitOrder',query:{ type:this.saleType}})
         }
       })
     },

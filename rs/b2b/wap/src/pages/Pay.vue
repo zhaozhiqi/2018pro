@@ -96,8 +96,6 @@ export default {
     CommonHeader
   },
   created() {
-    this.orderId = this.$route.query.id
-    this.orderType = this.$route.query.type
     this.init()
   },
   mounted() {

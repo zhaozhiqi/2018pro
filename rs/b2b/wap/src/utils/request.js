@@ -77,10 +77,13 @@ service.interceptors.response.use(
       switch (err.request.status) {
         case 0:
           console.log('0')
-          router.push({ path: '/login' })
+          //router.push({ path: '/login' })
           break
         case 401:
-          console.log('401')
+          Toast({
+            message: '请先登陆',
+            duration: 2 * 1000
+          })
           router.push({ path: '/login' })
           break
         case 403:

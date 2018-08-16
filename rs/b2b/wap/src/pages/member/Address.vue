@@ -65,25 +65,6 @@ export default {
     this.init()
   },
   mounted() {
-    // this.addressList = this.$store.state.addressList;
-    //             {
-    //                 detailedAddress: "百得利大厦十二楼",
-    //                 otherAddress: "other",
-    //                 userName: "赵先生....",
-    //                 userPhone: "15584461111",
-    //                 userSex: "man",
-    //                 id: 0,
-    //                 region: {
-    //                     value: "浙江省杭州市滨江区",
-    //                     province: null,
-    //                     city: null,
-    //                     county: null,
-    //                     provinceCode: null,
-    //                     cityCode: null,
-    //                     countyCode: 123456789
-    //                 }
-    //             },
-
   },
   methods: {
     init(){

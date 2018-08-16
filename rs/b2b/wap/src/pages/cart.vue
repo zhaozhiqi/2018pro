@@ -94,7 +94,7 @@ export default {
       carCaptionShow: false,
       cartList: { items: [] },
       delItem: {},
-      query:{
+      query: {
         ids: null
       },
       commonHeaderObj: {
@@ -192,9 +192,22 @@ export default {
         shopId: parentItem.shopId,
         shopGoodsId: item.shopGoodsId
       }
-      delCart(params).then(res => {
-        if (res.code === 200) {
-          that.init()
+      this.$messagebox.confirm('确定删除该商品吗?').then(action => {
+        if (action == 'confirm') {
+          delCart(params).then(res => {
+            if (res.code === 200) {
+              this.$toast({
+                message: '操作成功',
+                type: 'warning'
+              })
+              this.init()
+            }
+          })
+        }
+      }).catch(err => {
+        if (err == 'cancel') {
+          console.log('取消')
+          return
         }
       })
     },
@@ -293,10 +306,21 @@ export default {
     },
     goPay() {
       let that = this
-      saveCartBalance(this.query).then(result => {
+      const _arr = []
+      this.cartList.items.forEach(shop => {
+        shop.itemGoodsInfoList.forEach(good => {
+          if (good.checked === true) {
+            const _id = good.shopGoodsId
+            _arr.push(_id)
+          }
+        })
+      })
+      const params = new URLSearchParams()
+      params.append('ids', _arr)
+      saveCartBalance(params).then(result => {
         console.log(result, 'result')
         if (result.code === 200) {
-          that.$router.push({ path: '/SubmitOrder',query:{ type:'self'} })
+          that.$router.push({ path: '/SubmitOrder', query: { type: 'self' } })
         }
       })
     }

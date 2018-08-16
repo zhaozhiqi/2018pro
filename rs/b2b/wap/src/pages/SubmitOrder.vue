@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getGroupCaseInfo, createOrder, getAddressList } from '@/api/m_api'
+import { getGroupCaseInfo, createOrder, getAddressList, getCartBalance } from '@/api/m_api'
 
 import CommonHeader from '@/components/common-header'
 export default {
@@ -90,14 +90,23 @@ export default {
     init() {
       this.orderType = this.$route.query.type
       console.log(this.orderType)
-      getGroupCaseInfo().then(result => {
-        console.log(result, 'result')
-        if (result.code === 200) {
-          this.orderInfo = result.data
-        }
-      })
+      if (this.orderType === 'group') {
+        getGroupCaseInfo().then(result => {
+          // console.log(result, 'result')
+          if (result.code === 200) {
+            this.orderInfo = result.data
+          }
+        })
+      } else if (this.orderType === 'self') {
+        getCartBalance().then(result => {
+          // console.log(result, 'result')
+          if (result.code === 200) {
+            this.orderInfo = result.data
+          }
+        })
+      }
       getAddressList().then(result => {
-        console.log(result, 'result add')
+        // console.log(result, 'result add')
         if (result.code === 200) {
           const addressList = result.data
           addressList.forEach((item, index) => {
@@ -112,16 +121,22 @@ export default {
     paySend() {
       let that = this;
       this.$indicator.open();
-      const parasm = {
-        caseId: null,
-        goodsGroupPurchaseId: this.orderInfo.groupPurchaseId,
-        lot: this.orderInfo.lot,
-        addressId: this.defaultAddressInfo.id
+      const params = new URLSearchParams()
+      console.log(this.orderInfo)
+      if (this.orderType === 'group') {
+        if (this.orderInfo.caseId !== undefined && this.orderInfo.caseId !== null) {
+          params.append('caseId', this.orderInfo.caseId)
+        }
+        params.append('goodsGroupPurchaseId', this.orderInfo.groupPurchaseId)
+        params.append('lot', this.orderInfo.lot)
+        params.append('addressId', this.defaultAddressInfo.id)
+      }else if (this.orderType === 'self') {
+        params.append('buyerCartGoodsIds', this.orderInfo.buyerCartGoodsIds)
+        params.append('lot', this.orderInfo.totalAmount)
+        params.append('addressId', this.defaultAddressInfo.id)
       }
-      if (this.orderInfo.caseId !== undefined && this.orderInfo.caseId !== null) {
-        parasm.caseId = this.orderInfo.caseId
-      }
-      createOrder(parasm).then(result => {
+
+      createOrder(params).then(result => {
         console.log(result, 'result')
         if (result.code === 200) {
           that.$indicator.close();

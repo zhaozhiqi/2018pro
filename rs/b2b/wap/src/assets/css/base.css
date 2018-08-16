@@ -3629,7 +3629,8 @@ figure {
 	line-height: 80px;
 	text-align: center;
 	background-color: #fff;
-	border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  z-index: 9;
 }
 
 #order .orderMenu nav{

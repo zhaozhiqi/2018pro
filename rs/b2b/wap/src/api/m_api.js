@@ -61,7 +61,7 @@ export function getCart() {
 export function getCartBalance(params) {
   return request({
     url: baseApi+'cart/get/balance',
-    method: 'post',
+    method: 'get',
     params
   })
 }
@@ -194,8 +194,10 @@ export function adminRegister(params) {
 /**
  * 订单相关 
  * 
+ * 取消订单
  * 创建订单
  * 获取订单详情
+ * 获取订单数量
  * 获取订单列表
  * 获取店铺订单详情
  * 获取店铺订单列表
@@ -209,9 +211,25 @@ export function createOrder(params) {
   })
 }
 
+export function cancelOrder(params) {
+  return request({
+    url: baseApi+'order/cancel',
+    method: 'post',
+    params
+  })
+}
+
 export function getOrder(params) {
   return request({
     url: baseApi+'order/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getOrderCount(params) {
+  return request({
+    url: baseApi+'order/get/count',
     method: 'get',
     params
   })

@@ -42,9 +42,16 @@
                 <img src="/static/images/allGoods.png" />
                 <span>全部商品</span>
               </div>
-              <div class="classItem" v-for="(item, index) in storeClassify" :key="index" @click="changeClass(item.shopId,item.id,item.parentId)">
+              <div class="classItem" v-for="(item, index) in storeClassify" :key="index" @click="changeClass(item.shopId,item.id)">
                 <img :src="item.image" />
                 <span>{{item.label}}</span>
+              </div>
+            </div>
+            <div class="title" v-show="storeChildClassify.length > 0">二级分类</div>
+            <div class="classCon" v-show="storeChildClassify.length > 0">
+              <div class="classItem" v-for="(itemI, index) in storeChildClassify" :key="index" @click="changeClass(itemI.shopId,itemI.id,itemI.parentId)">
+                <img :src="itemI.image" />
+                <span>{{itemI.label}}</span>
               </div>
             </div>
           </mt-tab-container-item>
@@ -85,7 +92,7 @@ import GroupList from '@/components/GroupList'
 import Slider from '@/components/slider'
 
 export default {
-  name: "pay",
+  name: "store",
   data() {
     return {
       commonHeaderObj: {
@@ -102,6 +109,7 @@ export default {
       storeTopBg: 'static/images/storeTopBg.png',
       storeInfo: {},
       storeClassify: null,
+      storeChildClassify: [],
       storeGoodsList: [],
       storeGroupList: []
     }
@@ -150,11 +158,24 @@ export default {
         parentId: 0
       }
       getShopClassList(parasmShopClassList).then(result => {
-        this.storeClassify = result.data.records
+        this.storeClassify = result.data.records        
+        // this.storeChildClassify = result.data.records
         console.log(result.data.records,'店铺分类信息')
       })
     },
+    getChildClassify(parentId){
+      const params = {
+        shopId: this.storeInfo.id,
+        parentId:parentId
+      }
+      getShopClassList(params).then(result => {
+        console.log(result,'result')      
+        this.storeChildClassify = result.data.records
+        console.log(result.data.records,'店铺子分类信息')
+      })
+    },
     changeClass(shopId,id,parentId) {
+      console.log(parentId,'parentId')
       const query = { 
         shopId: shopId,
         shopClassifyId: id,
@@ -162,7 +183,25 @@ export default {
         lng: this.storeInfo.lng
         //,parentId: parentId
       }
-      this.$router.push({ path: '/seach', query:query })
+      const that = this
+      if(parentId===undefined&&id){
+        const params = {
+          shopId: this.storeInfo.id,
+          parentId:id
+        }
+        getShopClassList(params).then(result => {
+          console.log(result,'result')
+          if(result.code === 200 && result.data.total>0){
+            that.storeChildClassify = result.data.records
+          }else{
+            that.storeChildClassify = []
+            that.$router.push({ path: '/seach', query:query })
+          }
+        })
+      }else{
+        that.storeChildClassify = []
+        that.$router.push({ path: '/seach', query:query })
+      }
     },
     storeCollect() {
       if (this.isCollect === false) {

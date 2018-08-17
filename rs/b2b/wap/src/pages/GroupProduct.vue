@@ -118,7 +118,9 @@
     </section>
     <section class="popup-center" v-show="allGroupOrderShow">
       <div class="group-order">
-        <div class="closeOut"><mt-button type="danger" @click="closeAllGroupOrder">取消</mt-button></div>
+        <div class="closeOut">
+          <mt-button type="danger" @click="closeAllGroupOrder">取消</mt-button>
+        </div>
         <div class="group-order-con">
           <div class="group-order-item" v-for="(slider, index) in productInfo.groupPurchaseCases.records" :key="index">
             <button class="joinGroupBtn" @click="joinGroupOrder(index,slider.id)" v-show="slider.djs !== '已过期'">去拼团</button>
@@ -131,7 +133,7 @@
               <img class="orderUserImage" :src="slider.headThumb" alt="" style="width:50px;height:50px;">
             </div>
             <span class="orderUserName">{{slider.nick}}<br/>
-            <!-- (每份为该商品*{{slider.count/slider.caseLot}}) -->
+              <!-- (每份为该商品*{{slider.count/slider.caseLot}}) -->
             </span>
           </div>
         </div>
@@ -173,43 +175,46 @@ export default {
       saleNum: 1,
       groupIndex: null,
       productInfo: {
-        "saleNum": 1,
-        "id": 0,
-        "shopId": 0,
-        "productId": 0,
-        "classifyId": 0,
-        "shopClassifyId": 0,
-        "title": "",
-        "summary": "",
-        "code": "",
-        "stock": 0,
-        "money": 0,
-        "manufacturerName": "",
-        "retailPrice": 0,
-        "specifications": "",
-        "unit": "",
-        "shelfState": 0,
-        "salesAreaCode": 0,
-        "updateTime": "",
-        "createTime": "",
-        "shop": {
-          "id": 1,
-          "name": "",
-          "logo": "",
-          "corporateAddress": "",
-          "userId": 0,
-          "areaCode": 0,
-          "areaName": "",
-          "valid": 0,
-          "lng": 120.225985,
-          "lat": 30.212834,
-          "createTime": ""
+        'saleNum': 1,
+        'id': 0,
+        'shopId': 0,
+        'productId': 0,
+        'classifyId': 0,
+        'shopClassifyId': 0,
+        'title': '',
+        'summary': '',
+        'code': '',
+        'stock': 0,
+        'money': 0,
+        'manufacturerName': '',
+        'retailPrice': 0,
+        'specifications': '',
+        'unit': '',
+        'shelfState': 0,
+        'salesAreaCode': 0,
+        'updateTime': '',
+        'createTime': '',
+        'shop': {
+          'id': 1,
+          'name': '',
+          'logo': '',
+          'corporateAddress': '',
+          'userId': 0,
+          'areaCode': 0,
+          'areaName': '',
+          'valid': 0,
+          'lng': 120.225985,
+          'lat': 30.212834,
+          'createTime': ''
         },
-        "product": {},
-        "classify": {},
-        "shopClassify": {},
-        "images": [],
-        "identifier": "bw"
+        'product': {},
+        'classify': {},
+        'shopClassify': {},
+        'images': [],
+        'identifier': 'bw',
+        'groupPurchaseCases': {
+          'records': []
+        }
       }
     }
   },
@@ -370,7 +375,7 @@ export default {
     closeAllGroupOrder() {
       this.allGroupOrderShow = false
     }
-    
+
   }
 };
 </script>

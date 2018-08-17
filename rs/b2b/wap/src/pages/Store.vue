@@ -36,9 +36,13 @@
             <List :proList='storeGoodsList' />
           </mt-tab-container-item>
           <mt-tab-container-item id="class">
-            <div class="title">一级分类</div>
+            <!-- <div class="title">一级分类</div> -->
             <div class="classCon">
-              <div class="classItem" v-for="(item, index) in storeClassify" :key="index" :id="item.id" :parentId="item.parentId" :shopId="item.shopId" @click="changeClass()">
+              <div class="classItem" @click="changeClass(storeInfo.id,null)">
+                <img src="/static/images/allGoods.png" />
+                <span>全部商品</span>
+              </div>
+              <div class="classItem" v-for="(item, index) in storeClassify" :key="index" @click="changeClass(item.shopId,item.id,item.parentId)">
                 <img :src="item.image" />
                 <span>{{item.label}}</span>
               </div>
@@ -59,11 +63,11 @@
       </div>
     </main>
     <footer>
-      <div class="storeCollect" @click="storeCollect">
+      <!-- <div class="storeCollect" @click="storeCollect">
         <i v-show="!isCollect" class="rsiconfont rsicon-shoucang"></i>
         <i v-show="isCollect" class="rsiconfont rsicon-shoucangfill"></i>
         <span>收藏</span>
-      </div>
+      </div> -->
       <div class="storeCall">
         <i class="rsiconfont rsicon-dianhua"></i>
         <span>联系卖家</span>
@@ -114,7 +118,6 @@ export default {
   },
   methods: {
     init() {
-      console.log(1111)
       const parasmShop = {
         shopId: this.$route.query.id
       }
@@ -151,8 +154,15 @@ export default {
         console.log(result.data.records,'店铺分类信息')
       })
     },
-    changeClass() {
-      this.$router.push({ path: '/seach' })
+    changeClass(shopId,id,parentId) {
+      const query = { 
+        shopId: shopId,
+        shopClassifyId: id,
+        lat: this.storeInfo.lat,
+        lng: this.storeInfo.lng
+        //,parentId: parentId
+      }
+      this.$router.push({ path: '/seach', query:query })
     },
     storeCollect() {
       if (this.isCollect === false) {

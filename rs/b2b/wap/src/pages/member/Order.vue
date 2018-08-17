@@ -199,7 +199,8 @@ export default {
                 break
               case 1003: noTrue.push(item)
                 break
-              case 1004, 5001: noEnd.push(item)
+              case 1004: 
+              case 5001: noEnd.push(item)
                 break
               default:
                 break

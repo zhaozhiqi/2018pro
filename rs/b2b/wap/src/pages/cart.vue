@@ -118,11 +118,9 @@ export default {
     Footer
   },
   created() {
-    console.log('created')
     this.init()
   },
   mounted() {
-    // this.cartList = this.$store.state.cartList;
   },
   filters: {
     getNum: function (value) {
@@ -175,6 +173,9 @@ export default {
         console.log(result, 'result')
         if (result.code === 200) {
           const _data = result.data
+          if(!_data){
+            return
+          }
           _data.items.forEach(shop => {
             shop.checked = false
             if (shop.itemGoodsInfoList) {

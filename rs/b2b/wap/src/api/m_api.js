@@ -227,11 +227,10 @@ export function getOrder(params) {
   })
 }
 
-export function getOrderCount(params) {
+export function getOrderCount() {
   return request({
     url: baseApi+'order/get/count',
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 

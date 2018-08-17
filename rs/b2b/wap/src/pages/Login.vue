@@ -64,7 +64,7 @@ export default {
     this.$validator.localize("zh_CN")
   },
   mounted() {
-    this.Rurl = this.$route.query.Rurl || '/'
+    this.Rurl = this.$route.query.Rurl || '/' 
   },
   beforeDestroy() {
     clearInterval(this._time)
@@ -90,8 +90,10 @@ export default {
               this.$toast({
                 message: _msg,
                 type: 'warning'
-              });
+              })
               this.$router.push({ path: this.Rurl })
+              const is2b = Cookies.get('IS_2B')!==undefined
+              this.$store.dispatch('setRank',is2b)
             }            
           })
         } else {
@@ -105,7 +107,6 @@ export default {
             message: msg,
             type: 'warning'
           })
-
         }
       })
 

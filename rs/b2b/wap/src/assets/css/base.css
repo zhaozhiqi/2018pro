@@ -2548,6 +2548,102 @@ figure {
     flex: 1;
 }
 
+#groupProduct .popup-center .group-order {
+  top: 25%;
+  width: 96%;
+  margin-left: -48%;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+#groupProduct .popup-center .group-order-con {
+  height: auto
+}
+
+#groupProduct .popup-center .closeOut>button{
+  float: right;
+}
+
+#groupProduct .popup-center .closeOut{
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+}
+
+#groupProduct .popup-center .closeOut{
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc
+}
+
+#groupProduct .explain {
+  top: 25%;
+  width: 86%;
+  margin-left: -43%;
+  border-radius: 10px;
+  padding-bottom: 10px;
+}
+
+#groupProduct .explain h3 {
+  height: 92px;
+  line-height: 92px;
+  text-align: center;
+  color: #1655bf;
+  font-size: 30px;
+  border-bottom: 1px solid #efefef;
+}
+
+#groupProduct .explain div {
+  padding: 10px 3% 0;
+}
+
+#groupProduct .explain .rsicon-shouji,
+#groupProduct .explain .rsicon-dianhuahover {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+#groupProduct .explain .rsicon-shouji {
+  color: #ffa349;
+}
+
+#groupProduct .explain .rsicon-dianhuahover {
+  color: #57c576;
+}
+
+#groupProduct .explain div h4 {
+  color: #000;
+  font-size: 30px;
+}
+
+#groupProduct .explain div p {
+  line-height: 40px;
+  color: #999;
+  margin-bottom: 10px;
+  margin-left: 46px;
+  font-size: 26px;
+}
+
+#groupProduct .explain div p b {
+  color: #1655bf;
+}
+
+#groupProduct .explain .closeBtn {
+  padding: 0;
+  margin: 20px;
+  height: 76px;
+  line-height: 76px;
+  display: block;
+  text-align: center;
+  color: #fff;
+  background-color: #1655bf;
+  font-size: 28px;
+  border-radius: 10px;
+}
+
 /* 拼团商品课表 GroupList */
 #groupList {
     display: flex;

@@ -522,7 +522,13 @@ const user = {
         })
       })
     },
-
+    setRank({ commit }, params) {
+      if(params === true){
+        commit('SET_RANK', 'BUSINESS')
+      }else{
+        commit('SET_RANK', 'CUSTOMER')
+      }
+    },
     // 获取用户信息
     // GetUserInfo({ commit, state }) {
     //   return new Promise((resolve, reject) => {

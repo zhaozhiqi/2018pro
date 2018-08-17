@@ -8,7 +8,7 @@ import store from './store'
 
 import VueJsonp from 'vue-jsonp'
 import VueLazyload from 'vue-lazyload'
-import MintUI from 'mint-ui';
+import MintUI from 'mint-ui'
 import Cookies from 'js-cookie'
 // import 'mint-ui/lib/style.css'
 import '@/assets/css/base.css'
@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
   }
   if(to.matched.some( m => m.meta.auth)){  
     let hasLogin = Cookies.get('WPH_USER_LOGIN')
-    console.log(hasLogin,'hasLogin',hasLogin !== undefined , hasLogin !== null)
+    // console.log(hasLogin,'hasLogin',hasLogin !== undefined , hasLogin !== null)
     // 对路由进行验证     
     if(hasLogin !== undefined && hasLogin !== null){ // 已经登陆
       console.log('已登录')    
@@ -53,8 +53,7 @@ router.beforeEach((to, from, next) => {
     } else{ 
       console.log('未登录')    
     // 未登录则跳转到登陆界面，query:{ Rurl: to.fullPath}表示把当前路由信息传递过去方便登录后跳转回来；
-    　　 next({path:'/login',query:{ Rurl: to.fullPath} })
-    } 
+    　　 next({path:'/login',query:{ Rurl: to.fullPath} })    } 
   }else{ 
     next() 
   } 

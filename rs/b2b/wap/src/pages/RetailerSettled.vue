@@ -76,7 +76,9 @@
 <script>
 import { getImageCode, getMobileCode, getAreaList } from '@/api/c_api'
 import { storeRegister } from '@/api/m_api'
+import { geocoderV2BaiDu } from '@/position'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { Validator } from 'vee-validate';
 import CommonHeader from '@/components/common-header'
 
@@ -188,12 +190,14 @@ export default {
       this.changeImage()
       this.getAreaList(0, 'province')
     },
-    settledRequest() {
+    settledRequest() {      
       let that = this
       this.$validator.validateAll().then((msg) => {
         if (msg) {
-          let formData = new FormData()
+          this.$indicator.open()
           const address = this.store.salesAreaCode.value+this.store.corporateAddress
+          geocoderV2BaiDu(address)
+          let formData = new FormData()
           formData.append('corporateName', this.store.corporateName)
           formData.append('corporateAddress', address)
           formData.append('corporateCode', this.store.corporateCode)
@@ -204,27 +208,40 @@ export default {
           formData.append('salesAreaCode', this.store.salesAreaCode.code)
           formData.append('corporateLogo', this.store.corporateLogo)
           formData.append('file', this.store.file)
+          this.times = setInterval(()=>{
+            const lng = Cookies.get('RETAILERSETTLED_LNG')
+            const lat = Cookies.get('RETAILERSETTLED_LAT')
+            if(lng&&lat){
+              lng?formData.append('lng', lng):console.log(lng,'lng')
+              lat?formData.append('lat', lat):console.log(lat,'lat')
+              let config = {
+                headers: {
+                  'Content-Type': 'multipart/form-data'  //之前说的以表单传数据的格式来传递fromdata
+                }
+              }
+              axios.post('http://demo.lbsrj.cn/m-api/business/enter', formData, config).then((res) => {
+                const result = res.data
+                console.log(result, 'result')
+                let _msg = ''
+                if (result.code === 200) {
+                  _msg = '入驻成功'
+                  this.$toast({
+                    message: _msg,
+                    type: 'warning'
+                  })
+                  that.$router.push({ path: '/Home' })
+                }
+                this.$indicator.close()
+              }).catch((error) => {
+                this.$indicator.close()
+                console.log('接口错误' + error)
+              })
+              clearInterval(this.times)
+            }else{
+                console.log('为请求到地理转码数据')
+            }
+          },1000)
 
-          let config = {
-            headers: {
-              'Content-Type': 'multipart/form-data'  //之前说的以表单传数据的格式来传递fromdata
-            }
-          }
-          axios.post('http://demo.lbsrj.cn/m-api/business/enter', formData, config).then((res) => {
-            const result = res.data
-            console.log(result, 'result')
-            let _msg = ''
-            if (result.code === 200) {
-              _msg = '入驻成功'
-              this.$toast({
-                message: _msg,
-                type: 'warning'
-              });
-              that.$router.push({ path: '/Home' })
-            }
-          }).catch((error) => {
-            console.log('接口错误' + error)
-          })
         } else {
           let list = this.errors.all();
           let msg = '请正确填写信息';
@@ -292,7 +309,7 @@ export default {
                     if (second > 0) {
                       second--;
                       console.log(that.getCodeObj.text)
-                      that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
+                      // that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
                     } else {
                       that.getCodeObj.text = '获取验证码';
                       that.getCodeObj.state = true;

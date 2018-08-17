@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../store'
+import Cookies from 'js-cookie'
 // import { getToken } from '@/utils/auth'
 // import { showFullScreenLoading, tryHideFullScreenLoading } from '@/utils/loading'
 import { Indicator, Toast } from 'mint-ui'
@@ -76,34 +77,43 @@ service.interceptors.response.use(
     if (err.request) {
       switch (err.request.status) {
         case 0:
-          console.log('0')
-          //router.push({ path: '/login' })
-          break
         case 401:
-          Toast({
-            message: '请先登陆',
-            duration: 2 * 1000
-          })
-          router.push({ path: '/login' })
+          let hasLogin = Cookies.get('WPH_USER_LOGIN')
+          if(hasLogin !== undefined && hasLogin !== null){ // 已经登陆
+            console.log('0')
+            Toast({
+              message: err.message,
+              duration: 2 * 1000
+            })
+          }else{
+            Toast({
+              message: '请先登陆',
+              duration: 2 * 1000
+            })
+            router.push({path:'/login',query:{ Rurl: router.fullPath}})
+          }
           break
         case 403:
           console.log('403')
-          // router.push({ path: '/404' })
-          break
         case 404:
           console.log('404')
-          break
         case 405:
           console.log('405')
-          break
         case 500:
+          Toast({
+            message: err.message,
+            duration: 2 * 1000
+          })
+          break
+        default:
+        Toast({
+          message: err.message,
+          duration: 2 * 1000
+        })
+        break
       }
     }
     console.log(err.request)// for debug
-    Toast({
-      message: err.message,
-      duration: 2 * 1000
-    })
     return Promise.reject(err)
   }
 )

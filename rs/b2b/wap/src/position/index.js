@@ -135,6 +135,17 @@ function geocoderBaiDu(lng,lat){
     Cookies.set('AREA_NAME', _data.formatted_address)
     Cookies.set('DEFAULT_CITY', _data.addressComponent.city)
   }).catch(err => {
-    　console.log(err,'逆转码报错')
+    console.log(err,'逆转码报错')
+  })
+}
+export function geocoderV2BaiDu(address){
+  Vue.jsonp('http://api.map.baidu.com/geocoder/v2/?address='+ address +'&ret_coordtype=gcj02ll&output=json&ak=r2uHqLPb2mFh3kKGLw52GS3hgQwpEIhO').then(json => {
+    const _data = json.result
+    console.log('地理编码',_data)
+    Cookies.set('RETAILERSETTLED_LNG', _data.location.lng)
+    Cookies.set('RETAILERSETTLED_LAT', _data.location.lat)
+    return _data
+  }).catch(err => {
+    　console.log(err,'地理编码报错')
   })
 }

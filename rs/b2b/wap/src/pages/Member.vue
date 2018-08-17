@@ -43,25 +43,25 @@
               <i class="rsiconfont rsicon-31daifukuan"></i>
               <span>待付款</span>
               <b class="line"></b>
-              <em class="num">1</em>
+              <em class="num" v-show="orderCountList.noPay>0">{{orderCountList.noPay}}</em>
             </router-link>
             <router-link :to="{ name: 'Order', params:{ userId: '0001', orderTabActive: 'sendOrder'}}" class="orderMenuLink">
               <i class="rsiconfont rsicon-31daifahuo"></i>
               <span>待发货</span>
               <b class="line"></b>
-              <em class="num">1</em>
+              <em class="num" v-show="orderCountList.noSend>0">{{orderCountList.noSend}}</em>
             </router-link>
             <router-link :to="{ name: 'Order', params:{ userId: '0001', orderTabActive: 'receiveOrder'}}" class="orderMenuLink">
               <i class="rsiconfont rsicon-31daishouhuo"></i>
               <span>待收货</span>
               <b class="line"></b>
-              <em class="num">1</em>
+              <em class="num" v-show="orderCountList.noTrue>0">{{orderCountList.noTrue}}</em>
             </router-link>
             <router-link :to="{ name: 'Order', params:{ userId: '0001', orderTabActive: 'refundOrder'}}" class="orderMenuLink">
               <i class="rsiconfont rsicon-tuikuantuihuo"></i>
               <span>退货</span>
               <b class="line"></b>
-              <em class="num">1</em>
+              <em class="num" v-show="orderCountList.noEnd>0">{{orderCountList.noEnd}}</em>
             </router-link>
           </nav>
         </div>
@@ -85,6 +85,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getOrderCount } from '@/api/m_api'
 
 import TypeGoodsList from '@/components/TypeGoodsList';
 import Footer from '@/components/Footer';
@@ -102,32 +103,13 @@ export default {
         memberStoreName: "和顺批发",
         memberLogoImg: "static/images/memberLogo.jpg"
       },
-      orderMenuList: [
-        {
-          type: 'payOrder',
-          iconClass: "rsicon-31daifukuan",
-          name: "待付款",
-          num: 1
-        },
-        {
-          type: 'sendOrder',
-          iconClass: "rsicon-31daifahuo",
-          name: "待发货",
-          num: 2
-        },
-        {
-          type: 'receiveOrder',
-          iconClass: "rsicon-31daishouhuo",
-          name: "待收货",
-          num: 3
-        },
-        {
-          type: 'refundOrder',
-          iconClass: "rsicon-tuikuantuihuo",
-          name: "退款退货",
-          num: 5
-        }
-      ],
+      orderCountList: {
+        all: 0,
+        noPay: 0,
+        noSend: 0,
+        noTrue: 0,
+        noEnd: 0
+      },
       memberMenuList: [],
       proinfo: []
     }
@@ -141,61 +123,61 @@ export default {
     TypeGoodsList,
     Footer
   },
-  mounted() {
-    // this.orderMenuList.forEach((item)=>{
-    // 	let typeName = item.type;
-    // 	let orderList = this.$store.state.orderList;
-    // 	orderList.forEach((index)=>{
-    // 		if(typeName === index.orderType){
-    // 			let num = index.orderCount
-    // 			item.num = num
-    // 			return
-    // 		}
-    // 	})			
-    // })
+  created(){
     console.log(this.rank)
-    switch (this.rank) {
-      case 'CUSTOMER': this.memberInfo.memberInfoRank = "经销商";
-        this.memberMenuList = [
-          {
-            href: '',
-            iconClass: "rsicon-31daifukuan",
-            name: "我的拼团",
-            con: "",
-            num: 1
-          }
-        ]
-        break;
-      case 'BUSINESS': this.memberInfo.memberInfoRank = "分销商";
-        this.memberMenuList = [
-          {
-            href: '/',
-            iconClass: "rsicon-31daifukuan",
-            name: "我的客户",
-            con: "",
-            num: 1
-          }, {
-            href: 'Seach',
-            iconClass: "rsicon-31daifukuan",
-            name: "我的商品",
-            con: "",
-            num: 1
-          }, {
-            href: 'Order',
-            iconClass: "rsicon-31daifukuan",
-            name: "我的订单",
-            con: "",
-            num: 1
-          }
-        ]
-        break
-      default:
-        break
-    }
-
+    this.init()
   },
+  mounted() {},
   methods: {
-
+    init() {
+      switch (this.rank) {
+        case 'CUSTOMER': this.memberInfo.memberInfoRank = "经销商"
+          this.memberMenuList = [
+            {
+              href: '',
+              iconClass: "rsicon-31daifukuan",
+              name: "我的拼团",
+              con: "",
+              num: 1
+            }
+          ]
+          break;
+        case 'BUSINESS': this.memberInfo.memberInfoRank = "分销商"
+          this.memberMenuList = [
+            {
+              href: '/',
+              iconClass: "rsicon-31daifukuan",
+              name: "我的客户",
+              con: "",
+              num: 1
+            }, {
+              href: 'Seach',
+              iconClass: "rsicon-31daifukuan",
+              name: "我的商品",
+              con: "",
+              num: 1
+            }, {
+              href: 'Order',
+              iconClass: "rsicon-31daifukuan",
+              name: "我的订单",
+              con: "",
+              num: 1
+            }
+          ]
+          break
+        default:
+          break
+      }
+      getOrderCount().then(res => {
+        if(res.code === 200){
+          this.orderCountList.noPay = res.data.unpaidCount
+          this.orderCountList.noSend = res.data.notYetShippedCount
+          this.orderCountList.noTrue = res.data.unconfirmedCount
+          this.orderCountList.noEnd = res.data.refundingCount
+          this.orderCountList.all = parseInt(res.data.unpaidCount+res.data.notYetShippedCount+res.data.unconfirmedCount+res.data.refundingCount)
+        }
+      })
+    }
   }
 };
 </script>

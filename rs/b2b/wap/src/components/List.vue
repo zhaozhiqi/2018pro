@@ -12,8 +12,7 @@
 							<h2>
 								<span class="bable" v-show="false">{{item.title}}</span>
 								{{item.title}}</h2> 
-							<div>
-							
+							<div>							
 							<span><i>¥</i>{{item.retailPrice}}</span>
 							<span v-if="listParent === 'group'">已拼{{10}}件</span>
 							<span v-else>已有{{10}}人付款</span>
@@ -52,7 +51,10 @@ export default {
 	props: {
 		proList: {
 			type: Array,
-			required: true
+      required: true,
+      default:function() {
+        return []
+      }
 		},
 		listParent: {
 			type: String

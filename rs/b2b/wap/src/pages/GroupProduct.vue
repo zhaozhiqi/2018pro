@@ -13,16 +13,21 @@
         </div>
       </div>
       <div class="good-detail">
-        <p class="g-name"><span class="labelty" v-if="productInfo.proLabel">{{productInfo.proLabel}}</span>{{productInfo.title}}</p> 
+        <p class="g-name">
+          <span class="labelty" v-if="productInfo.proLabel">{{productInfo.proLabel}}</span>{{productInfo.title}}</p>
         <p class="g-code">厂商：{{productInfo.manufacturerName}}</p>
         <p class="g-code">编号：{{productInfo.code}}</p>
         <p class="g-code">规格：{{productInfo.specifications}}</p>
         <p class="g-code">单位：{{productInfo.unit}}</p>
-        <p class="g-price"><span>建议零售价：¥ </span><strong>{{productInfo.retailPrice}}</strong><s v-show="false">¥{{productInfo.proOldPrice}}</s></p>
+        <p class="g-price">
+          <span>建议零售价：¥ </span>
+          <strong>{{productInfo.retailPrice}}</strong>
+          <s v-show="false">¥{{productInfo.proOldPrice}}</s>
+        </p>
       </div>
       <div class="group-order" v-if="hasGroupList">
         <div class="group-order-all">已{{productInfo.groupPurchaseNumber}}人参与
-          <span class="group-order-getAll" @click="showAllGroupOrder()">查看更多
+          <span class="group-order-getAll" @click="openAllGroupOrder()">查看更多
             <i class="rsiconfont rsicon-qiehuanqiyou"></i>
           </span>
         </div>
@@ -53,10 +58,12 @@
           <span>{{productInfo.shop.name}}</span>
           <!-- <small>{{productInfo.shop.storeDec}}</small> -->
         </p>
-		    <router-link class="goStore" :to="{path:routerStorePath, query: { id: productInfo.shop.id }}">进入店铺<i class="rsiconfont rsicon-qiehuanqiyou"></i></router-link>
+        <router-link class="goStore" :to="{path:routerStorePath, query: { id: productInfo.shop.id }}">进入店铺
+          <i class="rsiconfont rsicon-qiehuanqiyou"></i>
+        </router-link>
       </div>
-		<div class="product-details" v-html="productInfo.product.detail"></div>
-    <!-- <div class="product-recommend">为您推荐</div> 
+      <div class="product-details" v-html="productInfo.product.detail"></div>
+      <!-- <div class="product-recommend">为您推荐</div> 
 		<TypeGoodsList/> -->
     </div>
     <footer class="footer">
@@ -74,7 +81,7 @@
             <router-link to="/group" class="btm-II">
               <i class="rsiconfont rsicon-pintuanzhuanqu"></i>拼团首页
             </router-link>
-            <div class="btm-II">
+            <div class="btm-II" @click="openService">
               <i class="rsiconfont rsicon-kefu1"></i>客服
             </div>
             <!-- <div class="btm-II">
@@ -96,14 +103,41 @@
         </nav>
       </div>
     </footer>
-    <WidgetsCover 
-    :class="{'show':widgetsCoverShow}" 
-    v-on:widgetsCoverShow="closeWidgetsCover" 
-    v-on:saveDecideVal="getDecideVal" 
-    :saleType="saleType" 
-    :groupIndex="groupIndex" 
-    :changeInfo="productInfo"
-    ></WidgetsCover>
+    <section class="popup-center" v-show="serviceShow">
+      <div class="explain">
+        <h3>联系客服</h3>
+        <div class="con">
+          <h4>
+            <i class="rsiconfont rsicon-dianhuahover"></i>客服电话:</h4>
+          <p v-for="(item,index) in productInfo.customerServices" :key="index">{{item.name}}：
+            <b>{{item.mobile}}</b>
+          </p>
+        </div>
+        <div class="closeBtn" @click="closeService">知道了</div>
+      </div>
+    </section>
+    <section class="popup-center" v-show="allGroupOrderShow">
+      <div class="group-order">
+        <div class="closeOut"><mt-button type="danger" @click="closeAllGroupOrder">取消</mt-button></div>
+        <div class="group-order-con">
+          <div class="group-order-item" v-for="(slider, index) in productInfo.groupPurchaseCases.records" :key="index">
+            <button class="joinGroupBtn" @click="joinGroupOrder(index,slider.id)" v-show="slider.djs !== '已过期'">去拼团</button>
+            <div class="groupOrderInfo">
+              <p class="t">还差
+                <span>{{slider.surplusCaseLot}}</span>份拼成</p>
+              <p class="b">{{slider.djs}}</p>
+            </div>
+            <div class="orderUserIcon">
+              <img class="orderUserImage" :src="slider.headThumb" alt="" style="width:50px;height:50px;">
+            </div>
+            <span class="orderUserName">{{slider.nick}}<br/>
+            <!-- (每份为该商品*{{slider.count/slider.caseLot}}) -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <WidgetsCover :class="{'show':widgetsCoverShow}" v-on:widgetsCoverShow="closeWidgetsCover" v-on:saveDecideVal="getDecideVal" :saleType="saleType" :groupIndex="groupIndex" :changeInfo="productInfo"></WidgetsCover>
   </div>
 </template>
 
@@ -111,29 +145,31 @@
 import { getGoods, setGroupCaseInfo, cartSave } from '@/api/m_api'
 import Cookies from 'js-cookie'
 
-import TypeGoodsList from '@/components/TypeGoodsList';
-import WidgetsCover from '@/components/widgets-cover';
+import TypeGoodsList from '@/components/TypeGoodsList'
+import WidgetsCover from '@/components/widgets-cover'
 import { countDown } from '@/utils'
 export default {
-  name: 'Index',
+  name: 'groupProduct',
   data() {
     return {
-      query:{
+      query: {
         caseId: null,
         goodsGroupPurchaseId: null,
         lot: null
       },
       message: '',
+      serviceShow: false,
+      allGroupOrderShow: false,
       mint: null,
       swipe: null,
       mt: null,
       item: null,
       hasGroup: null,
       hasGroupList: null,
-      query:{},
+      query: {},
       saleType: 'self',
       widgetsCoverShow: false,
-      routerStorePath:'/Store',
+      routerStorePath: '/Store',
       saleNum: 1,
       groupIndex: null,
       productInfo: {
@@ -193,30 +229,30 @@ export default {
     }
   },
   methods: {
-    init(){
+    init() {
       // this.query.lng = Cookies.get('AREA_LNG')
       // this.query.lat = Cookies.get('AREA_LAT')
       this.getGroup()
     },
-    getGroup(){
+    getGroup() {
       const parasmGetGroups = JSON.parse(JSON.stringify(this.query))
       parasmGetGroups.identifier = this.$route.query.id
       getGoods(parasmGetGroups).then(result => {
         this.productInfo = result.data
         this.query.goodsGroupPurchaseId = this.productInfo.shopGroupPurchase.id
         /* 是否有拼团商品 */
-        this.hasGroup = result.data.shopGroupPurchase!==undefined
-        this.hasGroupList = (result.data.shopGroupPurchase!==undefined && this.productInfo.groupPurchaseCases.total>0)
+        this.hasGroup = result.data.shopGroupPurchase !== undefined
+        this.hasGroupList = (result.data.shopGroupPurchase !== undefined && this.productInfo.groupPurchaseCases.total > 0)
         //console.log(this.productInfo, 'this.productInfo' )
-        if(this.hasGroupList === true ){
+        if (this.hasGroupList === true) {
           this.productInfo.groupPurchaseCases.records.map((item, index) => {
             this.$set(item, 'djs', countDown(item.endTime))
           })
           this.changeOrderDjs()
         }
-      })      
+      })
     },
-		editSaleNum(flag) {
+    editSaleNum(flag) {
       let num = 0;
       if (flag == 'add') {
         if (this.saleNum >= this.productInfo.stock) {
@@ -246,9 +282,9 @@ export default {
     },
     groupNow(index) {
       this.saleType = 'group';
-      if(index !== undefined){
+      if (index !== undefined) {
         this.groupIndex = index
-      }else{
+      } else {
         this.groupIndex = null
         console.log('新开团')
       }
@@ -272,7 +308,7 @@ export default {
         }
         cartSave(parasm).then(result => {
           console.log(result, 'result')
-          if(result.code === 200){
+          if (result.code === 200) {
             this.$toast({
               message: '已添加至购物车',
               type: 'warning',
@@ -287,12 +323,12 @@ export default {
     },
     goPay() {
       let that = this
-      this.$indicator.open() 
+      this.$indicator.open()
       setGroupCaseInfo(this.query).then(result => {
         console.log(result, 'result')
-        if(result.code === 200){
+        if (result.code === 200) {
           that.$indicator.close()
-          that.$router.push({ path: '/SubmitOrder',query:{ type:this.saleType}})
+          that.$router.push({ path: '/SubmitOrder', query: { type: this.saleType } })
         }
       })
     },
@@ -301,10 +337,7 @@ export default {
       _arr = _arr.reverse()
       return _arr
     },
-    showAllGroupOrder() {
-      console.log('showAllGroupOrder')
-    },
-    joinGroupOrder(index,id) {
+    joinGroupOrder(index, id) {
       this.query.caseId = id
 
       this.$messagebox.confirm('参与该拼单？').then(action => {
@@ -324,7 +357,20 @@ export default {
           newDjs !== false ? item.djs = '剩余 ' + newDjs : item.djs = '已过期'
         });
       }, 100)
+    },
+    openService() {
+      this.serviceShow = true
+    },
+    closeService() {
+      this.serviceShow = false
+    },
+    openAllGroupOrder() {
+      this.allGroupOrderShow = true
+    },
+    closeAllGroupOrder() {
+      this.allGroupOrderShow = false
     }
+    
   }
 };
 </script>

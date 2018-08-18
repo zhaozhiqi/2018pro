@@ -73,7 +73,7 @@
         </footer>
       </div>
       <!-- <div class="car-hot-recommend">热门推荐</div> 
-			<TypeGoodsList class=""/> -->
+			  <TypeGoodsList class=""/> -->
     </main>
     <Footer />
   </div>

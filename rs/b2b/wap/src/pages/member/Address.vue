@@ -98,7 +98,7 @@ export default {
     },
     setDefaultAddr(id) {
       console.log(4131)
-      this.$store.commit('setDefaultAddr', id);
+      this.$store.commit('setDefaultAddr', id)
     }
   }
 }

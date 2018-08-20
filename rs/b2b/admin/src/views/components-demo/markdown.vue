@@ -1,10 +1,10 @@
 <template>
-  <div class="components-container">
-    <code>Markdown is based on
+  <div class="app-container">
+    <!-- <code>Markdown is based on
       <a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank">simplemde-markdown-editor</a> ，Simply encapsulated in Vue.
       <a target="_blank" href="https://segmentfault.com/a/1190000009762198#articleHeader14">
         相关文章 </a>
-    </code>
+    </code> -->
     <div class="editor-container">
       <markdown-editor id="contentEditor" ref="contentEditor" v-model="content" :height="300" :zIndex="20"></markdown-editor>
     </div>

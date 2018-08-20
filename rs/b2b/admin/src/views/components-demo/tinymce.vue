@@ -1,5 +1,5 @@
 <template>
-  <div class="components-container">
+  <div class="app-container">
     <code>
       {{$t('components.tinymceTips')}}
       <a target="_blank" class="link-type" href="https://panjiachen.github.io/vue-element-admin-site/component/rich-editor.html"> {{$t('components.documentation')}}</a>
@@ -31,6 +31,15 @@ export default {
 <style scoped>
 .editor-content{
   margin-top: 20px;
+}
+code {
+    background: #eef1f6;
+    padding: 15px 16px;
+    margin-bottom: 20px;
+    display: block;
+    line-height: 36px;
+    font-size: 15px;
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
 }
 </style>
 

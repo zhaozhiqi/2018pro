@@ -3,7 +3,6 @@
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
-@import './btn.scss';
 
 body {
   height: 100%;
@@ -32,13 +31,18 @@ html {
   box-sizing: inherit;
 }
 
-.no-padding {
-  padding: 0px !important;
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  outline: none;
+  text-decoration: none;
 }
 
-.padding-content {
-  padding: 4px 0;
-}
+div:focus{
+  outline: none;
+ }
 
 a:focus,
 a:active {
@@ -53,38 +57,6 @@ a:hover {
   text-decoration: none;
 }
 
-div:focus{
-  outline: none;
- }
-
-.fr {
-  float: right;
-}
-
-.fl {
-  float: left;
-}
-
-.pr-5 {
-  padding-right: 5px;
-}
-
-.pl-5 {
-  padding-left: 5px;
-}
-
-.block {
-  display: block;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-.inlineBlock {
-  display: block;
-}
-
 .clearfix {
   &:after {
     visibility: hidden;
@@ -96,98 +68,131 @@ div:focus{
   }
 }
 
-code {
-  background: #eef1f6;
-  padding: 15px 16px;
-  margin-bottom: 20px;
-  display: block;
-  line-height: 36px;
-  font-size: 15px;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-  a {
-    color: #337ab7;
-    cursor: pointer;
-    &:hover {
-      color: rgb(32, 160, 255);
-    }
-  }
-}
-
-.warn-content{
-  background: rgba(66,185,131,.1);
-  border-radius: 2px;
-  padding: 16px;
-  padding: 1rem;
-  line-height: 1.6rem;
-  word-spacing: .05rem;
-  a{
-    color: #42b983;
-    font-weight: 600;
-  }
-}
-
 //main-container全局样式
+.app-main{
+  min-height: 100%
+}
+
 .app-container {
   padding: 20px;
 }
 
-.components-container {
-  margin: 30px 50px;
-  position: relative;
+.elTableOut{
+  max-width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 30px;
 }
 
-.pagination-container {
-  margin-top: 30px;
+.tableTitle, .chartLabel, .tableLabel {
+  display: inline-block;
+  line-height: 30px;
+  height: 34px;
+  margin: 20px 0;
+  font-size: 20px;
+  border-bottom: 2px solid #1890FF;
+  color: #1890FF;
+}
+.pagination-container{
+  margin: 20px 0 40px;
 }
 
-.text-center {
-  text-align: center
+.el-button.el-button--primary.el-button--medium.active{
+  // background: #fff;
+  // border: 1px solid #dcdfe6;
+  // color: #606266;
 }
 
-.sub-navbar {
-  height: 50px;
-  line-height: 50px;
-  position: relative;
-  width: 100%;
-  text-align: right;
-  padding-right: 20px;
-  transition: 600ms ease position;
-  background: linear-gradient(90deg, rgba(32, 182, 249, 1) 0%, rgba(32, 182, 249, 1) 0%, rgba(33, 120, 241, 1) 100%, rgba(33, 120, 241, 1) 100%);
-  .subtitle {
-    font-size: 20px;
-    color: #fff;
+.myInfo{
+  margin-top: 15px;
+  line-height: 30px;
+}
+/* 方块模块 */
+.rankModule{
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  margin-top: 80px;
+  padding: 20px;
+  padding-bottom: 0;
+  border: 1px solid #eee;
+  header{
+    color: #999;
   }
-  &.draft {
-    background: #d0d0d0;
+  body{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    .title{
+      text-indent: 10px;
+      text-align: left;
+      margin-top: 20px;
+    }
+    .con{
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      font-size: 30px;
+    }
   }
-  &.deleted {
-    background: #d0d0d0;
-  }
-}
-
-.link-type,
-.link-type:focus {
-  color: #337ab7;
-  cursor: pointer;
-  &:hover {
-    color: rgb(32, 160, 255);
-  }
-}
-
-.filter-container {
-  padding-bottom: 10px;
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
+  footer{
+    padding: 10px 0;
+    div{
+      text-indent: 10px;
+      line-height: 30px;
+    }
   }
 }
 
-//refine vue-multiselect plugin
-.multiselect {
-  line-height: 16px;
+  /* 播视网 方块数据 */
+.squareInfo{
+  display: inline-block;
+  padding: 10px 20px 0;
+  border: 1px solid #eee;
+  color: #999;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  .title{
+    line-height: 36px;
+  }
+  .body{
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    .bodyItem{
+      text-indent: 15px;
+      float: left;
+      width: 100%;
+      line-height: 30px;
+      .con{
+        color: #000;
+        font-size: 26px;
+      }
+    }
+    .contrast{
+      float: left;
+      line-height: 30px;
+    }
+  }
+  .footer{
+    line-height: 36px;
+  }
 }
 
-.multiselect--active {
-  z-index: 1000 !important;
+.admin-xiajiang{
+  color: rgb(245, 34, 45)
+}
+.admin-shangsheng{
+  color: rgb(0, 204, 0)
+}
+
+.marT20{
+  margin-top: 20px;
+}
+.marR20{
+  margin-right: 20px;
+}
+.marB20{
+  margin-bottom: 20px;
+}
+.marL20{
+  margin-left: 20px;
 }

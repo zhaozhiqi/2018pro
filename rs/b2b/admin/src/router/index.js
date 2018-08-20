@@ -56,13 +56,13 @@ export const constantRouterMap = [
   {
     path: '/wph',
     component: Layout,
-    redirect: '/wph/shopSet',
+    redirect: '/wph/goodsManage',
     name: 'goodsManage',
     children: [
       {
         path: 'goodsManage',
         name: 'goodsManage',
-        component: () => import('@/views/wph/shopSet'),
+        component: () => import('@/views/wph/goodsManage'),
         meta: { title: '商品管理' }
       }
     ]

@@ -48,8 +48,8 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="客服电话">
-          <el-input v-model="form.name"></el-input>
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name" style="marginBottom:20px;"></el-input>
+          <el-input v-model="form.name" style="marginBottom:20px;"></el-input>
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item>

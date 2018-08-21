@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
-// const TokenKey = 'Admin-Token'
-const TokenKey = 'WPH_ADMIN_LOGIN'
+const TokenKey = 'Admin-Token'
+// const TokenKey = 'WPH_ADMIN_LOGIN'
 
 export function getToken() {
   return Cookies.get(TokenKey)

@@ -39,8 +39,10 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
           const data = response.data
-          commit('SET_TOKEN', data.token)// 在vux中保存token
-          setToken(data.token)// 保存token的cookie
+          // commit('SET_TOKEN', data.token)// 在vux中保存token
+          // setToken(data.token)// 保存token的cookie
+          commit('SET_TOKEN', 'admin')// 在vux中保存token
+          setToken('admin')// 保存token的cookie
           resolve()
         }).catch(error => {
           reject(error)

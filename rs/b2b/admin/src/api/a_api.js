@@ -140,7 +140,10 @@ export function postBatchSave(params) {
  * 更新首页banner列表排序
 */
 
-export function postHomeBannerDel(params) {
+export function postHomeBannerDel(id) {
+  const params = {
+    id: id
+  }
   return request({
     url: baseApi + 'home/banner/del',
     method: 'post',

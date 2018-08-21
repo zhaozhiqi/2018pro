@@ -11,6 +11,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import router from './router'
 import store from './store'
+import './permission' // permission control
 
 import vueFilter from './utils/filter'
 for (const key in vueFilter) {
@@ -35,8 +36,8 @@ new Vue({
   render: h => h(App)
 })
 
-import { getPurview } from '@/api/login'
-import { constantRouterMap, baseRouterMap } from '@/router'
+// import { getPurview } from '@/api/login'
+// import { constantRouterMap, baseRouterMap } from '@/router'
 // getPurview().then((result) => {
 //   console.log('请求权限', result.data.weight)
 //   if (result.data.weight === 2) {
@@ -54,7 +55,7 @@ import { constantRouterMap, baseRouterMap } from '@/router'
 //   console.log(err, '权限 main')
 // })
 
-const roles = 'admin'
-store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
-  router.addRoutes(constantRouterMap) // 动态添加可访问路由表
-})
+// const roles = 'admin'
+// store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+//   router.addRoutes(constantRouterMap) // 动态添加可访问路由表
+// })

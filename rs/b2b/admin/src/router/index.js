@@ -20,6 +20,7 @@ import Layout from '../views/layout/Layout'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
+/* 常用导航（恒定导航）*/
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
@@ -37,124 +38,110 @@ export const constantRouterMap = [
     }]
   },
 
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/shopSet',
-    name: 'shopSet',
-    // meta: { title: '店铺设置', icon: 'admin-radio' },
-    children: [
-      {
-        path: 'shopSet',
-        name: 'shopSet',
-        component: () => import('@/views/wph/shopSet'),
-        // meta: { title: 'flux', icon: 'admin-radio' }
-        meta: { title: '店铺设置' }
-      }
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/goodsManage',
-    name: 'goodsManage',
-    children: [
-      {
-        path: 'goodsManage',
-        name: 'goodsManage',
-        component: () => import('@/views/wph/goodsManage'),
-        meta: { title: '商品管理' }
-      }
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/shopSet',
-    name: 'customerManage',
-    children: [
-      {
-        path: 'customerManage',
-        name: 'customerManage',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '客户管理' }
-      }
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/shopSet',
-    name: 'orderManage',
-    children: [
-      {
-        path: 'orderManage',
-        name: 'orderManage',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '订单管理' }
-      }
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/fundsManage',
-    name: 'financeManage',
-    meta: { title: '财务管理' },
-    children: [
-      {
-        path: 'fundsManage',
-        name: 'fundsManage',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '账户资金管理' }
-      },
-      {
-        path: 'dealsManage',
-        name: 'dealsManage',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '提现记录' }
-      }
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/allGoodsList',
-    name: 'statisticData',
-    meta: { title: '数据统计' },
-    children: [
-      {
-        path: 'allGoodsList',
-        name: 'allGoodsList',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '全部商品列表' }
-      },
-      {
-        path: 'manufacturersList',
-        name: 'manufacturersList',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '厂商列表' }
-      },
-      {
-        path: 'retailersList',
-        name: 'retailersList',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '零售商列表' }
-      },
-      {
-        path: 'visitorsList',
-        name: 'visitorsList',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '访客列表' }
-      },
-      {
-        path: 'generalizeList',
-        name: 'generalizeList',
-        component: () => import('@/views/wph/shopSet'),
-        meta: { title: '推广列表' }
-      }
-    ]
-  },
+  // {
+  //   path: '/wph',
+  //   component: Layout,
+  //   redirect: '/wph/shopSet',
+  //   name: 'shopSet',
+  //   // meta: { title: '店铺设置', icon: 'admin-radio' },
+  //   children: [
+  //     {
+  //       path: 'shopSet',
+  //       name: 'shopSet',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       // meta: { title: 'flux', icon: 'admin-radio' }
+  //       meta: { title: '店铺设置' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/wph',
+  //   component: Layout,
+  //   redirect: '/wph/shopSet',
+  //   name: 'customerManage',
+  //   children: [
+  //     {
+  //       path: 'customerManage',
+  //       name: 'customerManage',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '客户管理' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/wph',
+  //   component: Layout,
+  //   redirect: '/wph/shopSet',
+  //   name: 'orderManage',
+  //   children: [
+  //     {
+  //       path: 'orderManage',
+  //       name: 'orderManage',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '订单管理' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/wph',
+  //   component: Layout,
+  //   redirect: '/wph/fundsManage',
+  //   name: 'financeManage',
+  //   meta: { title: '财务管理' },
+  //   children: [
+  //     {
+  //       path: 'fundsManage',
+  //       name: 'fundsManage',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '账户资金管理' }
+  //     },
+  //     {
+  //       path: 'dealsManage',
+  //       name: 'dealsManage',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '提现记录' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/wph',
+  //   component: Layout,
+  //   redirect: '/wph/allGoodsList',
+  //   name: 'statisticData',
+  //   meta: { title: '数据统计' },
+  //   children: [
+  //     {
+  //       path: 'allGoodsList',
+  //       name: 'allGoodsList',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '全部商品列表' }
+  //     },
+  //     {
+  //       path: 'manufacturersList',
+  //       name: 'manufacturersList',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '厂商列表' }
+  //     },
+  //     {
+  //       path: 'retailersList',
+  //       name: 'retailersList',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '零售商列表' }
+  //     },
+  //     {
+  //       path: 'visitorsList',
+  //       name: 'visitorsList',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '访客列表' }
+  //     },
+  //     {
+  //       path: 'generalizeList',
+  //       name: 'generalizeList',
+  //       component: () => import('@/views/wph/shopSet'),
+  //       meta: { title: '推广列表' }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/boosj',
@@ -171,7 +158,7 @@ export const constantRouterMap = [
         meta: { title: '总数据概况' }
       }
     ]
-  },
+  }
 
   // {
   //   path: '/tinymce',
@@ -197,48 +184,53 @@ export const constantRouterMap = [
   //       meta: { title: 'markdown' }
   //     }
   //   ]
-  // },
+  // }
 
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
-export const baseRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+export const asyncRouterMap = [
   {
-    path: '/',
+    path: '/wph',
     component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
+    redirect: '/wph/goodsManage',
+    name: 'goodsManage',
+    meta: {
+      title: '商品管理',
+      icon: 'lock',
+      roles: ['admin', 'shop', 'manufacturer'] // you can set roles in root nav
+    },
+    children: [{ path: 'goodsManage', name: 'goodsManage', component: () => import('@/views/wph/goodsManage'), meta: { title: '商品管理', roles: ['admin', 'shop', 'manufacturer'] }}]
   },
-
   {
-    path: '/mySynthesize',
+    path: '/wph',
     component: Layout,
-    redirect: '/mySynthesize/flux',
-    name: 'MySyn',
-    meta: { title: '我的综合概况', icon: 'admin-radio' },
-    children: [
-      {
-        path: 'flux',
-        name: 'flux',
-        component: () => import('@/views/mySynthesize/flux/index'),
-        meta: { title: '流量概况' }
-      }
-    ]
+    redirect: '/wph/indexBanner',
+    name: 'indexBanner',
+    meta: {
+      title: '站内设置',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [{ path: 'indexBanner', name: 'indexBanner', component: () => import('@/views/wph/indexBanner'), meta: { title: '首页轮播图设置', roles: ['admin'] }}]
   },
-
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/test',
+    name: 'test',
+    meta: {
+      title: '站内设置',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [{ path: 'test', name: 'test', component: () => import('@/views/wph/test'), meta: { title: '首页轮播图设置', roles: ['admin'] }}]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
-  routes: baseRouterMap
+  routes: constantRouterMap
 })
 

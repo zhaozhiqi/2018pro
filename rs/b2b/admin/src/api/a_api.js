@@ -24,7 +24,10 @@ export function postBusinessEnterAudit(params) {
   })
 }
 
-export function getBusinessEnterAudit(params) {
+export function getBusinessEnterAudit(id) {
+  const params = {
+    id: id
+  }
   return request({
     url: baseApi + 'bussiness/enter/auditing/get',
     method: 'get',
@@ -43,15 +46,24 @@ export function getBusinessEnterAuditList(params) {
 /**
  * 商品分类相关接口
  *
+ * 获取全部分类列表
  * 删除分类
  * 获取分类列表
  * 新增分类列表
  * 更新分类信息
 */
+export function getClassifyAllList(params) {
+  return request({
+    url: baseApi + 'classify/listVo',
+    method: 'get',
+    params
+  })
+}
+
 export function postClassifyDel(params) {
   return request({
     url: baseApi + 'classify/del',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -192,7 +204,10 @@ export function postHomeBannerUpdateSort(params) {
  * 更新首页头条列表排序
 */
 
-export function postHomeHeadlineDel(params) {
+export function postHomeHeadlineDel(id) {
+  const params = {
+    id: id
+  }
   return request({
     url: baseApi + 'home/headline/del',
     method: 'post',

@@ -276,7 +276,7 @@ export default {
               getMobileCode(parasm).then(result => {
                 console.log(result, 'result')
                 if (result.code === 200) {
-                  alert(result.data)
+                  // alert(result.data)
                   this.getCodeObj.state = false
                   let second = 61;
                   let that = this;

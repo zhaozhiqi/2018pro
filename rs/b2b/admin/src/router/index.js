@@ -36,7 +36,7 @@ export const constantRouterMap = [
       name: 'dashboard',
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
-  },
+  }
 
   // {
   //   path: '/wph',
@@ -143,23 +143,6 @@ export const constantRouterMap = [
   //   ]
   // },
 
-  {
-    path: '/boosj',
-    component: Layout,
-    redirect: '/boosj/index',
-    name: 'Boosj',
-    meta: { title: '播视网总数据', icon: 'admin-radio' },
-    children: [
-      {
-        path: 'index',
-        name: 'Index',
-        component: () => import('@/views/boosj/index'),
-        // meta: { title: 'flux', icon: 'admin-radio' }
-        meta: { title: '总数据概况' }
-      }
-    ]
-  }
-
   // {
   //   path: '/tinymce',
   //   component: Layout,
@@ -197,21 +180,83 @@ export const asyncRouterMap = [
     meta: {
       title: '商品管理',
       icon: 'lock',
-      roles: ['admin', 'shop', 'manufacturer'] // you can set roles in root nav
+      roles: ['shop', 'manufacturer'] // you can set roles in root nav
     },
-    children: [{ path: 'goodsManage', name: 'goodsManage', component: () => import('@/views/wph/goodsManage'), meta: { title: '商品管理', roles: ['admin', 'shop', 'manufacturer'] }}]
+    children: [
+      { path: 'goodsManage', name: 'goodsManage', component: () => import('@/views/wph/goodsManage'), meta: { title: '商品管理', roles: ['shop', 'manufacturer'] }},
+      { path: 'goodsAudit', name: 'goodsAudit', component: () => import('@/views/wph/goodsAudit'), meta: { title: '商品审核', roles: ['shop', 'manufacturer'] }}
+    ]
   },
   {
     path: '/wph',
     component: Layout,
     redirect: '/wph/indexBanner',
-    name: 'indexBanner',
+    name: 'indexSetting',
     meta: {
       title: '站内设置',
       icon: 'lock',
       roles: ['admin']
     },
-    children: [{ path: 'indexBanner', name: 'indexBanner', component: () => import('@/views/wph/indexBanner'), meta: { title: '首页轮播图设置', roles: ['admin'] }}]
+    children: [
+      { path: 'indexBanner', name: 'indexBanner', component: () => import('@/views/wph/indexBanner'), meta: { title: '首页轮播图设置', roles: ['admin'] }},
+      { path: 'indexHeadline', name: 'indexHeadline', component: () => import('@/views/wph/indexHeadline'), meta: { title: '首页头条设置', roles: ['admin'] }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/orderSetting',
+    name: 'orderSetting',
+    meta: {
+      title: '订单相关设置',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [
+      { path: 'orderSetting', name: 'orderSetting', component: () => import('@/views/wph/orderSetting'), meta: { title: '订单相关设置', roles: ['admin'] }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/aSpotCatSetting',
+    name: 'aSpotCatSetting',
+    meta: {
+      title: '扣点管理',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [
+      { path: 'aSpotCatSetting', name: 'aSpotCatSetting', component: () => import('@/views/wph/aSpotCatSetting'), meta: { title: '扣点比例设置', roles: ['admin'] }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/aSpotCatSetting',
+    name: 'classifyManage',
+    meta: {
+      title: '分类管理',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [
+      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/wph/classifyManage'), meta: { title: '分类管理', roles: ['admin'] }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/enterAudit',
+    name: 'enterAudit',
+    meta: {
+      title: '入驻审核',
+      icon: 'lock',
+      roles: ['admin']
+    },
+    children: [
+      { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核', roles: ['admin'] }}
+    ]
   },
   {
     path: '/wph',
@@ -219,11 +264,11 @@ export const asyncRouterMap = [
     redirect: '/wph/test',
     name: 'test',
     meta: {
-      title: '站内设置',
+      title: '测试页面',
       icon: 'lock',
       roles: ['admin']
     },
-    children: [{ path: 'test', name: 'test', component: () => import('@/views/wph/test'), meta: { title: '首页轮播图设置', roles: ['admin'] }}]
+    children: [{ path: 'test', name: 'test', component: () => import('@/views/wph/test'), meta: { title: '测试页面', roles: ['admin'] }}]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]

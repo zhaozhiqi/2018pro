@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table :data="bannerList" style="width: 100%">
+        <el-table :data="headlineList" style="width: 100%">
           <el-table-column label="id" width="60">
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
@@ -50,7 +50,7 @@
               <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               <el-button size="mini" @click="handleIndex(scope.$index, scope.row, 'up')" :disabled="scope.$index===0">上移</el-button>
-              <el-button size="mini" @click="handleIndex(scope.$index, scope.row, 'down')" :disabled="scope.$index===bannerList.length-1">下移</el-button>
+              <el-button size="mini" @click="handleIndex(scope.$index, scope.row, 'down')" :disabled="scope.$index===headlineList.length-1">下移</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -59,45 +59,36 @@
 
     <!-- Form -->
 
-    <el-dialog :title="tempForm.fromTitle" :visible.sync="editBannerVisible">
-      <el-form :model="tempForm" ref="bannerForm" :rules="rules">
+    <el-dialog :title="tempForm.fromTitle" :visible.sync="editHeadlineVisible">
+      <el-form :model="tempForm" ref="headlineForm" :rules="rules">
         <el-form-item label="标题" label-width="80px" prop="title">
           <el-input v-model="tempForm.title"></el-input>
         </el-form-item>
         <el-form-item label="链接" label-width="80px" prop="link">
           <el-input v-model="tempForm.link"></el-input>
         </el-form-item>
-        <el-form-item label="图片路径" label-width="80px" prop="imgUrl">
-          <el-input v-model="tempForm.imgUrl" auto-complete="off" disabled placeholder="请点击下方上传按钮上传图片"></el-input>
-        </el-form-item>
-        <el-upload class="upload-demo" action="http://demo.lbsrj.cn/c-api/image/upload" ref="upload" :show-file-list=false :on-success="handleSuccess" :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture">
-          <el-button size="small" type="primary">点击上传</el-button>
-          <span slot="tip" class="el-upload__tip" style="marginLeft:10px">只能上传jpg/png文件</span>
-        </el-upload>
-        <img class="tempUrlImg" :src="tempForm.imgUrl">
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeTempForm()">取 消</el-button>
-        <el-button type="primary" @click="saveBanner('bannerForm')">确 定</el-button>
+        <el-button type="primary" @click="saveBanner('headlineForm')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { postHomeBannerDel, getHomeBannerList, postHomeBannerSave, postHomeBannerUpdateInfo, postHomeBannerUpdateSort } from '@/api/a_api'
+import { postHomeHeadlineDel, getHomeHeadlineList, postHomeHeadlineSave, postHomeHeadlineUpdateInfo, postHomeHeadlineUpdateSort } from '@/api/a_api'
 
 export default {
-  name: 'indexBanner',
+  name: 'indexHeadline',
   data() {
     return {
-      editBannerVisible: false,
-      bannerList: [],
+      editHeadlineVisible: false,
+      headlineList: [],
       tempForm: {
         id: '',
         type: '',
         link: '',
-        imgUrl: '',
         timestamp: new Date(),
         title: '',
         fromTitle: ''
@@ -108,9 +99,6 @@ export default {
         ],
         title: [
           { required: true, message: '请输入标题', trigger: 'blur' }
-        ],
-        imgUrl: [
-          { required: true, message: '请点击下方上传按钮上传图片', trigger: 'blur' }
         ]
       }
     }
@@ -124,59 +112,45 @@ export default {
   },
   methods: {
     init() {
-      this.getBannerList()
+      this.getHeadlineList()
     },
-    getBannerList() {
-      getHomeBannerList().then(res => {
+    getHeadlineList() {
+      getHomeHeadlineList().then(res => {
         // console.log(res, 'res')
         if (res.code === 200) {
-          this.bannerList = res.data
+          this.headlineList = res.data
         }
       })
-    },
-    handleSuccess(response, file, fileList) {
-      console.log(response, file, fileList)
-      if (response.code === 200) {
-        this.tempForm.imgUrl = response.data
-      }
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview(file) {
-      console.log(file)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
     editBanner(type, row) {
       switch (type) {
-        case 'add': this.tempForm.fromTitle = '新增轮播图'
+        case 'add': this.tempForm.fromTitle = '新增头条'
           break
-        case 'edit': this.tempForm.fromTitle = '修改轮播图'
+        case 'edit': this.tempForm.fromTitle = '修改头条'
           this.tempForm.id = row.id
           this.tempForm.title = row.title
-          this.tempForm.imgUrl = row.image
           this.tempForm.link = row.link
           break
         default: this.tempForm.title = ''
           break
       }
       this.tempForm.type = type
-      this.editBannerVisible = true
+      this.editHeadlineVisible = true
     },
     saveBanner(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.editBannerVisible = false
-          // this.$refs['bannerForm'].clearValidate()
+          this.editHeadlineVisible = false
+          // this.$refs['headlineForm'].clearValidate()
           const params = {
             title: this.tempForm.title,
-            link: this.tempForm.link,
-            image: this.tempForm.imgUrl
+            link: this.tempForm.link
           }
           if (this.tempForm.type === 'add') {
-            postHomeBannerSave(params).then(res => {
+            postHomeHeadlineSave(params).then(res => {
               // console.log(res, 'res')
               if (res.code === 200) {
                 this.$message({
@@ -184,19 +158,19 @@ export default {
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('bannerForm')
+                this.resetForm('headlineForm')
               }
             })
           } else if (this.tempForm.type === 'edit') {
             params.id = this.tempForm.id
-            postHomeBannerUpdateInfo(params).then(res => {
+            postHomeHeadlineUpdateInfo(params).then(res => {
               if (res.code === 200) {
                 this.$message({
                   message: '修改成功',
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('bannerForm')
+                this.resetForm('headlineForm')
               }
             })
           }
@@ -216,7 +190,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        postHomeBannerDel(row.id).then(res => {
+        postHomeHeadlineDel(row.id).then(res => {
           // console.log(res, 'res')
           this.$message({
             message: '删除成功',
@@ -232,35 +206,35 @@ export default {
       })
     },
     handleIndex(index, row, type) {
-      var newBannerList = [].concat(this.bannerList)
+      var newHeadlineList = [].concat(this.headlineList)
       var newIdList = []
       // console.log(index, row, type, 'item.id')
       if (type === 'up' && index !== 0) {
-        this.bannerList.forEach((item, index) => {
+        this.headlineList.forEach((item, index) => {
           if (item.id === row.id) {
-            const tempItem = newBannerList[index - 1]
-            newBannerList[index - 1] = this.bannerList[index]
-            newBannerList[index] = tempItem
+            const tempItem = newHeadlineList[index - 1]
+            newHeadlineList[index - 1] = this.headlineList[index]
+            newHeadlineList[index] = tempItem
             return
           }
         })
-      } else if (type === 'down' && index !== this.bannerList.length - 1) {
-        this.bannerList.forEach((item, index) => {
+      } else if (type === 'down' && index !== this.headlineList.length - 1) {
+        this.headlineList.forEach((item, index) => {
           if (item.id === row.id) {
-            const tempItem = newBannerList[index + 1]
-            newBannerList[index + 1] = this.bannerList[index]
-            newBannerList[index] = tempItem
+            const tempItem = newHeadlineList[index + 1]
+            newHeadlineList[index + 1] = this.headlineList[index]
+            newHeadlineList[index] = tempItem
             return
           }
         })
       }
-      newBannerList.forEach((item) => {
+      newHeadlineList.forEach((item) => {
         newIdList.push(item.id)
       })
       // console.log(newIdList, 'newIdList')
       const params = new URLSearchParams()
       params.append('ids', newIdList)
-      postHomeBannerUpdateSort(params).then(res => {
+      postHomeHeadlineUpdateSort(params).then(res => {
         if (res.code === 200) {
           this.$message({
             message: '修改成功',
@@ -271,8 +245,8 @@ export default {
       })
     },
     closeTempForm() {
-      this.editBannerVisible = false
-      this.resetForm('bannerForm')
+      this.editHeadlineVisible = false
+      this.resetForm('headlineForm')
     }
   }
 }

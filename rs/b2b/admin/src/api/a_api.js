@@ -60,7 +60,10 @@ export function getClassifyAllList(params) {
   })
 }
 
-export function postClassifyDel(params) {
+export function postClassifyDel(id) {
+  const params = {
+    id: id
+  }
   return request({
     url: baseApi + 'classify/del',
     method: 'post',
@@ -79,7 +82,7 @@ export function getClassifyList(params) {
 export function postClassifySave(params) {
   return request({
     url: baseApi + 'classify/save',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -87,7 +90,7 @@ export function postClassifySave(params) {
 export function postClassifyUpdate(params) {
   return request({
     url: baseApi + 'classify/update',
-    method: 'get',
+    method: 'post',
     params
   })
 }

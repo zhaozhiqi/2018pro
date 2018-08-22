@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table :data="enterList" style="width: 100%">
+        <el-table :data="list" style="width: 100%">
           <el-table-column label="id" width="60">
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
@@ -75,15 +75,52 @@
             </template>
           </el-table-column>
         </el-table>
+        <div class="pagination-container">
+          <el-pagination 
+          background 
+          @size-change="handleSizeChange" 
+          @current-change="handleCurrentChange" 
+          :current-page="listQuery.page" 
+          :page-sizes="[10,20,30, 50]" 
+          :page-size="listQuery.limit" 
+          layout="total, sizes, prev, pager, next, jumper" 
+          :total="total">
+          </el-pagination>
+        </div>
       </el-col>
     </el-row>
 
     <!-- Form -->
-    <el-dialog :title="tempForm.fromTitle" :visible.sync="auditFormVisible">
+    <el-dialog :title="tempForm.fromTitle" :visible.sync="auditFormVisible" width="70%">
       <el-form :model="tempForm" ref="tempForm" :rules="rules">
+        <el-form-item :label="$t('table.corporateLogo')">
+          <img :src="tempForm.corporateLogo" class="formImg" />
+        </el-form-item>
+        <el-form-item label="id" width="60">
+          <span>{{tempForm.id}}</span>
+          <!-- <el-input v-model="tempForm.id" :disabled="tempForm.disabled"></el-input> -->
+        </el-form-item>
+        <el-form-item :label="$t('table.corporateName')">
+          <span>{{tempForm.corporateName}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.corporateAddress')">
+          <span>{{tempForm.corporateAddress}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.corporateCode')">
+          <span>{{tempForm.corporateCode}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.mobile')">
+          <span>{{tempForm.mobile}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.corporateType')">
+          <span>{{tempForm.type | typeFilter}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.filePath')">
+          <img :src="tempForm.filePath" class="filePathImg" />
+        </el-form-item>
         <el-form-item :label="$t('table.audit')">
           <el-radio-group v-model="tempForm.status" prop="status">
-            <el-radio label="2000" >通过</el-radio>
+            <el-radio label="2000">通过</el-radio>
             <el-radio label="1001">不通过</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -93,7 +130,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeTempForm()">取 消</el-button>
-        <el-button type="primary" @click="saveBanner('tempForm')">确 定</el-button>
+        <el-button type="primary" @click="saveAudit('tempForm')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -117,14 +154,30 @@ export default {
   name: 'enterAudit',
   data() {
     return {
+      list: null,
+      total: null,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        title: undefined,
+        type: undefined,
+        sort: '+id'
+      },
       auditFormVisible: false,
-      enterList: [],
       tempForm: {
         id: '',
         status: '2000',
         failMsg: '',
         timestamp: new Date(),
-        fromTitle: '审核'
+        fromTitle: '审核',
+        corporateName: '',
+        corporateAddress: '',
+        corporateCode: '',
+        corporateLogo: '',
+        createTime: '',
+        mobile: '',
+        disabled: true
       },
       rules: {
         status: [
@@ -150,76 +203,107 @@ export default {
   },
   methods: {
     init() {
-      this.getEnterList()
+      this.getList()
     },
-    getEnterList() {
-      getBusinessEnterAuditList().then(res => {
+    getList() {
+      const params = {}
+      params.page = this.listQuery.page
+      params.pageSize = this.listQuery.limit
+      getBusinessEnterAuditList(params).then(res => {
         console.log(res, 'res')
         if (res.code === 200) {
-          this.enterList = res.data.records
+          this.total = res.data.total
+          this.listQuery.page = res.data.current
+          this.listQuery.limit = res.data.size
+          this.list = res.data.records
         }
       })
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
+    handleFilter() {
+      this.listQuery.page = 1
+      this.getList()
     },
-    saveBanner(formName) {
+    handleSizeChange(val) {
+      console.log(val, 'val')
+      this.listQuery.limit = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.getList()
+    },
+    resetForm() {
+      this.tempForm = {
+        id: '',
+        status: '2000',
+        failMsg: '',
+        timestamp: new Date(),
+        fromTitle: '审核',
+        corporateName: '',
+        corporateAddress: '',
+        corporateCode: '',
+        corporateLogo: '',
+        createTime: '',
+        mobile: '',
+        disabled: true
+      }
+    },
+    saveAudit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.auditFormVisible = false
-          // this.$refs['bannerForm'].clearValidate()
           const params = {
-            title: this.tempForm.title,
-            link: this.tempForm.link,
-            image: this.tempForm.imgUrl
+            status: this.tempForm.status,
+            id: this.tempForm.id
           }
-          if (this.tempForm.type === 'add') {
-            postHomeBannerSave(params).then(res => {
-              // console.log(res, 'res')
-              if (res.code === 200) {
-                this.$message({
-                  message: '新增成功',
-                  type: 'success'
-                })
-                this.init()
-                this.resetForm('bannerForm')
-              }
-            })
-          } else if (this.tempForm.type === 'edit') {
-            params.id = this.tempForm.id
-            postHomeBannerUpdateInfo(params).then(res => {
-              if (res.code === 200) {
-                this.$message({
-                  message: '修改成功',
-                  type: 'success'
-                })
-                this.init()
-                this.resetForm('bannerForm')
-              }
-            })
-          }
+          postBusinessEnterAudit(params).then(res => {
+            console.log(res, 'res')
+            if (res.code === 200) {
+              this.$message({
+                message: '操作成功',
+                type: 'success'
+              })
+              this.init()
+              this.resetForm()
+            } else {
+              this.$message({
+                message: res.msg,
+                type: 'error'
+              })
+            }
+          })
         } else {
           console.log('error submit!!')
+          this.resetForm()
           return false
         }
       })
     },
     handleAudit(index, row) {
       this.auditFormVisible = true
-      this.tempForm.id = row.id
+      for (const item in row) {
+        if (item !== 'status') {
+          this.tempForm[item] = row[item]
+        }
+      }
     },
     closeTempForm() {
       this.auditFormVisible = false
-      this.resetForm('bannerForm')
+      this.resetForm()
     }
   }
 }
 </script>
 
 <style scoped>
-.tableImg {
+.tableImg,
+.formImg {
   height: 100px;
   display: block;
+}
+.filePathImg{
+  display: block;
+  width: 100%
 }
 .tempUrlImg {
   height: 200px;

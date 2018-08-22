@@ -2,72 +2,75 @@
   <div class="app-container">
     <el-row style="marginBottom:20px">
       <el-col :span="24">
-        <el-button type="primary" @click="editBanner('add')">新增</el-button>
+        <el-button type="primary" @click="editClassify('add')">新增</el-button>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table :data="bannerList" style="width: 100%">
+        <el-table :data="classifyList" style="width: 100%">
           <el-table-column label="id" width="60">
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.WPH')" width="180">
+          <el-table-column :label="$t('table.label')" width="180">
             <template slot-scope="scope">
-              <span>{{ scope.row.title }}</span>
+              <span>{{ scope.row.label }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="图片" width="180">
+          <el-table-column :label="$t('table.image')" width="180">
             <template slot-scope="scope">
-              <!-- <span style="margin-left: 10px">{{ scope.row.image }}</span> -->
               <img :src="scope.row.image" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column label="链接" width="180">
+          <el-table-column :label="$t('table.describe')" width="180">
             <template slot-scope="scope">
-              <span>{{ scope.row.link }}</span>
+              <span>{{ scope.row.describe }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="更新时间" width="180">
+          <el-table-column label="parentId" width="180">
             <template slot-scope="scope">
-              <span>{{ scope.row.createTime }}</span>
+              <span>{{ scope.row.parentId }}</span>
             </template>
           </el-table-column>
-          <!-- <el-table-column label="姓名" width="180">
-            <template slot-scope="scope">
-              <el-popover trigger="hover" placement="top">
-                <p>姓名: {{ scope.row.name }}</p>
-                <p>住址: {{ scope.row.address }}</p>
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
-                </div>
-              </el-popover>
-            </template>
-          </el-table-column> -->
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-              <el-button size="mini" @click="handleIndex(scope.$index, scope.row, 'up')" :disabled="scope.$index===0">上移</el-button>
-              <el-button size="mini" @click="handleIndex(scope.$index, scope.row, 'down')" :disabled="scope.$index===bannerList.length-1">下移</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <div class="pagination-container">
+          <el-pagination 
+          background 
+          @size-change="handleSizeChange" 
+          @current-change="handleCurrentChange" 
+          :current-page="listQuery.page" 
+          :page-sizes="[10,20,30, 50]" 
+          :page-size="listQuery.limit" 
+          layout="total, sizes, prev, pager, next, jumper" 
+          :total="total">
+          </el-pagination>
+        </div>
       </el-col>
     </el-row>
 
     <!-- Form -->
 
-    <el-dialog :title="tempForm.fromTitle" :visible.sync="editBannerVisible">
-      <el-form :model="tempForm" ref="bannerForm" :rules="rules">
-        <el-form-item label="标题" label-width="80px" prop="title">
-          <el-input v-model="tempForm.title"></el-input>
+    <el-dialog :title="tempForm.fromTitle" :visible.sync="editClassifyVisible">
+      <el-form :model="tempForm" ref="tempForm" :rules="rules">
+        <el-form-item label="名称" label-width="80px" prop="label">
+          <el-input v-model="tempForm.label"></el-input>
         </el-form-item>
-        <el-form-item label="链接" label-width="80px" prop="link">
-          <el-input v-model="tempForm.link"></el-input>
+        <el-form-item label="描述" label-width="80px" prop="describe">
+          <el-input v-model="tempForm.describe"></el-input>
         </el-form-item>
-        <el-form-item label="图片路径" label-width="80px" prop="imgUrl">
+        <el-form-item label="父分类ID" label-width="80px" >
+          <el-select v-model="tempForm.parentId" placeholder="父分类ID">
+            <el-option :label="item.label" :value="item.id" v-for="(item,index) in parentIdList" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="图片地址" label-width="80px" prop="imgUrl">
           <el-input v-model="tempForm.imgUrl" auto-complete="off" disabled placeholder="请点击下方上传按钮上传图片"></el-input>
         </el-form-item>
         <el-upload class="upload-demo" action="http://demo.lbsrj.cn/c-api/image/upload" ref="upload" :show-file-list=false :on-success="handleSuccess" :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture">
@@ -78,37 +81,52 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeTempForm()">取 消</el-button>
-        <el-button type="primary" @click="saveBanner('bannerForm')">确 定</el-button>
+        <el-button type="primary" @click="saveClassify('tempForm')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { postHomeBannerDel, getHomeBannerList, postHomeBannerSave, postHomeBannerUpdateInfo, postHomeBannerUpdateSort } from '@/api/a_api'
+import { postClassifyDel, getClassifyAllList, postClassifySave, postClassifyUpdate, getList } from '@/api/a_api'
 
 export default {
   name: 'classifyManage',
   data() {
     return {
+      list: null,
+      parentIdList: null,
+      total: null,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        title: undefined,
+        type: undefined,
+        sort: '+id'
+      },
       dialogTableVisible: false,
-      editBannerVisible: false,
-      bannerList: [],
+      editClassifyVisible: false,
+      classifyList: [],
       tempForm: {
         id: '',
         type: '',
-        link: '',
+        label: '',
+        describe: '',
         imgUrl: '',
+        parentId: '',
         timestamp: new Date(),
-        title: '',
         fromTitle: ''
       },
       rules: {
-        link: [
-          { required: true, message: '请输入跳转链接', trigger: 'blur' }
+        label: [
+          { required: true, message: '请输入名称', trigger: 'blur' }
         ],
-        title: [
-          { required: true, message: '请输入标题', trigger: 'blur' }
+        describe: [
+          { required: true, message: '请输入描述', trigger: 'blur' }
+        ],
+        parentId: [
+          { required: true, message: '请选择父分类ID', trigger: 'change' }
         ],
         imgUrl: [
           { required: true, message: '请点击下方上传按钮上传图片', trigger: 'blur' }
@@ -126,15 +144,64 @@ export default {
   },
   methods: {
     init() {
-      this.getBannerList()
+      this.getList()
     },
-    getBannerList() {
-      getHomeBannerList().then(res => {
-        // console.log(res, 'res')
+    getList() {
+      const params = {}
+      params.page = this.listQuery.page
+      params.pageSize = this.listQuery.limit
+
+      getClassifyAllList(params).then(res => {
+        console.log(res, 'res')
+        const list = []
+        const parentIdList = [{
+          id: null,
+          label: '一级分类'
+        }]
         if (res.code === 200) {
-          this.bannerList = res.data
+          this.total = res.data.total
+          this.listQuery.page = res.data.current
+          this.listQuery.limit = res.data.size
+          for (const parent of res.data.records) {
+            const parantItem = {
+              id: parent.id,
+              label: parent.label,
+              describe: parent.describe,
+              image: parent.image,
+              parentId: parent.parentId
+            }
+            list.push(parantItem)
+            parentIdList.push(parantItem)
+            if (parent.children) {
+              for (const children of parent.children) {
+                const childrenItem = {
+                  id: children.id,
+                  label: children.label,
+                  describe: children.describe,
+                  image: children.image,
+                  parentId: children.parentId
+                }
+                list.push(childrenItem)
+              }
+            }
+          }
+          console.log(list, 'list', parentIdList)
+          this.classifyList = list
+          this.parentIdList = parentIdList
         }
       })
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.getList()
+    },
+    handleSizeChange(val) {
+      this.listQuery.limit = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.getList()
     },
     handleSuccess(response, file, fileList) {
       console.log(response, file, fileList)
@@ -151,34 +218,35 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    editBanner(type, row) {
+    editClassify(type, row) {
       switch (type) {
-        case 'add': this.tempForm.fromTitle = '新增轮播图'
+        case 'add': this.tempForm.fromTitle = '新增分类'
           break
-        case 'edit': this.tempForm.fromTitle = '修改轮播图'
+        case 'edit': this.tempForm.fromTitle = '修改分类'
           this.tempForm.id = row.id
-          this.tempForm.title = row.title
+          this.tempForm.label = row.label
+          this.tempForm.describe = row.describe
           this.tempForm.imgUrl = row.image
-          this.tempForm.link = row.link
+          this.tempForm.parentId = row.parentId
           break
-        default: this.tempForm.title = ''
+        default: this.tempForm.label = ''
           break
       }
       this.tempForm.type = type
-      this.editBannerVisible = true
+      this.editClassifyVisible = true
     },
-    saveBanner(formName) {
+    saveClassify(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.editBannerVisible = false
-          // this.$refs['bannerForm'].clearValidate()
+          this.editClassifyVisible = false
           const params = {
-            title: this.tempForm.title,
-            link: this.tempForm.link,
+            label: this.tempForm.label,
+            describe: this.tempForm.describe,
+            parentId: this.tempForm.parentId,
             image: this.tempForm.imgUrl
           }
           if (this.tempForm.type === 'add') {
-            postHomeBannerSave(params).then(res => {
+            postClassifySave(params).then(res => {
               console.log(res, 'res')
               if (res.code === 200) {
                 this.$message({
@@ -186,19 +254,19 @@ export default {
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('bannerForm')
+                this.resetForm('tempForm')
               }
             })
           } else if (this.tempForm.type === 'edit') {
             params.id = this.tempForm.id
-            postHomeBannerUpdateInfo(params).then(res => {
+            postClassifyUpdate(params).then(res => {
               if (res.code === 200) {
                 this.$message({
                   message: '修改成功',
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('bannerForm')
+                this.resetForm('tempForm')
               }
             })
           }
@@ -209,7 +277,7 @@ export default {
       })
     },
     handleEdit(index, row) {
-      this.editBanner('edit', row)
+      this.editClassify('edit', row)
     },
     handleDelete(index, row) {
       console.log(index, row)
@@ -218,7 +286,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        postHomeBannerDel(row.id).then(res => {
+        postClassifyDel(row.id).then(res => {
           console.log(res, 'res')
           this.$message({
             message: '删除成功',
@@ -233,48 +301,9 @@ export default {
         })
       })
     },
-    handleIndex(index, row, type) {
-      var newBannerList = [].concat(this.bannerList)
-      var newIdList = []
-      // console.log(index, row, type, 'item.id')
-      if (type === 'up' && index !== 0) {
-        this.bannerList.forEach((item, index) => {
-          if (item.id === row.id) {
-            const tempItem = newBannerList[index - 1]
-            newBannerList[index - 1] = this.bannerList[index]
-            newBannerList[index] = tempItem
-            return
-          }
-        })
-      } else if (type === 'down' && index !== this.bannerList.length - 1) {
-        this.bannerList.forEach((item, index) => {
-          if (item.id === row.id) {
-            const tempItem = newBannerList[index + 1]
-            newBannerList[index + 1] = this.bannerList[index]
-            newBannerList[index] = tempItem
-            return
-          }
-        })
-      }
-      newBannerList.forEach((item) => {
-        newIdList.push(item.id)
-      })
-      // console.log(newIdList, 'newIdList')
-      const params = new URLSearchParams()
-      params.append('ids', newIdList)
-      postHomeBannerUpdateSort(params).then(res => {
-        if (res.code === 200) {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
-          })
-          this.init()
-        }
-      })
-    },
     closeTempForm() {
-      this.editBannerVisible = false
-      this.resetForm('bannerForm')
+      this.editClassifyVisible = false
+      this.resetForm('tempForm')
     }
   }
 }

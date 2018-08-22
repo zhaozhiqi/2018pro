@@ -49,9 +49,9 @@ service.interceptors.response.use(
     Indicator.close()
     const res = response.data
     if (res.code !== 200) {
-      const _msg = res.msg
+      const msg = res.msg ? res.msg : res.message
       Toast({
-        message: _msg,
+        message: msg,
         duration: 2 * 1000
       })
 

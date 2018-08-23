@@ -350,8 +350,10 @@ export default {
     handleAudit(index, row, onlyLook) {
       if (onlyLook === true) {
         this.tempForm.isOperate = false
+        this.tempForm.fromTitle = '查看详情'
       } else {
         this.tempForm.isOperate = true
+        this.tempForm.fromTitle = '审核'
       }
       this.auditFormVisible = true
       for (const item in row) {

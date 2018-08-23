@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { postClassifyDel, getClassifyAllList, postClassifySave, postClassifyUpdate, getList } from '@/api/a_api'
+import { postClassifyDel, getClassifyAllList, postClassifySave, postClassifyUpdate } from '@/api/a_api'
 
 export default {
   name: 'classifyManage',

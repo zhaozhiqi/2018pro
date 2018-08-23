@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { postClassifyDel, getClassifyAllList, postClassifySave, postClassifyUpdate, getList } from '@/api/a_api'
+import { postShopClassifyDel, getShopClassifyList, postShopClassifySave, postShopClassifyUpdate } from '@/api/a_api'
 
 export default {
   name: 'classifyManage',
@@ -151,7 +151,7 @@ export default {
       params.page = this.listQuery.page
       params.pageSize = this.listQuery.limit
 
-      getClassifyAllList(params).then(res => {
+      getShopClassifyList(params).then(res => {
         console.log(res, 'res')
         const list = []
         const parentIdList = [{
@@ -246,7 +246,7 @@ export default {
             image: this.tempForm.imgUrl
           }
           if (this.tempForm.type === 'add') {
-            postClassifySave(params).then(res => {
+            postShopClassifySave(params).then(res => {
               console.log(res, 'res')
               if (res.code === 200) {
                 this.$message({
@@ -259,7 +259,7 @@ export default {
             })
           } else if (this.tempForm.type === 'edit') {
             params.id = this.tempForm.id
-            postClassifyUpdate(params).then(res => {
+            postShopClassifyUpdate(params).then(res => {
               if (res.code === 200) {
                 this.$message({
                   message: '修改成功',
@@ -286,7 +286,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        postClassifyDel(row.id).then(res => {
+        postShopClassifyDel(row.id).then(res => {
           console.log(res, 'res')
           this.$message({
             message: '删除成功',

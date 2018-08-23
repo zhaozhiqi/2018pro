@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import { postHomeBannerSave, postHomeBannerUpdateInfo, postHomeBannerUpdateSort } from '@/api/a_api'
+import { getSetting, postSetOrderDeductionsRatio } from '@/api/a_api'
 
 export default {
   name: 'aSpotCatSetting',
@@ -25,18 +25,34 @@ export default {
   components: {
   },
   created() {
-    // this.init()
+    this.init()
   },
   mounted() {
   },
   methods: {
     init() {
-
+      this.getData()
+    },
+    getData() {
+      getSetting().then(res => {
+        // console.log(res, 'res')
+        if (res.code === 200) {
+          this.aSpotCat.value = res.data.orderDeductionsRatio
+        }
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(formName, '检测成功')
+          postSetOrderDeductionsRatio(this.aSpotCat.value).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                message: '保存成功',
+                type: 'success'
+              })
+              this.init()
+            }
+          })
         } else {
           console.log('error submit!!')
           return false

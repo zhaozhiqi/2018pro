@@ -250,11 +250,99 @@ export function postHomeHeadlineUpdateSort(params) {
 }
 
 /**
+ * 订单相关
+ *
+ * 确认发货
+ * 确认退款
+ * 获取店铺订单详情
+ * 获取店铺订单列表
+*/
+
+export function postOrderDelivery(params) {
+  return request({
+    url: baseApi + 'order/delicery',
+    method: 'post',
+    params
+  })
+}
+
+export function postOrderRedund(orderNo) {
+  const params = {
+    orderNo: orderNo
+  }
+  return request({
+    url: baseApi + 'order/refund',
+    method: 'post',
+    params
+  })
+}
+
+export function getShopOrder(orderNo) {
+  const params = {
+    orderNo: orderNo
+  }
+  return request({
+    url: baseApi + 'order/shop/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getShopOrderList(params) {
+  return request({
+    url: baseApi + 'order/shop/list',
+    method: 'get',
+    params
+  })
+}
+
+/**
+ * 产品授权信息相关
+ *
+ * 获取产品授权信息列表（all）
+ * 获取产品授权信息列表
+ * 审核授权信息
+ * 提交授权信息
+*/
+
+export function getAuthorizeInfoAllList(params) {
+  return request({
+    url: baseApi + 'product/authorizeInfo/all/list',
+    method: 'get',
+    params
+  })
+}
+
+export function getAuthorizeInfoList(params) {
+  return request({
+    url: baseApi + 'product/authorizeInfo/list',
+    method: 'get',
+    params
+  })
+}
+
+export function postAuthorizeInfoAudit(params) {
+  return request({
+    url: baseApi + 'product/authorizeInfo/auditing',
+    method: 'post',
+    params
+  })
+}
+
+export function postAuthorizeInfoSubmit(params) {
+  return request({
+    url: baseApi + 'product/authorizeInfo/submit',
+    method: 'post',
+    params
+  })
+}
+
+/**
  * 产品相关接口
  *
  * 审核产品
- * 获取产品详情
- * 获取产品详情
+ * 获取产品详情(byCode)
+ * 获取产品详情(byId)
  * 获取产品列表
  * 新增产品
  * 更新产品详情
@@ -268,7 +356,10 @@ export function postProductAudit(params) {
   })
 }
 
-export function getProductByCode(params) {
+export function getProductByCode(code) {
+  const params = {
+    code: code
+  }
   return request({
     url: baseApi + 'product/getByCode',
     method: 'get',
@@ -276,7 +367,10 @@ export function getProductByCode(params) {
   })
 }
 
-export function getProductById(params) {
+export function getProductById(id) {
+  const params = {
+    id: id
+  }
   return request({
     url: baseApi + 'product/getById',
     method: 'get',
@@ -309,6 +403,91 @@ export function postProductUpdate(params) {
 }
 
 /**
+ * 系统设置相关
+ *
+ * 获取设置信息
+ * 设置未支付订单自动关闭时长
+ * 设置未确认订单自动确认时长
+ * 设置用户确认收货转账至商户时长（影响用户退款，转账后用户将无法在平台进行退款需联系商户处理）
+ * 设置B2C用户商品范围
+ * 设置拼团优惠比例
+ * 设置订单扣点比例
+*/
+
+export function getSetting() {
+  return request({
+    url: baseApi + 'setting/get',
+    method: 'get'
+  })
+}
+
+export function postSetAutoCancelOrderTime(arg) {
+  const params = {
+    time: arg
+  }
+  return request({
+    url: baseApi + 'setting/setAutoCancelOrderTime',
+    method: 'post',
+    params
+  })
+}
+
+export function postSetAutoConfirmedOrderTime(arg) {
+  const params = {
+    time: arg
+  }
+  return request({
+    url: baseApi + 'setting/setAutoConfirmedOrderTime',
+    method: 'post',
+    params
+  })
+}
+
+export function postSetAutoTransferAccountsTime(arg) {
+  const params = {
+    time: arg
+  }
+  return request({
+    url: baseApi + 'setting/setAutoTransferAccountsTime',
+    method: 'post',
+    params
+  })
+}
+
+export function postSetB2CGoodsRange(arg) {
+  const params = {
+    range: arg
+  }
+  return request({
+    url: baseApi + 'setting/setB2CGoodsRange',
+    method: 'post',
+    params
+  })
+}
+
+export function postSetGroupPurchasePreferentialRatio(arg) {
+  const params = {
+    ratio: arg
+  }
+  return request({
+    url: baseApi + 'setting/setGroupPurchasePreferentialRatio',
+    method: 'post',
+    params
+  })
+}
+
+export function postSetOrderDeductionsRatio(arg) {
+  const params = {
+    ratio: arg
+  }
+  return request({
+    url: baseApi + 'setting/setOrderDeductionsRatio',
+    method: 'post',
+    params
+  })
+}
+
+/**
  * 店铺相关
  *
  * 删除店铺banner列表
@@ -330,7 +509,10 @@ export function postProductUpdate(params) {
  *
 */
 
-export function postShopBannerDel(params) {
+export function postShopBannerDel(arg) {
+  const params = {
+    id: arg
+  }
   return request({
     url: baseApi + 'shop/banner/del',
     method: 'post',
@@ -338,11 +520,10 @@ export function postShopBannerDel(params) {
   })
 }
 
-export function getShopBannerList(params) {
+export function getShopBannerList() {
   return request({
     url: baseApi + 'shop/banner/list',
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 
@@ -370,7 +551,10 @@ export function postShopBannerUpdateSort(params) {
   })
 }
 
-export function postShopClassifyDel(params) {
+export function postShopClassifyDel(arg) {
+  const params = {
+    id: arg
+  }
   return request({
     url: baseApi + 'shop/classify/del',
     method: 'post',
@@ -402,7 +586,10 @@ export function postShopClassifyUpdate(params) {
   })
 }
 
-export function postShopCustomerServiceDel(params) {
+export function postShopCustomerServiceDel(arg) {
+  const params = {
+    id: arg
+  }
   return request({
     url: baseApi + 'shop/customerService/del',
     method: 'post',
@@ -410,11 +597,10 @@ export function postShopCustomerServiceDel(params) {
   })
 }
 
-export function getShopCustomerServiceList(params) {
+export function getShopCustomerServiceList() {
   return request({
     url: baseApi + 'shop/customerService/list',
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 
@@ -491,7 +677,10 @@ export function getShopGroupCaseList(params) {
   })
 }
 
-export function getShopGroupGet(params) {
+export function getShopGroupGet(arg) {
+  const params = {
+    id: arg
+  }
   return request({
     url: baseApi + 'shop/groupPurchase/get',
     method: 'get',
@@ -510,6 +699,32 @@ export function getShopGroupList(params) {
 export function postShopGroupSave(params) {
   return request({
     url: baseApi + 'shop/groupPurchase/save',
+    method: 'post',
+    params
+  })
+}
+
+/**
+ * 用户信息相关
+ *
+ * 获取用户信息
+ * 重置密码
+*/
+
+export function getUserInfo() {
+  return request({
+    url: baseApi + 'user/get',
+    method: 'get'
+  })
+}
+
+export function postUserResetPassword(oldPassword, newPassword) {
+  const params = {
+    oldPassword,
+    newPassword
+  }
+  return request({
+    url: baseApi + 'reset/password',
     method: 'post',
     params
   })

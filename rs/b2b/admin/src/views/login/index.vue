@@ -36,7 +36,8 @@ export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
+      // if (!isvalidUsername(value)) {
+      if (false) {
         callback(new Error('请输入正确的用户名'))
       } else {
         callback()
@@ -51,7 +52,7 @@ export default {
     }
     return {
       loginForm: {
-        username: '15896325896',
+        username: '18888888888',
         password: '123456'
       },
       loginRules: {

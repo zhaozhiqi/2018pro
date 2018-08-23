@@ -23,7 +23,7 @@
 </template>
 
 <script>
-// import { postHomeBannerSave, postHomeBannerUpdateInfo, postHomeBannerUpdateSort } from '@/api/a_api'
+import { getSetting, postSetAutoCancelOrderTime, postSetAutoConfirmedOrderTime, postSetAutoTransferAccountsTime } from '@/api/a_api'
 
 export default {
   name: 'orderSetting',
@@ -44,23 +44,60 @@ export default {
   components: {
   },
   created() {
-    // this.init()
+    this.init()
   },
   mounted() {
   },
   methods: {
     init() {
-
+      this.getData()
+    },
+    getData() {
+      getSetting().then(res => {
+        // console.log(res, 'res')
+        if (res.code === 200) {
+          this.autoCloseOrder.value = res.data.autoCancelOrderTime
+          this.autoAffirmOrder.value = res.data.autoConfirmedOrderTime
+          this.autoTransferOrder.value = res.data.autoTransferAccountsTime
+        }
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           switch (formName) {
             case 'autoCloseForm':console.log('autoCloseForm')
+              postSetAutoCancelOrderTime(this.autoCloseOrder.value).then(res => {
+                if (res.code === 200) {
+                  this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                  })
+                  this.init()
+                }
+              })
               break
             case 'autoAffirmForm':console.log('autoAffirmForm')
+              postSetAutoConfirmedOrderTime(this.autoAffirmOrder.value).then(res => {
+                if (res.code === 200) {
+                  this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                  })
+                  this.init()
+                }
+              })
               break
             case 'autoTransferForm':console.log('autoTransferForm')
+              postSetAutoTransferAccountsTime(this.autoTransferOrder.value).then(res => {
+                if (res.code === 200) {
+                  this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                  })
+                  this.init()
+                }
+              })
               break
             default:
               break

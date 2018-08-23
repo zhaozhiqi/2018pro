@@ -170,7 +170,7 @@ export const constantRouterMap = [
   // }
 
 ]
-
+// 权限路由 ['ADMIN','MANUFACTURER', 'DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
 export const asyncRouterMap = [
   {
     path: '/wph',
@@ -178,13 +178,12 @@ export const asyncRouterMap = [
     redirect: '/wph/goodsManage',
     name: 'goodsManage',
     meta: {
-      title: '商品管理',
-      icon: 'lock',
-      roles: ['shop', 'manufacturer'] // you can set roles in root nav
+      title: '产品管理',
+      roles: ['ADMIN'] // you can set roles in root nav
     },
     children: [
-      { path: 'goodsManage', name: 'goodsManage', component: () => import('@/views/wph/goodsManage'), meta: { title: '商品管理', roles: ['shop', 'manufacturer'] }},
-      { path: 'goodsAudit', name: 'goodsAudit', component: () => import('@/views/wph/goodsAudit'), meta: { title: '商品审核', roles: ['shop', 'manufacturer'] }}
+      { path: 'productAudit', name: 'productAudit', component: () => import('@/views/wph/productAudit'), meta: { title: '产品审核' }},
+      { path: 'productAuthorizeAudit', name: 'productAuthorizeAudit', component: () => import('@/views/wph/productAuthorizeAudit'), meta: { title: '产品授权审核' }}
     ]
   },
   {
@@ -195,11 +194,25 @@ export const asyncRouterMap = [
     meta: {
       title: '站内设置',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN']
     },
     children: [
-      { path: 'indexBanner', name: 'indexBanner', component: () => import('@/views/wph/indexBanner'), meta: { title: '首页轮播图设置', roles: ['admin'] }},
-      { path: 'indexHeadline', name: 'indexHeadline', component: () => import('@/views/wph/indexHeadline'), meta: { title: '首页头条设置', roles: ['admin'] }}
+      { path: 'indexBanner', name: 'indexBanner', component: () => import('@/views/wph/indexBanner'), meta: { title: '首页轮播图设置' }},
+      { path: 'indexHeadline', name: 'indexHeadline', component: () => import('@/views/wph/indexHeadline'), meta: { title: '首页头条设置' }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
+    redirect: '/wph/goodsSetting',
+    name: 'goodsSetting',
+    meta: {
+      title: '订单相关设置',
+      icon: 'lock',
+      roles: ['ADMIN']
+    },
+    children: [
+      { path: 'goodsSetting', name: 'goodsSetting', component: () => import('@/views/wph/goodsSetting'), meta: { title: '商品相关设置' }}
     ]
   },
   {
@@ -210,10 +223,10 @@ export const asyncRouterMap = [
     meta: {
       title: '订单相关设置',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN']
     },
     children: [
-      { path: 'orderSetting', name: 'orderSetting', component: () => import('@/views/wph/orderSetting'), meta: { title: '订单相关设置', roles: ['admin'] }}
+      { path: 'orderSetting', name: 'orderSetting', component: () => import('@/views/wph/orderSetting'), meta: { title: '订单相关设置' }}
     ]
   },
   {
@@ -224,10 +237,10 @@ export const asyncRouterMap = [
     meta: {
       title: '扣点管理',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN']
     },
     children: [
-      { path: 'aSpotCatSetting', name: 'aSpotCatSetting', component: () => import('@/views/wph/aSpotCatSetting'), meta: { title: '扣点比例设置', roles: ['admin'] }}
+      { path: 'aSpotCatSetting', name: 'aSpotCatSetting', component: () => import('@/views/wph/aSpotCatSetting'), meta: { title: '扣点比例设置' }}
     ]
   },
   {
@@ -238,10 +251,10 @@ export const asyncRouterMap = [
     meta: {
       title: '分类管理',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN']
     },
     children: [
-      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/wph/classifyManage'), meta: { title: '分类管理', roles: ['admin'] }}
+      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/wph/classifyManage'), meta: { title: '分类管理' }}
     ]
   },
   {
@@ -252,10 +265,25 @@ export const asyncRouterMap = [
     meta: {
       title: '入驻审核',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN']
     },
     children: [
-      { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核', roles: ['admin'] }}
+      { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/shopBanner',
+    name: 'shopBanner',
+    meta: {
+      title: '店铺设置',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'shopBanner', name: 'shopBanner', component: () => import('@/views/shop/shopBanner'), meta: { title: '店铺轮播图管理' }},
+      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/shop/classifyManage'), meta: { title: '店铺分类管理' }}
     ]
   },
   {
@@ -266,9 +294,9 @@ export const asyncRouterMap = [
     meta: {
       title: '测试页面',
       icon: 'lock',
-      roles: ['admin']
+      roles: ['ADMIN', 'MANUFACTURER', 'DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
     },
-    children: [{ path: 'test', name: 'test', component: () => import('@/views/wph/test'), meta: { title: '测试页面', roles: ['admin'] }}]
+    children: [{ path: 'test', name: 'test', component: () => import('@/views/wph/test'), meta: { title: '测试页面', roles: ['ADMIN', 'MANUFACTURER', 'DISTRIBUTOR', 'WHOLESALER', 'RETAILER'] }}]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -1,10 +1,5 @@
 <template>
   <div class="app-container">
-    <el-row style="marginBottom:20px">
-      <el-col :span="24">
-        <el-button type="primary" @click="editBanner('add')">新增</el-button>
-      </el-col>
-    </el-row>
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
@@ -56,7 +51,7 @@
               <img :src="scope.row.filePath" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.filePath')" width="180">
+          <el-table-column :label="$t('table.auditStatus')" width="180">
             <template slot-scope="scope">
               <span>{{ scope.row.status }}</span>
             </template>

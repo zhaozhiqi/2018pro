@@ -38,11 +38,10 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          // commit('SET_TOKEN', data.token)// 在vux中保存token
-          // setToken(data.token)// 保存token的cookie
-          commit('SET_TOKEN', 'admin')// 在vux中保存token
-          setToken('admin')// 保存token的cookie
+          if (response.code === 200) {
+            commit('SET_TOKEN', 'login')// 在vux中保存token
+            setToken('login')// 保存token的cookie
+          }
           resolve()
         }).catch(error => {
           reject(error)
@@ -53,28 +52,36 @@ const user = {
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        // getUserInfo(state.token).then(response => {
-        //   if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-        //     reject('error')
-        //   }
-        //   const data = response.data
-
         //   if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
         //     commit('SET_ROLES', data.roles)
         //   } else {
         //     reject('getInfo: roles must be a non-null array!')
         //   }
-        //   commit('SET_NAME', data.name)
-        //   commit('SET_AVATAR', data.avatar)
-        //   commit('SET_INTRODUCTION', data.introduction)
-        //   resolve(response)
-        // }).catch(error => {
-        //   reject(error)
-        // })
-        commit('SET_ROLES', [getToken()])
-        commit('SET_NAME', 'admin')
-        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
-        resolve()
+        getUserInfo(state.token).then(response => {
+          const data = response.data
+          // ['ADMIN','MANUFACTURER', 'DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+          if (response.code === 200 && data.type) {
+            commit('SET_NAME', data.name)
+            commit('SET_AVATAR', data.headThumb)
+            switch (data.type) {
+              case 'A':commit('SET_ROLES', ['ADMIN'])
+                break
+              case 'M':commit('SET_ROLES', ['MANUFACTURER'])
+                break
+              case 'D':commit('SET_ROLES', ['DISTRIBUTOR'])
+                break
+              case 'W':commit('SET_ROLES', ['WHOLESALER'])
+                break
+              case 'R':commit('SET_ROLES', ['RETAILER'])
+                break
+              default:
+                break
+            }
+            resolve(response)
+          }
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
 

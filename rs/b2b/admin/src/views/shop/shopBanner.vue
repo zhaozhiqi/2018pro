@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { postShopBannerDel, getShopBannerList, postShopBannerSave, postShopBannerUpdateInfo, postHomeBannerUpdateSort } from '@/api/a_api'
+import { postShopBannerDel, getShopBannerList, postShopBannerSave, postShopBannerUpdateInfo, postShopBannerUpdateSort } from '@/api/a_api'
 
 export default {
   name: 'shopBanner',
@@ -249,7 +249,7 @@ export default {
       // console.log(newIdList, 'newIdList')
       const params = new URLSearchParams()
       params.append('ids', newIdList)
-      postHomeBannerUpdateSort(params).then(res => {
+      postShopBannerUpdateSort(params).then(res => {
         if (res.code === 200) {
           this.$message({
             message: '修改成功',

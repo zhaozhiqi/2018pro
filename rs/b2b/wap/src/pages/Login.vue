@@ -46,7 +46,7 @@ export default {
       },
       admin: {
         account: {
-          value: '15584461401'
+          value: '15874125896'
         },
         password: {
           state: 1,
@@ -92,7 +92,8 @@ export default {
                 type: 'warning'
               })
               this.$router.push({ path: this.Rurl })
-              const is2b = Cookies.get('IS_2B')!==undefined
+              const is2b = (Cookies.get('IS_2B')!==undefined&&Cookies.get('IS_2B')!==null&&Cookies.get('IS_2B')!=='')
+              console.log(is2b,'is2b')
               this.$store.dispatch('setRank',is2b)
             }            
           })

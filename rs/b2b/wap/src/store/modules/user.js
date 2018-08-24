@@ -494,18 +494,38 @@
 //         }
 //     }
 // }
-import { login, loginOut } from '@/api/m_api'
+import { login, loginOut, getUserInfo } from '@/api/m_api'
 // import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
     user: '',
-    rank: 'CUSTOMER'
+    rank: 'CUSTOMER',
+    name: '',
+    mobile: '',
+    headThumb:'',
+    type: '',
+    id: null
   },
 
   mutations: {
     SET_RANK: (state, rank) => {
       state.rank = rank
+    },
+    SET_NAME: (state, name) => {
+      state.name = name
+    },
+    SET_MOBILE: (state, mobile) => {
+      state.mobile = mobile
+    },
+    SET_HEADTHUMB: (state, headThumb) => {
+      state.headThumb = headThumb
+    },
+    SET_ID: (state, id) => {
+      state.id = id
+    },
+    SET_TYPE: (state, type) => {
+      state.type = type
     }
   },
 
@@ -530,29 +550,25 @@ const user = {
       }
     },
     // 获取用户信息
-    // GetUserInfo({ commit, state }) {
-    //   return new Promise((resolve, reject) => {
-    //     getUserInfo(state.token).then(response => {
-    //       if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-    //         reject('error')
-    //       }
-    //       const data = response.data
-
-    //       if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-    //         commit('SET_ROLES', data.roles)
-    //       } else {
-    //         reject('getInfo: roles must be a non-null array !')
-    //       }
-
-    //       commit('SET_NAME', data.name)
-    //       commit('SET_AVATAR', data.avatar)
-    //       commit('SET_INTRODUCTION', data.introduction)
-    //       resolve(response)
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    GetUserInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo().then(response => {
+          if (response.code === 200) {            
+            const data = response.data
+            commit('SET_ID', data.id)
+            commit('SET_NAME', data.name)
+            commit('SET_MOBILE', data.mobile)
+            commit('SET_HEADTHUMB', data.headThumb)
+            commit('SET_TYPE', data.type)
+            resolve(response)
+          }else{
+            reject(error)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
 
     // 第三方验证登录
     // LoginByThirdparty({ commit, state }, code) {
@@ -571,9 +587,10 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        loginOut().then(() => {
-          //commit('SET_RANK', 'BUSINESS')
-          commit('SET_RANK', 'CUSTOMER')
+        loginOut().then(res => {
+          if(res.code === 200){
+            commit('SET_RANK', 'CUSTOMER')
+          }
           resolve()
         }).catch(error => {
           reject(error)

@@ -14,6 +14,13 @@ import Cookies from 'js-cookie'
 import '@/assets/css/base.css'
 import position from '@/position'
 
+import * as filters from '@/filters' // global filters
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 Vue.use(VueJsonp)
 Vue.use(MintUI);
 //表单验证
@@ -47,7 +54,7 @@ router.beforeEach((to, from, next) => {
     let hasLogin = Cookies.get('WPH_USER_LOGIN')
     // console.log(hasLogin,'hasLogin',hasLogin !== undefined , hasLogin !== null)
     // 对路由进行验证     
-    if(hasLogin !== undefined && hasLogin !== null){ // 已经登陆
+    if(hasLogin !== undefined && hasLogin !== null && hasLogin !== ''){ // 已经登陆
       console.log('已登录')    
       next()   // 正常跳转到你设置好的页面     
     } else{ 

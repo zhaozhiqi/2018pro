@@ -1,5 +1,6 @@
 <template>
-  <div id="typeGoodsList"> 
+  <Nodata :nodata="nodataObj" v-if="proList.length <= 0"></Nodata>
+  <div v-else id="typeGoodsList">
 		<ul class="">
 			<li class="con-item" 
 			v-for="(item, index) in proList"
@@ -12,8 +13,8 @@
 						<div class="con-item-info">
 							<p class="con-item-info-title">{{item.title}}</p>
 							<p class="con-item-info-price">
-								<strong><b>¥</b>{{item.retailPrice}}</strong>
-								<s>¥{{item.retailPrice}}</s>
+								<strong><b>¥</b>{{item.retailPrice | priceFormat}}</strong>
+								<s>¥{{item.retailPrice | priceFormat}}</s>
 							</p>
 						</div>
 						<!-- <div class="con-item-btn"><i class="ico-cart"></i></div> -->
@@ -25,15 +26,24 @@
 </template>
 
 <script>
+import Nodata from '@/components/nodata';
+
 export default {
   name: 'TypeGoodsList',
   data() {
 		return {
+      nodataObj:{
+					iconName:"rsicon-jingshi",
+					nodataMsg:"暂无数据"
+			},
 			routerPath:'/Product'
 		}
+  },
+  components:{
+		Nodata
 	},
 	created(){
-		console.log(this.proList,'proList')
+		//console.log(this.proList,'proList')
 	},
 	mounted(){
 		// this.proList = this.proinfo;

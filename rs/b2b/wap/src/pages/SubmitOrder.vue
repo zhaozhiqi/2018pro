@@ -32,7 +32,7 @@
           <div class="orderInfo">
             <div class="orderName">商品：{{itemI.title}}</div>
             <!-- <div class="orderType">货号：一件</div> -->
-            <div class="orderUnitPrice">价格：¥{{itemI.money}}</div>
+            <div class="orderUnitPrice">价格：¥{{itemI.money | priceFormat}}</div>
             <div class="orderType">数量：{{itemI.count}}</div>
           </div>
         </div>
@@ -46,7 +46,7 @@
     <footer class="footer">
       <span>
         <i class="rsiconfont rsicon-yduidunpaishixin"></i>实付款：</span>
-      <span class="total">¥{{orderInfo.totalPrice}}</span>
+      <span class="total">¥{{orderInfo.totalPrice | priceFormat}}</span>
       <!-- <span class="freight">免运费</span> -->
       <button class="payBtn" @click="paySend">提交订单</button>
     </footer>

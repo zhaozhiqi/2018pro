@@ -497,6 +497,7 @@ export function postSetOrderDeductionsRatio(arg) {
  * 更新店铺banner列表排序
  * 删除店铺分类
  * 获取店铺分类列表
+ * 获取店铺分类列表All
  * 新增店铺分类
  * 更新店铺分类
  * 删除客服信息
@@ -565,6 +566,14 @@ export function postShopClassifyDel(arg) {
 export function getShopClassifyList(params) {
   return request({
     url: baseApi + 'shop/classify/list',
+    method: 'get',
+    params
+  })
+}
+
+export function getShopClassifyAllList(params) {
+  return request({
+    url: baseApi + 'shop/classify/listVo',
     method: 'get',
     params
   })
@@ -700,6 +709,64 @@ export function postShopGroupSave(params) {
   return request({
     url: baseApi + 'shop/groupPurchase/save',
     method: 'post',
+    params
+  })
+}
+
+/**
+ * 余额相关
+ *
+ * 获取当前用户的余额
+ * 商家余额列表
+ * 获取当前用户的扣点纪录
+ * 获取当前用户的充值记录
+ * 根据店铺ID查询扣点纪录
+ * 根据店铺ID查询充值记录
+*/
+
+export function getUserBalance() {
+  return request({
+    url: baseApi + 'user/balance/get',
+    method: 'get'
+  })
+}
+
+export function getUserBalanceList(params) {
+  return request({
+    url: baseApi + 'user/balance/list',
+    method: 'get',
+    params
+  })
+}
+
+export function getUserBalanceListDeductions(params) {
+  return request({
+    url: baseApi + 'user/balance/list/deductions/record',
+    method: 'get',
+    params
+  })
+}
+
+export function getUserBalanceListRecharge(params) {
+  return request({
+    url: baseApi + 'user/balance/list/recharge/record',
+    method: 'get',
+    params
+  })
+}
+
+export function getUserBalanceShopListDeductions(params) {
+  return request({
+    url: baseApi + 'user/balance/list/shop/deductions/record',
+    method: 'get',
+    params
+  })
+}
+
+export function getUserBalanceShopListRecharge(params) {
+  return request({
+    url: baseApi + 'user/balance/list/shop/recharge/record',
+    method: 'get',
     params
   })
 }

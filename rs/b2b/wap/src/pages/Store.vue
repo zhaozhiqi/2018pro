@@ -29,7 +29,7 @@
         </mt-navbar>
         <!-- tab-container -->
         <mt-tab-container v-model="defaultTab">
-          <mt-tab-container-item id="index">            
+          <mt-tab-container-item id="index">
             <div class="banner">
               <Slider :pages='storeInfo.banners'></Slider>
             </div>
@@ -75,11 +75,24 @@
         <i v-show="isCollect" class="rsiconfont rsicon-shoucangfill"></i>
         <span>收藏</span>
       </div> -->
-      <div class="storeCall">
+      <div class="storeCall" @click="openService">
         <i class="rsiconfont rsicon-dianhua"></i>
         <span>联系卖家</span>
       </div>
     </footer>
+    <section class="popup-center" v-show="serviceShow">
+      <div class="explain">
+        <h3>联系客服</h3>
+        <div class="con">
+          <h4>
+            <i class="rsiconfont rsicon-dianhuahover"></i>客服电话:</h4>
+          <p v-for="(item,index) in storeInfo.customerServices" :key="index">{{item.name}}：
+            <b>{{item.mobile}}</b>
+          </p>
+        </div>
+        <div class="closeBtn" @click="closeService">知道了</div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -104,6 +117,7 @@ export default {
         isOtherShow: false,
         otherIconClass: "rsicon-gengduo"
       },
+      serviceShow: false,
       defaultTab: "index",
       isCollect: false,
       storeTopBg: 'static/images/storeTopBg.png',
@@ -131,7 +145,7 @@ export default {
       }
       getShop(parasmShop).then(result => {
         this.storeInfo = result.data
-        console.log(result,'店铺信息')
+        console.log(result, '店铺信息')
         const parasmGroupsList = {
           shopId: this.$route.query.id,
           lat: this.storeInfo.lat,
@@ -139,7 +153,7 @@ export default {
         }
         getGroupsList(parasmGroupsList).then(result => {
           this.storeGroupList = result.data.records
-          console.log(result,'店铺拼团信息')
+          console.log(result, '店铺拼团信息')
         })
 
         const parasmGoodsList = {
@@ -149,8 +163,8 @@ export default {
         }
         getGoodsList(parasmGoodsList).then(result => {
           this.storeGoodsList = result.data.records
-          console.log(result,'店铺商品列表信息')
-        })        
+          console.log(result, '店铺商品列表信息')
+        })
       })
 
       const parasmShopClassList = {
@@ -158,25 +172,25 @@ export default {
         parentId: 0
       }
       getShopClassList(parasmShopClassList).then(result => {
-        this.storeClassify = result.data.records        
+        this.storeClassify = result.data.records
         // this.storeChildClassify = result.data.records
-        console.log(result.data.records,'店铺分类信息')
+        console.log(result.data.records, '店铺分类信息')
       })
     },
-    getChildClassify(parentId){
+    getChildClassify(parentId) {
       const params = {
         shopId: this.storeInfo.id,
-        parentId:parentId
+        parentId: parentId
       }
       getShopClassList(params).then(result => {
-        console.log(result,'result')      
+        console.log(result, 'result')
         this.storeChildClassify = result.data.records
-        console.log(result.data.records,'店铺子分类信息')
+        console.log(result.data.records, '店铺子分类信息')
       })
     },
-    changeClass(shopId,id,parentId) {
-      console.log(parentId,'parentId')
-      const query = { 
+    changeClass(shopId, id, parentId) {
+      console.log(parentId, 'parentId')
+      const query = {
         shopId: shopId,
         shopClassifyId: id,
         lat: this.storeInfo.lat,
@@ -184,23 +198,23 @@ export default {
         //,parentId: parentId
       }
       const that = this
-      if(parentId===undefined&&id){
+      if (parentId === undefined && id) {
         const params = {
           shopId: this.storeInfo.id,
-          parentId:id
+          parentId: id
         }
         getShopClassList(params).then(result => {
-          console.log(result,'result')
-          if(result.code === 200 && result.data.total>0){
+          console.log(result, 'result')
+          if (result.code === 200 && result.data.total > 0) {
             that.storeChildClassify = result.data.records
-          }else{
+          } else {
             that.storeChildClassify = []
-            that.$router.push({ path: '/seach', query:query })
+            that.$router.push({ path: '/seach', query: query })
           }
         })
-      }else{
+      } else {
         that.storeChildClassify = []
-        that.$router.push({ path: '/seach', query:query })
+        that.$router.push({ path: '/seach', query: query })
       }
     },
     storeCollect() {
@@ -219,6 +233,12 @@ export default {
         });
         this.isCollect = false
       }
+    },    
+    openService() {
+      this.serviceShow = true
+    },
+    closeService() {
+      this.serviceShow = false
     }
   }
 }

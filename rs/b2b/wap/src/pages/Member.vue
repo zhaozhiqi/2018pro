@@ -11,17 +11,16 @@
           </router-link>
         </div>
         <div class="memberInfo">
-          <figure><img class="memberLogo" :src="memberInfo.memberLogoImg"></figure>
-          <div class="memberInfoCon">
-            <p class="memberInfoName">{{memberInfo.memberName}}</p>
-            <!-- <p class="memberInfoStore">{{memberInfo.memberStoreName}}</p> -->
-            <p class="memberInfoRank">{{memberInfo.memberInfoRank}}</p>
-            <p class="memberInfoId">{{memberInfo.memberId}}</p>
+          <figure><img class="memberLogo" :src="userInfo.headThumb"></figure>
+          <div class="userInfoCon">
+            <p class="userInfoName">{{userInfo.name}}</p>
+            <p class="userInfoId">{{userInfo.mobile}}</p>
+            <p class="typeName">{{userInfo.typeName}}</p>
           </div>
         </div>
       </header>
       <section class="section">
-        <router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink">
+        <router-link :to="{ name: 'Order', params:{ userId: userInfo.id, orderTabActive: 'allOrder'}}" class="itemLink">
           <span class="linkName">
             <i class="rsiconfont rsicon-quanbudingdan"></i>
             <em>全部订单</em>
@@ -33,7 +32,7 @@
         </router-link>
         <div class="orderMenu">
           <nav>
-            <!-- <router-link :to="{ name: 'Order', params:{ userId: memberInfo.memberId, orderTabActive: item.type}}" class="orderMenuLink" v-for="(item, index) in orderMenuList" :key="index">
+            <!-- <router-link :to="{ name: 'Order', params:{ userId: userInfo.id, orderTabActive: item.type}}" class="orderMenuLink" v-for="(item, index) in orderMenuList" :key="index">
 							<i class="rsiconfont" :class="item.iconClass"></i>
 							<span>{{item.name}}</span>
 							<b class="line"></b>
@@ -65,7 +64,7 @@
             </router-link>
           </nav>
         </div>
-        <router-link :to="{ name: item.href, params:{ userId: memberInfo.memberId, orderTabActive: 'allOrder'}}" class="itemLink" v-for="(item, index) in memberMenuList" :key="index">
+        <router-link :to="item.path" class="itemLink" v-if="memberMenuList.length>0" v-for="(item, index) in memberMenuList" :key="index">
           <span class="linkName">
             <i class="rsiconfont rsicon-radio"></i>
             <em>{{item.name}}</em>
@@ -85,7 +84,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getOrderCount } from '@/api/m_api'
+import { getOrderCount, getUserInfo } from '@/api/m_api'
 
 import TypeGoodsList from '@/components/TypeGoodsList';
 import Footer from '@/components/Footer';
@@ -95,13 +94,13 @@ export default {
   name: 'Member',
   data() {
     return {
-      memberInfo: {
-        memberId: "0001",
-        memberName: "王XX",
-        memberInfoRank: "用户",
-        memberInfoStore: "",
-        memberStoreName: "和顺批发",
-        memberLogoImg: "static/images/memberLogo.jpg"
+      userInfo: {
+        id: "0001",
+        name: "王XX",
+        typeName: "用户",
+        mobile: "",
+        headThumb: "static/images/memberLogo.jpg",
+        type: ''
       },
       orderCountList: {
         all: 0,
@@ -110,71 +109,92 @@ export default {
         noTrue: 0,
         noEnd: 0
       },
-      memberMenuList: [],
-      proinfo: []
+      memberMenuList: []
     }
   },
   computed: {
     ...mapGetters([
-      'rank'
+      'rank',
+      'id',
+      'name',
+      'mobile',
+      'headThumb',
+      'type'
     ])
   },
   components: {
     TypeGoodsList,
     Footer
   },
-  created(){
+  created() {
     console.log(this.rank)
     this.init()
   },
-  mounted() {},
+  mounted() { },
   methods: {
     init() {
-      switch (this.rank) {
-        case 'CUSTOMER': this.memberInfo.memberInfoRank = "经销商"
-          this.memberMenuList = [
-            {
-              href: '',
-              iconClass: "rsicon-31daifukuan",
-              name: "我的拼团",
-              con: "",
-              num: 1
-            }
-          ]
-          break;
-        case 'BUSINESS': this.memberInfo.memberInfoRank = "分销商"
-          this.memberMenuList = [
-            {
-              href: '/',
-              iconClass: "rsicon-31daifukuan",
-              name: "我的客户",
-              con: "",
-              num: 1
-            }, {
-              href: 'Seach',
-              iconClass: "rsicon-31daifukuan",
-              name: "我的商品",
-              con: "",
-              num: 1
-            }, {
-              href: 'Order',
-              iconClass: "rsicon-31daifukuan",
-              name: "我的订单",
-              con: "",
-              num: 1
-            }
-          ]
-          break
-        default:
-          break
-      }
+      this.$store.dispatch('GetUserInfo').then((res) => {
+        console.log(res,'GetUserInfo')
+        this.userInfo.id = res.data.id
+        this.userInfo.name = res.data.name
+        this.userInfo.mobile = res.data.mobile
+        this.userInfo.headThumb = res.data.headThumb
+        this.userInfo.type = res.data.type
+        switch (this.userInfo.type) {
+          case 'C': this.userInfo.typeName = "消费者"
+            // this.memberMenuList = [
+            //   {
+            //     href: '',
+            //     iconClass: "rsicon-31daifukuan",
+            //     name: "我的拼团",
+            //     con: "",
+            //     num: 1,
+            //     path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
+            //   }
+            // ]
+            break
+          case 'D': this.userInfo.typeName = "经销商"
+          case 'W': this.userInfo.typeName = "批发商"
+          case 'R': this.userInfo.typeName = "零售商"
+            this.memberMenuList = [
+              //  {
+              //   href: 'Seach',
+              //   iconClass: "rsicon-31daifukuan",
+              //   name: "我的商品",
+              //   con: "",
+              //   num: 1
+              // }, 
+              {
+                href: 'Order',
+                iconClass: "rsicon-31daifukuan",
+                name: "店铺订单",
+                con: "",
+                num: 1,
+                path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
+              }
+            ]
+            break
+          default:this.userInfo.typeName = "消费者"
+            this.memberMenuList = [
+              {
+                href: 'Order',
+                iconClass: "rsicon-31daifukuan",
+                name: "我的拼团",
+                con: "",
+                num: 1,
+                path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
+              }
+            ]
+            break
+        }
+      })
       getOrderCount().then(res => {
-        if(res.code === 200){
+        if (res.code === 200) {
           this.orderCountList.noPay = res.data.unpaidCount
           this.orderCountList.noSend = res.data.notYetShippedCount
           this.orderCountList.noTrue = res.data.unconfirmedCount
           this.orderCountList.noEnd = res.data.refundingCount
-          this.orderCountList.all = parseInt(res.data.unpaidCount+res.data.notYetShippedCount+res.data.unconfirmedCount+res.data.refundingCount)
+          this.orderCountList.all = parseInt(res.data.unpaidCount + res.data.notYetShippedCount + res.data.unconfirmedCount + res.data.refundingCount)
         }
       })
     }

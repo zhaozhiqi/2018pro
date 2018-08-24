@@ -13,7 +13,7 @@
 								<span class="bable" v-show="false">{{item.title}}</span>
 								{{item.title}}</h2> 
 							<div>							
-							<span><i>¥</i>{{item.retailPrice}}</span>
+							<span><i>¥</i>{{item.retailPrice | priceFormat}}</span>
 							<span v-if="listParent === 'group'">已拼{{10}}件</span>
 							<span v-else>已有{{10}}人付款</span>
 							</div> 
@@ -34,7 +34,7 @@ export default {
     return {
       nodataObj:{
 					iconName:"rsicon-jingshi",
-					nodataMsg:"暂无信息"
+					nodataMsg:"暂无数据"
 			},
 			routerPath:'/GroupProduct'
 		}

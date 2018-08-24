@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { postShopClassifyDel, getShopClassifyList, postShopClassifySave, postShopClassifyUpdate } from '@/api/a_api'
+import { postShopClassifyDel, getShopClassifyAllList, postShopClassifySave, postShopClassifyUpdate } from '@/api/a_api'
 
 export default {
   name: 'classifyManage',
@@ -151,14 +151,14 @@ export default {
       params.page = this.listQuery.page
       params.pageSize = this.listQuery.limit
 
-      getShopClassifyList(params).then(res => {
+      getShopClassifyAllList(params).then(res => {
         console.log(res, 'res')
         const list = []
         const parentIdList = [{
-          id: null,
+          id: 0,
           label: '一级分类'
         }]
-        if (res.code === 200) {
+        if (res.code === 200 && res.data.records) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
           this.listQuery.limit = res.data.size
@@ -215,8 +215,17 @@ export default {
     handlePreview(file) {
       console.log(file)
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
+    resetForm() {
+      this.tempForm = {
+        id: '',
+        type: '',
+        label: '',
+        describe: '',
+        imgUrl: '',
+        parentId: '',
+        timestamp: new Date(),
+        fromTitle: ''
+      }
     },
     editClassify(type, row) {
       switch (type) {
@@ -254,7 +263,7 @@ export default {
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('tempForm')
+                this.resetForm()
               }
             })
           } else if (this.tempForm.type === 'edit') {
@@ -266,7 +275,7 @@ export default {
                   type: 'success'
                 })
                 this.init()
-                this.resetForm('tempForm')
+                this.resetForm()
               }
             })
           }
@@ -303,7 +312,7 @@ export default {
     },
     closeTempForm() {
       this.editClassifyVisible = false
-      this.resetForm('tempForm')
+      this.resetForm()
     }
   }
 }

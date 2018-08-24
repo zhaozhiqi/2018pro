@@ -21,7 +21,7 @@
         <p class="g-code">单位：{{productInfo.unit}}</p>
         <p class="g-price">
           <span>建议零售价：¥ </span>
-          <strong>{{productInfo.retailPrice}}</strong>
+          <strong>{{productInfo.retailPrice | priceFormat}}</strong>
           <s v-show="false">¥{{productInfo.proOldPrice}}</s>
         </p>
       </div>
@@ -94,10 +94,10 @@
           </div>
           <div class="btm-I">
             <div class="btm-III buySelf" @click="buySelf">
-              ¥{{productInfo.money}}<br/>单独购买
+              ¥{{productInfo.money | priceFormat}}<br/>单独购买
             </div>
             <div class="btm-III groupNow" @click="groupNow()" v-if="hasGroup">
-              ¥{{productInfo.shopGroupPurchase.money}}<br/>发起拼团
+              ¥{{productInfo.shopGroupPurchase.money | priceFormat}}<br/>发起拼团
             </div>
           </div>
         </nav>

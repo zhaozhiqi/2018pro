@@ -150,6 +150,7 @@ export function getGroupCaseInfo() {
  * 登录 
  * 
  * 登录
+ * 登出
 */
 
 export function login(params) {
@@ -160,11 +161,10 @@ export function login(params) {
   })
 }
 
-export function loginOut(params) {
+export function loginOut() {
   return request({
-    url: baseApi+'loginOut',
-    method: 'get',
-    params
+    url: baseApi+'logout',
+    method: 'post'
   })
 }
 
@@ -192,28 +192,71 @@ export function adminRegister(params) {
 }
 
 /**
+ * 消息相关 
+ * 
+ * 获取消息详情
+ * 获取消息列表
+*/
+
+export function getNotice(arg) {
+  const params = {
+    id:arg
+  }
+  return request({
+    url: baseApi+'notice/get',
+    method: 'get',
+    params
+  })
+}
+
+export function getNoticeList(params) {
+  return request({
+    url: baseApi+'notice/list',
+    method: 'get',
+    params
+  })
+}
+
+/**
  * 订单相关 
  * 
  * 取消订单
+ * 确认订单
  * 创建订单
  * 获取订单详情
  * 获取订单数量
  * 获取订单列表
+ * 申请退款
  * 获取店铺订单详情
  * 获取店铺订单列表
 */
 
-export function createOrder(params) {
+
+export function cancelOrder(arg) {
+  const params = {
+    orderNo : arg
+  }
   return request({
-    url: baseApi+'order/create',
+    url: baseApi+'order/cancel',
     method: 'post',
     params
   })
 }
 
-export function cancelOrder(params) {
+export function confirmedOrder(arg) {
+  const params = {
+    orderNo : arg
+  }
   return request({
-    url: baseApi+'order/cancel',
+    url: baseApi+'order/confirmed',
+    method: 'post',
+    params
+  })
+}
+
+export function createOrder(params) {
+  return request({
+    url: baseApi+'order/create',
     method: 'post',
     params
   })
@@ -238,6 +281,17 @@ export function getOrderList(params) {
   return request({
     url: baseApi+'order/list',
     method: 'get',
+    params
+  })
+}
+
+export function refundOrder(arg) {
+  const params = {
+    orderNo:arg
+  }  
+  return request({
+    url: baseApi+'order/refund',
+    method: 'post',
     params
   })
 }
@@ -296,17 +350,29 @@ export function getShopList(params) {
  * 
  * 删除收货地址
  * 获取收货地址
+ * 获取收货地址列表
  * 新增收货地址
  * 修改收货地址
 */
 
-export function delAddress(id) {
+export function delAddress(arg) {
   const params = {
-    id: id
+    id: arg
   }
   return request({
     url: baseApi+'address/del',
     method: 'post',
+    params
+  })
+}
+
+export function getAddress(arg) {
+  const params = {
+    id: arg
+  }
+  return request({
+    url: baseApi+'address/get',
+    method: 'get',
     params
   })
 }
@@ -334,3 +400,28 @@ export function updateAddress(params) {
   })
 }
 
+/**
+ * 用户信息相关
+ * 
+ * 获取用户信息
+ * 重置密码
+*/
+
+export function getUserInfo() {
+  return request({
+    url: baseApi+'user/get',
+    method: 'get'
+  })
+}
+
+export function postUserResetPassword(oldPassword,newPassword) {
+  const params = {
+    oldPassword,
+    newPassword
+  }
+  return request({
+    url: baseApi+'user/reset/password',
+    method: 'post',
+    params
+  })
+}

@@ -2,28 +2,26 @@
   <div id="pay">
     <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
     <main class="main">
-      <div class="order">
-        <div class="store">ROUWANBABY旗舰店</div>
-        <div class="con">
+      <div class="order" v-if="orderInfo!=={}">
+        <div class="store">{{orderInfo.shop.name}}</div>
+        <div class="con" v-for="(item,index) in orderInfo.goodsInfoList" :key="index">
           <div class="imgOut">
-            <img src="static/images/wap-19.png" alt="">
+            <img :src="item.displayDiagram" alt="item.title">
           </div>
           <div class="orderInfo">
-            <div class="orderName">肉完ROUWANBABY180601/180602夏天就要穿美裙娃娃款连衣裙闺蜜装</div>
-            <div class="orderType">货号：一件</div>
-            <div class="orderUnitPrice">¥29.99/件</div>
+            <div class="orderName">{{item.title}}</div>
+            <div class="orderType">{{item.unit}} {{item.specifications}}</div>
+            <div class="orderUnitPrice">¥{{item.money | priceFormat}}</div>
+            <div class="orderUnitPrice">x{{item.count}}</div>
           </div>
         </div>
         <div class="number-wrap">
           <div class="number-line">
-            <label for="number">购买数量： {{saleNum}}</label><br/>
-            <label for="number">收货地址： 浙江省杭州市滨江区百得利大厦</label>
-            <!-- <span class="J_limitTxt limit-txt"></span>
-                        <div class="number">
-                            <button class="decrease" :class="{'disabled':saleNum <= 1}" @click="editSaleNum('minu')">-</button> 
-                            <input id="number" type="number" v-model="saleNum"> 
-                            <button class="increase" :class="{'disabled':saleNum >= maxNum}" @click="editSaleNum('add')">+</button>
-                        </div> -->
+            <label for="number">创建时间： {{orderInfo.createTime}}</label><br/>
+            <label for="number">创建时间： {{orderInfo.createTime}}</label><br/>
+            <label for="number">收货人： {{orderInfo.consigneeName}}</label><br/>
+            <label for="number">收件人电话： {{orderInfo.consigneeMobile}}</label><br/>
+            <label for="number">收货地址： {{orderInfo.consigneeAddress}}</label>
           </div>
         </div>
       </div>
@@ -38,8 +36,8 @@
     <footer class="footer">
       <span>
         <i class="rsiconfont rsicon-yduidunpaishixin"></i>实付款：</span>
-      <span class="total">¥29.99</span>
-      <span class="freight">免运费</span>
+      <span class="total">¥{{orderInfo.money | priceFormat}}</span>
+      <!-- <span class="freight">免运费</span> -->
       <button class="payBtn" @click="paySend">立即支付</button>
     </footer>
   </div>
@@ -81,14 +79,11 @@ export default {
         //     isActive: false
         // }
       ],
-      orderId: null,
-      orderType: null,
-      saleNum: 1,
-      maxNum: 3,
-      userInfo: {
-        addr: {
-
-        }
+      orderInfo:{
+        shop:{
+          name:''
+        },
+        money:0
       }
     }
   },
@@ -101,17 +96,17 @@ export default {
   mounted() {
   },
   methods: {
-    init(){
+    init() {
       this.orderNo = this.$route.query.id
       const params = {
-        outTradeNo:this.orderNo
+        outTradeNo: this.orderNo
       }
       this.orderType = this.$route.query.type
       getOrder(params).then(result => {
-        console.log(result, 'result')
-        // if (result.code === 200) {
-        //   this.orderInfo = result.data
-        // }
+        console.log(result, 'getOrder')
+        if (result.code === 200&&result.data) {
+          this.orderInfo = result.data
+        }
       })
     },
     changePay(id) {
@@ -123,22 +118,6 @@ export default {
         }
       });
     },
-    // editSaleNum(flag) {
-    //   let num = 0;
-    //   if (flag == 'add') {
-    //     if (this.saleNum >= this.maxNum) {
-    //       return
-    //     }
-    //     this.saleNum++;
-    //     num = 1;
-    //   } else if (flag == 'minu') {
-    //     if (this.saleNum <= 1) {
-    //       return
-    //     }
-    //     this.saleNum--;
-    //     num = -1;
-    //   }
-    // },
     paySend() {
       let that = this;
       this.$indicator.open();

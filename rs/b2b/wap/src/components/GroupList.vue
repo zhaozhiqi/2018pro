@@ -1,5 +1,6 @@
 <template>
-  <div id="groupList"> 
+  <Nodata :nodata="nodataObj" v-if="proList.length <= 0"></Nodata>
+  <div v-else id="groupList"> 
 			<div class="groupProItem" v-for="(item, index) in proList" :key="index">
 					<div class="imgOut">
 							<img :src="item.goodsDetail.product.displayDiagram" alt="">
@@ -7,8 +8,8 @@
 					<div class="groupProInfo">
 							<div class="groupProName"><span v-show="item.bable">{{item.bable}}</span>{{item.goodsDetail.title}}</div>
 							<div class="groupProSpec">规格：{{item.goodsDetail.specifications}} 单位：{{item.goodsDetail.unit}}</div>
-							<div class="groupProJobPrice">批发价：<i>¥</i>{{item.goodsDetail.money}}</div>
-							<div class="groupProGroupPrice">拼团价：<i>¥</i>{{item.money}}</div>
+							<div class="groupProJobPrice">批发价：<i>¥</i>{{item.goodsDetail.money | priceFormat}}</div>
+							<div class="groupProGroupPrice">拼团价：<i>¥</i>{{item.money | priceFormat}}</div>
 							<div class="groupProGroupMustNum">拼团规模：{{item.count}}</div>
 							<router-link class="groupProLink"
 							:to="{path:routerPath, query: { id: item.goodsDetail.identifier }}">立即拼团</router-link>
@@ -27,8 +28,8 @@ export default {
   data() {
     return {
       nodataObj:{
-				iconName:"rsicon-jingshi",
-				nodataMsg:"暂无信息"
+        iconName:"rsicon-jingshi",
+        nodataMsg:"暂无数据"
 			},
 			routerPath:'/Product',
 		}

@@ -155,10 +155,10 @@ export default {
         console.log(res, 'res')
         const list = []
         const parentIdList = [{
-          id: null,
+          id: 0,
           label: '一级分类'
         }]
-        if (res.code === 200) {
+        if (res.code === 200 && res.data.records) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
           this.listQuery.limit = res.data.size

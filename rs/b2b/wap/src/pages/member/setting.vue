@@ -35,7 +35,7 @@ export default {
             setList:[
                 {
                     setTitle:"版本号",
-                    setCon:"V5.0",
+                    setCon:"V1.0",
                     setIconShow:false,
                     setRouter:false,
                     setLink:""                    
@@ -72,12 +72,15 @@ export default {
     },
     methods:{
         logout(){
-          // this.$store.commit('logout');
-          // if(this.$store.state.login === false ){
-          //     this.$router.push({path:'/'})
-          // }
-          Cookies.remove('WPH_USER_LOGIN')
-          this.$router.push({path:'/'})
+          this.$store.dispatch('LogOut').then(()=>{
+              this.$toast({
+                message: '已退出登录',
+                type: 'warning',
+                duration: 1000
+              })
+              Cookies.remove('WPH_USER_LOGIN')
+              this.$router.push({path:'/'})
+          })
         }
     }
 }

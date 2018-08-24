@@ -11,8 +11,8 @@ Vue.use(VueJsonp)
 // Cookies.remove('AREA_NAME')
 // Cookies.remove('DEFAULT_CITY')
 
-  getLocation()
-  //opsitionSite ()
+// getLocation()
+//opsitionSite ()
 
 export function getLocation(){
   if (navigator.geolocation){ 

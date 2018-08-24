@@ -20,6 +20,7 @@ import Treaty from '@/pages/Treaty'
 
 import Order from '@/pages/member/Order'
 import NoticeList from '@/pages/member/NoticeList'
+import NoticeDetails from '@/pages/member/NoticeDetails'
 import Address from '@/pages/member/Address'
 import EditAddress from '@/pages/member/EditAddress'
 import Setting from '@/pages/member/Setting'
@@ -277,6 +278,15 @@ export default new Router({
       meta: {
         auth:true,
         title: "消息列表"
+      }
+    },
+    {
+      path: '/NoticeDetails',
+      name: 'NoticeDetails',
+      component: NoticeDetails,
+      meta: {
+        auth:true,
+        title: "消息详情"
       }
     },
     {

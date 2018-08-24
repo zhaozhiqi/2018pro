@@ -111,9 +111,11 @@ export default {
       parasmGetGroups.sortField = this.sortObj.sortActive
       parasmGetGroups.sort = this.sortObj.sortSequence
       getGroupsList(parasmGetGroups).then(result => {
-        const data = result.data.records
-        this.proList = data
-        console.log(data, 'result')
+        if(result.code === 200 && result.data.records){          
+          const data = result.data.records
+          this.proList = data
+          console.log(data, 'result')
+        }
       })
     }
   } 

@@ -59,6 +59,7 @@ export default {
     },
     init(){
       getHome().then(result => {
+        console.log(result,'result')
         this.banner = result.data.banners
         this.prizeList = result.data.headlines        
       })
@@ -69,6 +70,7 @@ export default {
         lat: this.lat
       }
       getGoodsList(paramsGoodsList).then(result => {
+        
         this.proList = result.data.records   
       })
     }

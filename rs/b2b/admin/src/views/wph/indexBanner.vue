@@ -8,28 +8,28 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="bannerList" style="width: 100%">
-          <el-table-column label="id" width="60">
+          <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="标题" width="180">
+          <el-table-column label="标题" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.title }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="图片" width="180">
+          <el-table-column label="图片" width="180" align='center'>
             <template slot-scope="scope">
               <!-- <span style="margin-left: 10px">{{ scope.row.image }}</span> -->
               <img :src="scope.row.image" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column label="链接" width="180">
+          <el-table-column label="链接" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.link }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="更新时间" width="180">
+          <el-table-column label="更新时间" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.createTime }}</span>
             </template>
@@ -282,6 +282,7 @@ export default {
 .tableImg {
   width: 100%;
   display: block;
+  margin: 0 auto;
 }
 .tempUrlImg {
   height: 200px;

@@ -3,32 +3,32 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
-          <el-table-column label="id" width="60">
+          <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.manufacturerName')" width="180">
+          <el-table-column :label="$t('table.manufacturerName')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.manufacturerName  }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.filePath')" width="180">
+          <el-table-column :label="$t('table.filePath')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.filePath" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.productId')" width="80">
+          <el-table-column :label="$t('table.productId')" width="80" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.productId }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.userId')" width="180">
+          <el-table-column :label="$t('table.userId')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.userId }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.shopName ')" width="180">
+          <el-table-column :label="$t('table.shopName ')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.shop.name }}</span>
             </template>
@@ -49,7 +49,7 @@
           @current-change="handleCurrentChange" 
           :current-page="listQuery.page" 
           :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.limit" 
+          :page-size="listQuery.pageSize" 
           layout="total, sizes, prev, pager, next, jumper" 
           :total="total">
           </el-pagination>
@@ -151,10 +151,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        pageSize: 20,
+        keyword: null,
+        title: null,
+        type: null,
+        sort: null,
+        startTime: null,
+        endTime: null
       },
       auditFormVisible: false,
       tempForm: {
@@ -218,13 +221,13 @@ export default {
     getList() {
       const params = {}
       params.page = this.listQuery.page
-      params.pageSize = this.listQuery.limit
+      params.pageSize = this.listQuery.pageSize
       getAuthorizeInfoAllList(params).then(res => {
         console.log(res, 'res')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
-          this.listQuery.limit = res.data.size
+          this.listQuery.pageSize = res.data.size
           this.list = res.data.records
         }
       })
@@ -235,7 +238,7 @@ export default {
     },
     handleSizeChange(val) {
       console.log(val, 'val')
-      this.listQuery.limit = val
+      this.listQuery.pageSize = val
       this.getList()
     },
     handleCurrentChange(val) {
@@ -340,11 +343,12 @@ export default {
 .formImg {
   height: 100px;
   display: block;
+  margin: 0 auto;
 }
 .filePathImg,.productSetails >>> .detailImg{
   display: block;
   width: 100%;
-  margin-bottom: 10px;
+  margin:0 auto 10px;
 }
 .tempUrlImg {
   height: 200px;

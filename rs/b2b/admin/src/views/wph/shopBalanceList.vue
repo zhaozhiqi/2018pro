@@ -1,5 +1,11 @@
 <template>
   <div class="app-container">
+    <el-row style="marginBottom:20px">
+      <el-col :span="24">
+        店铺名称：<el-input v-model="listQuery.keyword" style="width:120px"></el-input>
+        <el-button type="primary" @click="getList()">搜索</el-button>
+      </el-col>
+    </el-row>
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
@@ -51,7 +57,7 @@
           @current-change="handleCurrentChange" 
           :current-page="listQuery.page" 
           :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.limit" 
+          :page-size="listQuery.pageSize" 
           layout="total, sizes, prev, pager, next, jumper" 
           :total="total">
           </el-pagination>
@@ -95,7 +101,7 @@
         @current-change="handleCurrentChange" 
         :current-page="dialogListQuery.page" 
         :page-sizes="[10,20,30, 50]" 
-        :page-size="dialogListQuery.limit" 
+        :page-size="dialogListQuery.pageSize" 
         layout="total, sizes, prev, pager, next, jumper" 
         :total="dialogTotal">
         </el-pagination>
@@ -126,10 +132,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        pageSize: 20,
+        keyword: null,
+        title: null,
+        type: null,
+        sort: null,
+        startTime: null,
+        endTime: null
       },
       dialogTitle: null,
       dialogList: null,
@@ -137,10 +146,13 @@ export default {
       dialogType: null,
       dialogListQuery: {
         page: 1,
-        limit: 20,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        pageSize: 20,
+        keyword: null,
+        title: null,
+        type: null,
+        sort: null,
+        startTime: null,
+        endTime: null
       },
       dialogVisible: false,
       tempForm: {
@@ -193,15 +205,13 @@ export default {
       this.getList()
     },
     getList() {
-      const params = {}
-      params.page = this.listQuery.page
-      params.pageSize = this.listQuery.limit
+      const params = JSON.parse(JSON.stringify(this.listQuery))
       getUserBalanceList(params).then(res => {
         // console.log(res, 'getUserBalanceList')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
-          this.listQuery.limit = res.data.size
+          this.listQuery.pageSize = res.data.size
           this.list = res.data.records
         }
       })
@@ -209,7 +219,7 @@ export default {
     getDialogList() {
       const params = {}
       params.page = this.dialogListQuery.page
-      params.pageSize = this.dialogListQuery.limit
+      params.pageSize = this.dialogListQuery.pageSize
       params.shopId = this.dialogListQuery.shopId
       // console.log(params, 'params')
       if (this.dialogType === 'deductions') {
@@ -219,7 +229,7 @@ export default {
           if (res.code === 200) {
             this.dialogTotal = res.data.total
             this.dialogListQuery.page = res.data.current
-            this.dialogListQuery.limit = res.data.size
+            this.dialogListQuery.pageSize = res.data.size
             this.dialogList = res.data.records
             this.dialogVisible = true
           }
@@ -231,7 +241,7 @@ export default {
           if (res.code === 200) {
             this.dialogTotal = res.data.total
             this.dialogListQuery.page = res.data.current
-            this.dialogListQuery.limit = res.data.size
+            this.dialogListQuery.pageSize = res.data.size
             this.dialogVisible = true
           }
         })
@@ -242,8 +252,7 @@ export default {
       this.getList()
     },
     handleSizeChange(val) {
-      console.log(val, 'val')
-      this.listQuery.limit = val
+      this.listQuery.pageSize = val
       this.getList()
     },
     handleCurrentChange(val) {
@@ -251,7 +260,7 @@ export default {
       this.getList()
     },
     handleDialogSizeChange(val) {
-      this.DialogListQuery.limit = val
+      this.DialogListQuery.pageSize = val
       this.getDialogList()
     },
     handleDialogCurrentChange(val) {
@@ -261,7 +270,7 @@ export default {
     seeAbout(index, row, type) {
       this.dialogListQuery = {
         page: 1,
-        limit: 20,
+        pageSize: 20,
         title: undefined,
         type: undefined,
         sort: '+id',
@@ -283,11 +292,12 @@ export default {
 .formImg {
   height: 100px;
   display: block;
+  margin: 0 auto;
 }
 .filePathImg,.productSetails >>> .detailImg{
   display: block;
   width: 100%;
-  margin-bottom: 10px;
+  margin:0 auto 10px;
 }
 .tempUrlImg {
   height: 200px;

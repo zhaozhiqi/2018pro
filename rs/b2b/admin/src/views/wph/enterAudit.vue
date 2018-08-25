@@ -3,17 +3,17 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
-          <el-table-column label="id" width="60">
+          <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.corporateLogo')" width="180">
+          <el-table-column :label="$t('table.corporateLogo')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.corporateLogo" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.corporateName')" width="180">
+          <el-table-column :label="$t('table.corporateName')" width="180" align='center'>
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
                 <p>公司地址: {{ scope.row.corporateAddress }}</p>
@@ -41,17 +41,17 @@
               <span>{{ scope.row.mobile }}</span>
             </template>
           </el-table-column> -->
-          <el-table-column :label="$t('table.corporateType')" width="180">
+          <el-table-column :label="$t('table.corporateType')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.type | typeFilter }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.filePath')" width="180">
+          <el-table-column :label="$t('table.filePath')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.filePath" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.auditStatus')" width="180">
+          <el-table-column :label="$t('table.auditStatus')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.status }}</span>
             </template>
@@ -67,6 +67,7 @@
               <el-button size="mini" type="primary" @click="handleAudit(scope.$index, scope.row)" v-if="scope.row.status === 1000">审核</el-button>
               <el-button size="mini" type="success" v-if="scope.row.status === 2000">已通过</el-button>
               <el-button size="mini" type="warning" v-if="scope.row.status === 1001">已拒绝</el-button>
+              <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -77,7 +78,7 @@
           @current-change="handleCurrentChange" 
           :current-page="listQuery.page" 
           :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.limit" 
+          :page-size="listQuery.pageSize" 
           layout="total, sizes, prev, pager, next, jumper" 
           :total="total">
           </el-pagination>
@@ -113,19 +114,19 @@
         <el-form-item :label="$t('table.filePath')">
           <img :src="tempForm.filePath" class="filePathImg" />
         </el-form-item>
-        <el-form-item :label="$t('table.audit')">
+        <el-form-item :label="$t('table.audit')" v-if="tempForm.isOperate">
           <el-radio-group v-model="tempForm.status" prop="status">
             <el-radio label="2000">通过</el-radio>
             <el-radio label="1001">不通过</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="$t('table.auditFailMsg')" v-if="tempForm.status==='1001'" prop="failMsg">
+        <el-form-item :label="$t('table.auditFailMsg')" v-if="tempForm.status==='1001' && tempForm.isOperate" prop="failMsg">
           <el-input type="textarea" v-model="tempForm.failMsg"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeTempForm()">取 消</el-button>
-        <el-button type="primary" @click="saveAudit('tempForm')">确 定</el-button>
+        <el-button type="primary" @click="saveAudit('tempForm')" v-if="tempForm.isOperate">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -154,10 +155,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        pageSize: 20,
+        keyword: null,
+        title: null,
+        type: null,
+        sort: null,
+        startTime: null,
+        endTime: null
       },
       auditFormVisible: false,
       tempForm: {
@@ -203,13 +207,13 @@ export default {
     getList() {
       const params = {}
       params.page = this.listQuery.page
-      params.pageSize = this.listQuery.limit
+      params.pageSize = this.listQuery.pageSize
       getBusinessEnterAuditList(params).then(res => {
         console.log(res, 'res')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
-          this.listQuery.limit = res.data.size
+          this.listQuery.pageSize = res.data.size
           this.list = res.data.records
         }
       })
@@ -220,7 +224,7 @@ export default {
     },
     handleSizeChange(val) {
       console.log(val, 'val')
-      this.listQuery.limit = val
+      this.listQuery.pageSize = val
       this.getList()
     },
     handleCurrentChange(val) {
@@ -240,8 +244,12 @@ export default {
         corporateLogo: '',
         createTime: '',
         mobile: '',
-        disabled: true
+        disabled: true,
+        isOperate: true
       }
+    },
+    seeAbout(index, row) {
+      this.handleAudit(index, row, true)
     },
     saveAudit(formName) {
       this.$refs[formName].validate((valid) => {
@@ -274,7 +282,14 @@ export default {
         }
       })
     },
-    handleAudit(index, row) {
+    handleAudit(index, row, onlyLook) {
+      if (onlyLook === true) {
+        this.tempForm.isOperate = false
+        this.tempForm.fromTitle = '查看详情'
+      } else {
+        this.tempForm.isOperate = true
+        this.tempForm.fromTitle = '审核'
+      }
       this.auditFormVisible = true
       for (const item in row) {
         if (item !== 'status') {
@@ -295,10 +310,12 @@ export default {
 .formImg {
   height: 100px;
   display: block;
+  margin: 0 auto;
 }
 .filePathImg{
   display: block;
-  width: 100%
+  width: 100%;
+  margin: 0 auto;
 }
 .tempUrlImg {
   height: 200px;

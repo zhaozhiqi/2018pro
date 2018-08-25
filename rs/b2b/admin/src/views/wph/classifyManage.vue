@@ -8,27 +8,27 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="classifyList" style="width: 100%">
-          <el-table-column label="id" width="60">
+          <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.label')" width="180">
+          <el-table-column :label="$t('table.label')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.label }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.image')" width="180">
+          <el-table-column :label="$t('table.image')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.image" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.describe')" width="180">
+          <el-table-column :label="$t('table.describe')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.describe }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.parentId')" width="180">
+          <el-table-column :label="$t('table.parentId')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.parentId }}</span>
             </template>
@@ -47,7 +47,7 @@
           @current-change="handleCurrentChange" 
           :current-page="listQuery.page" 
           :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.limit" 
+          :page-size="listQuery.pageSize" 
           layout="total, sizes, prev, pager, next, jumper" 
           :total="total">
           </el-pagination>
@@ -100,10 +100,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        pageSize: 20,
+        keyword: null,
+        title: null,
+        type: null,
+        sort: null,
+        startTime: null,
+        endTime: null
       },
       dialogTableVisible: false,
       editClassifyVisible: false,
@@ -149,7 +152,7 @@ export default {
     getList() {
       const params = {}
       params.page = this.listQuery.page
-      params.pageSize = this.listQuery.limit
+      params.pageSize = this.listQuery.pageSize
 
       getClassifyAllList(params).then(res => {
         console.log(res, 'res')
@@ -161,7 +164,7 @@ export default {
         if (res.code === 200 && res.data.records) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
-          this.listQuery.limit = res.data.size
+          this.listQuery.pageSize = res.data.size
           for (const parent of res.data.records) {
             const parantItem = {
               id: parent.id,
@@ -196,7 +199,7 @@ export default {
       this.getList()
     },
     handleSizeChange(val) {
-      this.listQuery.limit = val
+      this.listQuery.pageSize = val
       this.getList()
     },
     handleCurrentChange(val) {
@@ -313,6 +316,7 @@ export default {
 .tableImg {
   width: 100%;
   display: block;
+  margin: 0 auto;
 }
 .tempUrlImg {
   height: 200px;

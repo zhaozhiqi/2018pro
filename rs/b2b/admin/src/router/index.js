@@ -240,7 +240,8 @@ export const asyncRouterMap = [
       roles: ['ADMIN']
     },
     children: [
-      { path: 'aSpotCatSetting', name: 'aSpotCatSetting', component: () => import('@/views/wph/aSpotCatSetting'), meta: { title: '扣点比例设置' }}
+      { path: 'aSpotCatSetting', name: 'aSpotCatSetting', component: () => import('@/views/wph/aSpotCatSetting'), meta: { title: '扣点比例设置' }},
+      { path: 'shopBalanceList', name: 'shopBalanceList', component: () => import('@/views/wph/shopBalanceList'), meta: { title: '商家余额列表' }}
     ]
   },
   {

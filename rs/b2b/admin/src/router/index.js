@@ -321,6 +321,20 @@ export const asyncRouterMap = [
   {
     path: '/shop',
     component: Layout,
+    redirect: '/shop/goodsManage',
+    name: 'goodsManage',
+    meta: {
+      title: '商品管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'goodsManage', name: 'goodsManage', component: () => import('@/views/shop/goodsManage'), meta: { title: '商品管理' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
     redirect: '/shop/shopBanner',
     name: 'shopBanner',
     meta: {

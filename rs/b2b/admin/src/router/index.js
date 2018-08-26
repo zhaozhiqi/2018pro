@@ -272,6 +272,52 @@ export const asyncRouterMap = [
       { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核' }}
     ]
   },
+  // 商家后台
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/productAuthorizeList',
+    name: 'productAuthorizeList',
+    meta: {
+      title: '产品管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR']
+    },
+    children: [
+      { path: 'productAuthorizeList', name: 'productAuthorizeList', component: () => import('@/views/shop/productAuthorizeList'), meta: { title: '产品授权列表' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/productAddSave',
+    name: 'productAddSave',
+    hidden: true,
+    meta: {
+      title: '产品管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR']
+    },
+    children: [
+      { path: 'productAddSave', name: 'productAddSave', component: () => import('@/views/shop/productAddSave'), meta: { title: '新增产品' }},
+      { path: 'productAuthorizeAddSave', name: 'productAuthorizeAddSave', component: () => import('@/views/shop/productAuthorizeAddSave'), meta: { title: '产品授权列表' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/productAddSave',
+    name: 'productAddSave',
+    hidden: true,
+    meta: {
+      title: '产品管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR']
+    },
+    children: [
+      { path: 'productAddSave', name: 'productAddSave', component: () => import('@/views/shop/productAddSave'), meta: { title: '产品授权信息提交' }}
+    ]
+  },
   {
     path: '/shop',
     component: Layout,
@@ -285,6 +331,36 @@ export const asyncRouterMap = [
     children: [
       { path: 'shopBanner', name: 'shopBanner', component: () => import('@/views/shop/shopBanner'), meta: { title: '店铺轮播图管理' }},
       { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/shop/classifyManage'), meta: { title: '店铺分类管理' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/shopBalance',
+    name: 'shopBalance',
+    meta: {
+      title: '扣点余额管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'shopBalance', name: 'shopBalance', component: () => import('@/views/shop/shopBalance'), meta: { title: '余额' }},
+      { path: 'shopDeductionsRecord', name: 'shopDeductionsRecord', component: () => import('@/views/shop/shopDeductionsRecord'), meta: { title: '扣点记录' }},
+      { path: 'shopRechargeRecord', name: 'shopRechargeRecord', component: () => import('@/views/shop/shopRechargeRecord'), meta: { title: '充值记录' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/orderManage',
+    name: 'orderManage',
+    meta: {
+      title: '扣点余额管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'orderManage', name: 'orderManage', component: () => import('@/views/shop/orderManage'), meta: { title: '订单管理' }}
     ]
   },
   {

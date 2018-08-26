@@ -3,7 +3,7 @@
     <el-button icon='el-icon-upload' size="mini" :style="{background:color,borderColor:color}" @click=" dialogVisible=true" type="primary">上传图片
     </el-button>
     <el-dialog append-to-body :visible.sync="dialogVisible">
-      <el-upload class="editor-slide-upload" action="https://httpbin.org/post" :multiple="true" :file-list="fileList" :show-file-list="true"
+      <el-upload class="editor-slide-upload" action="http://demo.lbsrj.cn/c-api/image/upload" :multiple="multiple" :limit="limit" :file-list="fileList" :show-file-list="true"
         list-type="picture-card" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUpload">
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
@@ -22,6 +22,13 @@ export default {
     color: {
       type: String,
       default: '#1890ff'
+    },
+    multiple: {
+      type: Boolean,
+      default: true
+    },
+    limit: {
+      type: Number
     }
   },
   data() {
@@ -47,12 +54,13 @@ export default {
       this.fileList = []
       this.dialogVisible = false
     },
-    handleSuccess(response, file) {
+    handleSuccess(response, file, fileList) {
+      console.log(response, file, fileList)
       const uid = file.uid
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file
+          this.listObj[objKeyArr[i]].url = response.data
           this.listObj[objKeyArr[i]].hasSuccess = true
           return
         }
@@ -73,6 +81,7 @@ export default {
       const _URL = window.URL || window.webkitURL
       const fileName = file.uid
       this.listObj[fileName] = {}
+
       return new Promise((resolve, reject) => {
         const img = new Image()
         img.src = _URL.createObjectURL(file)

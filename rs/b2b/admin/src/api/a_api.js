@@ -388,7 +388,7 @@ export function getProductList(params) {
 
 export function postProductSave(params) {
   return request({
-    url: baseApi + 'product/asve',
+    url: baseApi + 'product/save',
     method: 'post',
     params
   })

@@ -506,6 +506,7 @@ export function postSetOrderDeductionsRatio(arg) {
  * 更新客服信息
  * 获取店铺详情
  * 获取店铺列表
+ * 获取店铺产品列表
  * 获取店铺可销售区域列表
  *
 */
@@ -644,6 +645,14 @@ export function getShopList(params) {
   })
 }
 
+export function getShopProductList(params) {
+  return request({
+    url: baseApi + 'shop/product/list',
+    method: 'get',
+    params
+  })
+}
+
 export function getShopSalesAreaList() {
   return request({
     url: baseApi + 'shop/salesArea/list',
@@ -658,7 +667,7 @@ export function getShopSalesAreaList() {
  * 更新店铺拼团上线状态
  * 根据拼团ID获取具体拼团实例列表
  * 获取店铺拼团信息
- * 店铺拼团列表
+ * 获取店铺拼团列表
  * 创建店铺拼团信息
 */
 

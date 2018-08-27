@@ -1,5 +1,28 @@
 <template>
   <div class="app-container">
+    <el-row style="marginBottom:20px">
+      <el-col :span="24">
+        <el-form :inline="true" class="demo-form-inline">
+          <el-form-item>
+            <el-button type="primary" @click="openAddGoodFrom()">新增</el-button>
+          </el-form-item>
+          <el-form-item :label="$t('table.keyWord')" >
+            <el-input v-model="listQuery.keyword" placeholder="关键词"></el-input>
+          </el-form-item>
+          <el-form-item label="上架状态">
+            <el-select v-model="listQuery.shelfState" placeholder="上架状态">
+              <el-option label="未选择" value=""></el-option>
+              <el-option label="上架" value="1"></el-option>
+              <el-option label="下架" value="0"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="getList()">查询</el-button>
+          </el-form-item>
+        </el-form>        
+      </el-col>
+    </el-row>
+
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
@@ -49,28 +72,41 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
-              <el-button size="mini" type="primary" @click="handleAudit(scope.$index, scope.row, false)">修改信息</el-button>
+              <el-button size="mini" type="primary" @click="handleUpdate(scope.$index, scope.row, false)">修改信息</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除商品</el-button>
             </template>
           </el-table-column>
         </el-table>
         <div class="pagination-container">
-          <el-pagination 
-          background 
-          @size-change="handleSizeChange" 
-          @current-change="handleCurrentChange" 
-          :current-page="listQuery.page" 
-          :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.pageSize" 
-          layout="total, sizes, prev, pager, next, jumper" 
-          :total="total">
+          <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </el-col>
     </el-row>
 
+
+    <!-- 新增商品类型选择弹窗 dialog -->
+    <el-dialog title="新增商品" :visible.sync="addChangeDialog" width="500px">
+      <el-form :model="addChangeFrom" ref="addChangeFrom" :rules="rules">
+        <el-form-item label="选择产品" prop="productId">
+          <el-select v-model="addChangeFrom.productId" placeholder="选择产品">
+            <el-option
+              v-for="(item, index) in productList"
+              :key="index"
+              :label="item.product.name"
+              :value="item.product.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeAddGoodFrom()">关 闭</el-button>
+        <el-button type="primary" @click="queryProductId('addChangeFrom')">确 定</el-button>
+      </div>
+    </el-dialog>
     <!-- Form -->
     <el-dialog :title="tempForm.fromTitle" :visible.sync="formVisible" width="70%" v-if="tempForm">
-      <el-form :model="tempForm" ref="tempForm" :rules="rules" label-width="100px">
+      <el-form :model="tempForm" ref="tempForm" :rules="rules" label-width="200px">
         <el-form-item :label="$t('table.displayDiagram')">
           <img :src="tempForm.product.displayDiagram" class="formImg" />
         </el-form-item>
@@ -78,11 +114,17 @@
           <span>{{tempForm.id}}</span>
           <!-- <el-input v-model="tempForm.id" :disabled="tempForm.disabled"></el-input> -->
         </el-form-item>
+        <el-form-item :label="$t('table.batchNumbersAdd')" v-if="isDistributor">
+          <el-input v-model="tempForm.batchNumber" class="defaultInput"></el-input>
+        </el-form-item>
         <el-form-item :label="$t('table.goodTitle')" prop="title">
           <el-input v-model="tempForm.title" :disabled="tempForm.disabled" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.code')" prop="code">
           <el-input v-model="tempForm.code" :disabled="tempForm.disabled" class="defaultInput"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('table.goodSummary')" prop="code">
+          <el-input v-model="tempForm.summary" :disabled="tempForm.disabled" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.goodMoney')" prop="money">
           <el-input type="number" v-model.number="tempForm.money" :disabled="tempForm.disabled" class="defaultInput"></el-input>
@@ -123,7 +165,7 @@
           <el-input v-model="tempForm.image" class="defaultInput" :disabled="true" style="marginTop:10px" placeholder="请点击上传产品主图" v-show="!tempForm.disabled"></el-input><br/>
           <img :src="item" class="formArrImg" v-for="(item,index) in tempForm.images" :key="index" />
         </el-form-item> -->
-        <div class="editor-container" v-if="!tempForm.disabled">
+        <!-- <div class="editor-container" v-if="!tempForm.disabled">
           <el-form-item :label="$t('table.proDetail')" prop="summary">
             <el-input v-model="tempForm.summary" class="defaultInput" :disabled="true" placeholder="请在下方图文编辑器中编辑产品详情"></el-input><br/>
           </el-form-item>
@@ -131,7 +173,7 @@
         </div>
         <el-form-item :label="$t('table.detail')" prop="detail" v-else>
           <div class="productSetails" v-html="tempForm.product.detail"></div>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeTempForm()">关 闭</el-button>
@@ -142,7 +184,8 @@
 </template>
 
 <script>
-import { getStoreGoodsList, getShopClassifyAllList, postBatchUpdata } from '@/api/a_api'
+import { getStoreGoodsList, getShopClassifyAllList, getShopProductList, postBatchUpdata, postBatchDel } from '@/api/a_api'
+import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
 
@@ -171,6 +214,7 @@ export default {
     return {
       list: null,
       classifyList: null,
+      productList: null,
       total: null,
       listLoading: true,
       listQuery: {
@@ -181,9 +225,14 @@ export default {
         type: null,
         sort: null,
         startTime: null,
-        endTime: null
+        endTime: null,
+        shelfState: null
       },
       formVisible: false,
+      addChangeDialog: false,
+      addChangeFrom: {
+        productId: null
+      },
       tempForm: {
         id: '',
         title: '',
@@ -194,8 +243,10 @@ export default {
         money: null,
         retailPrice: null,
         unit: null,
-        shelfState: '',
+        shelfState: null,
         disabled: true,
+        batchNumber: '',
+        batchNumbers: [],
         product: {
           displayDiagram: ''
         },
@@ -240,6 +291,12 @@ export default {
         ],
         classifySet: [
           { required: true, message: '请选择分类', trigger: 'blur' }
+        ],
+        batchNumber: [
+          { required: true, message: '请选择填写商品批号', trigger: 'blur' }
+        ],
+        productId: [
+          { required: true, message: '请选择产品后新增商品', trigger: 'blur' }
         ]
       },
       shopInfo: null,
@@ -247,8 +304,14 @@ export default {
         label: 'label',
         value: 'id',
         children: 'children'
-      }
+      },
+      isDistributor: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'roles'
+    ])
   },
   components: {
     Tinymce,
@@ -269,15 +332,18 @@ export default {
   },
   methods: {
     init() {
+      // this.$router.push({ name: 'goodAddSave' })
       this.getList()
       this.getClassifyList()
+      this.getProductList()
+      this.roles[0] === 'DISTRIBUTOR' ? this.isDistributor = true : this.isDistributor = false
     },
     getList() {
       const params = {}
       params.page = this.listQuery.page
       params.pageSize = this.listQuery.pageSize
       getStoreGoodsList(params).then(res => {
-        console.log(res, 'getStoreGoodsList')
+        // console.log(res, 'getStoreGoodsList')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
@@ -297,12 +363,24 @@ export default {
         }
       })
     },
+    getProductList() {
+      const params = {
+        page: 1,
+        pageSize: 1000
+      }
+      getShopProductList(params).then(res => {
+        // console.log(res, 'getShopProductList')
+        if (res.code === 200) {
+          this.productList = res.data.records
+        }
+      })
+    },
     handleFilter() {
       this.listQuery.page = 1
       this.getList()
     },
     handleSizeChange(val) {
-      console.log(val, 'val')
+      // console.log(val, 'val')
       this.listQuery.pageSize = val
       this.getList()
     },
@@ -311,7 +389,7 @@ export default {
       this.getList()
     },
     handleItemChange(val) {
-      console.log('active item:', val)
+      // console.log('active item:', val)
     },
     resetForm() {
       this.tempForm = {
@@ -320,46 +398,61 @@ export default {
         summary: '',
         code: '',
         createTime: '',
+        oldStock: null,
         stock: null,
         money: null,
         retailPrice: null,
         unit: null,
         shelfState: '',
         disabled: true,
+        product: {
+          displayDiagram: ''
+        },
+        classify: {
+          label: ''
+        },
         isOperate: true
       }
     },
     seeAbout(index, row) {
-      this.handleAudit(index, row, true)
+      this.handleUpdate(index, row, true)
     },
     update(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const params = new URLSearchParams()
-          params.ids = [this.tempForm.id]
-          params.title = this.tempForm.title
-          params.code = this.tempForm.code
-          params.stock = this.tempForm.stock
-          params.money = this.tempForm.money
-          params.retailPrice = this.tempForm.retailPrice
-          params.specifications = this.tempForm.specifications
-          params.unit = this.tempForm.unit
-          params.summary = this.tempForm.summary
-          params.shelfState = this.tempForm.shelfState
-          console.log(params, 'params', typeof (params))
-
-          // const params = {
-          //   ids: [this.tempForm.id],
-          //   title: this.tempForm.title,
-          //   code: this.tempForm.code,
-          //   stock: this.tempForm.stock,
-          //   money: this.tempForm.money,
-          //   retailPrice: this.tempForm.retailPrice,
-          //   specifications: this.tempForm.specifications,
-          //   unit: this.tempForm.unit,
-          //   summary: this.tempForm.product.detail,
-          //   shelfState: this.tempForm.specifications
+          params.append('ids', [this.tempForm.id])
+          // if (this.tempForm.stock <= this.tempForm.oldStock) {
+          //   params.append('stock', 0)
           // }
+          if (this.tempForm.stock > this.tempForm.oldStock) {
+            params.append('stock', this.tempForm.stock)
+            if (this.isDistributor === true) {
+              if (this.tempForm.batchNumber === '') {
+                this.$message({
+                  message: '调整库存请填写批号',
+                  type: 'error'
+                })
+                return
+              }
+              if (this.tempForm.batchNumber.indexOf(',') !== -1) {
+                this.tempForm.batchNumbers = this.tempForm.batchNumber.split(',')
+              } else {
+                this.tempForm.batchNumbers = [this.tempForm.batchNumber]
+              }
+              params.append('batchNumbers', this.tempForm.batchNumbers)
+            }
+          } else {
+            params.append('stock', 0)
+          }
+          params.append('title', this.tempForm.title)
+          params.append('code', this.tempForm.code)
+          params.append('money', this.tempForm.money)
+          params.append('retailPrice', this.tempForm.retailPrice)
+          params.append('specifications', this.tempForm.specifications)
+          params.append('unit', this.tempForm.unit)
+          params.append('summary', this.tempForm.summary)
+          params.append('shelfState', this.tempForm.shelfState)
           // if (this.tempForm.classifySet.length < 2) {
           //   this.$message({
           //     message: '请选择正确的分类或请工作人员完善分类',
@@ -371,14 +464,14 @@ export default {
           // }
 
           postBatchUpdata(params).then(res => {
-            console.log(res, 'res')
+            // console.log(res, 'postBatchUpdata')
             if (res.code === 200) {
               this.$message({
                 message: '操作成功',
                 type: 'success'
               })
-              // this.init()
-              // this.closeTempForm()
+              this.init()
+              this.closeTempForm()
             }
           })
         } else {
@@ -387,7 +480,7 @@ export default {
         }
       })
     },
-    handleAudit(index, row, onlyLook) {
+    handleUpdate(index, row, onlyLook) {
       if (onlyLook === true) {
         this.tempForm.isOperate = false
         this.tempForm.disabled = true
@@ -407,12 +500,64 @@ export default {
         }
       }
       this.tempForm.classifySet = [this.tempForm.classify.parentId, this.tempForm.classifyId]
-      this.tempForm.summary = this.tempForm.product.detail
       this.tempForm.shelfState = this.tempForm.shelfState + ''
+      this.tempForm.batchNumber = this.tempForm.batchNumbers.join(',')
+      this.tempForm.oldStock = this.tempForm.stock
+    },
+    handleDelete(index, row) {
+      this.$confirm('确认删除该条数据吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // console.log(index, row, 'handleDelete')
+        const params = new URLSearchParams()
+        params.append('ids', [row.id])
+        postBatchDel(params).then(res => {
+          // console.log(res, 'postBatchDel')
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.init()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
     },
     closeTempForm() {
       this.formVisible = false
-      // this.resetForm()
+      this.resetForm()
+    },
+    openAddGoodFrom() {
+      this.addChangeDialog = true
+    },
+    closeAddGoodFrom() {
+      this.addChangeDialog = false
+    },
+    queryProductId(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // this.$confirm$confirm('已查询到该产品，是否现去提交授权信息?', '提示', {
+          //   confirmButtonText: '确定',
+          //   cancelButtonText: '取消',
+          //   type: 'warning'
+          // }).then(() => {
+          this.$router.push({ name: 'goodAddSave', params: { productId: this.addChangeFrom.productId }})
+          // }).catch(() => {
+          //   this.$message({
+          //     type: 'info',
+          //     message: '已取消'
+          //   })
+          // })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     imageSuccessCBKOnly(arr) {
       // console.log(arr, 'arr')
@@ -433,7 +578,7 @@ export default {
 .defaultInput {
   width: 400px;
 }
-.formArrImg{
+.formArrImg {
   height: 200px;
   margin: 10px;
 }
@@ -443,9 +588,10 @@ export default {
   display: block;
   margin: 0;
 }
-.filePathImg,.productSetails >>> .detailImg{
+.filePathImg,
+.productSetails >>> .detailImg {
   width: 200px;
-  margin:10px;
+  margin: 10px;
 }
 .tempUrlImg {
   height: 200px;

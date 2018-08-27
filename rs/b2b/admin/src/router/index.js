@@ -335,6 +335,50 @@ export const asyncRouterMap = [
   {
     path: '/shop',
     component: Layout,
+    redirect: '/shop/goodAddSave',
+    name: 'goodAddSave',
+    hidden: true,
+    meta: {
+      title: '商品管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'goodAddSave', name: 'goodAddSave', component: () => import('@/views/shop/goodAddSave'), meta: { title: '新增商品' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/groupManage',
+    name: 'goodsManage',
+    meta: {
+      title: '拼团管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'groupManage', name: 'groupManage', component: () => import('@/views/shop/groupManage'), meta: { title: '拼团管理' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/groupAddSave',
+    name: 'goodAddSave',
+    hidden: true,
+    meta: {
+      title: '拼团管理',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'groupAddSave', name: 'groupAddSave', component: () => import('@/views/shop/groupAddSave'), meta: { title: '新增拼团' }}
+    ]
+  },
+  {
+    path: '/shop',
+    component: Layout,
     redirect: '/shop/shopBanner',
     name: 'shopBanner',
     meta: {

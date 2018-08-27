@@ -88,6 +88,7 @@ export default {
   },
   methods: {
     init() {
+      let that = this
       this.orderType = this.$route.query.type
       console.log(this.orderType)
       if (this.orderType === 'group') {
@@ -108,13 +109,21 @@ export default {
       getAddressList().then(result => {
         // console.log(result, 'result add')
         if (result.code === 200) {
-          const addressList = result.data
-          addressList.forEach((item, index) => {
-            if (item.isDefault === 1) {
-              this.defaultAddressInfo = item
-              return
-            }
-          })
+          if(result.data){
+            const addressList = result.data
+            addressList.forEach((item, index) => {
+              if (item.isDefault === 1) {
+                this.defaultAddressInfo = item
+                return
+              }
+            })
+          }else{
+            this.$toast({
+              message: '您还没有设置收货地置,请设置收货地址',
+              type: 'warning'
+            })
+            that.$router.push({ path: '/Address' })
+          }
         }
       })
     },

@@ -19,7 +19,7 @@
           <el-form-item>
             <el-button type="primary" @click="getList()">查询</el-button>
           </el-form-item> -->
-        </el-form>        
+        </el-form>
       </el-col>
     </el-row>
     <el-row>
@@ -118,16 +118,12 @@
       <el-form :model="addChangeFrom" ref="addChangeFrom" :rules="rules">
         <el-form-item label="选择商品" prop="goodId">
           <el-select v-model="addChangeFrom.goodId" placeholder="选择商品">
-            <el-option
-              v-for="(item, index) in goodsList"
-              :key="index"
-              :label="item.title"
-              :value="item.id">
+            <el-option v-for="(item, index) in goodsList" :key="index" :label="item.labelAll" :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">        
+      <div slot="footer" class="dialog-footer">
         <el-button @click="closeAddGoodFrom()">关 闭</el-button>
         <el-button type="primary" @click="queryGoodId('addChangeFrom')">确 定</el-button>
       </div>
@@ -175,16 +171,7 @@
           <el-input type="number" v-model.number="tempForm.caseLot" :disabled="tempForm.disabled" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.authorizeTimeRange')" prop="timeRange">
-          <el-date-picker
-           :disabled="tempForm.disabled"
-            v-model="tempForm.timeRange"
-            type="datetimerange"
-            align="right"
-            @change="(value) => setTime(value,tempForm.timeRang)"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            :default-time="['00:00:00', '23:59:59']">
+          <el-date-picker :disabled="tempForm.disabled" v-model="tempForm.timeRange" type="datetimerange" align="right" @change="(value) => setTime(value,tempForm.timeRang)" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd HH:mm:ss" :default-time="['00:00:00', '23:59:59']">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="上线状态" prop="onlineState">
@@ -203,8 +190,46 @@
     </el-dialog>
 
     <!-- 拼团实例详情弹窗 -->
-    <el-dialog title="拼团实例信息" :visible.sync="groupCaseDialog">
-      <div v-if="groupCaseList.length>0">拼团实例信息{{groupCaseList.length}}</div>      
+    <el-dialog title="拼团实例信息" :visible.sync="groupCaseDialog" >
+      <div v-if="groupCaseList.length>0">
+        <el-table :data="groupCaseList" style="width: 100%">
+          <el-table-column label="id" width="60" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.id }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('table.groupHeadThumb')">
+            <template slot-scope="scope">
+              <img :src="scope.row.headThumb" class="formImg" />
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('table.shopId')" width="100" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.shopId }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="详细信息" width="180">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>开始时间: {{ scope.row.createTime }}</p>
+                <p>结束时间: {{ scope.row.endTime }}</p>
+                <p>拼团金额: {{ scope.row.endTime }}</p>
+                <p>份额: {{ scope.row.caseLot }}</p>
+                <p>拼团规模: {{ scope.row.count }}</p>
+                <p>参与人数: {{ scope.row.numberOfParticipants }}</p>
+                <p>店铺商品ID: {{ scope.row.shopGoodsId }}</p>
+                <p>店铺拼团ID: {{ scope.row.shopGroupPurchaseId }}</p>
+                <p>店铺ID: {{ scope.row.shopId }}</p>
+                <p>剩余份额: {{ scope.row.surplusCaseLot }}</p>
+                <p>用户ID: {{ scope.row.userId }}</p>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.nick }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div v-else>暂无信息</div>
       <br>
       <el-button @click="closeGroupCase()">关 闭</el-button>
@@ -375,6 +400,9 @@ export default {
         console.log(res, 'getStoreGoodsList')
         if (res.code === 200) {
           this.goodsList = res.data.records
+          this.goodsList.forEach(item => {
+            item.labelAll = item.title + '-' + item.salesArea.label
+          })
         }
       })
     },
@@ -522,7 +550,7 @@ export default {
       getShopGroupCaseList(params).then(res => {
         console.log(res, 'getShopGroupCaseList')
         if (res.code === 200 && res.data) {
-          this.groupCaseList = res.data
+          this.groupCaseList = res.data.records
         }
       }).then(() => {
         this.groupCaseDialog = true

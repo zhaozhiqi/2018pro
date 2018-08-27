@@ -19,13 +19,20 @@
           <el-form-item>
             <el-button type="primary" @click="getList()">查询</el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button type="danger" @click="multipleDelete()">批量删除</el-button>
+          </el-form-item>
         </el-form>        
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="24">
-        <el-table :data="list" style="width: 100%">
+        <el-table :data="list" style="width: 100%" @selection-change="handleSelectionChange">
+          <el-table-column
+            type="selection"
+            width="55">
+          </el-table-column>
           <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
@@ -49,22 +56,27 @@
               </el-popover>
             </template>
           </el-table-column> -->
-          <el-table-column :label="$t('table.goodTitle')" width="180" align='center'>
+          <el-table-column :label="$t('table.goodTitle')" width="160" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.title }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.code')" width="100" align='center'>
+          <el-table-column :label="$t('table.salesAreaCode')" width="100" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.salesArea.label }}</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column :label="$t('table.code')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.code }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column :label="$t('table.goodMoney')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.money }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.shelfState')" width="180" align='center'>
+          <el-table-column :label="$t('table.shelfState')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.shelfState | shelfStatusFilter }}</span>
             </template>
@@ -152,8 +164,18 @@
         <el-form-item :label="$t('table.classifyList')" v-else>
           <el-input v-model="tempForm.classify.label" :disabled="tempForm.disabled" class="defaultInput"></el-input>
         </el-form-item> -->
+        <!-- <el-form-item :label="$t('table.salesAreaCode')" prop="salesAreaCode">
+          <el-select v-model="tempForm.salesAreaCode" placeholder="店铺可销售区域" :disabled="tempForm.disabled">
+            <el-option
+              v-for="(item, index) in salesAreaList"
+              :key="index"
+              :label="item.label"
+              :value="item.code">
+            </el-option>
+          </el-select>
+        </el-form-item> -->
         <el-form-item :label="$t('table.shelfState')" prop="shelfState">
-          <el-select v-model="tempForm.shelfState" placeholder="请选择上架状态">
+          <el-select v-model="tempForm.shelfState" placeholder="请选择上架状态" :disabled="tempForm.disabled">
             <el-option label="上架" value="1"></el-option>
             <el-option label="下架" value="0"></el-option>
           </el-select>
@@ -184,7 +206,7 @@
 </template>
 
 <script>
-import { getStoreGoodsList, getShopClassifyAllList, getShopProductList, postBatchUpdata, postBatchDel } from '@/api/a_api'
+import { getStoreGoodsList, getShopClassifyAllList, getShopProductList, postBatchUpdata, postBatchDel, getShopSalesAreaList } from '@/api/a_api'
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
@@ -213,7 +235,10 @@ export default {
   data() {
     return {
       list: null,
-      classifyList: null,
+      classifyList: [],
+      salesAreaList: [],
+      multipleSelection: [],
+      multipleIdSelection: [],
       productList: null,
       total: null,
       listLoading: true,
@@ -245,8 +270,9 @@ export default {
         unit: null,
         shelfState: null,
         disabled: true,
-        batchNumber: '',
+        batchNumber: null,
         batchNumbers: [],
+        salesAreaCode: null,
         product: {
           displayDiagram: ''
         },
@@ -295,6 +321,9 @@ export default {
         batchNumber: [
           { required: true, message: '请选择填写商品批号', trigger: 'blur' }
         ],
+        salesAreaCode: [
+          { required: true, message: '请选择销售区域', trigger: 'blur' }
+        ],
         productId: [
           { required: true, message: '请选择产品后新增商品', trigger: 'blur' }
         ]
@@ -336,6 +365,7 @@ export default {
       this.getList()
       this.getClassifyList()
       this.getProductList()
+      this.getSalesAreaList()
       this.roles[0] === 'DISTRIBUTOR' ? this.isDistributor = true : this.isDistributor = false
     },
     getList() {
@@ -343,7 +373,7 @@ export default {
       params.page = this.listQuery.page
       params.pageSize = this.listQuery.pageSize
       getStoreGoodsList(params).then(res => {
-        // console.log(res, 'getStoreGoodsList')
+        console.log(res, 'getStoreGoodsList')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
@@ -375,6 +405,14 @@ export default {
         }
       })
     },
+    getSalesAreaList() {
+      getShopSalesAreaList().then(res => {
+        console.log(res, 'getShopSalesAreaList')
+        if (res.code === 200) {
+          this.salesAreaList = res.data
+        }
+      })
+    },
     handleFilter() {
       this.listQuery.page = 1
       this.getList()
@@ -387,6 +425,13 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+      this.multipleIdSelection = []
+      this.multipleSelection.forEach(item => {
+        this.multipleIdSelection.push(item.id)
+      })
     },
     handleItemChange(val) {
       // console.log('active item:', val)
@@ -453,6 +498,8 @@ export default {
           params.append('unit', this.tempForm.unit)
           params.append('summary', this.tempForm.summary)
           params.append('shelfState', this.tempForm.shelfState)
+          // params.append('salesAreaCodeList', [this.tempForm.salesAreaCode])
+
           // if (this.tempForm.classifySet.length < 2) {
           //   this.$message({
           //     message: '请选择正确的分类或请工作人员完善分类',
@@ -501,8 +548,9 @@ export default {
       }
       this.tempForm.classifySet = [this.tempForm.classify.parentId, this.tempForm.classifyId]
       this.tempForm.shelfState = this.tempForm.shelfState + ''
-      this.tempForm.batchNumber = this.tempForm.batchNumbers.join(',')
+      // this.tempForm.batchNumber = this.tempForm.batchNumbers.join(',')
       this.tempForm.oldStock = this.tempForm.stock
+      // this.tempForm.salesAreaCode = this.tempForm.salesAreaCode + ''
     },
     handleDelete(index, row) {
       this.$confirm('确认删除该条数据吗?', '提示', {
@@ -558,6 +606,37 @@ export default {
           return false
         }
       })
+    },
+    multipleDelete() {
+      if (this.multipleIdSelection.length <= 0) {
+        this.$message({
+          message: '请选择操作项',
+          type: 'error'
+        })
+        return
+      } else {
+        this.$confirm('确认删除这些数据吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const params = new URLSearchParams()
+          params.append('ids', this.multipleIdSelection)
+          postBatchDel(params).then(res => {
+          // console.log(res, 'postBatchDel-multipleIdSelection')
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.init()
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          })
+        })
+      }
     },
     imageSuccessCBKOnly(arr) {
       // console.log(arr, 'arr')

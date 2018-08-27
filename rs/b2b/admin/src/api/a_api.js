@@ -250,6 +250,19 @@ export function postHomeHeadlineUpdateSort(params) {
 }
 
 /**
+ * 快递公司相关
+ *
+ * 获取快递公司列表
+*/
+
+export function getLogisticsCompanyList() {
+  return request({
+    url: baseApi + 'logisticsCompany/list',
+    method: 'get'
+  })
+}
+
+/**
  * 订单相关
  *
  * 确认发货
@@ -260,7 +273,7 @@ export function postHomeHeadlineUpdateSort(params) {
 
 export function postOrderDelivery(params) {
   return request({
-    url: baseApi + 'order/delicery',
+    url: baseApi + 'order/delivery',
     method: 'post',
     params
   })

@@ -5,14 +5,14 @@
         <el-table :data="list" style="width: 100%">
           <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.id }}</span>
+              <span>{{ scope.row.groupPurchaseCaseId }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.displayDiagram')" width="180" align='center'>
+          <!-- <el-table-column :label="$t('table.displayDiagram')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.displayDiagram" class="tableImg" />
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- <el-table-column :label="$t('table.name')" width="180">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
@@ -26,25 +26,29 @@
               </el-popover>
             </template>
           </el-table-column> -->
-          <el-table-column :label="$t('table.name')" width="180" align='center'>
+          <el-table-column :label="$t('table.orderNo')" width="180" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.name }}</span>
+              <span>{{ scope.row.orderNo }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.code')" width="180" align='center'>
+          <el-table-column :label="$t('table.consigneeName')" width="100" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.code }}</span>
+              <span>{{ scope.row.consigneeName }}</span>
             </template>
           </el-table-column>
-          <!--
-          <el-table-column :label="$t('table.corporateCode')" width="180">
+          <el-table-column :label="$t('table.consigneeAddress')" width="180" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.corporateCode }}</span>
+              <span>{{ scope.row.consigneeAddress }}</span>
             </template>
-          </el-table-column> -->
-          <el-table-column :label="$t('table.brand ')" width="180" align='center'>
+          </el-table-column>
+          <el-table-column :label="$t('table.consigneeMobile')" width="160" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.brand }}</span>
+              <span>{{ scope.row.consigneeMobile }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('table.orderStatus')" width="100" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.status | orderStatusFilter }}</span>
             </template>
           </el-table-column>
           <!-- <el-table-column :label="$t('table.subBrand ')" width="180">
@@ -59,10 +63,9 @@
           </el-table-column> -->
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" @click="handleAudit(scope.$index, scope.row)" v-if="scope.row.status === 1000">审核</el-button>
-              <el-button size="mini" type="success" v-if="scope.row.status === 2000">已通过</el-button>
-              <el-button size="mini" type="warning" v-if="scope.row.status === 1001">已拒绝</el-button>
               <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
+              <el-button size="mini" type="primary" @click="openAddGoodFrom(scope.$index, scope.row)" v-if="scope.row.status===1002">确认发货</el-button>
+              <el-button size="mini" type="primary" @click="refundOrder(scope.$index, scope.row)" v-if="scope.row.status===1002||scope.row.status===1003||scope.row.status===2000">确认退款</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -84,83 +87,103 @@
     <!-- Form -->
     <el-dialog :title="tempForm.fromTitle" :visible.sync="auditFormVisible" width="70%">
       <el-form :model="tempForm" ref="tempForm" :rules="rules">
-        <el-form-item :label="$t('table.displayDiagram')">
+        <!-- <el-form-item :label="$t('table.displayDiagram')">
           <img :src="tempForm.displayDiagram" class="formImg" />
+        </el-form-item> -->
+        <el-form-item :label="$t('table.groupPurchaseCaseId')">
+          <span>{{tempForm.groupPurchaseCaseId}}</span>
         </el-form-item>
-        <el-form-item label="id" width="60">
-          <span>{{tempForm.id}}</span>
-          <!-- <el-input v-model="tempForm.id" :disabled="tempForm.disabled"></el-input> -->
+        <el-form-item :label="$t('table.orderNo')">
+          <span>{{tempForm.orderNo}}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.name')">
-          <span>{{tempForm.name}}</span>
+        <el-form-item :label="$t('table.consigneeName')">
+          <span>{{tempForm.consigneeName}}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.code')">
-          <span>{{tempForm.code}}</span>
+        <el-form-item :label="$t('table.consigneeAddress')">
+          <span>{{tempForm.consigneeAddress}}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.brand')">
-          <span>{{tempForm.brand}}</span>
-        </el-form-item>
-        <el-form-item :label="$t('table.subBrand')">
-          <span>{{tempForm.subBrand}}</span>
-        </el-form-item>
-        <el-form-item :label="$t('table.weight')">
-          <span>{{tempForm.weight}}</span>
-        </el-form-item>
-        <el-form-item :label="$t('table.classifyId ')" v-if="tempForm.classifyId">
-          <span>{{tempForm.classifyId }}</span>
-        </el-form-item>
-        <el-form-item :label="$t('table.submitterId')">
-          <span>{{tempForm.submitterId}}</span>
-        </el-form-item>
-        <el-form-item :label="$t('table.auditingUserId')" v-if="tempForm.auditingUserId">
-          <span>{{tempForm.auditingUserId}}</span>
+        <el-form-item :label="$t('table.consigneeMobile')">
+          <span>{{tempForm.consigneeMobile}}</span>
         </el-form-item>
         <el-form-item :label="$t('table.createTime')">
           <span>{{tempForm.createTime}}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.updateTime')" v-if="tempForm.updateTime">
-          <span>{{tempForm.updateTime}}</span>
+        <el-form-item :label="$t('table.deliveryTime')">
+          <span>{{tempForm.deliveryTime}}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.auditingTime')" v-if="tempForm.auditingTime">
-          <span>{{tempForm.auditingTime}}</span>
+        <el-form-item :label="$t('table.logisticsCompany')" v-if="tempForm.logisticsCompany.name">
+          <br/>
+          <span>物流公司：{{tempForm.logisticsCompany.name}}</span><br/>
+          <span>物流单号：{{tempForm.logisticsNo}}</span><br/>
+          <span>物流单号：{{tempForm.logisticsNo}}</span>
         </el-form-item>
-        <!-- <el-form-item :label="$t('table.status')">
-          <span>{{tempForm.status | aduitStatusFilter }}</span>
-        </el-form-item> -->
-        <el-form-item :label="$t('table.images')">
-          <img :src="item" class="filePathImg" v-for="(item,index) in tempForm.images" :key="index"/>
+        <el-form-item :label="$t('table.orderStatus')">
+          <span>{{ tempForm.status | orderStatusFilter }}</span>
         </el-form-item>
-        <el-form-item :label="$t('table.detail')">
-          <div class="productSetails" v-html="tempForm.detail"></div>
-        </el-form-item>
-        <el-form-item :label="$t('table.audit')" v-if="tempForm.isOperate">
-          <el-radio-group v-model="tempForm.status" prop="status">
-            <el-radio label="2000">通过</el-radio>
-            <el-radio label="1001">不通过</el-radio>
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item :label="$t('table.auditFailMsg')" v-if="tempForm.status==='1001' && tempForm.isOperate" prop="failMsg">
-          <el-input type="textarea" v-model="tempForm.failMsg"></el-input>
+        <el-form-item label="订单详情">
+          <br>
+          <div v-for="(item,index) in tempForm.goodsInfoList" :key="index">
+            <br/>
+            <img :src="item.displayDiagram" class="formImg" />
+            <span>商品名称：{{item.title}}</span><br/>
+            <span>商品金额：{{item.money}}</span><br/>
+            <span>商品数量：{{item.count}}</span><br/>
+          </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeTempForm()">取 消</el-button>
-        <el-button type="primary" @click="saveAudit('tempForm')" v-if="tempForm.isOperate">确 定</el-button>
+        <el-button @click="closeTempForm()">关 闭</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="确认发货" :visible.sync="orderDeliveryDialog" width="450px">
+      <el-form :model="orderDeliveryFrom" ref="orderDeliveryFrom" :rules="rules" label-width="100px">
+        <el-form-item :label="$t('table.orderNo')" width="100" align='center'>
+          <el-input v-model="orderDeliveryFrom.orderNo" style="width:200px" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('table.logisticsType')" width="100" align='center'>
+          <el-radio-group v-model="orderDeliveryFrom.logisticsType">
+            <el-radio label="0">商家配送</el-radio>
+            <el-radio label="1">物流配送</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="$t('table.logisticsId')" width="100" prop="logisticsId" align='center' v-if="orderDeliveryFrom.logisticsType==='1'">
+          <el-select v-model="orderDeliveryFrom.logisticsId" filterable placeholder="请选择">
+            <el-option
+              v-for="item in logisticsCompanyList"
+              :key="item.value"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('table.logisticsNo')" width="100" prop="logisticsNo" align='center' v-if="orderDeliveryFrom.logisticsType==='1'">
+          <el-input v-model="orderDeliveryFrom.logisticsNo" style="width:200px"></el-input>
+        </el-form-item>
+      </el-form>
+      <!-- handleOperate(scope.$index, scope.row, 'delivery') -->
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeAddGoodFrom">取 消</el-button>
+        <el-button type="primary" @click="deliveryOrder('orderDeliveryFrom')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { postProductAudit, getShopOrderList } from '@/api/a_api'
+import { getShopOrderList, postOrderDelivery, postOrderRedund, getLogisticsCompanyList } from '@/api/a_api'
 
-const auditTypeOptions = [
-  { key: '1000', display_name: '待审核' },
-  { key: '1001', display_name: '审核不通过' },
-  { key: '2000', display_name: '审核通过' }
+const orderTypeOptions = [
+  { key: 1000, display_name: '待付款' },
+  { key: 1001, display_name: '待成团' },
+  { key: 1002, display_name: '待发货' },
+  { key: 1003, display_name: '待确认' },
+  { key: 1004, display_name: '退款中' },
+  { key: 2000, display_name: '已完成' },
+  { key: 5000, display_name: '已取消' },
+  { key: 5001, display_name: '已退款' }
 ]
-const auditTypeKeyValue = auditTypeOptions.reduce((acc, cur) => {
+const orderTypeKeyValue = orderTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
   return acc
 }, {})
@@ -170,6 +193,7 @@ export default {
   data() {
     return {
       list: null,
+      logisticsCompanyList: [],
       total: null,
       listLoading: true,
       listQuery: {
@@ -184,25 +208,42 @@ export default {
         endTime: null
       },
       auditFormVisible: false,
+      orderDeliveryDialog: false,
       tempForm: {
         id: '',
-        status: '2000',
-        failMsg: '',
-        timestamp: new Date(),
-        fromTitle: '审核',
-        name: '',
-        displayDiagram: '',
-        brand: '',
-        subBrand: '',
-        weight: '',
-        code: '',
-        createTime: '',
-        auditingTime: null,
-        updateTime: null,
-        detail: null,
-        submitterId: null,
+        consigneeAddress: null,
+        consigneeMobile: null,
+        consigneeName: null,
+        createTime: null,
+        deliveryTime: null,
+        groupPurchaseCaseId: null,
+        logisticsCompanyId: null,
+        logisticsNo: null,
+        logisticsType: null,
+        money: null,
+        orderNo: null,
+        outTradeNo: null,
+        payType: null,
+        status: null,
+        userId: null,
+        shop: {},
+        logisticsCompany: {
+          name: null
+        },
+        goodsInfoList: [{
+          displayDiagram: null,
+          title: null,
+          money: null,
+          count: null
+        }],
         disabled: true,
         isOperate: true
+      },
+      orderDeliveryFrom: {
+        orderNo: null,
+        logisticsId: null,
+        logisticsNo: null,
+        logisticsType: '1'
       },
       rules: {
         status: [
@@ -211,8 +252,11 @@ export default {
         failMsg: [
           { required: true, message: '请输入不通过理由', trigger: 'blur' }
         ],
-        classifySet: [
-          { required: true, message: '请选择分类', trigger: 'blur' }
+        logisticsId: [
+          { required: true, message: '请选择物流公司', trigger: 'blur' }
+        ],
+        logisticsNo: [
+          { required: true, message: '请选择物流单号', trigger: 'blur' }
         ]
       }
     }
@@ -225,25 +269,34 @@ export default {
   mounted() {
   },
   filters: {
-    aduitStatusFilter(status) {
-      return auditTypeKeyValue[status]
+    orderStatusFilter(status) {
+      return orderTypeKeyValue[status]
     }
   },
   methods: {
     init() {
       this.getList()
+      this.getLogisticsCompanyList()
     },
     getList() {
       const params = {}
       params.page = this.listQuery.page
       params.pageSize = this.listQuery.pageSize
       getShopOrderList(params).then(res => {
-        console.log(res, 'getShopOrderList')
+        // console.log(res, 'getShopOrderList')
         if (res.code === 200) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
           this.listQuery.pageSize = res.data.size
           this.list = res.data.records
+        }
+      })
+    },
+    getLogisticsCompanyList() {
+      getLogisticsCompanyList().then(res => {
+        // console.log(res, 'getLogisticsCompanyList')
+        if (res.code === 200 && res.data) {
+          this.logisticsCompanyList = res.data
         }
       })
     },
@@ -266,64 +319,37 @@ export default {
     resetForm() {
       this.tempForm = {
         id: '',
-        status: '2000',
-        failMsg: '',
-        timestamp: new Date(),
-        fromTitle: '审核',
-        name: '',
-        displayDiagram: '',
-        brand: '',
-        subBrand: '',
-        weight: '',
-        code: '',
-        createTime: '',
-        auditingTime: null,
-        updateTime: null,
-        detail: null,
-        submitterId: null,
+        consigneeAddress: null,
+        consigneeMobile: null,
+        consigneeName: null,
+        createTime: null,
+        deliveryTime: null,
+        groupPurchaseCaseId: null,
+        logisticsCompanyId: null,
+        logisticsNo: null,
+        logisticsType: null,
+        money: null,
+        orderNo: null,
+        outTradeNo: null,
+        payType: null,
+        status: null,
+        userId: null,
+        shop: {},
+        logisticsCompany: {
+          name: null
+        },
+        goodsInfoList: [{
+          displayDiagram: null,
+          title: null,
+          money: null,
+          count: null
+        }],
         disabled: true,
         isOperate: true
       }
     },
     seeAbout(index, row) {
       this.handleAudit(index, row, true)
-    },
-    saveAudit(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          const params = {
-            status: this.tempForm.status,
-            id: this.tempForm.id
-          }
-          if (this.tempForm.status === '2000') {
-            if (this.tempForm.classifySet.length < 2) {
-              this.$message({
-                message: '请选择正确的分类或请工作人员完善分类',
-                type: 'error'
-              })
-              return false
-            } else {
-              params.classifyId = this.tempForm.classifySet[1]
-            }
-          } else if (this.tempForm.status === '1001') {
-            params.failMsg = this.tempForm.failMsg
-          }
-          postProductAudit(params).then(res => {
-            console.log(res, 'res')
-            if (res.code === 200) {
-              this.$message({
-                message: '操作成功',
-                type: 'success'
-              })
-              this.init()
-              this.closeTempForm()
-            }
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
     },
     handleAudit(index, row, onlyLook) {
       if (onlyLook === true) {
@@ -343,6 +369,70 @@ export default {
         }
       }
     },
+    openAddGoodFrom(index, row) {
+      this.orderDeliveryFrom.orderNo = row.orderNo
+      this.orderDeliveryDialog = true
+    },
+    closeAddGoodFrom() {
+      this.orderDeliveryDialog = false
+    },
+    refundOrder(index, row) {
+      // console.log(index, row)
+      this.$confirm('确认退款吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        postOrderRedund(row.orderNo).then(res => {
+          // console.log(res, 'postOrderRedund')
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+          this.init()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
+    },
+    deliveryOrder(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          const params = {
+            orderNo: this.orderDeliveryFrom.orderNo,
+            logisticsId: 0
+          }
+          if (this.orderDeliveryFrom.logisticsType === '1') {
+            params.logisticsId = this.orderDeliveryFrom.logisticsId
+            params.logisticsNo = this.orderDeliveryFrom.logisticsNo
+          }
+          console.log(params, 'params')
+          postOrderDelivery(params).then(res => {
+            // console.log(res, 'postOrderDelivery')
+            if (res.code === 200) {
+              this.$message({
+                message: '操作成功',
+                type: 'success'
+              })
+              this.orderDeliveryFrom = {
+                orderNo: null,
+                logisticsId: null,
+                logisticsNo: null,
+                logisticsType: '1'
+              }
+              this.orderDeliveryDialog = false
+              this.init()
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
     closeTempForm() {
       this.auditFormVisible = false
       this.resetForm()
@@ -352,11 +442,18 @@ export default {
 </script>
 
 <style scoped>
-.tableImg,
-.formImg {
+.defaultInput {
+  width: 400px;
+}
+.tableImg {
   height: 100px;
   display: block;
   margin: 0 auto;
+}
+.formImg {
+  height: 100px;
+  display: block;
+  margin: 0;
 }
 .filePathImg,.productSetails >>> .detailImg{
   display: block;

@@ -1,23 +1,20 @@
 <template>
   <div class="dashboard-container">
-    <el-row :gutter="100" class="lineItem">
-      <!-- <el-col :span="7"><div class="grid-content bg-purple item"><router-link to="/404"><p class="count">0</p><p class="title">1</p></router-link></div></el-col> -->
+    <!-- <el-row :gutter="100" class="lineItem">
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
     </el-row>
     <el-row :gutter="100" class="lineItem">
-      <!-- <el-col :span="7"><div class="grid-content bg-purple item"><router-link to="/404"><p class="count">0</p><p class="title">1</p></router-link></div></el-col> -->
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
     </el-row>
     <el-row :gutter="100" class="lineItem">
-      <!-- <el-col :span="7"><div class="grid-content bg-purple item"><router-link to="/404"><p class="count">0</p><p class="title">1</p></router-link></div></el-col> -->
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
       <el-col :span="7"><div class="grid-content bg-purple item"><p class="count">0</p><p class="title">1</p></div></el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 

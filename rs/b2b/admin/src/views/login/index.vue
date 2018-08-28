@@ -22,8 +22,8 @@
         </el-button>
       </el-form-item>
       <div class="tips">
-        <span style="margin-right:20px;">用户名: admin、shop、manufacturer</span><br/>
-        <span>密码: admin、shop、manufacturer</span>
+        <span style="margin-right:20px;">用户名: admin:18888888888、shop:15874125874</span><br/>
+        <span>密码: 123456</span>
       </div>
     </el-form>
   </div>

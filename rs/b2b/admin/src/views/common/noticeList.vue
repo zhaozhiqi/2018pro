@@ -5,19 +5,28 @@
         <el-table :data="list" style="width: 100%">
           <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.product.id }}</span>
+              <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.displayDiagram')" width="180" align='center'>
+          <el-table-column :label="$t('table.noticeStatus')" width="180" align='center'>
             <template slot-scope="scope">
-              <img :src="scope.row.product.displayDiagram" class="tableImg" />
+              <el-button size="mini" type="danger" v-if="scope.row.isView === 0">{{ scope.row.isView | noticeStatusFilter }}</el-button>
+              <el-button size="mini" type="success" v-else>{{ scope.row.isView | noticeStatusFilter }}</el-button>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.product')" width="180" align='center'>
+          <el-table-column :label="$t('table.noticeCon')" width="180" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.notice }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('table.createTime')" width="180" align='center'>
+            <template slot-scope="scope">
+              <span>{{ scope.row.createTime }}</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column :label="$t('table.product')" width="180" align='center'>
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <!-- <p>产品条形码: {{ scope.row.product.code }}</p>
-                <p>创建时间: {{ scope.row.product.createTime  }}</p> -->
                 <p>产品品牌: {{ scope.row.product.brand }}</p>
                 <p>产品子品牌: {{ scope.row.product.subBrand }}</p>
                 <p>产品单重: {{ scope.row.product.weight }}</p>
@@ -32,10 +41,10 @@
             <template slot-scope="scope">
               <span>{{ scope.row.product.status | noticeStatusFilter }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
+              <el-button size="mini" type="primary" @click="handleAudit(scope.$index, scope.row)">查看详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -45,16 +54,35 @@
         </div>
       </el-col>
     </el-row>
+
+    <!-- Form -->
+    <el-dialog title="查看详情" :visible.sync="formVisible" width="50%">
+      <el-form :model="tempForm" ref="tempForm">
+        <el-form-item label="id">
+          <span>{{tempForm.id}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.createTime')">
+          <span>{{tempForm.createTime}}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.noticeCon')">
+          <span>{{tempForm.notice}}</span>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeTempForm()">关 闭</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import { getShopProductList } from '@/api/a_api'
+import { getNoticeList, getNotice } from '@/api/a_api'
 import { mapGetters } from 'vuex'
 
 const noticeTypeOptions = [
-  { key: '1000', display_name: '已读' },
-  { key: '1001', display_name: '未读' }
+  { key: 0, display_name: '未读' },
+  { key: 1, display_name: '已读' }
 ]
 
 const noticeTypeKeyValue = noticeTypeOptions.reduce((acc, cur) => {
@@ -80,37 +108,9 @@ export default {
       },
       formVisible: false,
       tempForm: {
-        product: {
-          auditingTime: null,
-          auditingUserId: null,
-          brand: null,
-          code: null,
-          createTime: 0,
-          detail: null,
-          displayDiagram: null,
-          id: null,
-          image: null,
-          images: [],
-          name: null,
-          status: null,
-          subBrand: null,
-          submitterId: null,
-          weight: null
-        },
-        productAuthorizeInfo: {
-          auditingTime: null,
-          auditingUserId: null,
-          authorizeAreaCode: null,
-          authorizeEndTime: null,
-          authorizeStartTime: null,
-          createTime: null,
-          filePath: null,
-          id: null,
-          manufacturerName: null,
-          productId: null,
-          status: null,
-          userId: null
-        },
+        id: null,
+        notice: null,
+        createTime: null,
         isOperate: false
       },
       shopInfo: null,
@@ -140,14 +140,11 @@ export default {
     getList() {
       const params = {}
       params.page = this.listQuery.page
-      params.sortField = this.listQuery.sortField
+      params.pageSize = this.listQuery.pageSize
       params.keyword = this.listQuery.keyword
-      params.id = this.listQuery.id
-      params.status = this.listQuery.status
-      params.code = this.listQuery.code
-      getShopProductList(params).then(res => {
-        // console.log(res, 'getShopProductList')
-        if (res.code === 200) {
+      getNoticeList(params).then(res => {
+        console.log(res, 'getNoticeList')
+        if (res.code === 200 && res.data) {
           this.total = res.data.total
           this.listQuery.page = res.data.current
           this.listQuery.pageSize = res.data.size
@@ -170,39 +167,26 @@ export default {
     },
     resetForm() {
       this.tempForm = {
-        product: {
-          auditingTime: null,
-          auditingUserId: null,
-          brand: null,
-          code: null,
-          createTime: 0,
-          detail: null,
-          displayDiagram: null,
-          id: null,
-          image: null,
-          images: [],
-          name: null,
-          status: null,
-          subBrand: null,
-          submitterId: null,
-          weight: null
-        },
-        productAuthorizeInfo: {
-          auditingTime: null,
-          auditingUserId: null,
-          authorizeAreaCode: null,
-          authorizeEndTime: null,
-          authorizeStartTime: null,
-          createTime: null,
-          filePath: null,
-          id: null,
-          manufacturerName: null,
-          productId: null,
-          status: null,
-          userId: null
-        },
+        id: null,
+        notice: null,
+        createTime: null,
         isOperate: false
       }
+      this.init()
+    },
+    handleAudit(index, row) {
+      getNotice(row.id).then(res => {
+        console.log(res, 'getNotice')
+        if (res.code === 200) {
+          this.formVisible = true
+          this.tempForm = JSON.parse(JSON.stringify(row))
+          this.init()
+        }
+      })
+    },
+    closeTempForm() {
+      this.formVisible = false
+      this.resetForm()
     }
   }
 }

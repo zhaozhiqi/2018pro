@@ -32,7 +32,7 @@ export default {
     },
     getList() {
       getUserBalance().then(res => {
-        // console.log(res, 'getUserBalance')
+        console.log(res, 'getUserBalance')
         if (res.code === 200) {
           this.balance = res.data
         }

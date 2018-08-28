@@ -46,10 +46,10 @@ export default {
     }
     return {
       bankInfo: {
-        verifyEncBankNo: '6227000010001100236',
-        encBankNo: '6227000010001100236',
-        bankCode: 1002,
-        encTrueName: '用户甲',
+        verifyEncBankNo: null,
+        encBankNo: null,
+        bankCode: null,
+        encTrueName: null,
         createTime: null,
         updateTime: null,
         shopId: null

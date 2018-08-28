@@ -24,6 +24,15 @@ export function getImageUpload(params) {
   })
 }
 
+/* 支付相关 */
+export function postPay(params) {
+  return request({
+    url: baseApi + 'pay',
+    method: 'post',
+    params
+  })
+}
+
 /**
  * 验证码相关
  *

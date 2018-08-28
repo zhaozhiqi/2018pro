@@ -3,7 +3,6 @@
     <el-row style="marginBottom:20px">
       <el-col :span="24">
         <el-form :inline="true" class="demo-form-inline" label-width="80px">
-
           <el-form-item :label="$t('table.keyWord')">
             <el-input v-model="listQuery.keyword" placeholder="关键词"></el-input>
           </el-form-item>

@@ -66,3 +66,4 @@ new Vue({
 // store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
 //   router.addRoutes(constantRouterMap) // 动态添加可访问路由表
 // })
+

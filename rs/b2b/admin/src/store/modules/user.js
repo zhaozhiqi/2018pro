@@ -1,4 +1,5 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import { getNoticeList } from '@/api/a_api'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -11,7 +12,8 @@ const user = {
     name: '',
     avatar: '',
     introduction: '',
-    roles: []
+    roles: [],
+    noReadNotice: 0
   },
 
   mutations: {
@@ -29,6 +31,14 @@ const user = {
     },
     SET_INTRODUCTION: (state, introduction) => {
       state.introduction = introduction
+    },
+    SET_NOREADNOTICE: (state, noReadNotice) => {
+      console.log()
+      if (state.noReadNotice === noReadNotice) {
+        return
+      } else {
+        state.noReadNotice = noReadNotice
+      }
     }
   },
 
@@ -122,7 +132,29 @@ const user = {
           resolve()
         })
       })
+    },
+
+    GetUserNoticeInfo({ commit }) {
+      return new Promise((resolve, reject) => {
+        getNoticeList().then(response => {
+          if (response.code === 200 && response.data) {
+            let num = 0
+            response.data.records.forEach(item => {
+              if (item.isView === 0) {
+                num += 1
+              }
+            })
+            commit('SET_NOREADNOTICE', num)
+          } else {
+            commit('SET_NOREADNOTICE', 0)
+          }
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
+
   }
 }
 

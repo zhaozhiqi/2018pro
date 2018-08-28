@@ -263,6 +263,31 @@ export function getLogisticsCompanyList() {
 }
 
 /**
+ * 消息相关
+ *
+ * 获取消息列表
+ * 获取消息详情
+*/
+
+export function getNoticeList() {
+  return request({
+    url: baseApi + 'notice/list',
+    method: 'get'
+  })
+}
+
+export function getNotice(id) {
+  const params = {
+    id: id
+  }
+  return request({
+    url: baseApi + 'notice/get',
+    method: 'get',
+    params
+  })
+}
+
+/**
  * 订单相关
  *
  * 确认发货

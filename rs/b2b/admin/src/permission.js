@@ -19,7 +19,7 @@ const whiteList = ['/login', '/authredirect']// 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) { // 确定是否有令牌
-    console.log(getToken(), 'getToken()')
+    // console.log(getToken(), 'getToken()')
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })

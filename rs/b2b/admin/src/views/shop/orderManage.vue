@@ -1,5 +1,38 @@
 <template>
   <div class="app-container">
+    <el-row style="marginBottom:20px">
+      <el-col :span="24">
+        <el-form :inline="true" class="demo-form-inline" label-width="80px">
+          <el-form-item :label="$t('table.keyWord')">
+            <el-input v-model="listQuery.keyword" placeholder="关键词"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('table.orderNo')">
+            <el-input v-model="listQuery.orderNo" ></el-input>
+          </el-form-item>
+          <el-form-item label="订单状态">
+            <el-select v-model="listQuery.status">
+              <el-option label="全部" value=null></el-option>
+              <el-option label="待付款" value=1000></el-option>
+              <el-option label="待发货" value=1002></el-option>
+              <el-option label="待确认" value=1003></el-option>
+              <el-option label="退款中" value=1004></el-option>
+            </el-select>
+          </el-form-item>
+          <!-- <el-form-item label="排序类型">
+            <el-select v-model="listQuery.sortField" placeholder="排序类型">
+              <el-option label="未选择" value=""></el-option>
+              <el-option label="按销量" value="hot"></el-option>
+              <el-option label="按金额" value="money"></el-option>
+              <el-option label="按实际" value="time"></el-option>
+            </el-select>
+          </el-form-item> -->
+          <br>
+          <el-form-item>
+            <el-button type="primary" @click="getList()">查询</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
     <el-row>
       <el-col :span="24">
         <el-table :data="list" style="width: 100%">
@@ -279,9 +312,8 @@ export default {
       this.getLogisticsCompanyList()
     },
     getList() {
-      const params = {}
-      params.page = this.listQuery.page
-      params.pageSize = this.listQuery.pageSize
+      const params = JSON.parse(JSON.stringify(this.listQuery))
+      console.log(params, 'params')
       getShopOrderList(params).then(res => {
         // console.log(res, 'getShopOrderList')
         if (res.code === 200) {

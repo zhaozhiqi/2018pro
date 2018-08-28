@@ -203,6 +203,8 @@ export default {
     bankCode: '收款方开户行',
     encTrueName: '收款方用户名',
     encBankNo: '收款方银行卡号',
+    noticeCon: '消息内容',
+    noticeStatus: '消息状态',
     importance: '重要性',
     type: '类型',
     remark: '点评',

@@ -102,7 +102,6 @@
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
               <el-button size="mini" type="primary" @click="handleUpdate(scope.$index, scope.row, false)">修改信息</el-button>
-              <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除商品</el-button> -->
             </template>
           </el-table-column>
         </el-table>
@@ -238,7 +237,7 @@
 </template>
 
 <script>
-import { getShopGroupList, getShopGroupCaseList, getStoreGoodsList, postBatchUpdata, postBatchDel } from '@/api/a_api'
+import { getShopGroupList, getShopGroupCaseList, getStoreGoodsList, postBatchUpdata } from '@/api/a_api'
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
@@ -371,7 +370,6 @@ export default {
   },
   methods: {
     init() {
-      // this.$router.push({ name: 'goodAddSave' })
       this.getList()
       this.getGoodsList()
       this.roles[0] === 'DISTRIBUTOR' ? this.isDistributor = true : this.isDistributor = false
@@ -411,7 +409,7 @@ export default {
       this.getList()
     },
     handleSizeChange(val) {
-      console.log(val, 'val')
+      console.log(val, 'handleSizeChange')
       this.listQuery.pageSize = val
       this.getList()
     },
@@ -420,7 +418,7 @@ export default {
       this.getList()
     },
     handleItemChange(val) {
-      console.log('active item:', val)
+      console.log('active item:handleItemChange', val)
     },
     resetForm() {
       this.tempForm = {
@@ -466,17 +464,17 @@ export default {
             params.restrictionsNumber = null
           }
           console.log(params, 'params')
-          // postBatchUpdata(params).then(res => {
-          //   console.log(res, 'postBatchUpdata')
-          //   if (res.code === 200) {
-          //     this.$message({
-          //       message: '操作成功',
-          //       type: 'success'
-          //     })
-          //     this.init()
-          //     this.closeTempForm()
-          //   }
-          // })
+          postBatchUpdata(params).then(res => {
+            console.log(res, 'postBatchUpdata')
+            if (res.code === 200) {
+              this.$message({
+                message: '操作成功',
+                type: 'success'
+              })
+              this.init()
+              this.closeTempForm()
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -506,30 +504,6 @@ export default {
       this.tempForm.onlineState = this.tempForm.onlineState + ''
       this.tempForm.timeRange = [this.tempForm.createTime, this.tempForm.endTime]
     },
-    // handleDelete(index, row) {
-    //   this.$confirm('确认删除该条数据吗?', '提示', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消',
-    //     type: 'warning'
-    //   }).then(() => {
-    //     console.log(index, row, 'handleDelete')
-    //     const params = new URLSearchParams()
-    //     params.append('ids', [row.id])
-    //     postBatchDel(params).then(res => {
-    //       console.log(res, 'postBatchDel')
-    //       this.$message({
-    //         message: '删除成功',
-    //         type: 'success'
-    //       })
-    //       this.init()
-    //     })
-    //   }).catch(() => {
-    //     this.$message({
-    //       type: 'info',
-    //       message: '已取消'
-    //     })
-    //   })
-    // },
     closeTempForm() {
       this.formVisible = false
       this.resetForm()
@@ -545,7 +519,6 @@ export default {
         id: this.tempForm.id,
         page: 1,
         pageSize: 1000
-
       }
       getShopGroupCaseList(params).then(res => {
         console.log(res, 'getShopGroupCaseList')
@@ -562,18 +535,18 @@ export default {
     queryGoodId(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$confirm$confirm('已查询到该产品，是否现去提交授权信息?', '提示', {
-          //   confirmButtonText: '确定',
-          //   cancelButtonText: '取消',
-          //   type: 'warning'
-          // }).then(() => {
-          this.$router.push({ name: 'groupAddSave', params: { goodId: this.addChangeFrom.goodId }})
-          // }).catch(() => {
-          //   this.$message({
-          //     type: 'info',
-          //     message: '已取消'
-          //   })
-          // })
+          this.$confirm$confirm('是否现去新增拼团?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push({ name: 'groupAddSave', params: { goodId: this.addChangeFrom.goodId }})
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消'
+            })
+          })
         } else {
           console.log('error submit!!')
           return false

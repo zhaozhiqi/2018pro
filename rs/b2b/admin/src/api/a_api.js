@@ -107,7 +107,7 @@ export function postClassifyUpdate(params) {
 
 export function getGoodsList(params) {
   return request({
-    url: baseApi + 'all/list',
+    url: baseApi + 'goods/all/list',
     method: 'get',
     params
   })
@@ -115,7 +115,7 @@ export function getGoodsList(params) {
 
 export function postBatchDel(params) {
   return request({
-    url: baseApi + 'batch/del',
+    url: baseApi + 'goods/batch/del',
     method: 'post',
     params
   })
@@ -123,7 +123,7 @@ export function postBatchDel(params) {
 
 export function postBatchUpdata(params) {
   return request({
-    url: baseApi + 'batch/update',
+    url: baseApi + 'goods/batch/update',
     method: 'post',
     params
   })
@@ -131,7 +131,7 @@ export function postBatchUpdata(params) {
 
 export function getStoreGoodsList(params) {
   return request({
-    url: baseApi + 'list',
+    url: baseApi + 'goods/list',
     method: 'get',
     params
   })
@@ -139,7 +139,7 @@ export function getStoreGoodsList(params) {
 
 export function postBatchSave(params) {
   return request({
-    url: baseApi + 'save',
+    url: baseApi + 'goods/save',
     method: 'post',
     params
   })
@@ -503,6 +503,8 @@ export function postSetOrderDeductionsRatio(arg) {
 /**
  * 店铺相关
  *
+ * 获取店铺银行卡信息
+ * 保存、修改店铺银行卡信息
  * 删除店铺banner列表
  * 获取店铺banner列表
  * 新增店铺banner
@@ -523,6 +525,21 @@ export function postSetOrderDeductionsRatio(arg) {
  * 获取店铺可销售区域列表
  *
 */
+
+export function getShopBankInfo() {
+  return request({
+    url: baseApi + 'shop/bank/info/get',
+    method: 'get'
+  })
+}
+
+export function postShopBankInfoSave(params) {
+  return request({
+    url: baseApi + 'shop/bank/info/save',
+    method: 'post',
+    params
+  })
+}
 
 export function postShopBannerDel(arg) {
   const params = {
@@ -818,3 +835,17 @@ export function postUserResetPassword(oldPassword, newPassword) {
     params
   })
 }
+
+/**
+ * 微信转账支持银行相关
+ *
+ * 获取列表
+*/
+
+export function getWxBankList() {
+  return request({
+    url: baseApi + 'wx/bank/list',
+    method: 'get'
+  })
+}
+

@@ -284,7 +284,7 @@ export default {
                     if (second > 0) {
                       second--;
                       console.log(that.getCodeObj.text)
-                      that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
+                      // that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
                     } else {
                       that.getCodeObj.text = '获取验证码';
                       that.getCodeObj.state = true;
@@ -380,21 +380,38 @@ export default {
     },
     uploadFileChange(el, demo) {
       const that = this
+      const maxSize = 1024 * 1024
       let reads = new FileReader()
       if (demo === 'logo') {
         let f = document.getElementById('upLoadLogo').files[0]
-        this.store.corporateLogo = f
-        //console.log(f,'f')
-        reads.readAsDataURL(f)
-        reads.onload = function (e) {
-          that.logoPreviewUrl = this.result
+        // console.log(f,f.size,el,'f',maxSize,f.size>maxSize)
+        // alert(f.size)
+        if(f.size > maxSize){
+          this.$toast({
+             message: '图片太大，请上传1M以下的图片',
+              type: 'warning'
+          })
+        }else{
+          this.store.corporateLogo = f
+          reads.readAsDataURL(f)
+          reads.onload = function (e) {
+            that.logoPreviewUrl = this.result
+          }
         }
+
       } else if (demo === 'file') {
         let f = document.getElementById('upLoadFile').files[0]
-        this.store.file = f
-        reads.readAsDataURL(f)
-        reads.onload = function (e) {
-          that.filePreviewUrl = this.result
+        if(f.size > maxSize){
+          this.$toast({
+             message: '图片太大，请上传1M以下的图片',
+              type: 'warning'
+          })
+        }else{
+          this.store.file = f
+          reads.readAsDataURL(f)
+          reads.onload = function (e) {
+            that.filePreviewUrl = this.result
+          }
         }
       }
       console.log(el.target.value, 'el')

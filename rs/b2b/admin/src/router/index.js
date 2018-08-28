@@ -36,6 +36,18 @@ export const constantRouterMap = [
       name: 'dashboard',
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
+  },
+  {
+    path: '/common',
+    component: Layout,
+    redirect: '/common/noticeList',
+    name: 'noticeList',
+    meta: {
+      title: '站内消息列表'
+    },
+    children: [
+      { path: 'noticeList', name: 'noticeList', component: () => import('@/views/common/noticeList'), meta: { title: '站内消息列表' }}
+    ]
   }
 
   // {
@@ -387,8 +399,10 @@ export const asyncRouterMap = [
       roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
     },
     children: [
+      { path: 'shopBankInfoSetting', name: 'shopBankInfoSetting', component: () => import('@/views/shop/shopBankInfoSetting'), meta: { title: '店铺银行卡设置' }},
       { path: 'shopBanner', name: 'shopBanner', component: () => import('@/views/shop/shopBanner'), meta: { title: '店铺轮播图管理' }},
-      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/shop/classifyManage'), meta: { title: '店铺分类管理' }}
+      { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/shop/classifyManage'), meta: { title: '店铺分类管理' }},
+      { path: 'shopProductList', name: 'shopProductList', component: () => import('@/views/shop/shopProductList'), meta: { title: '店铺产品列表' }}
     ]
   },
   {

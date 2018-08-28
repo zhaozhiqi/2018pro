@@ -8,7 +8,7 @@ export function loginByUsername(username, password) {
   }
   return request({
     url: baseApi + 'login',
-    method: 'get',
+    method: 'post',
     params
   })
   // return new Promise(function(resolve, reject) {

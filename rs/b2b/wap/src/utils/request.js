@@ -48,6 +48,7 @@ service.interceptors.response.use(
     // },1000)
     Indicator.close()
     const res = response.data
+    console.log(res,response,'response,res')
     if (res.code !== 200) {
       const msg = res.msg ? res.msg : res.message
       Toast({

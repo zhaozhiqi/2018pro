@@ -38,6 +38,7 @@
           </div>
           <div class="itemOperate">
             <p>
+              <span>创建时间:{{itemII.createTime}}</span>
               <span>共{{itemII.count}}件商品 实付:
                 <b>¥{{itemII.money | priceFormat}}</b>
                 <b></b>

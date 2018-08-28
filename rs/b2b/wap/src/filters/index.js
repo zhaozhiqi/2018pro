@@ -54,7 +54,7 @@ export function priceFormat(price) {
   if(value2Array.length == 2) {
       floatPart = value2Array[1].toString(); //拿到小数部分
 
-      if(floatPart.length == 1) { //补0,实际上用不着
+      if(floatPart.length == 1) { //补0,上用不着
           return intPartFormat + "." + floatPart + '0';
       } else {
           return intPartFormat + "." + floatPart;

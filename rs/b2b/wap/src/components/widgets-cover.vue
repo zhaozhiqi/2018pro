@@ -9,7 +9,7 @@
           </div>
           <div class="_main">
             <div class="price-wrap">
-              <span class="price">¥{{price}}</span>
+              <span class="price">¥{{price | priceFormat}}</span>
             </div>
             <div class="stock">库存{{stock}}</div>
             <!-- <div class="sku-info">请选择:<span>{{changeInfo.hint}}</span></div> -->
@@ -44,7 +44,7 @@
                 <h2>单位：{{ changeInfo.unit }}</h2>
               </li>
               <li>
-                <h2>建议零售价：¥{{ changeInfo.retailPrice }}</h2>
+                <h2>建议零售价：¥{{ changeInfo.retailPrice  | priceFormat}}</h2>
               </li>
               <li v-if="hasGroup">
                 <h2>注：每份为本商品*{{ groupOneNum }}</h2>

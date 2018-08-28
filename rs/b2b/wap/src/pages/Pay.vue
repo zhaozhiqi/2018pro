@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="payList">
-        <div class="payItem payWeixin" v-for="(item, index) in payList" :key="index" :class="item.className" :dataType="item.dataType" :payTypeId="item.payTypeId" @click="changePay(item.payTypeId)">
+        <div class="payItem payWeixin" v-for="(item, index) in payList" :key="index" :class="item.className" :dataType="item.dataType" :payTypeId="item.payTypeId" @click="changePay(item.payTypeId)" v-show="orderInfo.groupPurchaseCaseId===0||item.payTypeId!==2">
           <i class="rsiconfont l" :class="item.iconClassName"></i>
           {{item.payName}}
           <i class="rsiconfont rsicon-xuanzhong1 r" v-show="item.isActive"></i>
@@ -64,10 +64,18 @@ export default {
         {
           className: 'payWeixin',
           dataType: 'weixin',
-          payTypeId: '1',
+          payTypeId: 0,
           iconClassName: 'rsicon-unie655',
           payName: '微信支付',
           isActive: true
+        },
+        {
+          className: 'payOnDelivery',
+          dataType: 'ondelivery',
+          payTypeId: 2,
+          iconClassName: 'rsicon-huodaofukuan',
+          payName: '货到付款',
+          isActive: false
         }
         // ,
         // {
@@ -80,6 +88,9 @@ export default {
         // }
       ],
       orderInfo:{
+        orderNo:null,
+        payType:null,
+        groupPurchaseCaseId:0,
         shop:{
           name:''
         },

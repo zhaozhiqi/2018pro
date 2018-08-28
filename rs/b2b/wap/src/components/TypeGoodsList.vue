@@ -36,7 +36,7 @@ export default {
 					iconName:"rsicon-jingshi",
 					nodataMsg:"暂无数据"
 			},
-			routerPath:'/Product'
+			routerPath:'/GroupProduct'
 		}
   },
   components:{

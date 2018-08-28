@@ -13,9 +13,9 @@
 								<span class="bable" v-show="false">{{item.title}}</span>
 								{{item.title}}</h2> 
 							<div>							
-							<span><i>¥</i>{{item.retailPrice | priceFormat}}</span>
-							<span v-if="listParent === 'group'">已拼{{10}}件</span>
-							<span v-else>已有{{10}}人付款</span>
+							<span><i>¥</i>{{item.money  | priceFormat}}</span>
+							<!-- <span v-if="listParent === 'group'">已拼{{10}}件</span>
+							<span v-else>已有{{10}}人付款</span> -->
 							</div> 
 						</figcaption>
 					</router-link>

@@ -3,7 +3,7 @@
     <SeachHeader :bannerHeight="bannerHeight" />
     <nav>
       <div class="navItem" :class="{'active':sortObj.sortActive == 'hot'}" @click="changeSortActive('hot')">销量</div> 
-      <div class="navItem" :class="{'active':sortObj.sortActive == 'time'}" @click="changeSortActive('time')"><span>实际</span><input type="hidden" value=""></div> 
+      <div class="navItem" :class="{'active':sortObj.sortActive == 'time'}" @click="changeSortActive('time')"><span>最新</span><input type="hidden" value=""></div> 
       <div class="navItem" :class="{'active':sortObj.sortActive == 'money'}" @click="changeSortActive('money')"><span>金额</span> <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i></div>
     </nav>
     <GroupList :proList='proList' :listParent='listParent'/>
@@ -40,7 +40,7 @@ export default {
           active:true
         },
         {
-          val:'实际',
+          val:'',
           id:'time',
           active:false
         },

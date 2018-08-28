@@ -35,7 +35,7 @@
                   <router-link :to="{path:'/groupProduct', query: { id: listItem.shopGoodsIdentifier }}" class="goodsLink">{{listItem.title}}</router-link>
                   <div class="goodsEdit">
                     <label class="goodsPrice">
-                      <b>¥ </b>{{listItem.money}}</label>
+                      <b>¥ </b>{{listItem.money | priceFormat}}</label>
                     <div class="goodsNumbox" value="1">
                       <button class="minusBtn" @click="editCart('minu', listItem , storeItem)">
                         <i class="rsiconfont rsicon-jian"></i>
@@ -170,12 +170,14 @@ export default {
   methods: {
     init() {
       getCart().then(result => {
-        console.log(result, 'result')
-        if (result.code === 200) {
+        console.log(result, 'getCart')
+        if (result.code === 200 && result.data) {
           const _data = result.data
           if(!_data){
+            this.cartList = []
             return
           }
+          console.log( _data.items,' _data.items')
           _data.items.forEach(shop => {
             shop.checked = false
             if (shop.itemGoodsInfoList) {
@@ -185,6 +187,8 @@ export default {
             }
           })
           this.cartList = _data
+        }else{
+          this.cartList = []
         }
       })
     },

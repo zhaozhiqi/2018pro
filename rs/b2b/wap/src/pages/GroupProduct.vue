@@ -121,7 +121,7 @@
         <div class="closeOut">
           <mt-button type="danger" @click="closeAllGroupOrder">取消</mt-button>
         </div>
-        <div class="group-order-con">
+        <div class="group-order-con"  v-if="productInfo.groupPurchaseCases">
           <div class="group-order-item" v-for="(slider, index) in productInfo.groupPurchaseCases.records" :key="index">
             <button class="joinGroupBtn" @click="joinGroupOrder(index,slider.id)" v-show="slider.djs !== '已过期'">去拼团</button>
             <div class="groupOrderInfo">
@@ -168,7 +168,6 @@ export default {
       item: null,
       hasGroup: null,
       hasGroupList: null,
-      query: {},
       saleType: 'self',
       widgetsCoverShow: false,
       routerStorePath: '/Store',
@@ -207,13 +206,13 @@ export default {
           'lat': 30.212834,
           'createTime': ''
         },
-        'product': {},
-        'classify': {},
-        'shopClassify': {},
-        'images': [],
-        'identifier': 'bw',
-        'groupPurchaseCases': {
-          'records': []
+        product: {},
+        classify: {},
+        shopClassify: {},
+        images: [],
+        identifier: null,
+        groupPurchaseCases: {
+          records: []
         }
       }
     }
@@ -243,8 +242,9 @@ export default {
       const parasmGetGroups = JSON.parse(JSON.stringify(this.query))
       parasmGetGroups.identifier = this.$route.query.id
       getGoods(parasmGetGroups).then(result => {
+        console.log(result,'getGoods')
         this.productInfo = result.data
-        this.query.goodsGroupPurchaseId = this.productInfo.shopGroupPurchase.id
+        this.query.goodsGroupPurchaseId = this.productInfo.shopGroupPurchase?this.productInfo.shopGroupPurchase.id:null
         /* 是否有拼团商品 */
         this.hasGroup = result.data.shopGroupPurchase !== undefined
         this.hasGroupList = (result.data.shopGroupPurchase !== undefined && this.productInfo.groupPurchaseCases.total > 0)

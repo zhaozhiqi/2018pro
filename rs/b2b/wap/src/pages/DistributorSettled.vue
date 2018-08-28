@@ -109,11 +109,11 @@ export default {
         text: '获取验证码'
       },
       store: {
-        corporateName: '赵家小铺',
-        corporateAddress: '左转回头',
-        corporateCode: '123123',
-        password: '123456',
-        mobile: '15584461401',
+        corporateName: null,
+        corporateAddress: null,
+        corporateCode: null,
+        password: null,
+        mobile: null,
         imageCode: '',
         mobileCode: '',
         type: 'DISTRIBUTOR',

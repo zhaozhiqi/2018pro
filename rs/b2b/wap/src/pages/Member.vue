@@ -13,9 +13,9 @@
         <div class="memberInfo">
           <figure><img class="memberLogo" :src="userInfo.headThumb"></figure>
           <div class="userInfoCon">
-            <p class="userInfoName">{{userInfo.name}}</p>
-            <p class="userInfoId">{{userInfo.mobile}}</p>
-            <p class="typeName">{{userInfo.typeName}}</p>
+            <p class="userInfoName">用户名称：{{userInfo.name}}</p>
+            <p class="typeName">用户类型：{{userInfo.typeName}}</p>
+            <p class="userInfoId">用户ID：{{userInfo.id}}</p>
           </div>
         </div>
       </header>
@@ -134,7 +134,7 @@ export default {
   methods: {
     init() {
       this.$store.dispatch('GetUserInfo').then((res) => {
-        console.log(res,'GetUserInfo')
+        console.log(res, 'GetUserInfo')
         this.userInfo.id = res.data.id
         this.userInfo.name = res.data.name
         this.userInfo.mobile = res.data.mobile
@@ -142,47 +142,60 @@ export default {
         this.userInfo.type = res.data.type
         switch (this.userInfo.type) {
           case 'C': this.userInfo.typeName = "消费者"
-            // this.memberMenuList = [
-            //   {
-            //     href: '',
-            //     iconClass: "rsicon-31daifukuan",
-            //     name: "我的拼团",
-            //     con: "",
-            //     num: 1,
-            //     path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
-            //   }
-            // ]
+            this.memberMenuList = [
+              {
+                href: 'Address',
+                iconClass: "rsicon-31daifukuan",
+                name: "收货地址",
+                con: "",
+                num: 0,
+                path: { name: 'Address'}
+
+              }
+              // ,
+              // {
+              //   href: 'Order',
+              //   iconClass: "rsicon-31daifukuan",
+              //   name: "我的拼团",
+              //   con: "",
+              //   num: 1,
+              //   path: { name: 'Order', params: { userId: this.userInfo.id, orderTabActive: 'allOrder', isShop: true } }
+              // }
+            ]
             break
           case 'D': this.userInfo.typeName = "经销商"
           case 'W': this.userInfo.typeName = "批发商"
           case 'R': this.userInfo.typeName = "零售商"
             this.memberMenuList = [
-              //  {
-              //   href: 'Seach',
-              //   iconClass: "rsicon-31daifukuan",
-              //   name: "我的商品",
-              //   con: "",
-              //   num: 1
-              // }, 
+              {
+                href: 'Address',
+                iconClass: "rsicon-31daifukuan",
+                name: "收货地址",
+                con: "",
+                num: 0,
+                path: { name: 'Address'}
+
+              },
               {
                 href: 'Order',
                 iconClass: "rsicon-31daifukuan",
                 name: "店铺订单",
                 con: "",
                 num: 1,
-                path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
+                path: { name: 'Order', params: { userId: this.userInfo.id, orderTabActive: 'allOrder', isShop: true } }
               }
             ]
             break
-          default:this.userInfo.typeName = "消费者"
+          default: this.userInfo.typeName = "消费者"
             this.memberMenuList = [
               {
-                href: 'Order',
+                href: 'Address',
                 iconClass: "rsicon-31daifukuan",
-                name: "我的拼团",
+                name: "收货地址",
                 con: "",
-                num: 1,
-                path:{ name: 'Order', params:{ userId: this.userInfo.id, orderTabActive: 'allOrder', isShop:true}}
+                num: 0,
+                path: { name: 'Address'}
+
               }
             ]
             break

@@ -11,7 +11,7 @@
         <ul>
           <li :class="{'active':sortObj.sortActive == 'hot'}" @click="changeSortActive('hot')">销量</li>
           <li :class="{'active':sortObj.sortActive == 'time'}" @click="changeSortActive('time')">
-            <span>实际</span><input type="hidden" value=""></li>
+            <span>最新</span><input type="hidden" value=""></li>
           <li :class="{'active':sortObj.sortActive == 'money'}" @click="changeSortActive('money')">
             <span>金额</span>
             <i class="rsiconfont" :class="sortObj.sortPriceIcon"></i>

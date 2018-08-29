@@ -237,7 +237,7 @@
 </template>
 
 <script>
-import { getShopGroupList, getShopGroupCaseList, getStoreGoodsList, postBatchUpdata } from '@/api/a_api'
+import { getShopGroupList, getShopGroupCaseList, getStoreGoodsList, postShopGroupUpdate } from '@/api/a_api'
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
@@ -449,6 +449,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const params = {
+            id: this.tempForm.id,
             shopGoodsId: this.tempForm.shopGoodsId,
             money: this.tempForm.money,
             count: this.tempForm.count,
@@ -464,8 +465,8 @@ export default {
             params.restrictionsNumber = null
           }
           console.log(params, 'params')
-          postBatchUpdata(params).then(res => {
-            console.log(res, 'postBatchUpdata')
+          postShopGroupUpdate(params).then(res => {
+            console.log(res, 'postShopGroupUpdate')
             if (res.code === 200) {
               this.$message({
                 message: '操作成功',
@@ -535,7 +536,7 @@ export default {
     queryGoodId(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$confirm$confirm('是否现去新增拼团?', '提示', {
+          this.$confirm('是否现去新增拼团?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'

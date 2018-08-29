@@ -26,7 +26,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getNoticeList } from '@/api/a_api'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 

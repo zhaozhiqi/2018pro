@@ -54,3 +54,12 @@ export function getMobileCode(params) {
     params
   })
 }
+
+/* 获取微信api权限 */
+export function getWechatConfig(params) {
+  return request({
+    url: baseApi + 'wechat/getConfig',
+    method: 'get',
+    params
+  })
+}

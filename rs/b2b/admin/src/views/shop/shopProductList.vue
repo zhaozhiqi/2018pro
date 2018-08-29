@@ -26,17 +26,14 @@
               <el-option label="审核通过" value=2000></el-option>
             </el-select>
           </el-form-item> -->
-          <el-form-item label="排序类型">
+          <!-- <el-form-item label="排序类型">
             <el-select v-model="listQuery.sortField" placeholder="排序类型">
               <el-option label="未选择" value=""></el-option>
               <el-option label="按销量" value="hot"></el-option>
               <el-option label="按金额" value="money"></el-option>
               <el-option label="按实际" value="time"></el-option>
             </el-select>
-          </el-form-item><br>
-          <el-form-item>
-            <el-button type="primary" @click="openAddGroupFrom()">新增</el-button>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button type="primary" @click="getList()">查询</el-button>
           </el-form-item>

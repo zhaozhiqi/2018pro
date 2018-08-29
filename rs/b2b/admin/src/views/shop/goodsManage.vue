@@ -20,6 +20,9 @@
             <el-button type="primary" @click="getList()">查询</el-button>
           </el-form-item>
           <el-form-item>
+            <el-button type="danger" @click="multipleShelfState()">批量上架修改</el-button>
+          </el-form-item>
+          <el-form-item>
             <el-button type="danger" @click="multipleDelete()">批量删除</el-button>
           </el-form-item>
         </el-form>        
@@ -626,6 +629,45 @@ export default {
           // console.log(res, 'postBatchDel-multipleIdSelection')
             this.$message({
               message: '删除成功',
+              type: 'success'
+            })
+            this.init()
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          })
+        })
+      }
+    },
+    multipleShelfState() {
+      if (this.multipleIdSelection.length <= 0) {
+        this.$message({
+          message: '请选择操作项',
+          type: 'error'
+        })
+        return
+      } else {
+        if (!this.listQuery.shelfState) {
+          this.$message({
+            message: '请选择上架状态',
+            type: 'warning'
+          })
+          return
+        }
+        this.$confirm('确定批量修改上架状态吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const params = new URLSearchParams()
+          params.append('ids', this.multipleIdSelection)
+          params.append('shelfState', this.listQuery.shelfState)
+          postBatchUpdata(params).then(res => {
+          // console.log(res, 'postBatchUpdata-multipleIdSelection')
+            this.$message({
+              message: '修改成功',
               type: 'success'
             })
             this.init()

@@ -20,9 +20,9 @@ export default {
     name:"seachHeader",
     data () {
         return {
-            fixed:false,
-            areaName: '正在定位',
-            timer: null
+          fixed:false,
+          areaName: '正在定位',
+          timer: null
         }
     },
     computed: {

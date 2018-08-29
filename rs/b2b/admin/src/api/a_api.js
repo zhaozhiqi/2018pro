@@ -724,6 +724,7 @@ export function getShopSalesAreaList() {
  * 获取店铺拼团信息
  * 获取店铺拼团列表
  * 创建店铺拼团信息
+ * 更新店铺拼团信息
 */
 
 export function getShopGroupAllList(params) {
@@ -772,6 +773,14 @@ export function getShopGroupList(params) {
 export function postShopGroupSave(params) {
   return request({
     url: baseApi + 'shop/groupPurchase/save',
+    method: 'post',
+    params
+  })
+}
+
+export function postShopGroupUpdate(params) {
+  return request({
+    url: baseApi + 'shop/groupPurchase/update',
     method: 'post',
     params
   })

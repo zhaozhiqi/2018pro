@@ -26,9 +26,11 @@
               <el-option label="按实际" value="time"></el-option>
             </el-select>
           </el-form-item> -->
-          <br>
           <el-form-item>
             <el-button type="primary" @click="getList()">查询</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="resetListQuery()">重置</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -313,6 +315,9 @@ export default {
     },
     getList() {
       const params = JSON.parse(JSON.stringify(this.listQuery))
+      if (params.status === 'null') {
+        params.status = null
+      }
       console.log(params, 'params')
       getShopOrderList(params).then(res => {
         // console.log(res, 'getShopOrderList')
@@ -331,6 +336,19 @@ export default {
           this.logisticsCompanyList = res.data
         }
       })
+    },
+    resetListQuery() {
+      this.listQuery = {
+        status: null,
+        orderNo: null,
+        page: 1,
+        pageSize: 20,
+        sortField: null,
+        sort: null,
+        keyword: null,
+        startTime: null,
+        endTime: null
+      }
     },
     handleFilter() {
       this.listQuery.page = 1

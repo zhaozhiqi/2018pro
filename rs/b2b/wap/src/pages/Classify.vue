@@ -35,6 +35,7 @@
 <script>
 import { getClassifyList, getGoodsList } from '@/api/m_api'
 import Cookies from 'js-cookie'
+import { getLocation } from '@/position'
 
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
 import TypeGoodsList from '@/components/TypeGoodsList';
@@ -75,7 +76,11 @@ export default {
     init() {
       this.lng = Cookies.get('AREA_LNG')
       this.lat = Cookies.get('AREA_LAT')
-      this.getClassifyList(0)
+      if(!this.lng||!this.lat){
+        getLocation()
+      }else{
+        this.getClassifyList(0)
+      }
     },
     getClassifyList(parentId) {
       console.log(this.parentId,parentId,'this.parentId')
@@ -99,6 +104,10 @@ export default {
       })
     },
     getGoodsList() {
+      if(!this.lng||!this.lat){
+        getLocation()
+        return
+      }
       const parasmGetGoods = {
         classifyId: this.childrenId,
         sortField: this.sortObj.sortActive,

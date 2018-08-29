@@ -78,12 +78,12 @@
       <div class="btm">
         <nav>
           <div class="btm-I">
-            <router-link to="/group" class="btm-II">
-              <i class="rsiconfont rsicon-pintuanzhuanqu"></i>拼团首页
-            </router-link>
             <div class="btm-II" @click="openService">
               <i class="rsiconfont rsicon-kefu1"></i>客服
             </div>
+            <router-link to="/cart" class="btm-II">
+              <i class="rsiconfont rsicon-31gouwuche"></i>购物车
+            </router-link>
             <!-- <div class="btm-II">
 				  <i class="rsiconfont rsicon-shoucang"></i>收藏
 				</div>

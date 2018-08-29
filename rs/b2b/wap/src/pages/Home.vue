@@ -14,6 +14,7 @@
 
 <script>
 import { getHome, getGoodsList } from '@/api/m_api'
+import { getLocation } from '@/position'
 import Cookies from 'js-cookie'
 
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
@@ -65,14 +66,17 @@ export default {
       })
       this.lng = Cookies.get('AREA_LNG')
       this.lat = Cookies.get('AREA_LAT')
-      const paramsGoodsList = {
-        lng: this.lng,
-        lat: this.lat
+      if(!this.lng||!this.lat){
+        getLocation()
+      }else{
+        const paramsGoodsList = {
+          lng: this.lng,
+          lat: this.lat
+        }
+        getGoodsList(paramsGoodsList).then(result => {
+          this.proList = result.data.records   
+        })
       }
-      getGoodsList(paramsGoodsList).then(result => {
-        
-        this.proList = result.data.records   
-      })
     }
   }
 };

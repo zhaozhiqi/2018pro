@@ -13,9 +13,9 @@
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.label')" width="180" align='center'>
+          <el-table-column :label="$t('table.label')" >
             <template slot-scope="scope">
-              <span>{{ scope.row.label }}</span>
+              <div :class="{classifyNameOut:scope.row.parentId!==0}"><img :src="childrenClassifyImg" class="childrenClassifyImg" v-show="scope.row.parentId!==0"/><span class="classifyName">{{ scope.row.label }}</span></div>
             </template>
           </el-table-column>
           <el-table-column :label="$t('table.image')" width="180" align='center'>
@@ -28,11 +28,11 @@
               <span>{{ scope.row.describe }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.parentId')" width="180" align='center'>
+          <!-- <el-table-column :label="$t('table.parentId')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.parentId }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -65,8 +65,8 @@
         <el-form-item label="描述" label-width="80px" prop="describe">
           <el-input v-model="tempForm.describe"></el-input>
         </el-form-item>
-        <el-form-item label="父分类ID" label-width="80px" >
-          <el-select v-model="tempForm.parentId" placeholder="父分类ID">
+        <el-form-item label="分类" label-width="80px" >
+          <el-select v-model="tempForm.parentId" placeholder="分类">
             <el-option :label="item.label" :value="item.id" v-for="(item,index) in parentIdList" :key="index"></el-option>
           </el-select>
         </el-form-item>
@@ -89,11 +89,13 @@
 
 <script>
 import { postClassifyDel, getClassifyAllList, postClassifySave, postClassifyUpdate } from '@/api/a_api'
+import childrenClassifyImg from '@/assets/classify/childrenClassifyImg.gif'
 
 export default {
   name: 'classifyManage',
   data() {
     return {
+      childrenClassifyImg,
       list: null,
       parentIdList: null,
       total: null,
@@ -224,6 +226,7 @@ export default {
     editClassify(type, row) {
       switch (type) {
         case 'add': this.tempForm.fromTitle = '新增分类'
+          this.tempForm.parentId = 0
           break
         case 'edit': this.tempForm.fromTitle = '修改分类'
           this.tempForm.id = row.id
@@ -236,6 +239,7 @@ export default {
           break
       }
       this.tempForm.type = type
+
       this.editClassifyVisible = true
     },
     saveClassify(formName) {
@@ -313,8 +317,26 @@ export default {
 </script>
 
 <style scoped>
+.classifyNameOut{
+  overflow: hidden;
+  padding-left: 150px;
+  position: relative;
+}
+.childrenClassifyImg{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -15px;
+  width: auto;
+  height: 30px;
+}
+.classifyName{
+  display: block;
+  line-height: 30px;
+}
 .tableImg {
-  width: 100%;
+  height: 80px;
+  width: auto;
   display: block;
   margin: 0 auto;
 }

@@ -8,31 +8,31 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="classifyList" style="width: 100%">
-          <el-table-column label="id" width="60">
+          <el-table-column label="id" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.label')" width="180">
+          <el-table-column :label="$t('table.label')">
             <template slot-scope="scope">
-              <span>{{ scope.row.label }}</span>
+              <div :class="{classifyNameOut:scope.row.parentId!==0}"><img :src="childrenClassifyImg" class="childrenClassifyImg" v-show="scope.row.parentId!==0"/><span class="classifyName">{{ scope.row.label }}</span></div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.image')" width="180">
+          <el-table-column :label="$t('table.image')" width="180" align='center'>
             <template slot-scope="scope">
               <img :src="scope.row.image" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.describe')" width="180">
+          <el-table-column :label="$t('table.describe')" width="180" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.describe }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.parentId')" width="180">
+          <!-- <el-table-column :label="$t('table.parentId')" width="180">
             <template slot-scope="scope">
               <span>{{ scope.row.parentId }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -41,15 +41,7 @@
           </el-table-column>
         </el-table>
         <div class="pagination-container">
-          <el-pagination 
-          background 
-          @size-change="handleSizeChange" 
-          @current-change="handleCurrentChange" 
-          :current-page="listQuery.page" 
-          :page-sizes="[10,20,30, 50]" 
-          :page-size="listQuery.limit" 
-          layout="total, sizes, prev, pager, next, jumper" 
-          :total="total">
+          <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </el-col>
@@ -65,8 +57,8 @@
         <el-form-item label="描述" label-width="80px" prop="describe">
           <el-input v-model="tempForm.describe"></el-input>
         </el-form-item>
-        <el-form-item label="父分类ID" label-width="80px" >
-          <el-select v-model="tempForm.parentId" placeholder="父分类ID">
+        <el-form-item label="分类" label-width="80px">
+          <el-select v-model="tempForm.parentId" placeholder="分类">
             <el-option :label="item.label" :value="item.id" v-for="(item,index) in parentIdList" :key="index"></el-option>
           </el-select>
         </el-form-item>
@@ -89,11 +81,13 @@
 
 <script>
 import { postShopClassifyDel, getShopClassifyAllList, postShopClassifySave, postShopClassifyUpdate } from '@/api/a_api'
+import childrenClassifyImg from '@/assets/classify/childrenClassifyImg.gif'
 
 export default {
   name: 'classifyManage',
   data() {
     return {
+      childrenClassifyImg,
       list: null,
       parentIdList: null,
       total: null,
@@ -230,6 +224,7 @@ export default {
     editClassify(type, row) {
       switch (type) {
         case 'add': this.tempForm.fromTitle = '新增分类'
+          this.tempForm.parentId = 0
           break
         case 'edit': this.tempForm.fromTitle = '修改分类'
           this.tempForm.id = row.id
@@ -319,9 +314,28 @@ export default {
 </script>
 
 <style scoped>
-.tableImg {
-  width: 100%;
+.classifyNameOut{
+  overflow: hidden;
+  padding-left: 150px;
+  position: relative;
+}
+.childrenClassifyImg{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -15px;
+  width: auto;
+  height: 30px;
+}
+.classifyName{
   display: block;
+  line-height: 30px;
+}
+.tableImg {
+  height: 80px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 .tempUrlImg {
   height: 200px;

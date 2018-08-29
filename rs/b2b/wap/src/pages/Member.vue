@@ -95,11 +95,11 @@ export default {
   data() {
     return {
       userInfo: {
-        id: "0001",
-        name: "王XX",
-        typeName: "用户",
-        mobile: "",
-        headThumb: "static/images/memberLogo.jpg",
+        id:  null,
+        name: null,
+        typeName: null,
+        mobile: null,
+        headThumb: null,
         type: ''
       },
       orderCountList: {

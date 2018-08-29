@@ -136,6 +136,11 @@ export default {
     init() {
       this.getList()
       this.roles[0] === 'DISTRIBUTOR' ? this.isDistributor = true : this.isDistributor = false
+      this.$store.dispatch('GetUserNoticeInfo').then(() => {
+        console.log('更新未读消息数量')
+      }).catch(() => {
+        console.log('GetUserNoticeInfo-err')
+      })
     },
     getList() {
       const params = {}

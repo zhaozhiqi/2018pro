@@ -11,8 +11,8 @@ Vue.use(VueJsonp)
 // Cookies.remove('AREA_NAME')
 // Cookies.remove('DEFAULT_CITY')
 
-// getLocation()
-//opsitionSite ()
+getLocation()
+// opsitionSite ()
 
 export function getLocation(){
   if (navigator.geolocation){ 
@@ -25,7 +25,8 @@ export function getLocation(){
 function showPosition(position){ 
   var lng = position.coords.longitude //经度
   var lat = position.coords.latitude //纬度
-  geoconvBaiDu(lng,lat)
+  console.log('初始定位：'+lng+'---'+lat)
+  geoconvBaiDu(lng,lat,'set')
   geocoderBaiDu(lng,lat)
 }
 
@@ -120,11 +121,17 @@ function changeSite(){
   }
 }
 
-function geoconvBaiDu(lng,lat){
+function geoconvBaiDu(lng,lat,type){
   Vue.jsonp('http://api.map.baidu.com/geoconv/v1/?coords='+ lng +','+ lat +'&from=1&to=3&ak=r2uHqLPb2mFh3kKGLw52GS3hgQwpEIhO').then(json => {
     const _data = json.result[0]
     const G_lng = _data.x
     const G_lat = _data.y
+    if(type === 'set'){
+      console.log('保存经纬度Cookie')
+      Cookies.set('AREA_LNG', G_lng)
+      Cookies.set('AREA_LAT', G_lat)
+    }
+    console.log('经纬度转码'+G_lng+'---'+G_lat)
   }).catch(err => {
   　console.log(err,'经纬度转码报错')
   })
@@ -132,6 +139,7 @@ function geoconvBaiDu(lng,lat){
 function geocoderBaiDu(lng,lat){
   Vue.jsonp('http://api.map.baidu.com/geocoder/v2/?location='+ lat +','+ lng +'&coordtype=wgs84ll&pois=1&output=json&ak=r2uHqLPb2mFh3kKGLw52GS3hgQwpEIhO').then(json => {
     const _data = json.result
+    console.log('逆转码'+_data.addressComponent.city+'---'+_data.formatted_address)
     Cookies.set('AREA_NAME', _data.formatted_address)
     Cookies.set('DEFAULT_CITY', _data.addressComponent.city)
   }).catch(err => {

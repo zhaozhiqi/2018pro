@@ -2,7 +2,7 @@
   <div id="cart">
     <main class="main" :class="{'noGoods':cartList.length <= 0}">
       <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
-      <div class="car-empty" v-if="hasGoods">
+      <div class="car-empty" v-if="!hasGoods">
         <i class="ico-car"></i>
         <p>亲，购物车空空如也，快去逛逛</p>
         <router-link to="/classify" class="link">查看商品</router-link>
@@ -62,7 +62,7 @@
             <div class="con">
               <p>合计：
                 <b>¥ </b>
-                <b>{{totalPrice}}</b>
+                <b>{{totalPrice | priceFormat}}</b>
               </p>
               <p>(不含运费)</p>
             </div>
@@ -92,6 +92,7 @@ export default {
   data() {
     return {
       carCaptionShow: false,
+      itemGoodsInfoList: [],
       cartList: { items: [] },
       delItem: {},
       query: {
@@ -130,40 +131,50 @@ export default {
   computed: {
     hasGoods() {
       let now = false
-      now = this.cartList.items.length > 0 ? false : true
+      now = this.cartList.items.length > 0 ? true : false
       return now
     },
     checkAllFlag() {
       return this.checkedStoreCount === this.cartList.items.length
     },
     checkedStoreCount() {
-      let i = 0;
-      this.cartList.items.forEach((item) => {
-        if (item.checked === true) i++
-      })
+      let i = 0
+      if (this.hasGoods === true) {
+        this.cartList.items.forEach((item) => {
+          if (item.checked === true) i++
+        })
+      }
       return i
     },
     totalPrice() {
       let money = 0
-      this.cartList.items.forEach((item) => {
-        item.itemGoodsInfoList.forEach((index) => {
-          if (index.checked === true) {
-            money += parseFloat(index.money) * parseInt(index.count);
+      if (this.hasGoods === true) {
+        this.cartList.items.forEach((item) => {
+          if (item.itemGoodsInfoList) {
+            item.itemGoodsInfoList.forEach((index) => {
+              if (index.checked === true) {
+                money += parseFloat(index.money) * parseInt(index.count);
+              }
+            })
           }
         })
-      })
+      }
       return money
     },
     hasProChecked() {
       let hasProChecked = false
-      this.cartList.items.forEach((item) => {
-        item.itemGoodsInfoList.forEach((index) => {
-          if (index.checked == true) {
-            hasProChecked = true
-            return
+      if (this.hasGoods === true) {
+        this.cartList.items.forEach((item) => {
+          if (item.itemGoodsInfoList) {
+            item.itemGoodsInfoList.forEach((index) => {
+              if (index.checked == true) {
+                hasProChecked = true
+                return
+              }
+            })
           }
         })
-      })
+      }
       return hasProChecked
     }
   },
@@ -173,22 +184,24 @@ export default {
         console.log(result, 'getCart')
         if (result.code === 200 && result.data) {
           const _data = result.data
-          if(!_data){
-            this.cartList = []
+          if (!_data.items) {
+            this.cartList = { items: [] }
             return
           }
-          console.log( _data.items,' _data.items')
-          _data.items.forEach(shop => {
-            shop.checked = false
-            if (shop.itemGoodsInfoList) {
-              shop.itemGoodsInfoList.forEach(goods => {
-                goods.checked = false
-              })
-            }
-          })
-          this.cartList = _data
-        }else{
-          this.cartList = []
+          console.log(_data, ' getCart result.data _data.items')
+            if(_data.items){
+            _data.items.forEach(shop => {
+              shop.checked = false
+              if (shop.itemGoodsInfoList) {
+                shop.itemGoodsInfoList.forEach(goods => {
+                  goods.checked = false
+                })
+              }
+            })
+            this.cartList = _data
+          }
+        } else {
+          this.cartList = { items: [] }
         }
       })
     },
@@ -217,7 +230,7 @@ export default {
       })
     },
     delCartStore(parentItem) {//删除购物车商铺
-      console.log(this.cartList)
+      console.log(this.cartList, 'this.cartList')
       this.cartList.forEach((item, index) => {
         if (item.storeId === parentItem.storeId) {
           this.cartList.splice(index, 1);
@@ -291,12 +304,14 @@ export default {
     },
     toggleCheckAll() {
       let flag = !this.checkAllFlag
-      this.cartList.items.forEach((item) => {
-        item.checked = flag ? true : false
-        item.itemGoodsInfoList.forEach((index) => {
-          index.checked = flag ? true : false
+      if (this.hasGoods === true) {
+        this.cartList.items.forEach((item) => {
+          item.checked = flag ? true : false
+          item.itemGoodsInfoList.forEach((index) => {
+            index.checked = flag ? true : false
+          })
         })
-      })
+      }
       // axios.post("/users/editCheckAll",{
       // 	checkAll:flag
       // }).then((response)=>{
@@ -312,14 +327,16 @@ export default {
     goPay() {
       let that = this
       const _arr = []
-      this.cartList.items.forEach(shop => {
-        shop.itemGoodsInfoList.forEach(good => {
-          if (good.checked === true) {
-            const _id = good.shopGoodsId
-            _arr.push(_id)
-          }
+      if (this.hasGoods === true) {
+        this.cartList.items.forEach(shop => {
+          shop.itemGoodsInfoList.forEach(good => {
+            if (good.checked === true) {
+              const _id = good.shopGoodsId
+              _arr.push(_id)
+            }
+          })
         })
-      })
+      }
       const params = new URLSearchParams()
       params.append('ids', _arr)
       saveCartBalance(params).then(result => {

@@ -14,6 +14,8 @@
 
 <script>
 import { getGroupsList } from '@/api/m_api'
+import { getLocation } from '@/position'
+
 import Cookies from 'js-cookie'
 
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
@@ -84,7 +86,11 @@ export default {
     init(){
       this.query.lng = Cookies.get('AREA_LNG')
       this.query.lat = Cookies.get('AREA_LAT')
-      this.getGroupsList()
+      if(!this.query.lng||!this.query.lat){
+        getLocation()
+      }else{
+        this.getGroupsList()
+      }
     },
 		changeSortActive(index){
 			if(index === 'money'){

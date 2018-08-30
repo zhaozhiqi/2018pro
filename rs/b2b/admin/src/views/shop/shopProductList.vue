@@ -298,6 +298,7 @@ export default {
     getList() {
       const params = {}
       params.page = this.listQuery.page
+      params.pageSize = this.listQuery.pageSize
       params.sortField = this.listQuery.sortField
       params.keyword = this.listQuery.keyword
       params.id = this.listQuery.id

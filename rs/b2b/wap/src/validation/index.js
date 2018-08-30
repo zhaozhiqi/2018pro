@@ -15,7 +15,7 @@ const Veeconfig = {
     dictionary: {
        zh_CN: {
           messages: {
-              required:(field)=> "请输入正确的"+field
+              required:(field)=> "请完善"+field+"信息"
           },
           attributes:{
               email:'邮箱',
@@ -28,13 +28,18 @@ const Veeconfig = {
               imageCode: '图片验证码',
               mobileCode: '手机验证码',
               corporateName: '公司名称',
-              corporateLogo: '公司logo',
+              corporateLogo: '公司logo1',
               corporateAddress: '公司地址',
               corporateCode: '组织代码编号',
-              corFile:'营业执照图片文件',
+              corFile:'营业执照图片文件1',
+              corPayWxQRCode:'支付二维码1',
               corSalesAreaCode:'销售区域',
               corSalesAreaCodeText:'销售区域',
-              corType: '入驻类型'
+              corType: '入驻类型',
+              corporateLogoServerId:'公司logo2',
+              fileServerId:'营业执照图片文件2',
+              wxQrCodeServerId:'支付二维码2'
+      
 
           }
       }

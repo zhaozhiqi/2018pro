@@ -848,6 +848,7 @@ export function getUserBalanceShopListRecharge(params) {
  * 用户信息相关
  *
  * 获取用户信息
+ * 获取当前用户邀请的用户列表
  * 重置密码
 */
 
@@ -855,6 +856,14 @@ export function getUserInfo() {
   return request({
     url: baseApi + 'user/get',
     method: 'get'
+  })
+}
+
+export function getUserInvitingList(params) {
+  return request({
+    url: baseApi + 'user/inviting/user/list',
+    method: 'get',
+    params
   })
 }
 

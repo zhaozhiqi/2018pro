@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="payList">
-        <div class="payItem payWeixin" v-for="(item, index) in payList" :key="index" :class="item.className" :dataType="item.dataType" :payTypeId="item.payTypeId" @click="changePay(item.payTypeId)" v-show="orderInfo.groupPurchaseCaseId===0||item.payTypeId!==2">
+        <div class="payItem payWeixin" v-for="(item, index) in payList" :key="index" :class="item.className" :dataType="item.dataType" :payTypeId="item.payTypeId" @click="changePay(item.payTypeId)">
           <i class="rsiconfont l" :class="item.iconClassName"></i>
           {{item.payName}}
           <i class="rsiconfont rsicon-xuanzhong1 r" v-show="item.isActive"></i>
@@ -76,18 +76,9 @@ export default {
           dataType: 'ondelivery',
           payTypeId: 2,
           iconClassName: 'rsicon-huodaofukuan',
-          payName: '货到付款',
+          payName: '线下支付',
           isActive: false
         }
-        // ,
-        // {
-        //     className: 'payZhifubao',
-        //     dataType: 'zhifubao',
-        //     payTypeId: '2',
-        //     iconClassName: 'rsicon-zhifubao',
-        //     payName: '支付宝支付',
-        //     isActive: false
-        // }
       ],
       orderInfo: {
         orderNo: null,
@@ -102,7 +93,9 @@ export default {
         orderNo: null,
         type: null
       },
-      isWechat:false
+      userInfo: {},
+      isGroup: false,
+      isWechat: false
     }
   },
   components: {
@@ -119,6 +112,14 @@ export default {
       this.getData()
       this.getWeChatConfingData()
       this.isWechat = isWeiXin()
+      this.$store.dispatch('GetUserInfo').then((res) => {
+        //console.log(res, 'GetUserInfo')
+        if (res.code === 200) {
+          this.userInfo = res.data
+        }
+      }).then(() => {
+        this.setPayType()
+      })
     },
     getWeChatConfingData() {
       getWechatConfig().then(res => {
@@ -152,8 +153,51 @@ export default {
         if (result.code === 200 && result.data) {
           this.orderInfo = result.data
           this.payInfo.orderNo = result.data.orderNo
+          if (this.orderInfo.groupPurchaseCaseId === 0) {
+            this.isGroup = false
+          } else {
+            this.isGroup = true
+          }
         }
       })
+    },
+    setPayType() {
+      if (this.isGroup === true) {
+        this.payList = [
+          {
+            className: 'payWeixin',
+            dataType: 'weixin',
+            payTypeId: 0,
+            iconClassName: 'rsicon-unie655',
+            payName: '微信支付',
+            isActive: true
+          }
+        ]
+      } else {
+        if (this.userInfo.type === 'C') {
+          this.payList = [
+            {
+              className: 'payWeixin',
+              dataType: 'weixin',
+              payTypeId: 0,
+              iconClassName: 'rsicon-unie655',
+              payName: '微信支付',
+              isActive: true
+            }
+          ]
+        } else {
+          this.payList = [
+            {
+              className: 'payOnDelivery',
+              dataType: 'ondelivery',
+              payTypeId: 2,
+              iconClassName: 'rsicon-huodaofukuan',
+              payName: '线下支付',
+              isActive: true
+            }
+          ]
+        }
+      }
     },
     changePay(id) {
       this.payList.forEach(item => {
@@ -173,17 +217,17 @@ export default {
       console.log(this.payInfo, 'this.payInfo')
       // let that = this
       // this.$indicator.open()
-      postPay(this.payInfo).then(res=>{
-        console.log(res,'postPay')
-        if(res.code === 200){
-          if(this.payInfo.type === 2){
+      postPay(this.payInfo).then(res => {
+        console.log(res, 'postPay')
+        if (res.code === 200) {
+          if (this.payInfo.type === 2) {
             this.$toast({
               message: '支付成功',
               type: 'warning'
             })
             this.$router.push({ path: '/group' })
-          }else if(this.payInfo.type === 0){
-            if(this.isWechat === true){
+          } else if (this.payInfo.type === 0) {
+            if (this.isWechat === true) {
               wx.chooseWXPay({
                 timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                 nonceStr: '', // 支付签名随机串，不长于 32 位
@@ -194,14 +238,14 @@ export default {
                   // 支付成功后的回调函数
                 }
               })
-            }else{
+            } else {
               this.$toast({
                 message: 'h5调起支付',
                 type: 'warning'
               })
             }
           }
-        }else{
+        } else {
           this.$toast({
             message: res.msg,
             type: 'warning'

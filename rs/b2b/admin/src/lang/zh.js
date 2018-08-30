@@ -205,6 +205,8 @@ export default {
     encBankNo: '收款方银行卡号',
     noticeCon: '消息内容',
     noticeStatus: '消息状态',
+    inviteCode: '邀请码',
+    headThumb: '头像',
     importance: '重要性',
     type: '类型',
     remark: '点评',

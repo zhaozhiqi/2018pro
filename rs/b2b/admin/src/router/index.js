@@ -343,6 +343,20 @@ export const asyncRouterMap = [
       { path: 'orderManage', name: 'orderManage', component: () => import('@/views/shop/orderManage'), meta: { title: '订单管理' }}
     ]
   },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/incitingUserList',
+    name: 'incitingUserList',
+    meta: {
+      title: '邀请用户列表',
+      icon: 'lock',
+      roles: ['DISTRIBUTOR', 'WHOLESALER', 'RETAILER']
+    },
+    children: [
+      { path: 'incitingUserList', name: 'incitingUserList', component: () => import('@/views/shop/incitingUserList'), meta: { title: '邀请用户列表' }}
+    ]
+  },
   // {
   //   path: '/wph',
   //   component: Layout,

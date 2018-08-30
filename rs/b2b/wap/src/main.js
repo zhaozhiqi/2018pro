@@ -8,6 +8,7 @@ import store from './store'
 
 import VueJsonp from 'vue-jsonp'
 import VueLazyload from 'vue-lazyload'
+import VueClipboard from 'vue-clipboard2'
 import MintUI from 'mint-ui'
 import Cookies from 'js-cookie'
 // import 'mint-ui/lib/style.css'
@@ -22,6 +23,7 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.use(VueJsonp)
+Vue.use(VueClipboard)
 Vue.use(MintUI);
 //表单验证
 import {VeeValidate, Veeconfig} from '@/validation';
@@ -65,3 +67,4 @@ router.beforeEach((to, from, next) => {
     next() 
   } 
 })
+

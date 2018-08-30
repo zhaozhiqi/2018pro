@@ -16,6 +16,13 @@
             <p class="userInfoName">用户名称：{{userInfo.name}}</p>
             <p class="typeName">用户类型：{{userInfo.typeName}}</p>
             <p class="userInfoId">用户ID：{{userInfo.id}}</p>
+            <p class="userInfoId" v-if="userInfo.inviteCode">邀请码：{{userInfo.inviteCode}} 
+            <span class="copyBtn" type="default" size="small"
+              v-clipboard:copy="userInfo.inviteCode"
+              v-clipboard:success="copySuccess"
+              v-clipboard:error="copyError">复制
+              </span>
+            </p>
           </div>
         </div>
       </header>
@@ -135,11 +142,12 @@ export default {
     init() {
       this.$store.dispatch('GetUserInfo').then((res) => {
         console.log(res, 'GetUserInfo')
-        this.userInfo.id = res.data.id
-        this.userInfo.name = res.data.name
-        this.userInfo.mobile = res.data.mobile
-        this.userInfo.headThumb = res.data.headThumb
-        this.userInfo.type = res.data.type
+        // this.userInfo.id = res.data.id
+        // this.userInfo.name = res.data.name
+        // this.userInfo.mobile = res.data.mobile
+        // this.userInfo.headThumb = res.data.headThumb
+        // this.userInfo.type = res.data.type
+        this.userInfo = res.data
         switch (this.userInfo.type) {
           case 'C': this.userInfo.typeName = "消费者"
             this.memberMenuList = [
@@ -210,7 +218,21 @@ export default {
           this.orderCountList.all = parseInt(res.data.unpaidCount + res.data.notYetShippedCount + res.data.unconfirmedCount + res.data.refundingCount)
         }
       })
-    }
+    },
+    copySuccess(e){
+      console.log('copySuccess',e)
+      this.$toast({
+        message:'复制成功',
+        type:'success'
+      })
+    },
+    copyError(e){
+      console.log('copyError',e)
+      this.$toast({
+        message: '复制失败，请手动选取复制',
+        type: 'warning'
+      })
+    },
   }
 };
 </script>

@@ -41,18 +41,43 @@
           <i class="rsiconfont rsicon-31daishouhuo"></i>
           <input type="text" v-validate="'required'" name="salesAreaCode" placeholder="请选择销售区域" v-model="store.salesAreaCode.code" />
         </label>
-        <label :class="{'error':errors.has('corporateLogo')}" class="upLoadLogoOut">
+        <label>
+          <i class="rsiconfont rsicon-yaoqingma"></i>
+          <input type="text" name="inviteCode" placeholder="请输入邀请码" v-model="store.inviteCode" />
+        </label>
+        <label :class="{'error':errors.has('corporateLogoServerId')}" class="upLoadLogoOut" v-if="this.isWechat">
+          <i class="rsiconfont rsicon-icon"></i>
+          <span>选择公司Logo</span>
+          <input type="button" v-validate="'required'" name="corporateLogoServerId" @click="weCharChangeImg('logo')" v-model="store.corporateLogoServerId"/>
+        </label>
+        <label :class="{'error':errors.has('corporateLogo')}" class="upLoadLogoOut" v-else>
           <i class="rsiconfont rsicon-icon"></i>
           <span>选择公司Logo</span>
           <input type="file" id="upLoadLogo" accept="image/gif,image/jpeg,image/jpg,image/png" v-validate="'required'" name="corporateLogo" placeholder="请选择公司LOGO" @change="uploadFileChange($event,'logo')" />
         </label>
-        <img class="logoPreviewImg" :src="logoPreviewUrl" />
-        <label :class="{'error':errors.has('corporateLogo')}" class="upLoadFileOut">
+        <img class="logoPreviewImg" :src="logoPreviewUrl" v-show="logoPreviewUrl"/>
+        <label :class="{'error':errors.has('fileServerId')}" class="upLoadFileOut" v-if="this.isWechat">
           <i class="rsiconfont rsicon-wenjian"></i>
           <span>选择营业执照图片文件</span>
-          <input type="file" id="upLoadFile" accept="image/gif,image/jpeg,image/jpg,image/png" v-validate="'required'" name="corporateLogo" placeholder="请选择营业执照图片文件" @change="uploadFileChange($event,'file')" />
+          <input type="button" v-validate="'required'" name="fileServerId" @click="weCharChangeImg('file')" v-model="store.fileServerId"/>
         </label>
-        <img class="filePreviewImg" :src="filePreviewUrl" />
+        <label :class="{'error':errors.has('corFile')}" class="upLoadFileOut" v-else>
+          <i class="rsiconfont rsicon-wenjian"></i>
+          <span>选择营业执照图片文件</span>
+          <input type="file" id="upLoadFile" accept="image/gif,image/jpeg,image/jpg,image/png" v-validate="'required'" name="corFile" placeholder="请选择营业执照图片文件" @change="uploadFileChange($event,'file')" />
+        </label>
+        <img class="filePreviewImg" :src="filePreviewUrl" v-show="filePreviewUrl"/>
+        <label :class="{'error':errors.has('wxQrCodeServerId')}" class="upLoadFileOut" v-if="this.isWechat">
+          <i class="rsiconfont rsicon-erweima"></i>
+          <span>选择支付二维码</span>
+          <input type="button" v-validate="'required'" name="wxQrCodeServerId" @click="weCharChangeImg('QRCode')" v-model="store.wxQrCodeServerId" />
+        </label>
+        <label :class="{'error':errors.has('corPayWxQRCode')}" class="upLoadFileOut" v-else>
+          <i class="rsiconfont rsicon-erweima"></i>
+          <span>选择支付二维码</span>
+          <input type="file" id="upLoadQRCode" accept="image/gif,image/jpeg,image/jpg,image/png" v-validate="'required'" name="corPayWxQRCode" placeholder="请选择支付二维码" @change="uploadFileChange($event,'QRCode')" />
+        </label>
+        <img class="filePreviewImg" :src="QRCodePreviewUrl" v-show="QRCodePreviewUrl"/>
       </form>
       <div class="treaty">
         <input type="checkbox" v-model="treatyState" /> 同意
@@ -74,11 +99,12 @@
 </template>
 
 <script>
-import { getImageCode, getMobileCode, getAreaList } from '@/api/c_api'
+import { getImageCode, getMobileCode, getAreaList, getWechatConfig } from '@/api/c_api'
 import { storeRegister } from '@/api/m_api'
 import axios from 'axios'
 import { Validator } from 'vee-validate';
 import CommonHeader from '@/components/common-header'
+import { isWeiXin } from '@/utils'
 
 export default {
   name: 'retailerSettled',
@@ -101,7 +127,7 @@ export default {
       imageCodeUrl: '',
       logoPreviewUrl: '',
       filePreviewUrl: '',
-      imageCodeUrl: '',
+      QRCodePreviewUrl: null,
       treatyState: true,
       getCodeObj: {
         long: 6,
@@ -117,8 +143,13 @@ export default {
         imageCode: '',
         mobileCode: '',
         type: 'WHOLESALER',
+        inviteCode: null,
         corporateLogo: null,
         file: null,
+        wxQrCode: null,
+        corporateLogoServerId:null,
+        fileServerId:null,
+        wxQrCodeServerId:null,
         salesAreaCode: {
           value: null,
           _value: null,
@@ -161,8 +192,8 @@ export default {
           className: 'slot5',
           textAlign: 'center'
         }
-      ]
-
+      ],
+      isWechat:false
     }
   },
   components: {
@@ -179,6 +210,8 @@ export default {
       this.$validator.localize("zh_CN")
       this.changeImage()
       this.getAreaList(0, 'province')
+      this.isWechat = isWeiXin()
+      this.getWeChatConfingData()
     },
     settledRequest() {
       let that = this
@@ -194,8 +227,19 @@ export default {
           formData.append('code', this.store.mobileCode)
           formData.append('type', this.store.type)
           formData.append('salesAreaCode', this.store.salesAreaCode.code)
-          formData.append('corporateLogo', this.store.corporateLogo)
-          formData.append('file', this.store.file)
+          if(this.store.inviteCode){
+            formData.append('inviteCode', this.store.inviteCode)
+          }
+
+          if(this.isWechat){
+            formData.append('corporateLogoServerId', this.store.corporateLogoServerId)
+            formData.append('fileServerId', this.store.fileServerId)
+            formData.append('wxQrCodeServerId', this.store.wxQrCodeServerId)
+          }else{
+            formData.append('corporateLogo', this.store.corporateLogo)
+            formData.append('file', this.store.file)
+            formData.append('wxQrCode', this.store.wxQrCode)
+          }
 
           let config = {
             headers: {
@@ -231,6 +275,28 @@ export default {
         }
       })
     },
+    getWeChatConfingData() {
+      getWechatConfig().then(res => {
+        console.log(res, 'getWechatConfig')
+        if (res.code === 200) {
+          wx.config({
+            appId: res.data.appId,
+            timestamp: res.data.timestamp,
+            nonceStr: res.data.nonceStr,
+            signature: res.data.signature,
+            jsApiList: [
+              'chooseImage', //拍照或从手机相册中选图接口
+              'previewImage', //预览图片接口
+              'uploadImage', //上传图片接口
+              'downloadImage', //下载图片接口
+              'chooseWXPay',//微信支付接口
+              'openLocation',//使用微信内置地图查看位置接口
+              'getLocation' //获取地理位置接口
+            ]
+          })
+        }
+      })
+    },
     changePasswordState() {
       if (this.store.password.state === 1) {
         this.passwordControl.type = 'text';
@@ -253,6 +319,7 @@ export default {
       }
     },
     codeRequest() {
+      const that = this
       this.$validator.validate('imageCode').then(result => {
         if (result === false) {
           this.$toast({
@@ -292,6 +359,8 @@ export default {
                     }
                   }, 1000)
                 }
+              }).catch(err=>{           
+                that.changeImage()
               })
             }
           })
@@ -413,8 +482,72 @@ export default {
             that.filePreviewUrl = this.result
           }
         }
-      }
+      } else if (demo === 'QRCode') {
+          let f = document.getElementById('upLoadQRCode').files[0]
+          if(f.size > maxSize){
+            this.$toast({
+              message: '图片太大，请上传1M以下的图片',
+                type: 'warning'
+            })
+          }else{
+            this.store.wxQrCode = f
+            reads.readAsDataURL(f)
+            reads.onload = function (e) {
+              that.QRCodePreviewUrl = this.result
+            }
+          }
+        }
       console.log(el.target.value, 'el')
+    },
+    weCharChangeImg(demo){
+      const that = this
+      wx.chooseImage({
+        count: 1, //张数， 默认9
+        sizeType: ['compressed'], //建议压缩图    原图'original', 压缩图'compressed'
+        sourceType: ['album', 'camera'], // 来源是相册、相机
+        success: function(res) {
+          const localIds = res.localIds
+          const localId = localIds.toString();
+          switch (demo) {
+            case 'logo':that.logoPreviewUrl = localIds//选择的图片 显示
+              that.weChatGetServerId(localId,demo)
+              break
+            case 'file':that.filePreviewUrl = localIds//选择的图片 显示
+              that.weChatGetServerId(localId,demo)
+              break
+            case 'QRCode':that.QRCodePreviewUrl = localIds//选择的图片 显示
+              that.weChatGetServerId(localId,demo)
+              break
+            default:
+              break
+          }
+          // console.log(localIds);
+        }
+      })
+    },
+    weChatGetServerId(localId,demo){
+      const that = this
+      wx.uploadImage({
+          localId: localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示                         
+					success: function(res) {
+            const serverId = res.serverId
+            switch (demo) { 
+              case 'logo':that.store.corporateLogoServerId = serverId  // 返回图片的服务器端ID
+                break
+              case 'file':that.store.fileServerId = serverId  // 返回图片的服务器端ID
+                break
+              case 'QRCode':that.store.wxQrCodeServerId = serverId // 返回图片的服务器端ID
+                break
+              default:
+                break
+            }
+            that.$toast({
+              message:'上传成功',
+              type:'success'
+            })
+          }
+      })
     }
   }
 }

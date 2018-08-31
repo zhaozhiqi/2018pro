@@ -61,7 +61,7 @@ export default {
     },
     getList() {
       getNoticeList().then(res => {
-        // console.log(res, 'res')
+        // console.log(res, 'getNoticeList')
         if (res.code === 200 && res.data.records) {
           this.list = res.data.records
         }

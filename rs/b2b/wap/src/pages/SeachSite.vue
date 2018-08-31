@@ -61,7 +61,6 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted')
     var map = new BMap.Map("l-map");
     map.centerAndZoom(this.defaultCity, 12);
     var ac = new BMap.Autocomplete(    //建立一个自动完成的对象

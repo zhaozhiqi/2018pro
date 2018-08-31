@@ -13,14 +13,20 @@ import router from './router'
 import store from './store'
 import './permission' // permission control
 
-import vueFilter from './utils/filter'
-for (const key in vueFilter) {
-  Vue.filter(key, vueFilter[key])
-}
+// import vueFilter from './utils/filter'
+// for (const key in vueFilter) {
+//   Vue.filter(key, vueFilter[key])
+// }
+
+import * as filters from '@/filters' // global filters
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 import '@/icons' // icon
 import '@/permission' // permission control
-
-import * as filters from './filters' // global filters
 
 // Vue.use(ElementUI, { locale })
 Vue.use(ElementUI, {

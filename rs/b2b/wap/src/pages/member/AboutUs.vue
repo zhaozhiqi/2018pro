@@ -16,9 +16,9 @@ export default {
     data(){
         return {
             usInfo:{
-                usEwmLogo:"static/images/memberLogo.jpg",
-                usDec:"插卡机拉克丝就放开手大房间辣说快递积分快递就发了说快递积分阿说快递积分拉克丝的解放路口驾驶的离开纠纷阿萨德飞机阿萨德李开复",
-                usContact:"联系客服：400-698-6565"
+                usEwmLogo:"static/images/usLogo.png",
+                usDec:"公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息公司信息",
+                usContact:"联系客服：400-xxx-xxxx"
             },
             commonHeaderObj: {
                 bgStyle: {
@@ -33,11 +33,6 @@ export default {
     },
     components: {
         CommonHeader
-    },
-    methods:{
-        logout(){
-            console.log('logout')
-        }
     }
 }
 </script>

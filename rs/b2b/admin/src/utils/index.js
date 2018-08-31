@@ -1,7 +1,7 @@
 /**
  * Created by jiachenpan on 16/11/18.
  */
-import { defaultQuery } from '@/api/boosjAll'
+// import { defaultQuery } from '@/api/boosjAll'
 
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
@@ -116,10 +116,10 @@ export function contrastAbs(val) {
   return _val + '%'
 }
 
-export function initQuery(thisQuery) {
-  const newQuery = thisQuery
-  for (const item in defaultQuery) {
-    newQuery[item] = defaultQuery[item]
-  }
-  return newQuery
-}
+// export function initQuery(thisQuery) {
+//   const newQuery = thisQuery
+//   for (const item in defaultQuery) {
+//     newQuery[item] = defaultQuery[item]
+//   }
+//   return newQuery
+// }

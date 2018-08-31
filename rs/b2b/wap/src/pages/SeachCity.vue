@@ -54,16 +54,14 @@ export default {
   created(){
     this.cityData = cityData
   },
-	mounted(){
-		console.log('mounted')
-	},
+	mounted(){},
 	methods:{
 		goBack(){
       window.history.go(-1)
     },
     changeCity(obj){
       const key = 'DEFAULT_CITY'
-      console.log(obj, 'obj')
+      // console.log(obj, 'obj')
       Cookies.set(key, obj.name)
       this.$router.push({ path: '/SeachSite' })
     }

@@ -3,7 +3,7 @@
     <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
     <main class="main">
       <div class="addr">
-        <router-link :to="{path:'/address'}" class="right">
+        <router-link :to="{path:'/address', query: { type: 'change' }}" class="right">
           <i class="rsiconfont rsicon-qiehuanqiyou"></i>
         </router-link>
         <span class="left">
@@ -55,6 +55,7 @@
 
 <script>
 import { getGroupCaseInfo, createOrder, getAddressList, getCartBalance } from '@/api/m_api'
+import { getCookie, setCookie, removeCookie } from '@/utils/cookie'
 
 import CommonHeader from '@/components/common-header'
 export default {
@@ -73,7 +74,9 @@ export default {
       orderId: null,
       orderType: null,
       saleNum: 1,
-      orderInfo: {},
+      orderInfo: {
+        totalPrice:0
+      },
       defaultAddressInfo: {}
     }
   },
@@ -81,7 +84,6 @@ export default {
     CommonHeader
   },
   created() {
-
     this.init()
   },
   mounted() {
@@ -90,33 +92,44 @@ export default {
     init() {
       let that = this
       this.orderType = this.$route.query.type
-      console.log(this.orderType)
+      console.log(this.orderType,'orderType')
       if (this.orderType === 'group') {
         getGroupCaseInfo().then(result => {
-          // console.log(result, 'result')
+          // console.log(result, 'getGroupCaseInfo')
           if (result.code === 200) {
             this.orderInfo = result.data
           }
         })
       } else if (this.orderType === 'self') {
         getCartBalance().then(result => {
-          // console.log(result, 'result')
+          // console.log(result, 'getCartBalance')
           if (result.code === 200) {
             this.orderInfo = result.data
           }
         })
       }
       getAddressList().then(result => {
-        // console.log(result, 'result add')
+        // console.log(result, 'getAddressList')
         if (result.code === 200) {
           if(result.data){
+            let changeAddressId = 1
             const addressList = result.data
-            addressList.forEach((item, index) => {
-              if (item.isDefault === 1) {
-                this.defaultAddressInfo = item
-                return
-              }
-            })
+            if(getCookie('changeAddress')){//判断是否自选地址
+              changeAddressId = parseInt(getCookie('changeAddress'))
+              addressList.forEach((item, index) => {
+                if (item.id === changeAddressId) {
+                  this.defaultAddressInfo = item
+                  return
+                }
+              })
+            }else{
+              addressList.forEach((item, index) => {
+                if (item.isDefault === 1) {
+                  this.defaultAddressInfo = item
+                  return
+                }
+              })
+            }
           }else{
             this.$toast({
               message: '您还没有设置收货地置,请设置收货地址',
@@ -131,7 +144,7 @@ export default {
       let that = this;
       this.$indicator.open();
       const params = new URLSearchParams()
-      console.log(this.orderInfo)
+      // console.log(this.orderInfo,'this.orderInfo')
       if (this.orderType === 'group') {
         if (this.orderInfo.caseId !== undefined && this.orderInfo.caseId !== null) {
           params.append('caseId', this.orderInfo.caseId)
@@ -146,7 +159,7 @@ export default {
       }
 
       createOrder(params).then(result => {
-        console.log(result, 'result')
+        // console.log(result, 'createOrder')
         if (result.code === 200) {
           that.$indicator.close();
           that.$toast({

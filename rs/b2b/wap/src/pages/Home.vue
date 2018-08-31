@@ -60,7 +60,7 @@ export default {
     },
     init(){
       getHome().then(result => {
-        console.log(result,'result')
+        // console.log(result,'getHome')
         this.banner = result.data.banners
         this.prizeList = result.data.headlines        
       })

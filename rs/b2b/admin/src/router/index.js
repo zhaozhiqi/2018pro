@@ -95,6 +95,20 @@ export const asyncRouterMap = [
   {
     path: '/wph',
     component: Layout,
+    redirect: '/wph/enterAudit',
+    name: 'enterAudit',
+    meta: {
+      title: '入驻审核',
+      icon: 'lock',
+      roles: ['ADMIN']
+    },
+    children: [
+      { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核' }}
+    ]
+  },
+  {
+    path: '/wph',
+    component: Layout,
     redirect: '/wph/goodsManage',
     name: 'goodsManage',
     meta: {
@@ -176,20 +190,6 @@ export const asyncRouterMap = [
     },
     children: [
       { path: 'classifyManage', name: 'classifyManage', component: () => import('@/views/wph/classifyManage'), meta: { title: '分类管理' }}
-    ]
-  },
-  {
-    path: '/wph',
-    component: Layout,
-    redirect: '/wph/enterAudit',
-    name: 'enterAudit',
-    meta: {
-      title: '入驻审核',
-      icon: 'lock',
-      roles: ['ADMIN']
-    },
-    children: [
-      { path: 'enterAudit', name: 'enterAudit', component: () => import('@/views/wph/enterAudit'), meta: { title: '入驻审核' }}
     ]
   },
   // 商家后台

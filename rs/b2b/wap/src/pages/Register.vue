@@ -110,7 +110,7 @@ export default {
             name: this.admin.name.value
           }
           adminRegister(parasm).then(result => {
-            console.log(result, 'result')
+            // console.log(result, 'adminRegister')
             let _msg = ''
             if(result.code === 200){
               _msg = '注册成功'
@@ -196,7 +196,7 @@ export default {
                 code: this.admin.imageCode.value,
               }
               getMobileCode(parasm).then(result => {
-                console.log(result, 'result')
+                // console.log(result, 'getMobileCode')
                 if (result.code === 200) {
                   this.getCodeObj.state = false
                   let second = 61;
@@ -204,7 +204,6 @@ export default {
                   this._time = setInterval(function () {
                     if (second > 0) {
                       second--;
-                      console.log(that.getCodeObj.text)
                       that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
                     } else {
                       that.getCodeObj.text = '获取验证码';

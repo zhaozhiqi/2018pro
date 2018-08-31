@@ -120,7 +120,7 @@ export default {
         if(result.code === 200 && result.data.records){          
           const data = result.data.records
           this.proList = data
-          console.log(data, 'result')
+          // console.log(data, 'getGroupsList')
         }
       })
     }

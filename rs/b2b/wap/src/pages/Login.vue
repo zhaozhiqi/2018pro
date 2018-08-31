@@ -93,13 +93,13 @@ export default {
               })
               this.$router.push({ path: this.Rurl })
               const is2b = (Cookies.get('IS_2B')!==undefined&&Cookies.get('IS_2B')!==null&&Cookies.get('IS_2B')!=='')
-              console.log(is2b,'is2b')
+              // console.log(is2b,'is2b')
               this.$store.dispatch('setRank',is2b)
             }            
           })
         } else {
           let list = this.errors.all()
-          console.log(list, 'list', list[0])
+          // console.log(list, 'list', list[0])
           let msg = '请正确填写信息'
           if (list[0] !== "validation.messages._default") {
             msg = list[0]

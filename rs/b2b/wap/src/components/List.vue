@@ -45,7 +45,6 @@ export default {
 	mounted(){
 		if(this.listParent === 'group'){
 			this.routerPath = '/GroupProduct'
-			console.log(this.routerPath)
 		}
 	},
 	props: {

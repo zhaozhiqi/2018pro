@@ -13,7 +13,7 @@
               <span>{{ scope.row.id }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.manufacturerName')" width="180" align='center'>
+          <el-table-column :label="$t('table.manufacturerName')" width="100" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.manufacturerName }}</span>
             </template>
@@ -23,12 +23,12 @@
               <img :src="scope.row.filePath" class="tableImg" />
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.productId')" width="80" align='center'>
+          <el-table-column :label="$t('table.productId')" width="60" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.productId }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('table.userId')" width="180" align='center'>
+          <el-table-column :label="$t('table.userId')" width="120" align='center'>
             <template slot-scope="scope">
               <span>{{ scope.row.userId }}</span>
             </template>

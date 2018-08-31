@@ -95,9 +95,7 @@ export default {
   created() {
     this.init()
   },
-  mounted() {
-    console.log('mounted')
-  },
+  mounted() {},
   filters: {
     getNum: function (value) {
       return parseInt(value)
@@ -108,10 +106,9 @@ export default {
       this.query.lng = Cookies.get('AREA_LNG')
       this.query.lat = Cookies.get('AREA_LAT')
       const query = this.$route.query
-      console.log(query, 'query')
+      // console.log(query, 'query')
       for (const item in query) {
         this.query[item] = query[item]
-        console.log(item, 'item')
       }
       this.seach()
     },
@@ -142,7 +139,7 @@ export default {
       this.seach()
     },
     seach() {
-      console.log(this.defaultTab, 'defaultTab')
+      // console.log(this.defaultTab, 'defaultTab')
       if (this.defaultTab === 'product') {
         const parasmGoods = JSON.parse(JSON.stringify(this.query))
         parasmGoods.sortField = this.sortObj.sortActive
@@ -150,16 +147,16 @@ export default {
 
         getGoodsList(parasmGoods).then(result => {
           this.goodsList = result.data.records
-          console.log(result, 'result')
+          // console.log(result, 'getGoodsList')
         })
-        console.log("查询商品", this.keyWord)
+        // console.log("查询商品", this.keyWord)
       } else if (this.defaultTab === 'shop') {
         const parasmShops = JSON.parse(JSON.stringify(this.query))
         getShopList(parasmShops).then(result => {
           this.storesList = result.data.records
-          console.log(result, 'result')
+          console.log(result, 'getShopList')
         })
-        console.log("查询店铺")
+        // console.log("查询店铺")
       }
     }
   }

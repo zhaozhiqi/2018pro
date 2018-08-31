@@ -3,7 +3,7 @@
     <CommonHeader :commonHeaderObj="commonHeaderObj"></CommonHeader>
     <main class="main">
       <Nodata :nodata="nodataObj" v-if="addressList.length <= 0"></Nodata>
-      <div v-else class="addressItem" v-for="(item, index) in addressList" :key="index">
+      <div v-else class="addressItem" v-for="(item, index) in addressList" :key="index" @click="changeAddress(item)">
         <!-- <h3>送至：{{item.deliveryAddress}}</h3>  -->
         <div>
           <p>
@@ -34,6 +34,7 @@
 
 <script>
 import { getAddressList, delAddress } from '@/api/m_api'
+import { getCookie, setCookie, removeCookie } from '@/utils/cookie'
 
 import CommonHeader from '@/components/common-header'
 import Nodata from '@/components/nodata';
@@ -69,7 +70,7 @@ export default {
   methods: {
     init(){
       getAddressList().then(result => {
-        console.log(result, 'result add')
+        // console.log(result, 'getAddressList')
         if (result.code === 200) {
           this.addressList = result.data
         }
@@ -79,7 +80,7 @@ export default {
       this.$messagebox.confirm('确定执行此操作?').then(action => {
         if (action == 'confirm') {
           delAddress(item).then(result => {
-            console.log(result, 'result')
+            // console.log(result, 'delAddress')
             if (result.code === 200) {
               this.$toast({
                 message: '操作成功',
@@ -97,8 +98,27 @@ export default {
       })
     },
     setDefaultAddr(id) {
-      console.log(4131)
       this.$store.commit('setDefaultAddr', id)
+    },
+    changeAddress(item){
+      const that = this
+      if(this.$route.query.type!=='change'){
+        return
+      }else{
+        const key = 'changeAddress'
+        that.$messagebox.confirm('确定选取该地址吗?').then(action => {
+          if (action == 'confirm') {
+            setCookie(key,item.id)
+            if(getCookie(key) ==item.id){
+              that.$store.dispatch('backLastPage')
+            }
+          }
+        }).catch(err => {
+          if (err == 'cancel') {
+            return
+          }
+        })
+      } 
     }
   }
 }

@@ -248,7 +248,7 @@ export default {
           }
           axios.post('http://demo.lbsrj.cn/m-api/business/enter', formData, config).then((res) => {
             const result = res.data
-            console.log(result, 'result')
+            console.log(result, '入驻-business/enter')
             let _msg = ''
             if (result.code === 200) {
               _msg = '入驻成功'
@@ -341,7 +341,7 @@ export default {
                 code: this.store.imageCode,
               }
               getMobileCode(parasm).then(result => {
-                console.log(result, 'result')
+                // console.log(result, 'getMobileCode')
                 if (result.code === 200) {
                   // alert(result.data)
                   this.getCodeObj.state = false
@@ -350,8 +350,8 @@ export default {
                   this._time = setInterval(function () {
                     if (second > 0) {
                       second--;
-                      console.log(that.getCodeObj.text)
-                      // that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
+                      // console.log(that.getCodeObj.text)
+                      that.getCodeObj.text = '(' + second + 's)后重新获取验证码';
                     } else {
                       that.getCodeObj.text = '获取验证码';
                       that.getCodeObj.state = true;

@@ -63,8 +63,10 @@
               <span>公司名称</span> {{storeInfo.name}}</div>
             <div>
               <span>公司地址</span> {{storeInfo.corporateAddress}}</div>
-            <h3>店铺资格</h3>
-            <img src="static/images/pro-det-01.jpg" />
+            <h3 v-if="storeInfo.filePath">营业执照</h3>
+            <img v-if="storeInfo.filePath" :src="storeInfo.filePath" />
+            <h3 v-if="storeInfo.wxQrCode ">微信支付二维码</h3>
+            <img v-if="storeInfo.wxQrCode " :src="storeInfo.wxQrCode " />
           </mt-tab-container-item>
         </mt-tab-container>
       </div>
@@ -145,7 +147,7 @@ export default {
       }
       getShop(parasmShop).then(result => {
         this.storeInfo = result.data
-        console.log(result, '店铺信息')
+        console.log(result, '店铺信息-getShop')
         const parasmGroupsList = {
           shopId: this.$route.query.id,
           lat: this.storeInfo.lat,
@@ -153,7 +155,7 @@ export default {
         }
         getGroupsList(parasmGroupsList).then(result => {
           this.storeGroupList = result.data.records
-          console.log(result, '店铺拼团信息')
+          // console.log(result, '店铺拼团信息-getGroupsList')
         })
 
         const parasmGoodsList = {
@@ -163,7 +165,7 @@ export default {
         }
         getGoodsList(parasmGoodsList).then(result => {
           this.storeGoodsList = result.data.records
-          console.log(result, '店铺商品列表信息')
+          // console.log(result, '店铺商品列表信息-getGoodsList')
         })
       })
 
@@ -174,7 +176,7 @@ export default {
       getShopClassList(parasmShopClassList).then(result => {
         this.storeClassify = result.data.records
         // this.storeChildClassify = result.data.records
-        console.log(result.data.records, '店铺分类信息')
+        // console.log(result.data.records, '店铺分类信息-getShopClassList')
       })
     },
     getChildClassify(parentId) {
@@ -183,13 +185,13 @@ export default {
         parentId: parentId
       }
       getShopClassList(params).then(result => {
-        console.log(result, 'result')
+        // console.log(result, 'getShopClassList')
         this.storeChildClassify = result.data.records
-        console.log(result.data.records, '店铺子分类信息')
+        // console.log(result.data.records, '店铺子分类信息')
       })
     },
     changeClass(shopId, id, parentId) {
-      console.log(parentId, 'parentId')
+      // console.log(parentId, 'parentId','changeClass')
       const query = {
         shopId: shopId,
         shopClassifyId: id,
@@ -204,7 +206,7 @@ export default {
           parentId: id
         }
         getShopClassList(params).then(result => {
-          console.log(result, 'result')
+          // console.log(result, 'getShopClassList')
           if (result.code === 200 && result.data.total > 0) {
             that.storeChildClassify = result.data.records
           } else {

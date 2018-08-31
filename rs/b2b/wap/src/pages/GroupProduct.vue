@@ -283,7 +283,7 @@ export default {
       // console.log(num,'num')
       this.saleType = 'self';
       this.openWidgetsCover()
-      console.log('buySelf', this.saleType)
+      // console.log('buySelf', this.saleType)
     },
     groupNow(index) {
       this.saleType = 'group';
@@ -291,7 +291,7 @@ export default {
         this.groupIndex = index
       } else {
         this.groupIndex = null
-        console.log('新开团')
+        // console.log('新开团')
       }
       this.openWidgetsCover()
     },
@@ -302,7 +302,7 @@ export default {
       this.widgetsCoverShow = val
     },
     getDecideVal(val) {
-      console.log(val, val.id, val.num, val.typeList, 'getDecideVal')
+      // console.log(val, val.id, val.num, val.typeList, 'getDecideVal')
       if (val.saleType === 'self') {
         let num = val.num
         this.saleNum = num
@@ -312,7 +312,7 @@ export default {
           count: num
         }
         cartSave(parasm).then(result => {
-          console.log(result, 'result')
+          // console.log(result, 'cartSave')
           if (result.code === 200) {
             this.$toast({
               message: '已添加至购物车',
@@ -330,7 +330,7 @@ export default {
       let that = this
       this.$indicator.open()
       setGroupCaseInfo(this.query).then(result => {
-        console.log(result, 'result')
+        // console.log(result, 'setGroupCaseInfo')
         if (result.code === 200) {
           that.$indicator.close()
           that.$router.push({ path: '/SubmitOrder', query: { type: this.saleType } })

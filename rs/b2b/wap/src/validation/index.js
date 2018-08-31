@@ -28,17 +28,17 @@ const Veeconfig = {
               imageCode: '图片验证码',
               mobileCode: '手机验证码',
               corporateName: '公司名称',
-              corporateLogo: '公司logo1',
+              corporateLogo: '公司logo',
               corporateAddress: '公司地址',
               corporateCode: '组织代码编号',
-              corFile:'营业执照图片文件1',
-              corPayWxQRCode:'支付二维码1',
+              corFile:'营业执照图片文件',
+              corPayWxQRCode:'支付二维码',
               corSalesAreaCode:'销售区域',
               corSalesAreaCodeText:'销售区域',
               corType: '入驻类型',
-              corporateLogoServerId:'公司logo2',
-              fileServerId:'营业执照图片文件2',
-              wxQrCodeServerId:'支付二维码2'
+              corporateLogoServerId:'公司logo',
+              fileServerId:'营业执照图片文件',
+              wxQrCodeServerId:'支付二维码'
       
 
           }

@@ -118,7 +118,7 @@ export default {
         type: '',
         label: '',
         describe: '',
-        imgUrl: '',
+        imgUrl: 'http://demo.aooooz.com/image/2018-08-31/5ab330e5d05f4791bbedcc4fc72b958c.jpg',
         parentId: '',
         timestamp: new Date(),
         fromTitle: ''

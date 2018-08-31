@@ -7,7 +7,7 @@ import request from '@/utils/request'
 //   'device': 'ALL'
 // }
 
-const baseApi = 'http://demo.lbsrj.cn/m-api/'
+const baseApi = 'http://demo.aooooz.com/m-api/'
 /* 首页 获取数据 */
 export function getHome() {
   return request({

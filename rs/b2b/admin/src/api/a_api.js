@@ -7,7 +7,8 @@ import request from '@/utils/request'
 //   'device': 'ALL'
 // }
 
-const baseApi = 'http://demo.lbsrj.cn/a-api/'
+// const baseApi = 'http://demo.lbsrj.cn/a-api/'
+const baseApi = 'http://demo.aooooz.com/a-api/'
 
 /**
  * 入驻审核相关接口

@@ -134,19 +134,14 @@ export default {
     Footer
   },
   created() {
-    console.log(this.rank)
+    // console.log(this.rank)
     this.init()
   },
   mounted() { },
   methods: {
     init() {
       this.$store.dispatch('GetUserInfo').then((res) => {
-        console.log(res, 'GetUserInfo')
-        // this.userInfo.id = res.data.id
-        // this.userInfo.name = res.data.name
-        // this.userInfo.mobile = res.data.mobile
-        // this.userInfo.headThumb = res.data.headThumb
-        // this.userInfo.type = res.data.type
+        // console.log(res, 'GetUserInfo')
         this.userInfo = res.data
         switch (this.userInfo.type) {
           case 'C': this.userInfo.typeName = "消费者"
@@ -220,14 +215,14 @@ export default {
       })
     },
     copySuccess(e){
-      console.log('copySuccess',e)
+      // console.log('copySuccess',e)
       this.$toast({
         message:'复制成功',
         type:'success'
       })
     },
     copyError(e){
-      console.log('copyError',e)
+      // console.log('copyError',e)
       this.$toast({
         message: '复制失败，请手动选取复制',
         type: 'warning'

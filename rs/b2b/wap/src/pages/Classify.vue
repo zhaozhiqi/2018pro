@@ -83,13 +83,13 @@ export default {
       }
     },
     getClassifyList(parentId) {
-      console.log(this.parentId,parentId,'this.parentId')
+      // console.log(this.parentId,parentId,'this.parentId')
       const parasmGetClassify = {
         parentId: parentId
       }
       getClassifyList(parasmGetClassify).then(result => {
         const data = result.data.records
-        console.log(data, 'result')
+        // console.log(data, 'getClassifyList')
         switch (parentId) {
           case 0: this.typeIList = data
             this.parentId = this.typeIList[0].id            
@@ -118,7 +118,7 @@ export default {
       getGoodsList(parasmGetGoods).then(result => {
         const data = result.data.records
         this.typeGoodsList = data
-        console.log(data, 'result')
+        // console.log(data, 'getGoodsList')
       })
     },
     checkTypeI(id) {

@@ -181,14 +181,14 @@ export default {
   methods: {
     init() {
       getCart().then(result => {
-        console.log(result, 'getCart')
+        // console.log(result, 'getCart')
         if (result.code === 200 && result.data) {
           const _data = result.data
           if (!_data.items) {
             this.cartList = { items: [] }
             return
           }
-          console.log(_data, ' getCart result.data _data.items')
+          // console.log(_data, ' getCart result.data _data.items')
             if(_data.items){
             _data.items.forEach(shop => {
               shop.checked = false
@@ -230,7 +230,7 @@ export default {
       })
     },
     delCartStore(parentItem) {//删除购物车商铺
-      console.log(this.cartList, 'this.cartList')
+      // console.log(this.cartList, 'delCartStore-this.cartList')
       this.cartList.forEach((item, index) => {
         if (item.storeId === parentItem.storeId) {
           this.cartList.splice(index, 1);
@@ -250,7 +250,7 @@ export default {
         item.checked = item.checked == true ? false : true;
         this.storeCheckedListen(parentItem);
       } else if (flag == 'add') {
-        console.log(item.count)
+        // console.log(item.count)
         const params = {
           shopId: parentItem.shopId,
           shopGoodsId: item.shopGoodsId,
@@ -340,7 +340,7 @@ export default {
       const params = new URLSearchParams()
       params.append('ids', _arr)
       saveCartBalance(params).then(result => {
-        console.log(result, 'result')
+        // console.log(result, 'saveCartBalance')
         if (result.code === 200) {
           that.$router.push({ path: '/SubmitOrder', query: { type: 'self' } })
         }

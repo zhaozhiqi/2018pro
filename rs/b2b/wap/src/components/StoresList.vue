@@ -33,7 +33,7 @@ export default {
 		}
 	},
 	created(){
-		console.log(this.storesList,'storesList')
+		// console.log(this.storesList,'storesList')
 	},
 	mounted(){
 		// this.storesList = this.proinfo;
@@ -43,10 +43,10 @@ export default {
 			type: Array,
 			default: ()=>
 					[
-						{bable:"新品",proImg:"static/images/storeLogo.png",name:"【可口可乐】旗舰店",price:"58",num:"26",proId:"1"},
-						{bable:"新品",proImg:"static/images/storeLogo.png",name:"Intel/英特尔 酷睿 旗舰店",price:"4399",num:"68",proId:"2"},
-						{bable:"新品",proImg:"static/images/storeLogo.png",name:"哈根达斯 旗舰店",price:"500",num:"12",proId:"3"},
-            {bable:"新品",proImg:"static/images/storeLogo.png",name:"香其酱包邮东北大酱原厂香其酱哈尔滨店",price:"26",num:"5365",proId:"4"}
+						// {bable:"新品",proImg:"static/images/storeLogo.png",name:"【可口可乐】旗舰店",price:"58",num:"26",proId:"1"},
+						// {bable:"新品",proImg:"static/images/storeLogo.png",name:"Intel/英特尔 酷睿 旗舰店",price:"4399",num:"68",proId:"2"},
+						// {bable:"新品",proImg:"static/images/storeLogo.png",name:"哈根达斯 旗舰店",price:"500",num:"12",proId:"3"},
+            // {bable:"新品",proImg:"static/images/storeLogo.png",name:"香其酱包邮东北大酱原厂香其酱哈尔滨店",price:"26",num:"5365",proId:"4"}
 					]	
 			
 		}

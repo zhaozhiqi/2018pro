@@ -100,7 +100,7 @@
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="seeAbout(scope.$index, scope.row)">查看详情</el-button>
               <el-button size="mini" type="primary" @click="openAddGoodFrom(scope.$index, scope.row)" v-if="scope.row.status===1002">确认发货</el-button>
-              <el-button size="mini" type="primary" @click="refundOrder(scope.$index, scope.row)" v-if="scope.row.status===1002||scope.row.status===1003||scope.row.status===2000">确认退款</el-button>
+              <el-button size="mini" type="primary" @click="refundOrder(scope.$index, scope.row)" v-if="scope.row.status===1004">确认退款</el-button>
             </template>
           </el-table-column>
         </el-table>

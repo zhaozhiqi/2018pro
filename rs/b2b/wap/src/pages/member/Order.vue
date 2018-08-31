@@ -48,10 +48,10 @@
               <router-link class="btn" :to="{path:'/Pay', query: { id: itemII.outTradeNo }}">去支付</router-link>
               <button class="btn" @click="cancelOrder(itemII.orderNo)">取消订单</button>
             </p>
-            <p v-else-if="itemII.status===1002&&isShop===false">
+            <p v-else-if="itemII.status===1002&&paytType!==2&&isShop===false">
               <button class="btn" @click="refundOrder(itemII.orderNo)">申请退款</button>
             </p>
-            <p v-else-if="itemII.status===1003&&isShop===false">
+            <p v-else-if="itemII.status===1003&&paytType!==2&&isShop===false">
               <button class="btn" @click="refundOrder(itemII.orderNo)">申请退款</button>
               <button class="btn" @click="confirmedOrder(itemII.orderNo)">确认订单</button>
             </p>
@@ -127,7 +127,7 @@ export default {
         this.commonHeaderObj.title = '店铺订单'
         getShopOrderlist(this.query).then(result => {
           if (result.code === 200) {
-            console.log(result,'店铺订单')
+            // console.log(result,'店铺订单-getShopOrderlist')
             const data = result.data.records
             if(!data||data.length<=0){
               return
@@ -157,12 +157,12 @@ export default {
               item.count = _num
             })
             this.orderList = [data, noPay, noSend, noTrue, noEnd]
-            console.log(this.orderList.indexOf(this.orderList[0]))
+            // console.log(this.orderList.indexOf(this.orderList[0]))
           }
         })
       }else{
         getOrderList(this.query).then(result => {
-          console.log(result,'个人订单')
+          // console.log(result,'个人订单-getOrderList')
           if (result.code === 200) {
             const data = result.data.records
             if(!data||data.length<=0){

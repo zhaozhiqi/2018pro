@@ -240,7 +240,7 @@ export default {
           }
           axios.post('http://demo.lbsrj.cn/m-api/business/enter', formData, config).then((res) => {
             const result = res.data
-            console.log(result, 'result')
+            console.log(result, '入驻-business/enter')
             let _msg = ''
             if (result.code === 200) {
               _msg = '入驻成功'
@@ -338,7 +338,7 @@ export default {
                 code: this.store.imageCode,
               }
               getMobileCode(parasm).then(result => {
-                console.log(result, 'result')
+                // console.log(result, 'getMobileCode')
                 if (result.code === 200) {
                   //alert(result.data)
                   this.getCodeObj.state = false

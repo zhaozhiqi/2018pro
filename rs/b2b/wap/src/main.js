@@ -12,6 +12,7 @@ import VueClipboard from 'vue-clipboard2'
 import MintUI from 'mint-ui'
 import Cookies from 'js-cookie'
 // import 'mint-ui/lib/style.css'
+//在这里引用会使mintui的css被修改 因此在index.html中static引用
 import '@/assets/css/base.css'
 import position from '@/position'
 

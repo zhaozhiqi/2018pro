@@ -173,6 +173,7 @@ export default {
       }      
     },
     saveBtn() {
+      const that = this
       this.$validator.validateAll().then((msg) => {
         if (msg) {
           const parasm = {
@@ -183,15 +184,14 @@ export default {
             isDefault: this.addressInfo.default === true ? 1 : null
           }
           if (this.editAddressType === 'add') {
-            console.log('add-click')
             addAddress(parasm).then(result => {
-              console.log(result, 'add')
+              // console.log(result, 'addAddress')
               if (result.code === 200) {
                 this.$toast({
                   message: '新增成功',
                   type: 'warning'
                 })
-                this.$router.push({ path: '/address' })
+                that.$store.dispatch('backLastPage')
               }
             })
             // let _item = parseInt(this.$store.state.addressList.length)
@@ -202,22 +202,20 @@ export default {
             // });
             // this.$router.push({ path: '/address' })
           } else if (this.editAddressType === 'edit') {
-            console.log('edit-click-' + this.editAddressId)
+            // console.log('edit-click-' + this.editAddressId)
             updateAddress(parasm).then(result => {
-              console.log(result, 'update')
+              // console.log(result, 'updateAddress')
               if (result.code === 200) {
                 this.$toast({
                   message: '更新成功',
                   type: 'warning'
                 })
-                this.$router.push({ path: '/address' })
+                that.$store.dispatch('backLastPage')
               }
             })
-
           }
         } else {
           let list = this.errors.all();
-          console.log(list)
           let msg = '请正确填写信息';
           if (list[0] !== "validation.messages._default") {
             msg = list[0];
@@ -225,8 +223,7 @@ export default {
           this.$toast({
             message: msg,
             type: 'warning'
-          });
-
+          })
         }
       })
 

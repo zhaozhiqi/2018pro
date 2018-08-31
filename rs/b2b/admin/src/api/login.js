@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-const baseApi = 'http://demo.lbsrj.cn/a-api/'
+const baseApi = 'http://demo.aooooz.com/a-api/'
 
 export function loginByUsername(username, password) {
   const params = {

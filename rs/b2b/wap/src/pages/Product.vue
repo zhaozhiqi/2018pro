@@ -259,7 +259,7 @@ export default {
       paramsGetGoods.identifier = this.$route.query.id
       getGoods(paramsGetGoods).then(result => {
         this.productInfo = result.data
-        console.log(this.productInfo, 'result')
+        // console.log(this.productInfo, 'getGoods')
       })
     },
     editSaleNum(flag) {
@@ -296,7 +296,7 @@ export default {
       this.widgetsCoverShow = val
     },
     getDecideVal(val) {
-      console.log(val, val.id, val.num, val.saleType, val.typeList, 'getDecideVal')
+      // console.log(val, val.id, val.num, val.saleType, val.typeList, 'getDecideVal')
       if (val.saleType === 'addCart') {
         let num = val.num
         this.saleNum = num
@@ -307,7 +307,7 @@ export default {
           duration: 1000
         });
         this.$store.commit('updateCartCount', num)
-        console.log(num, 'num')
+        // console.log(num, 'num')
       } else if (val.saleType === 'self') {
         this.goPay()
       }

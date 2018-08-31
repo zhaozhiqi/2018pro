@@ -9,7 +9,7 @@
         <el-form-item :label="$t('table.goodTitle')" prop="title">
           <el-input v-model="tempForm.title" class="defaultInput"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('table.code')" prop="code">
+        <el-form-item :label="$t('table.goodCode')" prop="code">
           <el-input v-model="tempForm.code" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.goodSummary')" prop="summary">
@@ -111,9 +111,9 @@ export default {
         summary: [
           { required: true, message: '请输入商品简介', trigger: 'blur' }
         ],
-        code: [
-          { required: true, message: '请输入商品条形码', trigger: 'blur' }
-        ],
+        // code: [
+        //   { required: true, message: '请输入店铺货号', trigger: 'blur' }
+        // ],
         stock: [
           { required: true, message: '请输入商品库存', trigger: 'blur' }
         ],
@@ -246,7 +246,9 @@ export default {
           params.append('salesAreaCodeList', [this.tempForm.salesAreaCodeList])
           params.append('title', this.tempForm.title)
           params.append('summary', this.tempForm.summary)
-          params.append('code', this.tempForm.code)
+          if (this.tempForm.code) {
+            params.append('code', this.tempForm.code)
+          }
           params.append('stock', this.tempForm.stock)
           params.append('money', this.tempForm.money)
           params.append('retailPrice', this.tempForm.retailPrice)

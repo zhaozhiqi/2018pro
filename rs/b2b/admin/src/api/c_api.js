@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 /* 通用接口 */
 
-const baseApi = 'http://demo.lbsrj.cn/c-api/'
+const baseApi = 'http://demo.aooooz.com/c-api/'
 
 /* 获取省市区列表 */
 export function getAreaList(parentCode) {

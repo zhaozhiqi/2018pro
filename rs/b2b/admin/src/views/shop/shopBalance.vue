@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-col :span="24">
-        店铺余额：{{balance}}
+        店铺余额：{{balance | priceFormat}}
       </el-col>
     </el-row>
 </div>

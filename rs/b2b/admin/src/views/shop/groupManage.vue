@@ -51,7 +51,7 @@
                 <p>店铺ID : {{ scope.row.shopId }}</p>
                 <p>店铺商品ID: {{ scope.row.shopGoodsId }}</p>
                 <p>商品标题: {{ scope.row.goodsDetail.title }}</p>
-                <p>拼团价格（分）: {{ scope.row.money }}</p>
+                <p>拼团价格（分）: {{ scope.row.money | priceFormat}}</p>
                 <p>拼团规模: {{ scope.row.count }}</p>
                 <p>份额: {{ scope.row.caseLot }}</p>
                 <p>有效时间（小时）: {{ scope.row.caseExpiryDate }}</p>
@@ -241,7 +241,7 @@ import { getShopGroupList, getShopGroupCaseList, getStoreGoodsList, postShopGrou
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
-
+import { priceFormat } from '@/filters'
 const restrictionsTypeOptions = [
   { key: 1, display_name: '是' },
   { key: 0, display_name: '否' }
@@ -451,7 +451,7 @@ export default {
           const params = {
             id: this.tempForm.id,
             shopGoodsId: this.tempForm.shopGoodsId,
-            money: this.tempForm.money,
+            money: parseInt(this.tempForm.money * 100),
             count: this.tempForm.count,
             restrictions: parseInt(this.tempForm.restrictions),
             restrictionsNumber: this.tempForm.restrictionsNumber,
@@ -497,6 +497,8 @@ export default {
         if (item === 'image') {
           const images = row[item].split(',')
           this.tempForm.images = images
+        } else if (item === 'retailPrice' || item === 'money') {
+          this.tempForm[item] = parseFloat(priceFormat(row[item]))
         } else if (item !== 'status') {
           this.tempForm[item] = row[item]
         }

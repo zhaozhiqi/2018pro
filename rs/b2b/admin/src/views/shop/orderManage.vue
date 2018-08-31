@@ -161,7 +161,7 @@
             <br/>
             <img :src="item.displayDiagram" class="formImg" />
             <span>商品名称：{{item.title}}</span><br/>
-            <span>商品金额：{{item.money}}</span><br/>
+            <span>商品金额：{{item.money | priceFormat}}</span><br/>
             <span>商品数量：{{item.count}}</span><br/>
           </div>
         </el-form-item>

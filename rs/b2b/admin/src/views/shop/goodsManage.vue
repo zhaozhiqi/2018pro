@@ -76,7 +76,7 @@
           </el-table-column> -->
           <el-table-column :label="$t('table.goodMoney')" width="100" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.money }}</span>
+              <span>{{ scope.row.money | priceFormat}}</span>
             </template>
           </el-table-column>
           <el-table-column :label="$t('table.shelfState')" width="100" align='center'>
@@ -213,7 +213,7 @@ import { getStoreGoodsList, getShopClassifyAllList, getShopProductList, postBatc
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
 import editorImage from '@/components/Tinymce/components/editorImage'
-
+import { priceFormat } from '@/filters'
 const auditTypeOptions = [
   { key: '1000', display_name: '待审核' },
   { key: '1001', display_name: '审核不通过' },
@@ -495,8 +495,8 @@ export default {
           }
           params.append('title', this.tempForm.title)
           params.append('code', this.tempForm.code)
-          params.append('money', this.tempForm.money)
-          params.append('retailPrice', this.tempForm.retailPrice)
+          params.append('money', parseInt(this.tempForm.money * 100))
+          params.append('retailPrice', parseInt(this.tempForm.retailPrice * 100))
           params.append('specifications', this.tempForm.specifications)
           params.append('unit', this.tempForm.unit)
           params.append('summary', this.tempForm.summary)
@@ -513,17 +513,17 @@ export default {
           //   params.classifyId = this.tempForm.classifySet[1]
           // }
 
-          postBatchUpdata(params).then(res => {
-            // console.log(res, 'postBatchUpdata')
-            if (res.code === 200) {
-              this.$message({
-                message: '操作成功',
-                type: 'success'
-              })
-              this.init()
-              this.closeTempForm()
-            }
-          })
+          // postBatchUpdata(params).then(res => {
+          //   // console.log(res, 'postBatchUpdata')
+          //   if (res.code === 200) {
+          //     this.$message({
+          //       message: '操作成功',
+          //       type: 'success'
+          //     })
+          //     this.init()
+          //     this.closeTempForm()
+          //   }
+          // })
         } else {
           console.log('error submit!!')
           return false
@@ -545,6 +545,8 @@ export default {
         if (item === 'image') {
           const images = row[item].split(',')
           this.tempForm.images = images
+        } else if (item === 'retailPrice' || item === 'money') {
+          this.tempForm[item] = parseFloat(priceFormat(row[item]))
         } else if (item !== 'status') {
           this.tempForm[item] = row[item]
         }

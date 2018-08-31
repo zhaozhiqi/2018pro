@@ -25,7 +25,7 @@
           </el-table-column>
           <el-table-column :label="$t('table.balanceMoney')" align='center'>
             <template slot-scope="scope">
-              <span>{{ scope.row.money }}</span>
+              <span>{{ scope.row.money | priceFormat}}</span>
             </template>
           </el-table-column>
         </el-table>

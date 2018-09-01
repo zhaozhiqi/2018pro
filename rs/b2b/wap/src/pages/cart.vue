@@ -81,6 +81,7 @@
 
 <script>
 import { getCart, delCart, cartSave, saveCartBalance } from '@/api/m_api'
+import { getCookie, setCookie, removeCookie } from '@/utils/cookie'
 
 import SeachHeader from '@/components/seach-header'// 引入首页头部组件
 import CommonHeader from '@/components/common-header'
@@ -342,6 +343,7 @@ export default {
       saveCartBalance(params).then(result => {
         // console.log(result, 'saveCartBalance')
         if (result.code === 200) {
+          removeCookie('changeAddress')
           that.$router.push({ path: '/SubmitOrder', query: { type: 'self' } })
         }
       })

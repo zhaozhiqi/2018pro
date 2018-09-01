@@ -146,6 +146,7 @@
 <script>
 import { getGoods, setGroupCaseInfo, cartSave } from '@/api/m_api'
 import Cookies from 'js-cookie'
+import { getCookie, setCookie, removeCookie } from '@/utils/cookie'
 
 import TypeGoodsList from '@/components/TypeGoodsList'
 import WidgetsCover from '@/components/widgets-cover'
@@ -333,6 +334,7 @@ export default {
         // console.log(result, 'setGroupCaseInfo')
         if (result.code === 200) {
           that.$indicator.close()
+          removeCookie('changeAddress')
           that.$router.push({ path: '/SubmitOrder', query: { type: this.saleType } })
         }
       })

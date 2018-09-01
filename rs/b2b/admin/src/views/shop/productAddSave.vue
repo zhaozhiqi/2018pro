@@ -20,7 +20,7 @@
           <el-input v-model="tempForm.subBrand" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.weight')" prop="weight">
-          <el-input v-model="tempForm.weight" class="defaultInput"></el-input>
+          <el-input v-model.number="tempForm.weight" class="defaultInput"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.displayDiagram')" prop="displayDiagram">
           <div class="editor-custom-btn-container">

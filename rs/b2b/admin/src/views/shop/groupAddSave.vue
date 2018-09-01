@@ -161,7 +161,7 @@ export default {
         if (valid) {
           const params = {
             shopGoodsId: this.tempForm.shopGoodsId,
-            money: this.tempForm.money,
+            money: parseInt(this.tempForm.money * 100),
             count: this.tempForm.count,
             restrictions: parseInt(this.tempForm.restrictions),
             restrictionsNumber: this.tempForm.restrictionsNumber,

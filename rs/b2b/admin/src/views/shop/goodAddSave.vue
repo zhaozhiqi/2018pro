@@ -250,8 +250,8 @@ export default {
             params.append('code', this.tempForm.code)
           }
           params.append('stock', this.tempForm.stock)
-          params.append('money', this.tempForm.money)
-          params.append('retailPrice', this.tempForm.retailPrice)
+          params.append('money', parseInt(this.tempForm.money * 100))
+          params.append('retailPrice', parseInt(this.tempForm.retailPrice * 100))
           params.append('specifications', this.tempForm.specifications)
           params.append('unit', this.tempForm.unit)
           if (this.tempForm.classifySet.length < 2) {
